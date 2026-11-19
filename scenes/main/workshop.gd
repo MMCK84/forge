@@ -3,6 +3,7 @@ extends Control
 ## darunter Glutfarben-Skala, Fortschritt und Aktionen; oben/unten das HUD.
 
 const UIKit = preload("res://scenes/ui/ui_kit.gd")
+const Assets = preload("res://scripts/assets.gd")
 const Economy = preload("res://scripts/economy.gd")
 const HeatModel = preload("res://scripts/heat_model.gd")
 const Overlay = preload("res://scenes/ui/overlay.gd")
@@ -213,6 +214,12 @@ func _build_particles() -> void:
 	smoke.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
 	smoke.emission_rect_extents = Vector2(200, 10)
 	smoke.color = Color(0.5, 0.5, 0.5, 0.18)
+	var smoke_tex := Assets.tex("ui/particle_smoke.png")
+	if smoke_tex != null:
+		smoke.texture = smoke_tex
+		smoke.scale_amount_min = 0.5
+		smoke.scale_amount_max = 1.1
+		smoke.color = Color(0.55, 0.52, 0.5, 0.22)
 	stage.add_child(smoke)
 	stage.move_child(smoke, 0)
 
@@ -232,6 +239,11 @@ func _make_sparks(amount: int, col: Color) -> CPUParticles2D:
 	p.scale_amount_min = 2.0
 	p.scale_amount_max = 5.0
 	p.color = col
+	var spark_tex := Assets.tex("ui/particle_spark.png")
+	if spark_tex != null:
+		p.texture = spark_tex
+		p.scale_amount_min = 0.25
+		p.scale_amount_max = 0.6
 	fx_layer.add_child(p)
 	return p
 
@@ -305,6 +317,7 @@ func _sync_pieces() -> void:
 		if not piece_views.has(i):
 			v = PieceView.new()
 			v.shape = shape
+			v.item_id = j.template_id
 			v.damage_warning = gm.cfg.damage_warning
 			v.position = raw_point()
 			pieces_layer.add_child(v)

@@ -1,6 +1,8 @@
 extends Control
 ## Amboss auf Holzklotz. Drücken/Tippen = Hammerschlag (hold_started/hold_ended für Halten-Modus).
 
+const Assets = preload("res://scripts/assets.gd")
+
 signal anvil_pressed()
 signal anvil_released()
 
@@ -39,6 +41,16 @@ func _gui_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	var cx := size.x * 0.5
+	var anvil_t := Assets.tex("tools/anvil.png")
+	var hammer_t := Assets.tex("tools/hand_hammer.png")
+	if anvil_t != null and hammer_t != null:
+		draw_texture(anvil_t, Vector2(-10, -10))
+		# Handhammer: liegt beim Schlag auf (swing = 1) und hebt sich wieder (swing → 0)
+		var pivot := Vector2(cx + 176, 108)
+		draw_set_transform(pivot, 0.55 * (1.0 - swing) + 0.05, Vector2.ONE)
+		draw_texture(hammer_t, Vector2(-216, -42))
+		draw_set_transform(Vector2.ZERO)
+		return
 	# Holzklotz
 	draw_rect(Rect2(cx - 110, 260, 220, 160), Color("5a3e28"))
 	for k in 4:

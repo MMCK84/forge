@@ -5,10 +5,13 @@ extends Node2D
 const HeatModel = preload("res://scripts/heat_model.gd")
 const ItemShapes = preload("res://scripts/item_shapes.gd")
 const GLOW_SHADER = preload("res://shaders/glow.gdshader")
+const Assets = preload("res://scripts/assets.gd")
 
 static var _gradient_tex: GradientTexture1D = null
 
 var shape: String = "bar"
+## Gegenstands-ID für das gerenderte Sprite (assets/sprites/items/<id>.png)
+var item_id: String = ""
 var size_px: float = 150.0
 var temp: float = 20.0
 var progress_ratio: float = 0.0
@@ -65,6 +68,16 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	# Rohling (Stab) wandelt sich mit dem Fortschritt in die Zielform.
 	var a := progress_ratio
+	var item_t := Assets.item_tex(item_id)
+	var blank_t := Assets.item_tex("blank")
+	if item_t != null and blank_t != null:
+		var s := size_px * 1.3
+		var r := Rect2(Vector2(-s, -s) * 0.5, Vector2(s, s))
+		if a < 0.999:
+			draw_texture_rect(blank_t, r, false, Color(1, 1, 1, 1.0 - a * 0.85))
+		if a > 0.001:
+			draw_texture_rect(item_t, r, false, Color(1, 1, 1, clampf(a * 1.4, 0.0, 1.0)))
+		return
 	if a < 0.999:
 		ItemShapes.draw(self, "bar", size_px * 0.8, 1.0 - a * 0.85)
 	if a > 0.001:

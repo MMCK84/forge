@@ -2,6 +2,7 @@ extends "res://scenes/ui/overlay.gd"
 ## Auftragsbuch (3.1, 6.3): 3 Angebote, Neu würfeln (60 s), aktiver Auftrag.
 
 const Economy = preload("res://scripts/economy.gd")
+const Assets = preload("res://scripts/assets.gd")
 var _reroll_btn: Button
 
 
@@ -42,15 +43,24 @@ func _offer_card(i: int, j: JobInstance) -> Control:
 	card.add_theme_stylebox_override("panel", UIKit.panel_box(bg, UIKit.BRASS if not j.is_milestone() else UIKit.GOLD, 3, 10, 16))
 	var row := HBoxContainer.new()
 	card.add_child(row)
-	var portrait := ColorRect.new()
-	var cust: CustomerData = gm.customers.get(j.customer_id, null)
-	portrait.color = cust.portrait_color if cust != null else UIKit.LEATHER
-	portrait.custom_minimum_size = Vector2(90, 110)
-	var initial := UIKit.label(tr("CUST_" + j.customer_id.to_upper()).substr(0, 1).to_upper(), 48, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
-	initial.set_anchors_preset(Control.PRESET_FULL_RECT)
-	initial.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	portrait.add_child(initial)
-	row.add_child(portrait)
+	var ptex := Assets.portrait(j.customer_id)
+	if ptex != null:
+		var pr := TextureRect.new()
+		pr.texture = ptex
+		pr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		pr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		pr.custom_minimum_size = Vector2(100, 122)
+		row.add_child(pr)
+	else:
+		var portrait := ColorRect.new()
+		var cust: CustomerData = gm.customers.get(j.customer_id, null)
+		portrait.color = cust.portrait_color if cust != null else UIKit.LEATHER
+		portrait.custom_minimum_size = Vector2(90, 110)
+		var initial := UIKit.label(tr("CUST_" + j.customer_id.to_upper()).substr(0, 1).to_upper(), 48, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+		initial.set_anchors_preset(Control.PRESET_FULL_RECT)
+		initial.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		portrait.add_child(initial)
+		row.add_child(portrait)
 	var col := VBoxContainer.new()
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.add_theme_constant_override("separation", 4)

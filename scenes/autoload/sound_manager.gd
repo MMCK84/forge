@@ -3,12 +3,24 @@ extends Node
 ## Ambiente und Musikwechsel je Epoche. Klänge sind prozedurale Platzhalter (scripts/sfx_synth.gd).
 
 const Synth = preload("res://scripts/sfx_synth.gd")
+const Assets = preload("res://scripts/assets.gd")
+
+## Gerenderte Klänge (assets/audio/sfx); mehrere Dateien = zufällige Variante
+const SFX_FILES := {
+	"hit_good": ["hammer_good_1.ogg", "hammer_good_2.ogg", "hammer_good_3.ogg"],
+	"hit_weak": ["hammer_weak.ogg"], "hit_cold": ["hammer_cold.ogg"], "hit_overheat": ["hammer_overheat.ogg"],
+	"hit_weld": ["hammer_weld.ogg"], "hit_weld_miss": ["hammer_weld_miss.ogg"], "striker": ["striker.ogg"],
+	"machine": ["machine_water.ogg"], "machine_steam": ["machine_steam.ogg"], "sizzle": ["sizzle.ogg"],
+	"sparks": ["sparks.ogg"], "quench": ["quench.ogg"], "ruin": ["ruin.ogg"], "coins": ["coins.ogg"],
+	"page": ["page.ogg"], "move": ["move.ogg"], "bellows": ["bellows.ogg"], "click": ["click.ogg"], "done": ["done.ogg"],
+}
 
 const SFX_BUS := "SFX"
 const MUSIC_BUS := "Music"
 const POOL_SIZE := 10
 
 var _sounds: Dictionary = {}
+var _variants: Dictionary = {}
 var _pool: Array = []
 var _pool_idx: int = 0
 var _music: AudioStreamPlayer
@@ -61,27 +73,65 @@ func _make_ambient() -> AudioStreamPlayer:
 
 
 func _build_sounds() -> void:
-	_sounds["hit_good"] = Synth.clang(620.0, 0.55, 1.0, 1)
-	_sounds["hit_weak"] = Synth.clang(480.0, 0.35, 0.6, 2)
-	_sounds["hit_overheat"] = Synth.clang(560.0, 0.4, 0.8, 3)
-	_sounds["hit_cold"] = Synth.klonk()
-	_sounds["hit_weld"] = Synth.clang(700.0, 0.5, 1.2, 4)
-	_sounds["hit_weld_miss"] = Synth.clang(520.0, 0.3, 0.5, 5)
-	_sounds["striker"] = Synth.clang(380.0, 0.6, 0.9, 6)
-	_sounds["machine"] = Synth.thump(70.0, 0.35, 0.8)
-	_sounds["sizzle"] = Synth.noise(0.35, 0.01, 0.25, 0.9, 0.35, 8)
-	_sounds["sparks"] = Synth.crackle(0.6, 60.0, 0.8, false, 12)
-	_sounds["quench"] = Synth.noise(1.6, 0.02, 1.2, 0.7, 0.55, 9)
-	_sounds["ruin"] = Synth.clatter()
-	_sounds["coins"] = Synth.coins()
-	_sounds["page"] = Synth.noise(0.3, 0.05, 0.2, 0.25, 0.4, 10)
-	_sounds["move"] = Synth.clang(1500.0, 0.12, 0.4, 13)
-	_sounds["bellows"] = Synth.noise(0.9, 0.3, 0.5, 0.04, 0.9, 14)
-	_sounds["click"] = Synth.click()
-	_sounds["done"] = Synth.clang(990.0, 0.6, 0.5, 15)
-	_amb_fire.stream = Synth.crackle(4.0, 18.0, 0.5, true, 16)
-	_amb_water.stream = Synth.water_loop()
-	_amb_steam.stream = Synth.steam_loop()
+	# Gerenderte Dateien haben Vorrang
+	for id in SFX_FILES:
+		var list: Array = []
+		for f in SFX_FILES[id]:
+			var s := Assets.sound("sfx/" + f)
+			if s != null:
+				list.append(s)
+		if not list.is_empty():
+			_variants[id] = list
+			_sounds[id] = list[0]
+	for pair in [[_amb_fire, "ambience/fire.ogg"], [_amb_water, "ambience/water_wheel.ogg"], [_amb_steam, "ambience/steam_engine.ogg"]]:
+		var amb := Assets.sound(pair[1], true)
+		if amb != null:
+			pair[0].stream = amb
+	# Fehlende Dateien: zur Laufzeit synthetisieren (Platzhalter)
+	if not _sounds.has("hit_good"):
+		_sounds["hit_good"] = Synth.clang(620.0, 0.55, 1.0, 1)
+	if not _sounds.has("hit_weak"):
+		_sounds["hit_weak"] = Synth.clang(480.0, 0.35, 0.6, 2)
+	if not _sounds.has("hit_overheat"):
+		_sounds["hit_overheat"] = Synth.clang(560.0, 0.4, 0.8, 3)
+	if not _sounds.has("hit_cold"):
+		_sounds["hit_cold"] = Synth.klonk()
+	if not _sounds.has("hit_weld"):
+		_sounds["hit_weld"] = Synth.clang(700.0, 0.5, 1.2, 4)
+	if not _sounds.has("hit_weld_miss"):
+		_sounds["hit_weld_miss"] = Synth.clang(520.0, 0.3, 0.5, 5)
+	if not _sounds.has("striker"):
+		_sounds["striker"] = Synth.clang(380.0, 0.6, 0.9, 6)
+	if not _sounds.has("machine"):
+		_sounds["machine"] = Synth.thump(70.0, 0.35, 0.8)
+	if not _sounds.has("sizzle"):
+		_sounds["sizzle"] = Synth.noise(0.35, 0.01, 0.25, 0.9, 0.35, 8)
+	if not _sounds.has("sparks"):
+		_sounds["sparks"] = Synth.crackle(0.6, 60.0, 0.8, false, 12)
+	if not _sounds.has("quench"):
+		_sounds["quench"] = Synth.noise(1.6, 0.02, 1.2, 0.7, 0.55, 9)
+	if not _sounds.has("ruin"):
+		_sounds["ruin"] = Synth.clatter()
+	if not _sounds.has("coins"):
+		_sounds["coins"] = Synth.coins()
+	if not _sounds.has("page"):
+		_sounds["page"] = Synth.noise(0.3, 0.05, 0.2, 0.25, 0.4, 10)
+	if not _sounds.has("move"):
+		_sounds["move"] = Synth.clang(1500.0, 0.12, 0.4, 13)
+	if not _sounds.has("bellows"):
+		_sounds["bellows"] = Synth.noise(0.9, 0.3, 0.5, 0.04, 0.9, 14)
+	if not _sounds.has("click"):
+		_sounds["click"] = Synth.click()
+	if not _sounds.has("done"):
+		_sounds["done"] = Synth.clang(990.0, 0.6, 0.5, 15)
+	if not _sounds.has("machine_steam"):
+		_sounds["machine_steam"] = _sounds.get("machine")
+	if _amb_fire.stream == null:
+		_amb_fire.stream = Synth.crackle(4.0, 18.0, 0.5, true, 16)
+	if _amb_water.stream == null:
+		_amb_water.stream = Synth.water_loop()
+	if _amb_steam.stream == null:
+		_amb_steam.stream = Synth.steam_loop()
 
 
 func apply_volumes() -> void:
@@ -101,6 +151,9 @@ func _set_bus_volume(bus_name: String, linear: float) -> void:
 ## Spielt einen Klang mit ±5 % Pitch-Variation.
 func play(id: String, volume_db: float = 0.0, vary: bool = true) -> void:
 	var stream: AudioStream = _sounds.get(id, null)
+	if _variants.has(id):
+		var v: Array = _variants[id]
+		stream = v[_rng.randi_range(0, v.size() - 1)]
 	if stream == null:
 		return
 	var p: AudioStreamPlayer = _pool[_pool_idx]
@@ -130,7 +183,8 @@ func _on_sim_event(kind: String, _data: Dictionary) -> void:
 		"striker":
 			play("striker", -4.0)
 		"machine":
-			play("machine", -2.0)
+			var m := GameManager.current_machine()
+			play("machine_steam" if (m != null and not m.water_powered) else "machine", -2.0)
 		"move":
 			play("move", -10.0)
 		"weld_done":
@@ -187,7 +241,8 @@ func play_music_for_epoch(epoch: int) -> void:
 		return
 	_music_epoch = epoch
 	if not _music_cache.has(epoch):
-		_music_cache[epoch] = Synth.music(epoch)
+		var file := Assets.sound("music/menu.ogg" if epoch == 0 else "music/epoch_%d.ogg" % epoch, true)
+		_music_cache[epoch] = file if file != null else Synth.music(epoch)
 	var tw := create_tween()
 	if _music.playing:
 		tw.tween_property(_music, "volume_db", -40.0, 0.6)

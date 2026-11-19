@@ -1,5 +1,8 @@
 extends RefCounted
 ## Gemeinsame UI-Bausteine und das Werkstatt-Theme (Messing, Pergament, Holz, Leder).
+## Nutzt die gerenderten UI-Texturen und Schriften aus assets/, sonst flache Stile.
+
+const Assets = preload("res://scripts/assets.gd")
 
 const PARCHMENT := Color("e9dcc0")
 const PARCHMENT_DARK := Color("d6c39c")
@@ -33,11 +36,36 @@ static func _box(bg: Color, border: Color, border_w: int = 3, radius: int = 10, 
 	return sb
 
 
+static func _tex_box(rel: String, margin: float, content_h: float, content_v: float) -> StyleBoxTexture:
+	var tex := Assets.tex(rel)
+	if tex == null:
+		return null
+	var sb := StyleBoxTexture.new()
+	sb.texture = tex
+	sb.texture_margin_left = margin
+	sb.texture_margin_right = margin
+	sb.texture_margin_top = margin
+	sb.texture_margin_bottom = margin
+	sb.content_margin_left = content_h
+	sb.content_margin_right = content_h
+	sb.content_margin_top = content_v
+	sb.content_margin_bottom = content_v
+	return sb
+
+
+static func heading_font() -> Font:
+	return Assets.font("IMFellEnglishSC.ttf")
+
+
 static func theme() -> Theme:
 	if _theme != null:
 		return _theme
 	var t := Theme.new()
 	t.default_font_size = 26
+	var body_font := Assets.font("EBGaramond.ttf")
+	if body_font != null:
+		t.default_font = body_font
+		t.default_font_size = 28
 	# Buttons: Holz mit Messingrand
 	t.set_stylebox("normal", "Button", _box(WOOD_LIGHT, BRASS, 3, 10, 18))
 	t.set_stylebox("hover", "Button", _box(LEATHER, BRASS_LIGHT, 3, 10, 18))
@@ -51,10 +79,21 @@ static func theme() -> Theme:
 	t.set_color("font_pressed_color", "Button", BRASS_LIGHT)
 	t.set_color("font_disabled_color", "Button", Color("9d9384"))
 	t.set_color("font_focus_color", "Button", Color.WHITE)
+	for st in ["normal", "hover", "pressed", "disabled"]:
+		var sb := _tex_box("ui/button_%s.png" % st, 16.0, 20.0, 8.0)
+		if sb != null:
+			t.set_stylebox(st, "Button", sb)
+			t.set_stylebox(st, "OptionButton", sb)
 	t.set_constant("h_separation", "Button", 8)
 	# Panels: Pergament
 	t.set_stylebox("panel", "PanelContainer", _box(PARCHMENT, BRASS, 4, 12, 24))
 	t.set_stylebox("panel", "Panel", _box(PARCHMENT, BRASS, 4, 12, 24))
+	var parch := _tex_box("ui/parchment.png", 40.0, 30.0, 24.0)
+	if parch != null:
+		t.set_stylebox("panel", "PanelContainer", parch)
+		t.set_stylebox("panel", "Panel", parch)
+		t.set_stylebox("panel", "PopupMenu", parch)
+		t.set_stylebox("panel", "TooltipPanel", parch)
 	t.set_color("font_color", "Label", INK)
 	t.set_color("default_color", "RichTextLabel", INK)
 	t.set_font_size("normal_font_size", "RichTextLabel", 24)
@@ -147,6 +186,13 @@ static func stars_view(stars: int, size: float = 40.0) -> Control:
 
 
 static func draw_stars(ci: CanvasItem, origin: Vector2, stars: int, size: float) -> void:
+	var full := Assets.tex("ui/star_full.png")
+	var empty := Assets.tex("ui/star_empty.png")
+	if full != null and empty != null:
+		for i in 3:
+			var c := origin + Vector2(i * size * 1.1, 0)
+			ci.draw_texture_rect(full if i < stars else empty, Rect2(c - Vector2(size, size) * 0.55, Vector2(size, size) * 1.1), false)
+		return
 	for i in 3:
 		var center := origin + Vector2(i * size * 1.1, 0)
 		var pts := PackedVector2Array()
@@ -162,3 +208,26 @@ static func draw_stars(ci: CanvasItem, origin: Vector2, stars: int, size: float)
 
 static func panel_box(bg: Color, border: Color, border_w: int = 3, radius: int = 10, margin: int = 14) -> StyleBoxFlat:
 	return _box(bg, border, border_w, radius, margin)
+
+
+static func icon(rel: String, size: float) -> Control:
+	var tex := Assets.tex(rel)
+	if tex == null:
+		var c := Control.new()
+		c.custom_minimum_size = Vector2.ZERO
+		return c
+	var r := TextureRect.new()
+	r.texture = tex
+	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	r.custom_minimum_size = Vector2(size, size)
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return r
+
+
+## Leder-Leiste für HUD-Balken (oder flacher Stil).
+static func bar_box() -> StyleBox:
+	var sb := _tex_box("ui/leather_bar.png", 12.0, 12.0, 8.0)
+	if sb != null:
+		return sb
+	return _box(Color(0.16, 0.11, 0.08, 0.92), BRASS, 0, 0, 12)

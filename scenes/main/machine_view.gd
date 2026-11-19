@@ -1,6 +1,8 @@
 extends Control
 ## Schwanzhammer über dem Amboss mit Antrieb (Wasserrad oder Dampfmaschine).
 
+const Assets = preload("res://scripts/assets.gd")
+
 var machine_id: String = ""
 var water_powered: bool = false
 var water_level: float = 1.0
@@ -27,6 +29,8 @@ func _draw() -> void:
 		return
 	var pivot := Vector2(size.x - 330, 130)
 	var head := Vector2(head_x, 110 + 210 * drop)
+	if _draw_textured(pivot, head):
+		return
 	# Gestell
 	draw_rect(Rect2(pivot.x - 20, pivot.y - 10, 40, 300), Color("4a3220"))
 	# Helm (Balken)
@@ -67,3 +71,49 @@ func _draw() -> void:
 			for k in 3:
 				var sp := Vector2(drive.x - 130, 100 - k * 30 - fmod(_wheel * 40.0, 30.0))
 				draw_circle(sp, 14.0 + k * 6.0, Color(0.9, 0.9, 0.92, 0.25))
+
+
+func _draw_textured(pivot: Vector2, head: Vector2) -> bool:
+	var post := Assets.tex("tools/helve_post.png")
+	var beam := Assets.tex("tools/helve_beam.png")
+	var head_t := Assets.tex("tools/helve_head.png")
+	if post == null or beam == null or head_t == null:
+		return false
+	var drive := Vector2(size.x - 120, 150)
+	if water_powered:
+		var wheel := Assets.tex("tools/water_wheel.png")
+		if wheel != null:
+			draw_set_transform(drive, _wheel, Vector2.ONE)
+			draw_texture(wheel, -wheel.get_size() * 0.5)
+			draw_set_transform(Vector2.ZERO)
+		var gauge := Rect2(size.x - 40, 40, 22, 200)
+		draw_rect(gauge, Color(0.1, 0.1, 0.1, 0.6))
+		var h := gauge.size.y * clampf(water_level, 0.0, 1.0)
+		draw_rect(Rect2(gauge.position.x, gauge.end.y - h, gauge.size.x, h), Color(0.3, 0.55, 0.8))
+		draw_string(ThemeDB.fallback_font, Vector2(gauge.position.x - 40, gauge.end.y + 28), "%d %%" % int(round(water_level * 100.0)), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("e9dcc0"))
+	else:
+		var eng := Assets.tex("tools/engine.png")
+		var eb := Assets.tex("tools/engine_beam.png")
+		var fw := Assets.tex("tools/flywheel.png")
+		if eng != null:
+			draw_texture(eng, drive + Vector2(-170, -60))
+		if eb != null:
+			draw_set_transform(drive + Vector2(-70, 30), sin(_wheel * 2.0) * 0.25, Vector2.ONE)
+			draw_texture(eb, -eb.get_size() * 0.5)
+			draw_set_transform(Vector2.ZERO)
+		if fw != null:
+			draw_set_transform(drive + Vector2(40, 140), _wheel * 2.0, Vector2.ONE)
+			draw_texture(fw, -fw.get_size() * 0.5)
+			draw_set_transform(Vector2.ZERO)
+		if running:
+			for k in 3:
+				var sp := Vector2(drive.x - 160, 70 - k * 30 - fmod(_wheel * 40.0, 30.0))
+				draw_circle(sp, 14.0 + k * 6.0, Color(0.9, 0.9, 0.92, 0.25))
+	draw_texture(post, pivot + Vector2(-55, -20))
+	var ang := (head - pivot).angle()
+	var stretch := (head - pivot).length() / 460.0
+	draw_set_transform(pivot, ang, Vector2(stretch, 1.0))
+	draw_texture(beam, Vector2(-30, -30))
+	draw_set_transform(Vector2.ZERO)
+	draw_texture(head_t, head + Vector2(-60, -30))
+	return true

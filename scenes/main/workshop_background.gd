@@ -1,5 +1,8 @@
 extends Control
-## Werkstatt-Hintergrund je Epoche (6 Hintergründe, Platzhaltergrafik).
+## Werkstatt-Hintergrund je Epoche (6 Hintergründe). Nutzt die gerenderten Bilder
+## (assets/sprites/environment/background_N.jpg); ohne sie wird im Code gezeichnet.
+
+const Assets = preload("res://scripts/assets.gd")
 
 var epoch: int = 1
 var reputation_level: int = 1
@@ -21,6 +24,13 @@ func set_epoch(e: int, rep: int) -> void:
 
 
 func _draw() -> void:
+	var tex := Assets.background(epoch)
+	if tex != null:
+		# Ränder (Ultrabreit/4:3) mit gedimmtem, gestrecktem Bild füllen, dann exakt zur Bühne ausgerichtet zeichnen.
+		draw_texture_rect(tex, Rect2(Vector2.ZERO, size), false, Color(0.55, 0.5, 0.45))
+		draw_texture_rect(tex, Rect2(stage_offset, Vector2(1920, 1080)), false)
+		_draw_reputation_sign()
+		return
 	var r := get_rect()
 	var wall: Color = WALLS[epoch - 1]
 	var floor_c: Color = FLOORS[epoch - 1]
@@ -76,9 +86,14 @@ func _draw() -> void:
 			draw_rect(Rect2(0, o.y + 70, r.size.x, 22), Color("2b2b2e"))
 			for k in int(r.size.x / 200.0) + 1:
 				draw_circle(Vector2(k * 200 + 40, o.y + 81), 5, Color("55585e"))
-	# Zunftschild je nach Ruf (kosmetische Belohnung)
+	_draw_reputation_sign()
+
+
+## Zunftschild je nach Ruf (kosmetische Belohnung)
+func _draw_reputation_sign() -> void:
+	var o := stage_offset
 	if reputation_level >= 2:
-		var sp := Vector2(o.x + 1240, o.y + 96)
+		var sp := Vector2(o.x + 1500, o.y + 150)
 		draw_rect(Rect2(sp.x - 70, sp.y, 140, 70), Color("6b4a2f"))
 		draw_rect(Rect2(sp.x - 70, sp.y, 140, 70), Color("b08d57"), false, 4.0)
 		for k in mini(reputation_level, 5):

@@ -32,13 +32,14 @@ func _ready() -> void:
 	theme = UIKit.theme()
 	# Obere Leiste
 	var top := PanelContainer.new()
-	top.add_theme_stylebox_override("panel", UIKit.panel_box(Color(0.16, 0.11, 0.08, 0.92), UIKit.BRASS, 0, 0, 12))
+	top.add_theme_stylebox_override("panel", UIKit.bar_box())
 	top.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	top.custom_minimum_size.y = 88
 	add_child(top)
 	var tr_row := HBoxContainer.new()
 	tr_row.add_theme_constant_override("separation", 18)
 	top.add_child(tr_row)
+	tr_row.add_child(UIKit.icon("ui/icon_coin.png", 52))
 	_money = UIKit.label("", 34, UIKit.GOLD)
 	_money.custom_minimum_size.x = 300
 	tr_row.add_child(_money)
@@ -65,7 +66,7 @@ func _ready() -> void:
 	tr_row.add_child(UIKit.button(tr("UI_MENU"), func() -> void: open_menu.emit(), Vector2(0, 64), 24))
 	# Untere Leiste
 	var bottom := PanelContainer.new()
-	bottom.add_theme_stylebox_override("panel", UIKit.panel_box(Color(0.16, 0.11, 0.08, 0.92), UIKit.BRASS, 0, 0, 12))
+	bottom.add_theme_stylebox_override("panel", UIKit.bar_box())
 	bottom.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	bottom.custom_minimum_size.y = 76
 	bottom.grow_vertical = Control.GROW_DIRECTION_BEGIN
@@ -85,6 +86,7 @@ func _ready() -> void:
 	_stars.custom_minimum_size = Vector2(120, 40)
 	_stars.draw.connect(func() -> void: UIKit.draw_stars(_stars, Vector2(18, 22), _stars_value, 34.0))
 	br.add_child(_stars)
+	br.add_child(UIKit.icon("ui/icon_hourglass.png", 44))
 	_timer = UIKit.label("", 26, UIKit.TEXT_LIGHT)
 	_timer.custom_minimum_size.x = 170
 	br.add_child(_timer)
@@ -142,7 +144,7 @@ func _process(delta: float) -> void:
 		_stars.queue_redraw()
 	if j.is_rush():
 		var left := j.time_limit_s - j.elapsed_s
-		_timer.text = tr("UI_HOURGLASS") + " " + (Economy.format_duration(left) if left > 0 else tr("UI_LATE"))
+		_timer.text = Economy.format_duration(left) if left > 0 else tr("UI_LATE")
 		_timer.add_theme_color_override("font_color", UIKit.TEXT_LIGHT if left > 15 else Color("e07a5f"))
 	else:
 		_timer.text = Economy.format_duration(j.elapsed_s)

@@ -1,6 +1,8 @@
 extends Control
 ## Löschtrog (ab Epoche 4). Klick/Tippen = Abschrecken.
 
+const Assets = preload("res://scripts/assets.gd")
+
 signal trough_clicked()
 
 var active: bool = false
@@ -30,11 +32,20 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
+	var tt := Assets.tex("tools/trough.png")
+	if tt != null:
+		draw_texture(tt, Vector2(-10, -10))
+		_draw_effects()
+		return
 	draw_colored_polygon(PackedVector2Array([Vector2(10, 60), Vector2(size.x - 10, 60), Vector2(size.x - 40, size.y - 10), Vector2(40, size.y - 10)]), Color("5a3e28"))
 	draw_rect(Rect2(24, 66, size.x - 48, 26), Color(0.25, 0.4, 0.5).lerp(Color(0.6, 0.7, 0.75), 0.2 + 0.1 * sin(_t * 2.0)))
 	for k in 3:
 		draw_line(Vector2(30, 100 + k * 30), Vector2(size.x - 30, 100 + k * 30), Color("4a3220"), 3.0)
 	draw_line(Vector2(10, 60), Vector2(size.x - 10, 60), Color("3b2a1e"), 6.0)
+	_draw_effects()
+
+
+func _draw_effects() -> void:
 	if active:
 		draw_rect(Rect2(0, 0, size.x, size.y), Color(0.7, 0.9, 1.0, 0.25 + 0.1 * sin(_t * 6.0)), false, 4.0)
 	if steam > 0.0:

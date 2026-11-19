@@ -68,6 +68,8 @@ scenes/ui/            HUD, Auftragsbuch, Laden, Personal, Einstellungen, Menüs,
 scripts/              economy.gd, heat_model.gd, workshop_sim.gd, job_generator.gd,
                       reference_player.gd, catalog.gd, localization.gd, sfx_synth.gd, item_shapes.gd
 shaders/glow.gdshader Glutfarben-Shader
+assets/               gerenderte Grafiken, Klänge, Musik, Schriften
+tools/art/            Render-Pipeline für alle Assets (Python)
 tests/                Unit-Tests (eigener kleiner Runner, keine Abhängigkeit von GUT)
 tools/balance_sim.gd  Balancing-Simulation
 ```
@@ -76,14 +78,39 @@ Die Spiellogik (`scripts/workshop_sim.gd`) ist von der Darstellung getrennt. Die
 Simulation treibt das Spiel, die Tests, die geschätzte Dauer im Auftragsbuch, das
 Zeitlimit von Eilaufträgen und die Balancing-Simulation.
 
-## Platzhalter
+## Grafik und Ton
 
-* **Grafik:** Alle Bilder werden im Code gezeichnet (Esse, Amboss, Hintergründe je Epoche,
-  Werkstücke). Jeder Gegenstand hat eine graustufige Grundform, die der Glow-Shader nach
-  Temperatur einfärbt (6.5). Finale Sprites können später ersetzt werden.
-* **Audio:** Hammerklänge, Zischen, Funken, Münzen, Ambiente und eine kleine Folk-Schleife
-  je Epoche werden zur Laufzeit synthetisiert (`scripts/sfx_synth.gd`).
-* **Schrift:** Godot-Standardschrift.
+Alle Assets werden **offline per Skript gerendert** (`tools/art/`) und liegen fertig in `assets/`:
+
+| Bereich | Inhalt |
+|---|---|
+| `assets/sprites/environment/` | 6 Werkstatt-Hintergründe (je Epoche: Fachwerk-Dorfschmiede, Poststraße, Hafen, Sheffield, Hammerwerk mit Blick auf die Eisenbrücke, Eisenwerk), 4 Essen-Stufen, Glutbett, Feuerschein |
+| `assets/sprites/tools/` | Amboss mit Klotz, Handhammer, Blasebalg, Zylindergebläse, Löschtrog, Schwanzhammer (Ständer, Helm, Kopf), Wasserrad, Dampfmaschine mit Balancier und Schwungrad |
+| `assets/sprites/items/` | ein graustufiges Sprite je Gegenstand (48 + Rohling); der Glow-Shader färbt es nach Temperatur ein (6.5) |
+| `assets/sprites/portraits/` | 32 Kundenporträts im Ovalrahmen |
+| `assets/sprites/ui/` | Pergament, Holzknöpfe mit Messingrand, Lederleiste, Münze, Sterne, Sanduhr, Funken-/Rauchpartikel, Titel-Schriftzug |
+| `assets/fonts/` | EB Garamond (Text) und IM Fell English SC (Überschriften), beide unter SIL Open Font License |
+| `assets/audio/sfx/` | 21 Effekte: 3 Varianten Amboss-Schlag, schwach, kalt („Klonk“), überhitzt (Zischen), Schweißen (Funkenregen), Abschrecken, Ausschuss, Münzen, Pergament, Wasser-/Dampfhammer u. a. |
+| `assets/audio/ambience/` | Schleifen: Kohlefeuer, Wasserrad, Dampfmaschine |
+| `assets/audio/music/` | Menü-Thema + 1 Stück je Epoche (Jig, Hornpipe, Seemannsweise, Menuett, Country Dance, Marsch); Besetzung wächst: Laute → + Cello → + Flöte → + Violine → + Cembalo |
+
+Stil: handgezeichnet wirkend mit Tuschekontur, Malstruktur, Kupferstich-Schraffur und warmem
+Licht der Esse. Instrumente sind physikalisch modelliert (Karplus-Strong-Laute, gestrichene
+Saiten, Flöte), keine Aufnahmen. Größe aller Assets: ca. 18 MB (Ziel Web < 40 MB, 9.1).
+
+Neu erzeugen (Python 3.11+ und ffmpeg mit libvorbis):
+
+```bash
+pip install -r tools/art/requirements.txt
+```
+
+```bash
+python tools/art/render_all.py
+```
+
+Fehlt eine Datei, nutzt das Spiel automatisch die im Code gezeichnete bzw. synthetisierte
+Ersatzvariante. Für ein kommerzielles Release bleibt Kapitel 12 (Punkte 3 und 4) offen:
+Die gerenderten Assets sind solide, ersetzen aber keinen Illustrator und keine eingespielte Musik.
 
 ## Umsetzungsentscheidungen
 

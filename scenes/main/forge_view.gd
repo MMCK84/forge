@@ -2,6 +2,8 @@ extends Control
 ## Die Esse mit 1–3 Plätzen, Glut, Rauchfang und Blasebalg (Platzhaltergrafik).
 ## Klick/Tippen auf einen Platz meldet slot_clicked; auf den Rohling-Stapel raw_clicked.
 
+const Assets = preload("res://scripts/assets.gd")
+
 signal slot_clicked(slot: int)
 signal raw_clicked()
 
@@ -58,6 +60,11 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
+	var body := Assets.tex("environment/forge_%d.png" % clampi(tier, 1, 4))
+	if body != null:
+		_draw_textured(body)
+		_draw_overlay()
+		return
 	var stone: Color = [Color("7a5a3a"), Color("8a3f2a"), Color("7a4030"), Color("4a4a4f")][clampi(tier, 1, 4) - 1]
 	# Rauchfang
 	draw_colored_polygon(PackedVector2Array([Vector2(200, 40), Vector2(680, 40), Vector2(760, 250), Vector2(120, 250)]), stone.darkened(0.35))
@@ -91,7 +98,38 @@ func _draw() -> void:
 		draw_circle(Vector2(cx, cy), 8, Color(1.0, 0.85, 0.4, 0.6 * glow))
 	for k in 3:
 		draw_circle(Vector2(440, 380), 200.0 + k * 60.0, Color(1.0, 0.5, 0.15, 0.035 * flick))
-	# Platzmarkierungen
+	_draw_overlay()
+
+
+func _draw_textured(body: Texture2D) -> void:
+	var flick := 0.8 + 0.2 * sin(_t * 7.0) * sin(_t * 3.1)
+	if heating:
+		flick += 0.15
+	var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
+	# Blasebalg bzw. Zylindergebläse hinter dem Herd
+	if tier < 4:
+		var bel := Assets.tex("tools/bellows.png")
+		if bel != null:
+			for k in (2 if tier == 3 else 1):
+				var y := 430.0 + k * 85.0
+				draw_set_transform(Vector2(-150, y), 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
+				draw_texture(bel, Vector2(0, -bel.get_height() * 0.5))
+			draw_set_transform(Vector2.ZERO)
+	else:
+		var bl := Assets.tex("tools/blower.png")
+		if bl != null:
+			draw_texture(bl, Vector2(-170, 300))
+	draw_texture(body, Vector2(-160, -160))
+	var glow := Assets.tex("environment/fire_glow.png")
+	if glow != null:
+		draw_texture(glow, Vector2(440 - glow.get_width() * 0.5, 395 - glow.get_height() * 0.55), Color(1, 1, 1, clampf(0.55 * flick, 0.0, 1.0)))
+	var coal := Assets.tex("environment/coals.png")
+	if coal != null:
+		draw_texture(coal, Vector2(440 - coal.get_width() * 0.5, 340), Color(flick, 0.85 + 0.15 * flick, 0.8 + 0.2 * flick))
+
+
+## Platzmarkierungen und Rohling-Stapel (über Code- und Sprite-Grafik)
+func _draw_overlay() -> void:
 	for i in slots:
 		var r := slot_rect(i)
 		var col := Color(1, 0.85, 0.5, 0.55) if i == selected_slot else Color(1, 0.8, 0.5, 0.18)
@@ -114,9 +152,13 @@ func _draw() -> void:
 	# Rohling-Stapel
 	draw_rect(raw_rect, Color(0.18, 0.13, 0.09, 0.85))
 	draw_rect(raw_rect, Color("b08d57"), false, 3.0)
+	var blank := Assets.item_tex("blank")
 	for k in mini(raw_count, 6):
 		var y2 := raw_rect.position.y + raw_rect.size.y - 22 - (k % 3) * 14
 		var x2 := raw_rect.position.x + 30 + (k / 3) * 120
-		draw_rect(Rect2(x2, y2, 110, 12), Color("6d6f73"))
-		draw_rect(Rect2(x2, y2, 110, 4), Color("9a9ca0"))
+		if blank != null:
+			draw_texture_rect(blank, Rect2(x2 - 10, y2 - 59, 130, 130), false, Color(0.75, 0.75, 0.78))
+		else:
+			draw_rect(Rect2(x2, y2, 110, 12), Color("6d6f73"))
+			draw_rect(Rect2(x2, y2, 110, 4), Color("9a9ca0"))
 	draw_string(ThemeDB.fallback_font, raw_rect.position + Vector2(10, 32), tr("UI_RAW_STACK") + ": " + str(raw_count), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("e9dcc0"))

@@ -2,6 +2,7 @@ extends Control
 ## Hauptmenü (6.3): Fortsetzen, Neues Spiel (mit Warnung), Einstellungen, Mitwirkende, Beenden (nur Desktop).
 
 const UIKit = preload("res://scenes/ui/ui_kit.gd")
+const Assets = preload("res://scripts/assets.gd")
 const Background = preload("res://scenes/main/workshop_background.gd")
 
 signal start_game()
@@ -30,11 +31,21 @@ func _ready() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 18)
 	center.add_child(col)
-	var title := UIKit.label(tr("GAME_TITLE"), 96, UIKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
-	title.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
-	title.add_theme_constant_override("outline_size", 12)
-	col.add_child(title)
-	col.add_child(UIKit.label(tr("GAME_SUBTITLE"), 30, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER))
+	var title_tex := Assets.tex("ui/title.png")
+	if title_tex != null:
+		var tr_title := TextureRect.new()
+		tr_title.texture = title_tex
+		tr_title.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		col.add_child(tr_title)
+	else:
+		var title := UIKit.label(tr("GAME_TITLE"), 96, UIKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+		title.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
+		title.add_theme_constant_override("outline_size", 12)
+		col.add_child(title)
+	var sub_l := UIKit.label(tr("GAME_SUBTITLE"), 32, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+	sub_l.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
+	sub_l.add_theme_constant_override("outline_size", 6)
+	col.add_child(sub_l)
 	var spacer := Control.new()
 	spacer.custom_minimum_size.y = 30
 	col.add_child(spacer)

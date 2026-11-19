@@ -41,7 +41,10 @@ func _ready() -> void:
 	panel.add_child(outer)
 	var head := HBoxContainer.new()
 	outer.add_child(head)
-	_title_label = UIKit.label(tr(title_key), 38, UIKit.INK)
+	_title_label = UIKit.label(tr(title_key), 40, UIKit.INK)
+	var hf := UIKit.heading_font()
+	if hf != null:
+		_title_label.add_theme_font_override("font", hf)
 	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(_title_label)
 	if closable:
