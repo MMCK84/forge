@@ -703,6 +703,8 @@ func _on_state_changed() -> void:
 	background.set_epoch(gm.current_epoch, _rep_level())
 	var f := gm.current_forge()
 	forge_view.tier = f.tier
+	anvil_view.hammer_id = gm.current_hammer().id
+	anvil_view.queue_redraw()
 	_place_smoke()
 	var m := gm.current_machine()
 	machine_view.machine_id = m.id if m != null else ""

@@ -151,12 +151,16 @@ fehlt eine Datei, greift wieder die gerenderte Variante.
 | Pyrometer-Zeiger | Zeiger des Messing-Pyrometers (ab Freischaltung) |
 | Amboss auf Eichenklotz | Amboss in allen Epochen |
 | Lehm-Esse, Ziegel-Esse | Essen-Stufe 1 und 2 (Glut eingemalt, Feuerschein flackert darüber; Rauchpartikel aus dem Schornstein) |
+| Gusseisen-Kreuzschlaghammer, polierter Stahlhammer | Kreuzschlaghammer bzw. Tiegelstahl-Hammer: Bild im Laden und schwingender Hammer über dem Amboss |
 
 Nicht verwendet: das Pyrometer-Zifferblatt (Zeiger fest eingemalt – für eine Verwendung wird
 eine Fassung ohne Zeiger benötigt), Siegel „Regina Victoria“ (1837 ff., passt nicht in 1700–1800),
 Siegel Ludwig XV. und Russland (kein Kunde), Karte 4 (Art-déco-Stil), die Stein-Esse mit großem
 Blasebalg (Feueröffnung zu schmal für die 3 Plätze der Stufe 3, Schornstein oben abgeschnitten,
-Rauch liegt über dem Mauerwerk). Stufe 3 und 4 nutzen weiter die gerenderten Essen. Kleine Unschärfe: George III
+Rauch liegt über dem Mauerwerk). Stufe 3 und 4 nutzen weiter die gerenderten Essen; aus demselben Grund
+nicht die Koks-Esse. Holzschlegel und Steinhammer passen nicht in eine Schmiede des
+18. Jahrhunderts (der Hammerkatalog des Spiels beginnt beim eisernen Handhammer).
+Der Laden zeigt jetzt Bilder zu Hämmern und Essen; ohne Grafik des Auftraggebers die gerenderten. Kleine Unschärfe: George III
 regierte ab 1760 – Siegel und Münzen sind in den Epochen 1–3 streng genommen etwas zu früh.
 Vor einer Veröffentlichung die Nutzungsbedingungen des verwendeten Bildgenerators prüfen.
 

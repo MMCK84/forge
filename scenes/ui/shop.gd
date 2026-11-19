@@ -3,6 +3,7 @@ extends "res://scenes/ui/overlay.gd"
 
 const Economy = preload("res://scripts/economy.gd")
 const Catalog = preload("res://scripts/catalog.gd")
+const Assets = preload("res://scripts/assets.gd")
 
 
 func _init() -> void:
@@ -21,7 +22,7 @@ func build(box: VBoxContainer) -> void:
 	for h in Catalog.HAMMERS:
 		var owned: bool = gm.owned_hammer_ids.has(h.id)
 		var info := tr("UI_HAMMER_INFO").format({"p": int(h.p_base)})
-		var row := _row(tr(h.name_key), info, h.price, h.min_epoch)
+		var row := _row(tr(h.name_key), info, h.price, h.min_epoch, _hammer_icon(h.id))
 		var btn: Button
 		if owned:
 			if gm.equipped_hammer_id == h.id:
@@ -52,7 +53,7 @@ func build(box: VBoxContainer) -> void:
 	for f in Catalog.FORGES:
 		var f_owned: bool = gm.owned_forge_ids.has(f.id)
 		var f_info := tr("UI_FORGE_INFO").format({"k": int(f.k_heat), "t": int(f.t_max), "s": f.slots})
-		var f_row := _row(tr(f.name_key), f_info, f.price, f.min_epoch)
+		var f_row := _row(tr(f.name_key), f_info, f.price, f.min_epoch, _forge_icon(f.tier))
 		if f_owned:
 			if gm.equipped_forge_id == f.id:
 				f_row.add_child(_status_btn(tr("UI_EQUIPPED")))
@@ -89,12 +90,34 @@ func _section(key: String) -> Control:
 	return l
 
 
-func _row(title: String, info: String, price: int, min_epoch: int) -> HBoxContainer:
+## Bild für einen Hammer: Grafik des Auftraggebers, sonst der gerenderte Handhammer.
+func _hammer_icon(id: String) -> Texture2D:
+	var t := Assets.user(id + ".png")
+	return t if t != null else Assets.tex("tools/hand_hammer.png")
+
+
+func _forge_icon(tier: int) -> Texture2D:
+	var user_files := {1: "forge_clay.png", 2: "forge_brick.png"}
+	var t: Texture2D = Assets.user(str(user_files[tier])) if user_files.has(tier) else null
+	return t if t != null else Assets.tex("environment/forge_%d.png" % clampi(tier, 1, 4))
+
+
+func _row(title: String, info: String, price: int, min_epoch: int, icon: Texture2D = null) -> HBoxContainer:
 	var row := HBoxContainer.new()
+	var locked := min_epoch > GameManager.current_epoch
+	if icon != null:
+		var r := TextureRect.new()
+		r.texture = icon
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		r.custom_minimum_size = Vector2(120, 72)
+		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if locked:
+			r.modulate = Color(0.55, 0.55, 0.55, 0.7)
+		row.add_child(r)
 	var col := VBoxContainer.new()
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.add_theme_constant_override("separation", 2)
-	var locked := min_epoch > GameManager.current_epoch
 	col.add_child(UIKit.label(title, 26, UIKit.INK if not locked else UIKit.INK_LIGHT))
 	var sub := info
 	if price > 0:

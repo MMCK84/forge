@@ -9,6 +9,11 @@ signal anvil_released()
 var swing: float = 0.0
 var has_piece: bool = false
 var big: bool = false
+## Ausgerüsteter Handhammer; gibt es dazu eine Grafik des Auftraggebers, schwingt diese.
+var hammer_id: String = ""
+## Griffende in den Hammergrafiken des Auftraggebers (Drehpunkt beim Schlag) und Griffneigung
+const USER_HAMMER_GRIP := Vector2(345, 182)
+const USER_HAMMER_TILT := -0.36
 
 
 func _ready() -> void:
@@ -52,8 +57,14 @@ func _draw() -> void:
 			draw_texture(anvil_t, Vector2(-10, -10))
 		# Handhammer: liegt beim Schlag auf (swing = 1) und hebt sich wieder (swing → 0)
 		var pivot := Vector2(cx + 176, 108)
-		draw_set_transform(pivot, 0.55 * (1.0 - swing) + 0.05, Vector2.ONE)
-		draw_texture(hammer_t, Vector2(-216, -42))
+		var ang := 0.55 * (1.0 - swing) + 0.05
+		var user_h := Assets.user(hammer_id + ".png") if hammer_id != "" else null
+		if user_h != null:
+			draw_set_transform(pivot + Vector2(0, -12), ang + USER_HAMMER_TILT, Vector2(0.68, 0.68))
+			draw_texture(user_h, -USER_HAMMER_GRIP)
+		else:
+			draw_set_transform(pivot, ang, Vector2.ONE)
+			draw_texture(hammer_t, Vector2(-216, -42))
 		draw_set_transform(Vector2.ZERO)
 		return
 	# Holzklotz
