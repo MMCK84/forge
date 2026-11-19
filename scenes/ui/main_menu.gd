@@ -58,6 +58,8 @@ func _ready() -> void:
 	col.add_child(UIKit.button(tr("UI_CREDITS"), _open.bind("res://scenes/ui/credits_panel.gd"), Vector2(520, 76), 30))
 	if not OS.has_feature("web") and not OS.has_feature("mobile"):
 		col.add_child(UIKit.button(tr("UI_QUIT"), _quit, Vector2(520, 76), 30))
+	if GameManager.test_tools_enabled():
+		col.add_child(UIKit.button(tr("TEST_TITLE") + " [F12]", _open_test_menu, Vector2(520, 60), 24))
 	_notice = UIKit.wrap_label("", 24, UIKit.TEXT_LIGHT, 520.0)
 	_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	col.add_child(_notice)
@@ -144,3 +146,15 @@ func _on_imported(ok: bool) -> void:
 		start_game.emit()
 	elif not ok:
 		show_notice("UI_IMPORT_FAILED")
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("test_menu") and GameManager.test_tools_enabled() and _overlay_layer.get_child_count() == 0:
+		get_viewport().set_input_as_handled()
+		_open_test_menu()
+
+
+func _open_test_menu() -> void:
+	var p = load("res://scenes/ui/test_panel.gd").new()
+	p.game_started.connect(func() -> void: start_game.emit())
+	_overlay_layer.add_child(p)

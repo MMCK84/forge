@@ -450,6 +450,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		open_overlay("res://scenes/ui/staff_panel.gd")
 	elif event.is_action_pressed("pause"):
 		_open_pause()
+	elif event.is_action_pressed("test_menu") and GameManager.test_tools_enabled():
+		open_overlay("res://scenes/ui/test_panel.gd")
 	else:
 		return
 	get_viewport().set_input_as_handled()
@@ -664,6 +666,7 @@ func _on_state_changed() -> void:
 	machine_view.water_powered = m != null and m.water_powered
 	hud.refresh()
 	SoundManager.update_ambience()
+	SoundManager.play_music_for_epoch(gm.current_epoch)
 
 
 func _rep_level() -> int:

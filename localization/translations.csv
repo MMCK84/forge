@@ -102,7 +102,7 @@ HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab �
 HINT_JOURNEYMAN_TITLE,Der Geselle,The journeyman
 HINT_MACHINE_TEXT,"Eure Maschine schlägt automatisch mit, solange ein Werkstück mit mindestens 400 °C auf dem Amboss liegt – zusätzlich zu Euren eigenen Schlägen.",Your machine strikes automatically while a piece of at least 400 °C lies on the anvil – in addition to your own blows.
 HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
-HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr im engen Zielfenster von 850–1000 °C schmiedet. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the narrow window of 850–1000 °C counts here. Three stars earn a 25 % tip.
+HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr in der Mitte des Zielfensters schmiedet: Jedes Fenster ist auf seine mittleren 60 % verengt. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the middle of the target window counts here: every window is narrowed to its central 60 %. Three stars earn a 25 % tip.
 HINT_PRECISION_TITLE,Präzisionsauftrag,Precision order
 HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet. Nutzt alle Plätze der Esse, damit die nächsten Stücke schon heizen, während Ihr schmiedet.\n\nWird das Stück auf dem Amboss zu kalt, tauscht Ihr es mit [E] oder per Klick auf ein heißes Stück in der Esse.","Several pieces: each is heated and forged on its own. Use every place in the forge so the next pieces are heating while you work.\n\nWhen the piece on the anvil gets too cold, swap it with [E] or by clicking a hot piece in the forge."
 HINT_QUANTITY_TITLE,Mengenauftrag,Quantity order
@@ -435,6 +435,24 @@ STEP_POINT,Anspitzen,Pointing
 STEP_PUNCH,Lochen,Punching
 STEP_TWIST,Verdrehen,Twisting
 STEP_UPSET,Stauchen,Upsetting
+TEST_DELETE,Löschen,Delete
+TEST_END,Ende,End
+TEST_EPOCHS,In eine Epoche springen,Jump to an era
+TEST_EPOCHS_NOTE,"Setzt das laufende Spiel auf den gewählten Stand: Meilensteine davor gelten als erledigt, Ausrüstung und Personal der Epoche werden ergänzt. Geld bleibt erhalten. Vorher bei Bedarf in einem Test-Spielstand sichern.","Sets the current game to the chosen point: earlier milestones count as done, the era's equipment and staff are added. Money is kept. Save to a test slot first if needed."
+TEST_FINISH_JOB,Auftrag fertig (3 Sterne),Finish order (3 stars)
+TEST_INFO,Epoche {e} · Auftrag {n} von {total} · Komplexität {c} · Münzbeutel {m},Era {e} · order {n} of {total} · complexity {c} · purse {m}
+TEST_LOAD,Laden,Load
+TEST_MIDDLE,Mitte,Middle
+TEST_NEW_GAME,Neues Spiel starten,Start a new game
+TEST_QUICK,Schnellaktionen,Quick actions
+TEST_REROLL,Neue Angebote sofort,New offers now
+TEST_SAVE,Speichern,Save
+TEST_SLOTS,Test-Spielstände,Test saves
+TEST_SLOT_EMPTY,Platz {i}: leer,Slot {i}: empty
+TEST_SLOT_INFO,"Platz {i}: Epoche {e}, Auftrag {n}, {m} – {date}","Slot {i}: era {e}, order {n}, {m} – {date}"
+TEST_SPEED,Spieltempo:,Game speed:
+TEST_START,Anfang,Start
+TEST_TITLE,Testmenü,Test menu
 TUT_BUY_HAMMER,Gut verdient! Kauft im Laden [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
 TUT_COLD,Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!,Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!
 TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste.,Forge! Click the anvil or press the space bar.
@@ -447,7 +465,7 @@ TUT_TOO_COLD_SOON,Zu kühl für diesen Arbeitsgang – Schläge zählen nicht f�
 TUT_TOO_HOT,"Noch zu heiß für diesen Arbeitsgang – lasst das Eisen kurz abkühlen, bis der Zeiger im hellen Zielfenster steht.",Still too hot for this step – let the iron cool a moment until the pointer is inside the bright target window.
 TUT_WAIT_HEAT,"Wartet, bis das Eisen die Hitze des Arbeitsgangs erreicht: Der Zeiger der Glutfarben-Skala muss im hellen Zielfenster stehen.",Wait until the iron reaches the heat for this step: the pointer on the glow scale must be inside the bright target window.
 TYPE_MILESTONE,Meilenstein,Milestone
-TYPE_PRECISION,Präzision (850–1000 °C),Precision (850–1000 °C)
+TYPE_PRECISION,Präzision (enges Fenster),Precision (narrow window)
 TYPE_RUSH,Eilauftrag,Rush order
 TYPE_STANDARD,Standard,Standard
 UI_ABORT_CONFIRM,Wirklich abbrechen? Bereits verbrauchte Rohlinge werden nicht erstattet.,Really abandon? Blanks already used are not refunded.

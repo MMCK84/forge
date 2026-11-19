@@ -319,3 +319,52 @@ func import_from_browser() -> void:
 func _on_js_import(args) -> void:
 	if args.size() > 0:
 		import_text(str(args[0]))
+
+
+# ================================================================== Test-Spielstände (Testmenü)
+
+const TEST_SLOT_DIR := "user://test_slots/"
+const TEST_SLOTS := 5
+
+
+func test_slot_path(i: int) -> String:
+	return TEST_SLOT_DIR + "slot_%d.json" % i
+
+
+func save_test_slot(i: int) -> bool:
+	DirAccess.make_dir_recursive_absolute(TEST_SLOT_DIR)
+	var p := test_slot_path(i)
+	return write_atomic(GameManager.to_save_dict(), p, p + ".tmp", p + ".bak")
+
+
+## Lädt einen Test-Spielstand als aktuelles Spiel (wird danach normal weitergespeichert).
+func load_test_slot(i: int) -> bool:
+	var res := read_chain([[test_slot_path(i), "ok"], [test_slot_path(i) + ".bak", "backup"]])
+	var d: Dictionary = res["data"]
+	if d.is_empty():
+		return false
+	save_blocked = false
+	GameManager.load_from_dict(d)
+	save_game()
+	return true
+
+
+func delete_test_slot(i: int) -> void:
+	for suffix in ["", ".bak", ".tmp"]:
+		if FileAccess.file_exists(test_slot_path(i) + suffix):
+			DirAccess.remove_absolute(test_slot_path(i) + suffix)
+
+
+## Kurzinfo zu einem Test-Spielstand: {} wenn leer, sonst epoch, n, pence, saved_at, playtime.
+func test_slot_info(i: int) -> Dictionary:
+	var d := _read_json(test_slot_path(i))
+	if d.is_empty():
+		return {}
+	var meta: Dictionary = d.get("meta", {})
+	var pr: Dictionary = d.get("progress", {})
+	var eco: Dictionary = d.get("economy", {})
+	return {
+		"epoch": int(pr.get("current_epoch", 1)), "n": int(pr.get("jobs_completed_in_epoch", 0)),
+		"pence": int(eco.get("total_pence", 0)), "saved_at": int(meta.get("last_saved_at", 0)),
+		"playtime": int(meta.get("playtime_seconds", 0)),
+	}

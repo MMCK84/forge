@@ -123,7 +123,7 @@ func _setup_input() -> void:
 		"hammer": [KEY_SPACE], "move_piece": [KEY_E], "load_raw": [KEY_R],
 		"select_1": [KEY_1], "select_2": [KEY_2], "select_3": [KEY_3],
 		"quench": [KEY_Q], "open_jobs": [KEY_J], "open_shop": [KEY_S],
-		"open_staff": [KEY_P], "pause": [KEY_ESCAPE],
+		"open_staff": [KEY_P], "pause": [KEY_ESCAPE], "test_menu": [KEY_F12],
 	}
 	for action in keys:
 		if InputMap.has_action(action):
@@ -989,3 +989,104 @@ func epoch_name(epoch: int = -1) -> String:
 	if epoch < 0:
 		epoch = current_epoch
 	return tr("EPOCH_%d_NAME" % epoch)
+
+
+# ================================================================== Testmenü (nur Testversionen)
+
+## Das Testmenü steht nur in Debug-Builds zur Verfügung (Start aus dem Editor, Debug-Export).
+func test_tools_enabled() -> bool:
+	return OS.is_debug_build()
+
+
+## Komplexitätsgrad des nächsten Auftrags (0 = Epochenanfang, 1 = Epochenende).
+func current_complexity() -> float:
+	return JobGenerator.complexity_grade(cfg, current_epoch, jobs_completed_in_epoch, free_play)
+
+
+## Springt in eine Epoche. progress: 0 = Anfang, 0.5 = Mitte, 1 = Ende (letzter Auftrag).
+## Mit equip = true gibt es die typische Ausrüstung und das Personal der Epoche.
+func debug_set_epoch(epoch: int, progress: float, equip: bool = true) -> void:
+	epoch = clampi(epoch, 1, 6)
+	if active_job != null:
+		active_job = null
+		sim.clear_job()
+	current_epoch = epoch
+	free_play = false
+	var ne := epoch_job_count(epoch)
+	jobs_completed_in_epoch = clampi(int(round(clampf(progress, 0.0, 1.0) * float(ne - 1))), 0, ne - 1)
+	# Meilensteine: alle früheren Epochen erledigt, in dieser Epoche alle bereits überholten
+	completed_milestone_ids = []
+	for e in milestones_by_epoch.keys():
+		var arr: Array = milestones_by_epoch[e]
+		for ms in arr:
+			var unlock := JobGenerator.milestone_unlock_n(cfg, e, ms.index, arr.size())
+			if e < epoch or (e == epoch and unlock < jobs_completed_in_epoch):
+				completed_milestone_ids.append(ms.id)
+	if equip:
+		_debug_equip(epoch)
+	job_offers.clear()
+	reroll_available_at = 0
+	_apply_equipment()
+	refresh_offers()
+	epoch_unlocked.emit(current_epoch)
+	active_job_changed.emit()
+	state_changed.emit()
+	pence_changed.emit(total_pence, 0)
+
+
+func _debug_equip(epoch: int) -> void:
+	var best_h: HammerData = null
+	for h in Catalog.HAMMERS:
+		if h.min_epoch <= epoch:
+			if not owned_hammer_ids.has(h.id):
+				owned_hammer_ids.append(h.id)
+			if best_h == null or h.tier > best_h.tier:
+				best_h = h
+	equipped_hammer_id = best_h.id
+	hammer_levels[best_h.id] = maxi(hammer_level(best_h.id), mini(2 + epoch, cfg.upgrade_max_level))
+	var best_f: ForgeData = null
+	for f in Catalog.FORGES:
+		if f.min_epoch <= epoch:
+			if not owned_forge_ids.has(f.id):
+				owned_forge_ids.append(f.id)
+			if best_f == null or f.tier > best_f.tier:
+				best_f = f
+	equipped_forge_id = best_f.id
+	for s in Catalog.STAFF:
+		if s.min_epoch <= epoch and not hired_ids.has(s.id):
+			hired_ids.append(s.id)
+	for m in Catalog.MACHINES:
+		if m.min_epoch <= epoch and not owned_machine_ids.has(m.id):
+			owned_machine_ids.append(m.id)
+			active_machine_id = m.id
+
+
+func debug_add_money(pence: int) -> void:
+	_add_pence(pence, false)
+
+
+## Schließt den aktiven Auftrag sofort mit drei Sternen ab (Abrechnung wie üblich).
+func debug_finish_job() -> void:
+	if active_job == null:
+		return
+	var fp := active_job.piece_fp()
+	for p in active_job.pieces:
+		p.progress = fp
+		p.points_in_window = fp
+		p.damage = 0.0
+		p.weld_hits = cfg.weld_hits_required
+		p.quenched = true
+		p.quench_penalty = 0.0
+		p.location = JobInstance.LOC_DONE
+		p.slot = -1
+	sim.load_job(active_job)
+	_complete_active_job()
+
+
+func debug_reroll_now() -> void:
+	reroll_available_at = 0
+	reroll_offers()
+
+
+func debug_set_time_scale(scale: float) -> void:
+	Engine.time_scale = scale

@@ -39,6 +39,20 @@
    godot --path . --rendering-driver opengl3 --resolution 1920x1080 res://tools/playtest.tscn
    ```
 
+## Testmenü (F12)
+
+Für Tests gibt es ein Testmenü: **F12** in der Werkstatt oder im Hauptmenü, alternativ
+der Knopf „Testmenü“ im Pausen- und Hauptmenü. Es ist nur in Testversionen vorhanden
+(Start aus dem Godot-Editor oder Debug-Export), nicht im Release-Build.
+
+* **In eine Epoche springen:** Epoche 1–6, jeweils Anfang, Mitte oder Ende. Meilensteine
+  davor gelten als erledigt, Ausrüstung und Personal der Epoche werden ergänzt, Geld bleibt.
+* **Test-Spielstände:** 5 Plätze zum Speichern, Laden und Löschen (getrennt vom normalen
+  Spielstand, unter `user://test_slots/`), dazu „Neues Spiel starten“.
+* **Schnellaktionen:** Geld (+£10 / £100 / £1.000), Auftrag sofort mit 3 Sternen abschließen,
+  neue Angebote ohne Wartezeit, Spieltempo ×1 / ×2 / ×4.
+* Oben stehen Epoche, Auftragsnummer und Komplexitätsgrad (0 = Epochenanfang, 1 = Ende).
+
 ## Steuerung (2.7)
 
 | Aktion | Maus | Touch | Tastatur |

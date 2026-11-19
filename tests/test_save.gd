@@ -158,3 +158,61 @@ func test_offline_clock_guard() -> void:
 	var max_gain := int(floor(gm.journeyman_rate() * gm.cfg.offline_max_s))
 	assert_eq(gm.total_pence - before, max_gain, "höchstens 8 Stunden")
 	gm.end_session()
+
+
+func test_debug_set_epoch() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	gm.new_game()
+	gm.debug_set_epoch(4, 1.0)
+	assert_eq(gm.current_epoch, 4)
+	assert_eq(gm.jobs_completed_in_epoch, gm.epoch_job_count(4) - 1, "Ende der Epoche")
+	for ms in gm.milestones_by_epoch[3]:
+		assert_true(gm.completed_milestone_ids.has(ms.id), "Meilensteine früherer Epochen erledigt")
+	var fm: MilestoneData = gm.final_milestone(4)
+	assert_true(not gm.completed_milestone_ids.has(fm.id), "Abschluss-Meilenstein noch offen")
+	assert_eq(gm.open_milestone(), fm, "Abschluss-Meilenstein wird angeboten")
+	assert_eq(gm.equipped_forge_id, "forge_double_bellows", "Esse der Epoche")
+	assert_eq(gm.equipped_hammer_id, "hammer_crucible", "Hammer der Epoche")
+	assert_true(gm.is_hired("staff_journeyman"), "Personal der Epoche")
+	gm.debug_set_epoch(2, 0.0)
+	assert_eq(gm.jobs_completed_in_epoch, 0, "Anfang der Epoche")
+	assert_near(gm.current_complexity(), 0.0, 0.0001)
+	gm.end_session()
+
+
+func test_debug_finish_job() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	gm.new_game()
+	assert_eq(gm.accept_offer(0), "")
+	gm.debug_finish_job()
+	assert_eq(gm.active_job, null, "Auftrag abgeschlossen")
+	assert_eq(int(gm.stats["jobs_completed"]), 1)
+	assert_eq(int(gm.stats["stars_total"]), 3, "mit drei Sternen")
+	assert_true(gm.total_pence > 0, "Lohn gutgeschrieben")
+	gm.end_session()
+
+
+func test_test_slots_roundtrip() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	var sm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("SaveManager")
+	if gm == null or sm == null:
+		return
+	gm.new_game()
+	gm.debug_set_epoch(5, 0.5)
+	gm.total_pence = 12345
+	assert_true(sm.save_test_slot(5), "Test-Spielstand gespeichert")
+	var info: Dictionary = sm.test_slot_info(5)
+	assert_eq(info["epoch"], 5)
+	assert_eq(info["pence"], 12345)
+	gm.new_game()
+	assert_eq(gm.current_epoch, 1)
+	assert_true(sm.load_test_slot(5), "Test-Spielstand geladen")
+	assert_eq(gm.current_epoch, 5, "Epoche wiederhergestellt")
+	assert_eq(gm.total_pence, 12345, "Geld wiederhergestellt")
+	sm.delete_test_slot(5)
+	assert_true(sm.test_slot_info(5).is_empty(), "Test-Spielstand gelöscht")
+	gm.end_session()
