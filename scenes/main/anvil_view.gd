@@ -13,18 +13,18 @@ var big: bool = false
 var hammer_id: String = ""
 ## Handhammer ausblenden, wenn ein Schwanzhammer auf den Amboss schlägt
 var hand_hammer_visible: bool = true
-## Hammergrafiken des Auftraggebers (schräg von oben gezeichnet): Griffende, Mitte der Bahn
-## und Richtung der Kopfachse (Grad, zur Bahn hin). Beim Schlag wird so gedreht, dass die
-## Bahn senkrecht auf das Werkstück trifft; der Stiel zeigt dann schräg nach oben zur Hand.
+## Hammergrafiken des Auftraggebers in reiner Seitenansicht (Kopf links senkrecht, Bahn unten,
+## Stiel waagerecht nach rechts): Griffpunkt am Stielende, Mitte der Bahn, Richtung der
+## Kopfachse zur Bahn (90° = nach unten). Beim Schlag sitzt die Bahn flach auf dem Werkstück.
 const USER_HAMMERS := {
-	"hammer_hand": [Vector2(350, 194), Vector2(6, 77), 170.0],
-	"hammer_cross_peen": [Vector2(345, 196), Vector2(13, 122), 151.0],
-	"hammer_steel_faced": [Vector2(350, 213), Vector2(8, 95), 162.0],
-	"hammer_crucible": [Vector2(340, 197), Vector2(14, 124), 148.0],
+	"hammer_hand": [Vector2(340, 88), Vector2(39, 175), 90.0],
+	"hammer_cross_peen": [Vector2(340, 85), Vector2(35, 164), 90.0],
+	"hammer_steel_faced": [Vector2(340, 103), Vector2(38, 203), 90.0],
+	"hammer_crucible": [Vector2(340, 83), Vector2(31, 163), 90.0],
 }
 const USER_HAMMER_SCALE := 0.62
 ## Ausholwinkel (Bogenmaß) zwischen Schlag und angehobenem Hammer
-const USER_HAMMER_RAISE := 0.4
+const USER_HAMMER_RAISE := 0.55
 
 
 func _ready() -> void:
@@ -73,7 +73,7 @@ func _draw() -> void:
 		var ang := 0.55 * (1.0 - swing) + 0.05
 		var user_h := Assets.user(hammer_id + ".png") if hammer_id != "" else null
 		if user_h != null:
-			var spec: Array = USER_HAMMERS.get(hammer_id, [Vector2(345, 195), Vector2(12, 110), 155.0])
+			var spec: Array = USER_HAMMERS.get(hammer_id, [Vector2(340, 88), Vector2(38, 175), 90.0])
 			var grip: Vector2 = spec[0]
 			var face: Vector2 = spec[1]
 			var base := deg_to_rad(90.0 - float(spec[2]))

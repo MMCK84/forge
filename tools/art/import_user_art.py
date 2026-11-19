@@ -173,13 +173,15 @@ def main():
         img = Image.fromarray(arr)
         img = img.crop(img.getbbox())
         save(img.resize((int(img.width * 0.8), int(img.height * 0.8)), Image.LANCZOS), name + ".png")
-    # 14/15 Hämmer (weiß): Gusseisen-Kreuzschlag → Kreuzschlaghammer, polierter Stahl → Tiegelstahl
-    for src, name in [("hammer_cast_iron.webp", "hammer_cross_peen.png"), ("hammer_polished_steel.webp", "hammer_crucible.png"),
-                      ("hammer_hand.jpg", "hammer_hand.png"), ("hammer_steel_faced.jpg", "hammer_steel_faced.png")]:
-        a = load(src)
+    # 14 Hämmer in reiner Seitenansicht (Kopf links senkrecht, Bahn unten, Stiel waagerecht nach rechts)
+    for hid in ["hammer_hand", "hammer_cross_peen", "hammer_steel_faced", "hammer_crucible"]:
+        path = os.path.join(SRC, hid + ".jpg")
+        if not os.path.exists(path):
+            continue
+        a = load(hid + ".jpg")
         sat = a.max(axis=2) - a.min(axis=2)
         img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
-        save(img, name, max_w=360)
+        save(img, hid + ".png", max_w=360)
     # 16 Wasser-Schwanzhammer (weiß) als Bild im Laden
     a = load("water_helve.webp")
     sat = a.max(axis=2) - a.min(axis=2)
