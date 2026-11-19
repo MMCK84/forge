@@ -162,6 +162,10 @@ Blasebalg (Feueröffnung zu schmal für die 3 Plätze der Stufe 3, Schornstein o
 Rauch liegt über dem Mauerwerk). Stufe 3 und 4 nutzen weiter die gerenderten Essen; aus demselben Grund
 nicht die Koks-Esse. Holzschlegel und Steinhammer passen nicht in eine Schmiede des
 18. Jahrhunderts (der Hammerkatalog des Spiels beginnt beim eisernen Handhammer).
+Weitere Werkstücke: Bild als `assets/source/user_art/items/<item_id>.webp` ablegen und das
+Importskript starten. Fertige Prompts für alle 49 Werkstücke stehen in
+`assets/source/user_art/PROMPTS_Werkstuecke.md`.
+
 Nicht verwendet außerdem: der Dampf-Fallhammer (senkrechte Dampfhämmer gibt es erst ab 1839,
 im Spiel ist es ein dampfgetriebener Schwanzhammer wie bei Watt/Wilkinson um 1783) und die
 glühenden Hufeisen (die Glut berechnet der Shader stufenlos aus der Temperatur).
