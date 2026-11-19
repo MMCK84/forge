@@ -131,6 +131,31 @@ Fehlt eine Datei, nutzt das Spiel automatisch die im Code gezeichnete bzw. synth
 Ersatzvariante. Für ein kommerzielles Release bleibt Kapitel 12 (Punkte 3 und 4) offen:
 Die gerenderten Assets sind solide, ersetzen aber keinen Illustrator und keine eingespielte Musik.
 
+### Grafiken des Auftraggebers
+
+Die selbst erstellten Grafiken (Originale in `assets/source/user_art/`, Prompts in
+`Graphiken_HUD_und_UI.docx`) werden mit `python tools/art/import_user_art.py` freigestellt,
+zerlegt und nach `assets/sprites/ui/user/` geschrieben. Das Spiel bevorzugt sie automatisch;
+fehlt eine Datei, greift wieder die gerenderte Variante.
+
+| Grafik | Verwendung |
+|---|---|
+| Pergament mit Messingecken | Hintergrund aller Fenster (Abrechnung, Laden, Einstellungen …) |
+| Leder-Messing-Karte | alle Standardknöpfe (normal / Hover / gedrückt / gesperrt abgeleitet) |
+| Holzrahmen mit Eisenplatte | HUD-Leisten oben und unten |
+| Glut-Knopf mit Hammer im Zahnrad | großer HAMMERN-Knopf rechts neben der Glühskala |
+| Kontorbuch | Auftragsbuch als aufgeschlagenes Buch (zwei Angebote links, eins rechts) |
+| Wachssiegel George III / Admiralität | Meilenstein-Aufträge bzw. Aufträge der Marine (Navy Board, Werften, Hafenmeister) im Auftragsbuch und in der Abrechnung |
+| Guinee, Shilling, Halfpenny | Münzen neben dem gutgeschriebenen Betrag (£ → Guinee, s → Shilling, d → Halfpenny) |
+| Münzbeutel | Geldanzeige im HUD |
+| Pyrometer-Zeiger | Zeiger des Messing-Pyrometers (ab Freischaltung) |
+
+Nicht verwendet: das Pyrometer-Zifferblatt (Zeiger fest eingemalt – für eine Verwendung wird
+eine Fassung ohne Zeiger benötigt), Siegel „Regina Victoria“ (1837 ff., passt nicht in 1700–1800),
+Siegel Ludwig XV. und Russland (kein Kunde), Karte 4 (Art-déco-Stil). Kleine Unschärfe: George III
+regierte ab 1760 – Siegel und Münzen sind in den Epochen 1–3 streng genommen etwas zu früh.
+Vor einer Veröffentlichung die Nutzungsbedingungen des verwendeten Bildgenerators prüfen.
+
 ## Erweiterungen gegenüber dem Lastenheft
 
 Nach den ersten Spieltests wurde das Spiel um mehr Abwechslung erweitert:

@@ -50,3 +50,8 @@ static func font(file: String) -> Font:
 static func ui_font() -> Font:
 	var f := font("EBGaramond.ttf")
 	return f if f != null else ThemeDB.fallback_font
+
+
+## Grafiken des Auftraggebers (aufbereitet von tools/art/import_user_art.py)
+static func user(name: String) -> Texture2D:
+	return tex("ui/user/" + name)

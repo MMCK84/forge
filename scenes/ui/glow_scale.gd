@@ -11,6 +11,8 @@ var weld_window := Vector2(-1, -1)
 var quench_window := Vector2(-1, -1)
 var show_celsius: bool = false
 var pyrometer: bool = false
+## Drehpunkt (Nabe) in der Zeigergrafik pyrometer_needle.png
+const NEEDLE_PIVOT := Vector2(100, 48)
 var label_text: String = ""
 ## Verbrennungsgrenze (Stahl: tiefer)
 var burn: float = 1300.0
@@ -75,6 +77,15 @@ func _draw_pyrometer(c: Vector2, r: float) -> void:
 		draw_line(c + Vector2(cos(a), sin(a)) * (r - 12), c + Vector2(cos(a), sin(a)) * r, Color("3a2a1a"), 2.0)
 	if temp >= 0.0:
 		var ang := PI * 0.75 + clampf(temp / T_MAX, 0.0, 1.0) * PI * 1.5
-		draw_line(c, c + Vector2(cos(ang), sin(ang)) * (r - 8), Color("8c2f1f"), 4.0)
+		var needle := Assets.user("pyrometer_needle.png")
+		if needle != null:
+			# Zeigergrafik des Auftraggebers: Drehpunkt in der Nabe, Spitze rechts
+			var sc := (r - 6.0) / (needle.get_width() - NEEDLE_PIVOT.x)
+			draw_set_transform(c, ang, Vector2(sc, sc))
+			draw_texture(needle, -NEEDLE_PIVOT)
+			draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		else:
+			draw_line(c, c + Vector2(cos(ang), sin(ang)) * (r - 8), Color("8c2f1f"), 4.0)
 		draw_string(Assets.ui_font(), c + Vector2(-38, r * 0.55), "%d °" % int(round(temp)), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("3a2a1a"))
-	draw_circle(c, 6, Color("3a2a1a"))
+	if Assets.user("pyrometer_needle.png") == null:
+		draw_circle(c, 6, Color("3a2a1a"))

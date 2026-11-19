@@ -2,6 +2,8 @@ extends "res://scenes/ui/overlay.gd"
 ## Abrechnung nach jedem Auftrag (6.3): Sterne, Trefferquote, Schaden, Lohn, Abzüge, Trinkgeld.
 
 const Economy = preload("res://scripts/economy.gd")
+const Assets = preload("res://scripts/assets.gd")
+const JobBook = preload("res://scenes/ui/job_book.gd")
 
 var report: Dictionary = {}
 signal continue_pressed(report: Dictionary)
@@ -15,10 +17,20 @@ func _init() -> void:
 func build(box: VBoxContainer) -> void:
 	var gm := GameManager
 	var j: JobInstance = report["job"]
+	var head := HBoxContainer.new()
+	box.add_child(head)
 	var title := UIKit.label(gm.job_title(j), 28, UIKit.INK)
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	title.custom_minimum_size.x = 800
-	box.add_child(title)
+	title.custom_minimum_size.x = 680
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title)
+	var seal := ""
+	if j.is_milestone():
+		seal = "seal_george_iii.png"
+	elif JobBook.NAVY.has(j.customer_id):
+		seal = "seal_admiralty.png"
+	if seal != "" and Assets.user(seal) != null:
+		head.add_child(UIKit.icon("ui/user/" + seal, 96.0))
 	var stars_row := CenterContainer.new()
 	stars_row.add_child(UIKit.stars_view(int(report["stars"]), 64.0))
 	box.add_child(stars_row)
@@ -46,11 +58,27 @@ func build(box: VBoxContainer) -> void:
 		grid.add_child(UIKit.label(str(l[1]), 24, UIKit.INK))
 	box.add_child(grid)
 	box.add_child(UIKit.hsep())
-	box.add_child(UIKit.label(tr("SET_NET") + ": " + Economy.format_lsd(int(report["net"])), 32, UIKit.GREEN))
+	var net_row := HBoxContainer.new()
+	net_row.add_child(UIKit.label(tr("SET_NET") + ": " + Economy.format_lsd(int(report["net"])), 32, UIKit.GREEN))
+	net_row.add_child(_coins(int(report["net"])))
+	box.add_child(net_row)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_END
 	row.add_child(UIKit.button(tr("UI_CONTINUE"), _continue, Vector2(240, 64)))
 	box.add_child(row)
+
+
+## Münzen passend zum Betrag: Guinee für Pfund, Shilling, Halfpenny für Pence.
+func _coins(pence: int) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", -14)
+	if pence <= 0:
+		return row
+	var parts := [[pence >= 240, "coin_guinea.png"], [(pence % 240) >= 12, "coin_shilling.png"], [pence % 12 > 0, "coin_halfpenny.png"]]
+	for p in parts:
+		if bool(p[0]) and Assets.user(str(p[1])) != null:
+			row.add_child(UIKit.icon("ui/user/" + str(p[1]), 52.0))
+	return row
 
 
 func _continue() -> void:

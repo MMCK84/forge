@@ -4,6 +4,7 @@ extends Control
 
 const UIKit = preload("res://scenes/ui/ui_kit.gd")
 const Economy = preload("res://scripts/economy.gd")
+const Assets = preload("res://scripts/assets.gd")
 
 signal open_jobs()
 signal open_shop()
@@ -40,7 +41,7 @@ func _ready() -> void:
 	var tr_row := HBoxContainer.new()
 	tr_row.add_theme_constant_override("separation", 18)
 	top.add_child(tr_row)
-	tr_row.add_child(UIKit.icon("ui/icon_coin.png", 52))
+	tr_row.add_child(UIKit.icon("ui/user/coin_pouch.png" if Assets.user("coin_pouch.png") != null else "ui/icon_coin.png", 64))
 	_money = UIKit.label("", 34, UIKit.GOLD)
 	_money.custom_minimum_size.x = 230
 	tr_row.add_child(_money)

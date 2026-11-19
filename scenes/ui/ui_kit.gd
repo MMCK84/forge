@@ -80,7 +80,9 @@ static func theme() -> Theme:
 	t.set_color("font_disabled_color", "Button", Color("9d9384"))
 	t.set_color("font_focus_color", "Button", Color.WHITE)
 	for st in ["normal", "hover", "pressed", "disabled"]:
-		var sb := _tex_box("ui/button_%s.png" % st, 16.0, 20.0, 8.0)
+		var sb := _tex_box("ui/user/btn_%s.png" % st, 20.0, 24.0, 10.0)
+		if sb == null:
+			sb = _tex_box("ui/button_%s.png" % st, 16.0, 20.0, 8.0)
 		if sb != null:
 			t.set_stylebox(st, "Button", sb)
 			t.set_stylebox(st, "OptionButton", sb)
@@ -88,7 +90,9 @@ static func theme() -> Theme:
 	# Panels: Pergament
 	t.set_stylebox("panel", "PanelContainer", _box(PARCHMENT, BRASS, 4, 12, 24))
 	t.set_stylebox("panel", "Panel", _box(PARCHMENT, BRASS, 4, 12, 24))
-	var parch := _tex_box("ui/parchment.png", 40.0, 30.0, 24.0)
+	var parch := _tex_box("ui/user/panel_parchment.png", 110.0, 72.0, 58.0)
+	if parch == null:
+		parch = _tex_box("ui/parchment.png", 40.0, 30.0, 24.0)
 	if parch != null:
 		t.set_stylebox("panel", "PanelContainer", parch)
 		t.set_stylebox("panel", "Panel", parch)
@@ -227,7 +231,9 @@ static func icon(rel: String, size: float) -> Control:
 
 ## Leder-Leiste für HUD-Balken (oder flacher Stil).
 static func bar_box() -> StyleBox:
-	var sb := _tex_box("ui/leather_bar.png", 12.0, 12.0, 8.0)
+	var sb := _tex_box("ui/user/hud_bar.png", 24.0, 22.0, 10.0)
+	if sb == null:
+		sb = _tex_box("ui/leather_bar.png", 12.0, 12.0, 8.0)
 	if sb != null:
 		return sb
 	return _box(Color(0.16, 0.11, 0.08, 0.92), BRASS, 0, 0, 12)

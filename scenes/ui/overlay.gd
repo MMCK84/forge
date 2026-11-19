@@ -33,6 +33,9 @@ func _ready() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(center)
+	if build_custom(center):
+		_finish_ready()
+		return
 	panel = PanelContainer.new()
 	panel.custom_minimum_size.x = panel_width
 	center.add_child(panel)
@@ -56,6 +59,10 @@ func _ready() -> void:
 	content.add_theme_constant_override("separation", 12)
 	outer.add_child(content)
 	build(content)
+	_finish_ready()
+
+
+func _finish_ready() -> void:
 	if pauses_sim:
 		_counted = true
 		open_count += 1
@@ -71,7 +78,14 @@ func _exit_tree() -> void:
 			GameManager.sim_paused = false
 
 
+## Für Fenster mit eigenem Aufbau (z. B. Auftragsbuch als Buch): true zurückgeben, wenn gebaut.
+func build_custom(_center: CenterContainer) -> bool:
+	return false
+
+
 func _focus_first() -> void:
+	if content == null:
+		return
 	var b := _find_button(content)
 	if b != null:
 		b.grab_focus()
@@ -89,7 +103,8 @@ func _find_button(n: Node) -> Button:
 
 
 func set_title(text: String) -> void:
-	_title_label.text = text
+	if _title_label != null:
+		_title_label.text = text
 
 
 ## Zum Überschreiben.

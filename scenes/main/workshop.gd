@@ -40,6 +40,8 @@ var info_label: Label
 var btn_load: Button
 var btn_move: Button
 var btn_hammer: Button
+## Beschriftung unter dem großen Glut-Knopf (nur wenn dessen Grafik vorhanden ist)
+var hammer_label: Label
 var btn_quench: Button
 var sparks: CPUParticles2D
 var weld_sparks: CPUParticles2D
@@ -136,8 +138,9 @@ func _ready() -> void:
 	btn_hammer = UIKit.button(tr("UI_BTN_HAMMER"), Callable(), Vector2(420, 60), 24)
 	btn_hammer.button_down.connect(_hammer_press)
 	btn_hammer.button_up.connect(_hammer_release)
-	btn_hammer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	buttons.add_child(btn_hammer)
+	if not _make_ember_hammer():
+		btn_hammer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		buttons.add_child(btn_hammer)
 	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(300, 60), 22)
 	buttons.add_child(btn_quench)
 	for b in [btn_load, btn_move, btn_hammer, btn_quench]:
@@ -197,6 +200,37 @@ func _connect_hud() -> void:
 func _open_if_free(path: String) -> void:
 	if Overlay.open_count == 0:
 		open_overlay(path)
+
+
+## Großer runder HAMMERN-Knopf aus der Glut-Grafik des Auftraggebers rechts neben der Glühskala.
+func _make_ember_hammer() -> bool:
+	var boxes := {}
+	for st in ["normal", "hover", "pressed", "disabled"]:
+		var tex := Assets.user("ember_%s.png" % st)
+		if tex == null:
+			return false
+		var sb := StyleBoxTexture.new()
+		sb.texture = tex
+		boxes[st] = sb
+	for st in boxes:
+		btn_hammer.add_theme_stylebox_override(st, boxes[st])
+	btn_hammer.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	btn_hammer.text = ""
+	btn_hammer.tooltip_text = tr("UI_BTN_HAMMER")
+	btn_hammer.custom_minimum_size = Vector2(212, 110)
+	btn_hammer.position = Vector2(1692, 788)
+	btn_hammer.size = btn_hammer.custom_minimum_size
+	stage.add_child(btn_hammer)
+	hammer_label = UIKit.label(tr("UI_BTN_HAMMER"), 21, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+	hammer_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	hammer_label.custom_minimum_size = Vector2(232, 0)
+	hammer_label.position = Vector2(1682, 900)
+	hammer_label.size = Vector2(232, 60)
+	hammer_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	hammer_label.add_theme_constant_override("outline_size", 6)
+	hammer_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stage.add_child(hammer_label)
+	return true
 
 
 func _layout() -> void:
@@ -700,5 +734,8 @@ func _on_settings_changed() -> void:
 	_connect_hud()
 	btn_load.text = tr("UI_BTN_LOAD")
 	btn_move.text = tr("UI_BTN_MOVE")
-	btn_hammer.text = tr("UI_BTN_HAMMER")
+	if hammer_label != null:
+		hammer_label.text = tr("UI_BTN_HAMMER")
+	else:
+		btn_hammer.text = tr("UI_BTN_HAMMER")
 	btn_quench.text = tr("UI_BTN_QUENCH")
