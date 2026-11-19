@@ -1,0 +1,107 @@
+[gd_resource type="Resource" script_class="BalanceConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/balance_config.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+room_temp = 20.0
+k_cool = 15.0
+transfer_time = 0.5
+cold_limit = 400.0
+optimal_min = 700.0
+optimal_max = 1100.0
+burn_limit = 1300.0
+warm_min_mult = 0.1
+overheat_min_mult = 0.5
+cold_hit_damage = 0.02
+overheat_damage_per_s = 0.06
+damage_warning = 0.5
+ruin_material_cost = 0.2
+q_damage_weight = 0.5
+precision_window_min = 850.0
+precision_window_max = 1000.0
+star_thresholds = PackedFloat32Array(0.55, 0.75, 0.9)
+star_factor_standard = PackedFloat32Array(0.7, 0.9, 1.0, 1.1)
+star_factor_precision = PackedFloat32Array(0.6, 0.85, 1.0, 1.25)
+reference_hits_per_s = 5.0
+max_hits_per_s = 8.0
+hold_hits_per_s = 4.0
+offers_count = 3
+reroll_cooldown_s = 60
+tutorial_standard_only_jobs = 10
+type_weights = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20]]
+quantity_chance = PackedFloat32Array(0.0, 0.35, 0.35, 0.35, 0.35, 0.3)
+quantity_values = PackedInt32Array(2, 3, 4, 6, 8, 12)
+quantity_weights = PackedFloat32Array(30.0, 25.0, 20.0, 12.0, 8.0, 5.0)
+weld_share = PackedFloat32Array(0.0, 0.0, 0.4, 0.3, 0.3, 0.25)
+harden_share = PackedFloat32Array(0.0, 0.0, 0.0, 0.35, 0.3, 0.2)
+big_share = PackedFloat32Array(0.0, 0.0, 0.0, 0.0, 0.0, 0.3)
+quality_tiers = [{
+"id": "simple",
+"fp": 0.8,
+"wage": 0.75,
+"weight": 30.0,
+"min_epoch": 1
+}, {
+"id": "solid",
+"fp": 1.0,
+"wage": 1.0,
+"weight": 45.0,
+"min_epoch": 1
+}, {
+"id": "fine",
+"fp": 1.25,
+"wage": 1.4,
+"weight": 20.0,
+"min_epoch": 1
+}, {
+"id": "masterly",
+"fp": 1.6,
+"wage": 2.0,
+"weight": 5.0,
+"min_epoch": 2
+}]
+epoch_job_counts = PackedInt32Array(30, 40, 50, 50, 60, 70)
+fp_start = PackedFloat32Array(300.0, 1800.0, 6000.0, 12000.0, 25000.0, 40000.0)
+rate_per_fp = PackedFloat32Array(0.04, 0.04, 0.035, 0.045, 0.05, 0.065)
+scale_per_epoch = 5.0
+free_play_exponent_cap = 1.5
+type_factor_standard = 1.0
+type_factor_precision = 1.2
+type_factor_rush = 1.5
+type_factor_rush_late = 0.5
+type_factor_milestone = 2.0
+milestone_fp_factor = 1.5
+rush_min_time_s = 45.0
+rush_time_factor = 1.5
+weld_at_progress = 0.5
+weld_hits_required = 6
+weld_min = 1200.0
+weld_max = 1300.0
+weld_forge_min_tmax = 1250.0
+precision_forge_min_tmax = 1000.0
+quench_good_min = 760.0
+quench_good_max = 840.0
+quench_ok_min = 700.0
+quench_ok_max = 900.0
+quench_uneven_penalty = 0.15
+quench_bad_penalty = 0.35
+water_level_min = 0.6
+water_level_max = 1.0
+water_change_min_s = 180.0
+water_change_max_s = 300.0
+big_manual_factor = 0.25
+auto_hit_min_temp = 400.0
+upgrade_base = PackedInt32Array(30, 120, 400, 1500, 5000, 15000)
+upgrade_growth = 1.4
+upgrade_step = 0.1
+upgrade_max_level = 10
+epoch_fees = PackedInt32Array(480, 2400, 9600, 36000, 96000)
+offline_max_s = 28800.0
+journeyman_payout_interval_s = 10.0
+ref_return_temp = 700.0
+ref_take_temp = 1100.0
+ref_move_loss_s = 1.0
+apprentice_to_forge_below = 750.0
+apprentice_to_anvil_at = 1050.0
+autosave_interval_s = 60.0

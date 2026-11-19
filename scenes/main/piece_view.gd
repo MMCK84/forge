@@ -1,0 +1,97 @@
+extends Node2D
+## Darstellung eines Werkstücks: ein graustufiges Platzhalter-Sprite, das der
+## Glow-Shader nach Temperatur einfärbt (6.5). Overlay zeigt Riss-Symbol und Hinweise.
+
+const HeatModel = preload("res://scripts/heat_model.gd")
+const ItemShapes = preload("res://scripts/item_shapes.gd")
+const GLOW_SHADER = preload("res://shaders/glow.gdshader")
+
+static var _gradient_tex: GradientTexture1D = null
+
+var shape: String = "bar"
+var size_px: float = 150.0
+var temp: float = 20.0
+var progress_ratio: float = 0.0
+var damage: float = 0.0
+var damage_warning: float = 0.5
+var selected: bool = false
+## "", "weld", "quench"
+var badge: String = ""
+var target_pos: Vector2 = Vector2.ZERO
+var _overlay: Node2D
+var _halo: Node2D
+
+
+func _ready() -> void:
+	if _gradient_tex == null:
+		_gradient_tex = GradientTexture1D.new()
+		_gradient_tex.gradient = HeatModel.make_glow_gradient()
+		_gradient_tex.width = 256
+	var mat := ShaderMaterial.new()
+	mat.shader = GLOW_SHADER
+	mat.set_shader_parameter("glow_gradient", _gradient_tex)
+	mat.set_shader_parameter("t_scale", HeatModel.GLOW_T_MAX)
+	material = mat
+	_halo = Node2D.new()
+	_halo.show_behind_parent = true
+	_halo.draw.connect(_draw_halo)
+	add_child(_halo)
+	_overlay = Node2D.new()
+	_overlay.z_index = 1
+	_overlay.draw.connect(_draw_overlay)
+	add_child(_overlay)
+
+
+func update_state(t: float, prog: float, dmg: float, sel: bool, b: String) -> void:
+	temp = t
+	progress_ratio = clampf(prog, 0.0, 1.0)
+	damage = dmg
+	selected = sel
+	badge = b
+	var strength := HeatModel.glow_strength(temp)
+	var mat := material as ShaderMaterial
+	mat.set_shader_parameter("temperature", temp)
+	mat.set_shader_parameter("glow_strength", strength)
+	mat.set_shader_parameter("flicker", strength)
+	queue_redraw()
+	_overlay.queue_redraw()
+	_halo.queue_redraw()
+
+
+func _process(delta: float) -> void:
+	position = position.lerp(target_pos, 1.0 - exp(-delta * 14.0))
+
+
+func _draw() -> void:
+	# Rohling (Stab) wandelt sich mit dem Fortschritt in die Zielform.
+	var a := progress_ratio
+	if a < 0.999:
+		ItemShapes.draw(self, "bar", size_px * 0.8, 1.0 - a * 0.85)
+	if a > 0.001:
+		ItemShapes.draw(self, shape, size_px, clampf(a * 1.4, 0.0, 1.0))
+
+
+func _draw_halo() -> void:
+	var s := HeatModel.glow_strength(temp)
+	if s <= 0.01:
+		return
+	var c := HeatModel.glow_color(temp)
+	for k in 4:
+		var r := size_px * (0.35 + 0.15 * k)
+		_halo.draw_circle(Vector2.ZERO, r, Color(c.r, c.g, c.b, 0.07 * s))
+
+
+func _draw_overlay() -> void:
+	if selected:
+		_overlay.draw_arc(Vector2.ZERO, size_px * 0.62, 0, TAU, 40, Color(1, 0.85, 0.4, 0.8), 3.0, true)
+	if damage > 0.0:
+		var p := Vector2(size_px * 0.42, -size_px * 0.32)
+		var col := Color(0.95, 0.85, 0.7) if damage < damage_warning else Color(1, 0.3, 0.2)
+		_overlay.draw_circle(p, 18.0, Color(0, 0, 0, 0.55))
+		_overlay.draw_polyline(PackedVector2Array([p + Vector2(-2, -12), p + Vector2(4, -3), p + Vector2(-3, 3), p + Vector2(3, 12)]), col, 3.0, true)
+		if damage >= damage_warning:
+			_overlay.draw_string(ThemeDB.fallback_font, p + Vector2(16, 8), "!", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, col)
+	if badge == "weld":
+		_overlay.draw_string(ThemeDB.fallback_font, Vector2(-size_px * 0.5, -size_px * 0.35), tr("BADGE_WELD"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(1, 0.95, 0.7))
+	elif badge == "quench":
+		_overlay.draw_string(ThemeDB.fallback_font, Vector2(-size_px * 0.5, -size_px * 0.35), tr("BADGE_QUENCH"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(0.75, 0.9, 1.0))

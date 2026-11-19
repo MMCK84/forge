@@ -1,0 +1,122 @@
+extends Control
+## Die Esse mit 1–3 Plätzen, Glut, Rauchfang und Blasebalg (Platzhaltergrafik).
+## Klick/Tippen auf einen Platz meldet slot_clicked; auf den Rohling-Stapel raw_clicked.
+
+signal slot_clicked(slot: int)
+signal raw_clicked()
+
+var tier: int = 1
+var slots: int = 1
+var raw_count: int = 0
+var heating: bool = false
+var selected_slot: int = 0
+var _t: float = 0.0
+## Bereich des Rohling-Stapels (lokal)
+var raw_rect := Rect2(0, 600, 300, 100)
+
+
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_STOP
+
+
+func _process(delta: float) -> void:
+	_t += delta
+	queue_redraw()
+
+
+## Mittelpunkt eines Platzes (lokal).
+func slot_center(i: int) -> Vector2:
+	var n := maxi(1, slots)
+	var x0 := 230.0
+	var x1 := 650.0
+	var x := (x0 + x1) * 0.5 if n == 1 else x0 + (x1 - x0) * float(i) / float(n - 1)
+	return Vector2(x, 395.0)
+
+
+func slot_rect(i: int) -> Rect2:
+	var c := slot_center(i)
+	return Rect2(c.x - 90, c.y - 80, 180, 140)
+
+
+func raw_center() -> Vector2:
+	return raw_rect.get_center()
+
+
+func _gui_input(event: InputEvent) -> void:
+	var mb := event as InputEventMouseButton
+	if mb != null and mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
+		var p: Vector2 = mb.position
+		if raw_rect.has_point(p):
+			raw_clicked.emit()
+			accept_event()
+			return
+		for i in slots:
+			if slot_rect(i).has_point(p):
+				slot_clicked.emit(i)
+				accept_event()
+				return
+
+
+func _draw() -> void:
+	var stone: Color = [Color("7a5a3a"), Color("8a3f2a"), Color("7a4030"), Color("4a4a4f")][clampi(tier, 1, 4) - 1]
+	# Rauchfang
+	draw_colored_polygon(PackedVector2Array([Vector2(200, 40), Vector2(680, 40), Vector2(760, 250), Vector2(120, 250)]), stone.darkened(0.35))
+	draw_rect(Rect2(380, -150, 120, 190), stone.darkened(0.45))
+	# Herd
+	draw_rect(Rect2(110, 330, 660, 230), stone)
+	if tier == 2 or tier == 3:
+		var y := 330.0
+		var row := 0
+		while y < 560.0:
+			var x := 110.0 + (30.0 if row % 2 == 1 else 0.0)
+			while x < 770.0:
+				draw_rect(Rect2(x, y, minf(60.0, 770.0 - x), 28), stone.darkened(0.25), false, 2.0)
+				x += 60.0
+			y += 28.0
+			row += 1
+	if tier == 4:
+		for k in 6:
+			draw_circle(Vector2(140 + k * 120, 545), 8, Color("6d6f73"))
+	# Glutbett
+	var fire := Color(1.0, 0.45, 0.1)
+	var flick := 0.75 + 0.25 * sin(_t * 7.0) * sin(_t * 3.1)
+	if heating:
+		flick += 0.2
+	draw_rect(Rect2(150, 360, 580, 70), Color(0.15, 0.06, 0.03))
+	for k in 18:
+		var cx := 165.0 + k * 32.0
+		var cy := 405.0 + 8.0 * sin(k * 1.7)
+		var glow := clampf(flick * (0.6 + 0.4 * sin(_t * 5.0 + k)), 0.2, 1.2)
+		draw_circle(Vector2(cx, cy), 17, Color(fire.r, fire.g * glow, fire.b, 0.9))
+		draw_circle(Vector2(cx, cy), 8, Color(1.0, 0.85, 0.4, 0.6 * glow))
+	for k in 3:
+		draw_circle(Vector2(440, 380), 200.0 + k * 60.0, Color(1.0, 0.5, 0.15, 0.035 * flick))
+	# Platzmarkierungen
+	for i in slots:
+		var r := slot_rect(i)
+		var col := Color(1, 0.85, 0.5, 0.55) if i == selected_slot else Color(1, 0.8, 0.5, 0.18)
+		draw_rect(r, col, false, 3.0)
+		draw_string(ThemeDB.fallback_font, r.position + Vector2(8, 26), str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, col)
+	# Blasebalg (bei Doppelblasebalg zwei, bei Koks-Esse Zylindergebläse)
+	var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
+	if tier < 4:
+		var n := 2 if tier == 3 else 1
+		for k in n:
+			var by := 420.0 + k * 90.0
+			var h := 40.0 + 30.0 * pump
+			draw_colored_polygon(PackedVector2Array([Vector2(-60, by - h * 0.5), Vector2(60, by - 12), Vector2(60, by + 12), Vector2(-60, by + h * 0.5)]), Color("6b4a2f"))
+			draw_line(Vector2(-60, by - h * 0.5), Vector2(-120, by - h * 0.5 - 10), Color("3b2a1e"), 8.0)
+			draw_line(Vector2(60, by), Vector2(110, by), Color("4a4a4f"), 10.0)
+	else:
+		draw_rect(Rect2(-80, 380, 110, 160), Color("4a4a4f"))
+		draw_circle(Vector2(-25, 400), 40, Color("5a5a60"))
+		draw_line(Vector2(30, 460), Vector2(110, 430), Color("4a4a4f"), 14.0)
+	# Rohling-Stapel
+	draw_rect(raw_rect, Color(0.18, 0.13, 0.09, 0.85))
+	draw_rect(raw_rect, Color("b08d57"), false, 3.0)
+	for k in mini(raw_count, 6):
+		var y2 := raw_rect.position.y + raw_rect.size.y - 22 - (k % 3) * 14
+		var x2 := raw_rect.position.x + 30 + (k / 3) * 120
+		draw_rect(Rect2(x2, y2, 110, 12), Color("6d6f73"))
+		draw_rect(Rect2(x2, y2, 110, 4), Color("9a9ca0"))
+	draw_string(ThemeDB.fallback_font, raw_rect.position + Vector2(10, 32), tr("UI_RAW_STACK") + ": " + str(raw_count), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("e9dcc0"))

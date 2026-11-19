@@ -1,0 +1,126 @@
+class_name BalanceConfig
+extends Resource
+## Alle Balancing-Konstanten des Spiels (Lastenheft 5.8 / 8.4).
+## Werte werden ausschließlich in data/balance/balance_config.tres gepflegt.
+
+@export_group("Temperatur (2.3)")
+@export var room_temp: float = 20.0
+@export var k_cool: float = 15.0
+@export var transfer_time: float = 0.5
+
+@export_group("Schlagwirkung M(T) (2.4)")
+@export var cold_limit: float = 400.0
+@export var optimal_min: float = 700.0
+@export var optimal_max: float = 1100.0
+@export var burn_limit: float = 1300.0
+@export var warm_min_mult: float = 0.1
+@export var overheat_min_mult: float = 0.5
+
+@export_group("Gefügeschaden (2.5)")
+@export var cold_hit_damage: float = 0.02
+@export var overheat_damage_per_s: float = 0.06
+@export var damage_warning: float = 0.5
+@export var ruin_material_cost: float = 0.2
+
+@export_group("Qualität & Sterne (2.6)")
+@export var q_damage_weight: float = 0.5
+@export var precision_window_min: float = 850.0
+@export var precision_window_max: float = 1000.0
+## Schwellen für 1, 2, 3 Sterne
+@export var star_thresholds: PackedFloat32Array = PackedFloat32Array([0.55, 0.75, 0.90])
+## Lohnfaktor für 0, 1, 2, 3 Sterne
+@export var star_factor_standard: PackedFloat32Array = PackedFloat32Array([0.70, 0.90, 1.00, 1.10])
+@export var star_factor_precision: PackedFloat32Array = PackedFloat32Array([0.60, 0.85, 1.00, 1.25])
+
+@export_group("Eingabe (2.7)")
+@export var reference_hits_per_s: float = 5.0
+@export var max_hits_per_s: float = 8.0
+@export var hold_hits_per_s: float = 4.0
+
+@export_group("Auftragsbuch (3.1)")
+@export var offers_count: int = 3
+@export var reroll_cooldown_s: int = 60
+@export var tutorial_standard_only_jobs: int = 10
+## Gewichte [Standard, Präzision, Eil] je Epoche 1..6
+@export var type_weights: Array = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20]]
+## Wahrscheinlichkeit für Mengenaufträge je Epoche
+@export var quantity_chance: PackedFloat32Array = PackedFloat32Array([0.0, 0.35, 0.35, 0.35, 0.35, 0.30])
+@export var quantity_values: PackedInt32Array = PackedInt32Array([2, 3, 4, 6, 8, 12])
+@export var quantity_weights: PackedFloat32Array = PackedFloat32Array([30, 25, 20, 12, 8, 5])
+## Anteil Schweiß-/Härte-/Großschmiedeaufträge je Epoche
+@export var weld_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.40, 0.30, 0.30, 0.25])
+@export var harden_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.35, 0.30, 0.20])
+@export var big_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.30])
+
+@export_group("Qualitätsstufen (3.2)")
+## Jede Stufe: id, fp, wage, weight, min_epoch
+@export var quality_tiers: Array = [
+	{"id": "simple", "fp": 0.8, "wage": 0.75, "weight": 30.0, "min_epoch": 1},
+	{"id": "solid", "fp": 1.0, "wage": 1.0, "weight": 45.0, "min_epoch": 1},
+	{"id": "fine", "fp": 1.25, "wage": 1.4, "weight": 20.0, "min_epoch": 1},
+	{"id": "masterly", "fp": 1.6, "wage": 2.0, "weight": 5.0, "min_epoch": 2},
+]
+
+@export_group("Skalierung (3.3)")
+@export var epoch_job_counts: PackedInt32Array = PackedInt32Array([30, 40, 50, 50, 60, 70])
+@export var fp_start: PackedFloat32Array = PackedFloat32Array([300, 1800, 6000, 12000, 25000, 40000])
+@export var rate_per_fp: PackedFloat32Array = PackedFloat32Array([0.040, 0.040, 0.035, 0.045, 0.050, 0.065])
+@export var scale_per_epoch: float = 5.0
+@export var free_play_exponent_cap: float = 1.5
+
+@export_group("Auftragstypen (3.3/3.4)")
+@export var type_factor_standard: float = 1.0
+@export var type_factor_precision: float = 1.2
+@export var type_factor_rush: float = 1.5
+@export var type_factor_rush_late: float = 0.5
+@export var type_factor_milestone: float = 2.0
+@export var milestone_fp_factor: float = 1.5
+@export var rush_min_time_s: float = 45.0
+@export var rush_time_factor: float = 1.5
+
+@export_group("Feuerschweißen (4.4.1)")
+@export var weld_at_progress: float = 0.5
+@export var weld_hits_required: int = 6
+@export var weld_min: float = 1200.0
+@export var weld_max: float = 1300.0
+@export var weld_forge_min_tmax: float = 1250.0
+@export var precision_forge_min_tmax: float = 1000.0
+
+@export_group("Härten (4.4.2)")
+@export var quench_good_min: float = 760.0
+@export var quench_good_max: float = 840.0
+@export var quench_ok_min: float = 700.0
+@export var quench_ok_max: float = 900.0
+@export var quench_uneven_penalty: float = 0.15
+@export var quench_bad_penalty: float = 0.35
+
+@export_group("Maschinen (4.4.3/4.4.4)")
+@export var water_level_min: float = 0.6
+@export var water_level_max: float = 1.0
+@export var water_change_min_s: float = 180.0
+@export var water_change_max_s: float = 300.0
+@export var big_manual_factor: float = 0.25
+## Maschinen und Zuschläger schlagen nur auf Eisen ab dieser Temperatur
+@export var auto_hit_min_temp: float = 400.0
+
+@export_group("Wirtschaft (5.2/5.6/5.7)")
+@export var upgrade_base: PackedInt32Array = PackedInt32Array([30, 120, 400, 1500, 5000, 15000])
+@export var upgrade_growth: float = 1.4
+@export var upgrade_step: float = 0.1
+@export var upgrade_max_level: int = 10
+## Meistergebühr für den Wechsel in Epoche 2..6 (Index 0 = 1→2)
+@export var epoch_fees: PackedInt32Array = PackedInt32Array([480, 2400, 9600, 36000, 96000])
+@export var offline_max_s: float = 28800.0
+@export var journeyman_payout_interval_s: float = 10.0
+
+@export_group("Referenzspieler (5.8)")
+@export var ref_return_temp: float = 700.0
+@export var ref_take_temp: float = 1100.0
+@export var ref_move_loss_s: float = 1.0
+
+@export_group("Personal (5.5)")
+@export var apprentice_to_forge_below: float = 750.0
+@export var apprentice_to_anvil_at: float = 1050.0
+
+@export_group("Speichern (7.3)")
+@export var autosave_interval_s: float = 60.0

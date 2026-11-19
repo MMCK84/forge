@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CustomerData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/customer_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "vicar"
+min_epoch = 1
+max_epoch = 2
+portrait_color = Color(0.239, 0.239, 0.290, 1)

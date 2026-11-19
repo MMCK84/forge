@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "piston_rod"
+epoch = 5
+factor = 1.4
+category = "normal"
+shape = "rod"
+allow_quantity = false

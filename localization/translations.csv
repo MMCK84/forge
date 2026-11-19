@@ -1,0 +1,536 @@
+keys,de,en
+BADGE_QUENCH,Abschrecken!,Quench!
+BADGE_WELD,Schweißen!,Weld!
+CAT_BIG,Großschmiedestück,Heavy forging
+CAT_HARDEN,Härten,Hardening
+CAT_WELD,Feuerschweißen,Forge welding
+CREDITS_TEXT,"Forge Workshop (Arbeitstitel)\n\nSpielidee und Lastenheft: der Auftraggeber\nUmsetzung: Godot 4 (GDScript)\n\nGrafik, Klänge und Musik sind vorläufige Platzhalter, die zur Laufzeit erzeugt werden.\n\nHistorische Eckdaten: Darby (Koks, 1709), Huntsman (Tiegelstahl, 1740er), Hargreaves (Spinning Jenny, um 1764), Watt (Patent 1769), Boulton & Watt (ab 1775), Eisenbrücke bei Coalbrookdale (1779), Wedgwoods Pyrometer (1782), Cort (Puddelverfahren, 1784).","Forge Workshop (working title)\n\nGame idea and specification: the client\nImplementation: Godot 4 (GDScript)\n\nGraphics, sounds and music are provisional placeholders generated at runtime.\n\nHistorical landmarks: Darby (coke, 1709), Huntsman (crucible steel, 1740s), Hargreaves (spinning jenny, c. 1764), Watt (patent 1769), Boulton & Watt (from 1775), the Iron Bridge at Coalbrookdale (1779), Wedgwood's pyrometer (1782), Cort (puddling, 1784)."
+CUST_BOULTON_WATT,Boulton & Watt in Soho,Boulton & Watt of Soho
+CUST_CANAL_COMPANY,die Kanalgesellschaft,the canal company
+CUST_CARPENTER,den Zimmermann,the carpenter
+CUST_CARRIER_BENNETT,Fuhrmann Bennett,Carrier Bennett
+CUST_CLOTHIER_LEEDS,einen Tuchmacher aus Leeds,a Leeds clothier
+CUST_COACHBUILDER_YORK,den Wagenbauer aus York,the coachbuilder of York
+CUST_COLLIERY_WEDNESBURY,die Zeche von Wednesbury,the Wednesbury colliery
+CUST_CUTLERS_SHEFFIELD,die Messerschmiede von Sheffield,the Sheffield cutlers
+CUST_DOCKYARD_CHATHAM,die Werft in Chatham,Chatham Dockyard
+CUST_EAST_INDIA,die Ostindien-Kompanie,the East India Company
+CUST_ENGINE_WORKS,eine Maschinenfabrik,an engine works
+CUST_FARMER_HOLLOW,Bauer Hollow,Farmer Hollow
+CUST_HARBOURMASTER,den Hafenmeister,the harbourmaster
+CUST_INNKEEPER_COACHING,den Wirt des Posthauses,the coaching-inn keeper
+CUST_IRONMASTER_COALBROOKDALE,den Eisenhüttenherrn von Coalbrookdale,the ironmaster of Coalbrookdale
+CUST_IRONWORKS_PARTNERS,Eure Teilhaber im Eisenwerk,your ironworks partners
+CUST_LANDLADY_RED_LION,die Wirtin des „Roten Löwen“,the landlady of the Red Lion
+CUST_MERCHANT_BRISTOL,einen Kaufmann aus Bristol,a Bristol merchant
+CUST_MILLER_UPTON,den Müller von Upton,the miller of Upton
+CUST_MILL_OWNER,den Herrn einer Baumwollspinnerei,a cotton-mill owner
+CUST_MINE_CORNWALL,eine Zinngrube in Cornwall,a Cornish tin mine
+CUST_NAVY_BOARD,das Marineamt,the Navy Board
+CUST_PLATEWAY_COMPANY,die Plattenschienen-Bahn,the plateway company
+CUST_POSTMASTER_BATH,den Postmeister von Bath,the postmaster of Bath
+CUST_ROPEWALK_CHATHAM,die Reeperbahn von Chatham,the Chatham ropewalk
+CUST_SHIPWRIGHT_PORTSMOUTH,den Schiffbaumeister von Portsmouth,the master shipwright of Portsmouth
+CUST_SPINNING_MASTER,den Spinnmeister,the spinning master
+CUST_SQUIRE,den Gutsherrn,the squire
+CUST_TOOLMAKER_HOLT,den Werkzeugmacher Holt,toolmaker Holt
+CUST_TURNPIKE_TRUST,die Mautstraßen-Gesellschaft,the Turnpike Trust
+CUST_VICAR,den Pfarrer,the vicar
+CUST_WEDGWOOD_ETRURIA,Josiah Wedgwood in Etruria,Josiah Wedgwood of Etruria
+EPOCH_1_INTRO,"Landwirtschaft und Alltag: Nägel, Hufeisen, Haken, Türangeln, Sicheln und Pflugscharen.","Farming and everyday life: nails, horseshoes, hooks, hinges, sickles and ploughshares."
+EPOCH_1_NAME,Die Dorfschmiede,The Village Smithy
+EPOCH_2_INTRO,"Ihr habt die Schmiede an der Poststraße gepachtet. Kutscher und Postmeister brauchen Radreifen, Achsen und Beschläge – oft gleich mehrere Stück und manchmal in Eile. Eine Ziegel-Esse mit zwei Plätzen und ein Lehrling helfen dabei.","You have leased the smithy on the post road. Coachmen and postmasters need tyres, axles and fittings – often several at once, and sometimes in a hurry. A brick forge with two places and an apprentice will help."
+EPOCH_2_NAME,Kutschen & Handelswege,Coaches & Trade Roads
+EPOCH_2_TEASER,"Die Mautstraßen werden ausgebaut, Postkutschen rollen durchs Land. Eine Schmiede an der Poststraße wartet auf Euch.",The turnpikes are spreading and mail coaches roll across the land. A smithy on the post road awaits you.
+EPOCH_3_INTRO,"Eure neue Werkstatt liegt am Hafen. Ketten, Anker und Bootshaken müssen feuergeschweißt werden: Bei halber Arbeit braucht das Eisen Weißglut (1200–1300 °C). Ein Zuschläger mit dem Vorschlaghammer beschleunigt die Arbeit.","Your new workshop lies on the harbour. Chains, anchors and boathooks must be forge-welded: halfway through, the iron needs white heat (1200–1300 °C). A striker with a sledgehammer speeds up the work."
+EPOCH_3_NAME,Hafen & Royal Navy,Harbour & Royal Navy
+EPOCH_3_TEASER,"Die Flotte wächst. Im Hafen sucht man Schmiede, die Ketten und Anker im Feuer schweißen können.",The fleet is growing. The harbour needs smiths who can forge-weld chains and anchors.
+EPOCH_4_INTRO,"Mit dem Meisterbrief der Gilde fertigt Ihr nun Klingen, Federn und Werkzeuge. Nach dem Schmieden werden sie im Löschtrog gehärtet – am besten bei Kirschrot (760–840 °C). Ein Geselle arbeitet für Euch, sogar während Ihr ruht.","With the guild's master certificate you now make blades, springs and tools. After forging they are hardened in the quench trough – best at cherry red (760–840 °C). A journeyman works for you, even while you rest."
+EPOCH_4_NAME,Stahl & Tuch,Steel & Cloth
+EPOCH_4_TEASER,Huntsmans Tiegelstahl aus Sheffield und die ersten Spinnmaschinen verlangen nach gehärtetem Werkzeug.,Huntsman's Sheffield crucible steel and the first spinning machines call for hardened tools.
+EPOCH_5_INTRO,"Ihr habt ein Hammerwerk mit Wasserrad übernommen. Ein Wasser-Schwanzhammer schlägt von selbst mit, solange ein Werkstück auf dem Amboss liegt – je nach Wasserstand mit 60 bis 100 % Kraft. Die Koks-Esse heizt schneller und heißer als alles zuvor.",You have taken over a hammer mill with a water-wheel. A water-powered helve strikes on its own while a piece lies on the anvil – at 60 to 100 % power depending on the water level. The coke forge heats faster and hotter than anything before.
+EPOCH_5_NAME,Das Zeitalter des Dampfes,The Age of Steam
+EPOCH_5_TEASER,"Watts Dampfmaschine, Gruben und Kanäle: Ein Hammerwerk mit Wasserrad steht zum Verkauf.","Watt's steam engine, mines and canals: a hammer mill with a water-wheel is for sale."
+EPOCH_6_INTRO,"Als Teilhaber eines Eisenwerks schmiedet Ihr Wellen, Achsen und Kesselteile. Großschmiedestücke sind zu schwer für den Handhammer – hier arbeitet vor allem der Dampf-Schwanzhammer, Ihr steuert Hitze und Abläufe. Dampf kostet Kohle: 5s je Betriebsminute.","As a partner in an ironworks you forge shafts, axles and boiler parts. Heavy forgings are too much for the hand hammer – the steam helve does most of the work while you manage heat and timing. Steam costs coal: 5s per minute of operation."
+EPOCH_6_NAME,Das Zeitalter der Eisenwerke,The Age of Ironworks
+EPOCH_6_TEASER,Corts Puddelverfahren macht Schmiedeeisen massenhaft verfügbar. Ein Eisenwerk sucht Teilhaber.,Cort's puddling process makes wrought iron plentiful. An ironworks is looking for partners.
+ERR_INVALID,Ungültiges Angebot.,Invalid offer.
+ERR_JOB_ACTIVE,Es läuft bereits ein Auftrag.,An order is already in progress.
+FEE_2,Pacht der Schmiede an der Poststraße,Lease of the smithy on the post road
+FEE_3,"Werkstatt im Hafen, Lizenz der Admiralität","Harbour workshop, Admiralty licence"
+FEE_4,"Aufnahme in die Schmiedegilde, Meisterbrief","Admission to the smiths' guild, master's certificate"
+FEE_5,Übernahme eines Hammerwerks mit Wasserrad,Taking over a water-powered hammer mill
+FEE_6,Beteiligung an einem Eisenwerk,A share in an ironworks
+FORGE_BRICK,Ziegel-Esse,Brick forge
+FORGE_CLAY,Lehm-Esse mit Handblasebalg,Clay forge with hand bellows
+FORGE_COKE,Koks-Esse mit Zylindergebläse,Coke forge with blowing cylinders
+FORGE_DOUBLE_BELLOWS,Esse mit Doppelblasebalg,Forge with double bellows
+FX_BURNED,Verbrannt! Ausschuss,Burnt! Scrapped
+FX_CRACKED,Gerissen! Ausschuss,Cracked! Scrapped
+FX_PIECE_DONE,Stück fertig,Piece finished
+FX_QUENCH_CRACK,Härteriss,Quench crack
+FX_QUENCH_GOOD,Richtig gehärtet,Properly hardened
+FX_QUENCH_SOFT,Zu weich,Too soft
+FX_QUENCH_UNEVEN,Ungleichmäßig,Uneven
+FX_READY_TO_QUENCH,Bei ca. 800 °C abschrecken!,Quench at about 800 °C!
+FX_TOO_COLD,Zu kalt!,Too cold!
+FX_WELD_DONE,Geschweißt!,Welded!
+FX_WELD_PHASE,Schweißhitze! 1200–1300 °C,Welding heat! 1200–1300 °C
+GAME_SUBTITLE,Eine Schmiede im Großbritannien des 18. Jahrhunderts,A smithy in 18th-century Britain
+GAME_TITLE,Forge Workshop,Forge Workshop
+GLOW_CHERRY,Kirschrot,cherry red
+GLOW_DARK_RED,Dunkelrot,dark red
+GLOW_FAINT_RED,kaum sichtbares Dunkelrot,faint dark red
+GLOW_LIGHT_CHERRY,Hellkirschrot,light cherry red
+GLOW_NONE,keine Glut,no glow
+GLOW_ORANGE,Orange,orange
+GLOW_RED_ORANGE,Rotorange,red-orange
+GLOW_WHITE,Weißglut – Vorsicht!,white heat – careful!
+GLOW_YELLOW,Gelb,yellow
+GLOW_YELLOW_ORANGE,Gelborange,yellow-orange
+HAMMER_CROSS_PEEN,Kreuzschlaghammer,Cross-peen hammer
+HAMMER_CRUCIBLE,Gussstahl-Hammer (Tiegelstahl),Crucible-steel hammer
+HAMMER_HAND,Handhammer,Hand hammer
+HAMMER_STEEL_FACED,Hammer mit verstählter Bahn,Steel-faced hammer
+HINT_BIG_TEXT,Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – Ihr haltet das Eisen in der richtigen Hitze.,Too heavy for the hand hammer: your blows count only 25 %. The machine does most of the work – you keep the iron at the right heat.
+HINT_BIG_TITLE,Großschmiedestück,Heavy forging
+HINT_HARDEN_TEXT,"Ist das Stück fertig geschmiedet, zieht Ihr es in den Löschtrog [Q]. Bewertet wird die Temperatur beim Abschrecken: 760–840 °C ist richtig, darüber droht ein Härteriss, darunter bleibt es zu weich. Zu kalt? Einfach nachheizen.","Once the piece is fully forged, put it into the quench trough [Q]. The temperature when quenching counts: 760–840 °C is right; hotter risks a quench crack, cooler leaves it too soft. Too cold? Just reheat it."
+HINT_HARDEN_TITLE,Härten,Hardening
+HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab – auch wenn das Spiel geschlossen ist (bis zu 8 Stunden).,Your journeyman works his own orders in the background – even while the game is closed (up to 8 hours).
+HINT_JOURNEYMAN_TITLE,Der Geselle,The journeyman
+HINT_MACHINE_TEXT,"Eure Maschine schlägt automatisch mit, solange ein Werkstück mit mindestens 400 °C auf dem Amboss liegt – zusätzlich zu Euren eigenen Schlägen.",Your machine strikes automatically while a piece of at least 400 °C lies on the anvil – in addition to your own blows.
+HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
+HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr im engen Zielfenster von 850–1000 °C schmiedet. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the narrow window of 850–1000 °C counts here. Three stars earn a 25 % tip.
+HINT_PRECISION_TITLE,Präzisionsauftrag,Precision order
+HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet. Nutzt alle Plätze der Esse, damit die nächsten Stücke schon heizen, während Ihr schmiedet.",Several pieces: each is heated and forged on its own. Use every place in the forge so the next pieces are heating while you work.
+HINT_QUANTITY_TITLE,Mengenauftrag,Quantity order
+HINT_RUSH_TEXT,Die Sanduhr läuft ab Annahme. Pünktlich gibt es 50 % mehr Lohn; verspätet nur die Hälfte und kein Trinkgeld.,The hourglass runs from acceptance. On time pays 50 % more; late pays only half and no tip.
+HINT_RUSH_TITLE,Eilauftrag,Rush order
+HINT_WELCOME_TEXT,"Ein Werkstück wird in mehreren Hitzen fertig: in der Esse aufheizen, auf dem Amboss schmieden, solange es glüht, zurück ins Feuer, wieder schmieden. Das Timing zwischen Esse und Amboss ist Eure wichtigste Fertigkeit.\n\nZu kalt (unter 400 °C) beschädigt das Eisen, zu heiß (über 1100 °C) ebenso – über 1300 °C verbrennt es.","A piece is finished over several heats: heat it in the forge, forge it on the anvil while it glows, back into the fire, forge again. Timing between forge and anvil is your most important skill.\n\nToo cold (below 400 °C) damages the iron, too hot (above 1100 °C) as well – above 1300 °C it burns."
+HINT_WELCOME_TITLE,Willkommen in der Dorfschmiede,Welcome to the village smithy
+HINT_WELD_TEXT,"Bei halber Arbeit hält der Fortschritt an: Setzt 6 Schläge bei Weißglut (1200–1300 °C). Schläge außerhalb zählen nicht – und in dieser Hitze leidet das Gefüge, also schnell und genau!","Halfway through, progress pauses: strike 6 blows at white heat (1200–1300 °C). Blows outside don't count – and the iron suffers at this heat, so be quick and precise!"
+HINT_WELD_TITLE,Feuerschweißen,Forge welding
+ITEM_ANCHOR_SHANK,Ankerschaft,anchor shank
+ITEM_ANCHOR_SHANK_G,m,-
+ITEM_ANCHOR_SHANK_PL,Ankerschäfte,anchor shanks
+ITEM_BARREL_HOOP,Fassreifen,barrel hoop
+ITEM_BARREL_HOOP_G,m,-
+ITEM_BARREL_HOOP_PL,Fassreifen,barrel hoops
+ITEM_BEAM_STRAP,Balancierbeschlag,beam-engine strap
+ITEM_BEAM_STRAP_G,m,-
+ITEM_BEAM_STRAP_PL,Balancierbeschläge,beam-engine straps
+ITEM_BOATHOOK,Bootshaken,boathook
+ITEM_BOATHOOK_G,m,-
+ITEM_BOATHOOK_PL,Bootshaken,boathooks
+ITEM_BOILER_PLATE,Kesselblech,boiler plate
+ITEM_BOILER_PLATE_G,n,-
+ITEM_BOILER_PLATE_PL,Kesselbleche,boiler plates
+ITEM_BOILER_RIVET,Kesselniete,boiler rivet
+ITEM_BOILER_RIVET_G,f,-
+ITEM_BOILER_RIVET_PL,Kesselnieten,boiler rivets
+ITEM_CARGO_CHAIN,Ladekette,cargo chain
+ITEM_CARGO_CHAIN_G,f,-
+ITEM_CARGO_CHAIN_PL,Ladeketten,cargo chains
+ITEM_CARRIAGE_FITTING,Lafettenbeschlag,gun-carriage fitting
+ITEM_CARRIAGE_FITTING_G,m,-
+ITEM_CARRIAGE_FITTING_PL,Lafettenbeschläge,gun-carriage fittings
+ITEM_CHAIN_LINK,Kettenglied,chain link
+ITEM_CHAIN_LINK_G,n,-
+ITEM_CHAIN_LINK_PL,Kettenglieder,chain links
+ITEM_CHISEL,Meißel,chisel
+ITEM_CHISEL_G,m,-
+ITEM_CHISEL_PL,Meißel,chisels
+ITEM_CLOTH_SHEARS,Tuchschere,pair of cloth shears
+ITEM_CLOTH_SHEARS_G,f,-
+ITEM_CLOTH_SHEARS_PL,Tuchscheren,cloth shears
+ITEM_COACH_AXLE,Kutschachse,coach axle
+ITEM_COACH_AXLE_G,f,-
+ITEM_COACH_AXLE_PL,Kutschachsen,coach axles
+ITEM_COACH_FITTING,Kutschbeschlag,coach fitting
+ITEM_COACH_FITTING_G,m,-
+ITEM_COACH_FITTING_PL,Kutschbeschläge,coach fittings
+ITEM_CONVEYOR_CHAIN,Förderkette,winding chain
+ITEM_CONVEYOR_CHAIN_G,f,-
+ITEM_CONVEYOR_CHAIN_PL,Förderketten,winding chains
+ITEM_CRANKSHAFT,Kurbelwelle,crankshaft
+ITEM_CRANKSHAFT_G,f,-
+ITEM_CRANKSHAFT_PL,Kurbelwellen,crankshafts
+ITEM_DOOR_HINGE,Türangel,door hinge
+ITEM_DOOR_HINGE_G,f,-
+ITEM_DOOR_HINGE_PL,Türangeln,door hinges
+ITEM_DRAG_SHOE,Hemmschuh,drag shoe
+ITEM_DRAG_SHOE_G,m,-
+ITEM_DRAG_SHOE_PL,Hemmschuhe,drag shoes
+ITEM_DRILL_STEEL,Bohreisen,drill steel
+ITEM_DRILL_STEEL_G,n,-
+ITEM_DRILL_STEEL_PL,Bohreisen,drill steels
+ITEM_FILE,Feile,file
+ITEM_FILE_G,f,-
+ITEM_FILE_PL,Feilen,files
+ITEM_FIRE_POKER,Schürhaken,fire poker
+ITEM_FIRE_POKER_G,m,-
+ITEM_FIRE_POKER_PL,Schürhaken,fire pokers
+ITEM_GATE_LATCH,Torriegel,gate latch
+ITEM_GATE_LATCH_G,m,-
+ITEM_GATE_LATCH_PL,Torriegel,gate latches
+ITEM_HOOK,Haken,hook
+ITEM_HOOK_G,m,-
+ITEM_HOOK_PL,Haken,hooks
+ITEM_HORSESHOE,Hufeisen,horseshoe
+ITEM_HORSESHOE_G,n,-
+ITEM_HORSESHOE_PL,Hufeisen,horseshoes
+ITEM_KNIFE,Messerklinge,knife blade
+ITEM_KNIFE_G,f,-
+ITEM_KNIFE_PL,Messerklingen,knife blades
+ITEM_LANTERN_BRACKET,Laternenhalter,lantern bracket
+ITEM_LANTERN_BRACKET_G,m,-
+ITEM_LANTERN_BRACKET_PL,Laternenhalter,lantern brackets
+ITEM_LARGE_SHAFT,Antriebswelle,drive shaft
+ITEM_LARGE_SHAFT_G,f,-
+ITEM_LARGE_SHAFT_PL,Antriebswellen,drive shafts
+ITEM_LATHE_TOOL,Drehmeißel,lathe tool
+ITEM_LATHE_TOOL_G,m,-
+ITEM_LATHE_TOOL_PL,Drehmeißel,lathe tools
+ITEM_LEAF_SPRING,Blattfeder,leaf spring
+ITEM_LEAF_SPRING_G,f,-
+ITEM_LEAF_SPRING_PL,Blattfedern,leaf springs
+ITEM_LOCK_FITTING,Schleusenbeschlag,lock-gate fitting
+ITEM_LOCK_FITTING_G,m,-
+ITEM_LOCK_FITTING_PL,Schleusenbeschläge,lock-gate fittings
+ITEM_MINERS_PICK,Keilhaue,miner's pick
+ITEM_MINERS_PICK_G,f,-
+ITEM_MINERS_PICK_PL,Keilhauen,miner's picks
+ITEM_MOORING_RING,Festmacherring,mooring ring
+ITEM_MOORING_RING_G,m,-
+ITEM_MOORING_RING_PL,Festmacherringe,mooring rings
+ITEM_NAIL,Nagel,nail
+ITEM_NAIL_G,m,-
+ITEM_NAIL_PL,Nägel,nails
+ITEM_PISTON_ROD,Kolbenstange,piston rod
+ITEM_PISTON_ROD_G,f,-
+ITEM_PISTON_ROD_PL,Kolbenstangen,piston rods
+ITEM_PLOUGHSHARE,Pflugschar,ploughshare
+ITEM_PLOUGHSHARE_G,f,-
+ITEM_PLOUGHSHARE_PL,Pflugscharen,ploughshares
+ITEM_POST_HORSESHOE,Postpferd-Hufeisen,post-horse shoe
+ITEM_POST_HORSESHOE_G,n,-
+ITEM_POST_HORSESHOE_PL,Postpferd-Hufeisen,post-horse shoes
+ITEM_PUMP_ROD,Pumpengestänge,pump rod
+ITEM_PUMP_ROD_G,n,-
+ITEM_PUMP_ROD_PL,Pumpengestänge,pump rods
+ITEM_RABBLE,Puddelkrücke,puddling rabble
+ITEM_RABBLE_G,f,-
+ITEM_RABBLE_PL,Puddelkrücken,puddling rabbles
+ITEM_RUDDER_PINTLE,Ruderfingerling,rudder pintle
+ITEM_RUDDER_PINTLE_G,m,-
+ITEM_RUDDER_PINTLE_PL,Ruderfingerlinge,rudder pintles
+ITEM_SHIP_BOLT,Schiffsbolzen,ship's bolt
+ITEM_SHIP_BOLT_G,m,-
+ITEM_SHIP_BOLT_PL,Schiffsbolzen,ship's bolts
+ITEM_SHIP_CHAIN,Ankerkette,anchor cable
+ITEM_SHIP_CHAIN_G,f,-
+ITEM_SHIP_CHAIN_PL,Ankerketten,anchor cables
+ITEM_SICKLE,Sichel,sickle
+ITEM_SICKLE_G,f,-
+ITEM_SICKLE_PL,Sicheln,sickles
+ITEM_SPINDLE,Spindel,spindle
+ITEM_SPINDLE_G,f,-
+ITEM_SPINDLE_PL,Spindeln,spindles
+ITEM_SPRING,Feder,spring
+ITEM_SPRING_G,f,-
+ITEM_SPRING_PL,Federn,springs
+ITEM_TIE_ROD,Zuganker,tie rod
+ITEM_TIE_ROD_G,m,-
+ITEM_TIE_ROD_PL,Zuganker,tie rods
+ITEM_TURNPIKE_FITTING,Schlagbaumbeschlag,turnpike gate fitting
+ITEM_TURNPIKE_FITTING_G,m,-
+ITEM_TURNPIKE_FITTING_PL,Schlagbaumbeschläge,turnpike gate fittings
+ITEM_VALVE_PART,Ventilteil,valve part
+ITEM_VALVE_PART_G,n,-
+ITEM_VALVE_PART_PL,Ventilteile,valve parts
+ITEM_WAGON_AXLE,Wagenachse,wagon axle
+ITEM_WAGON_AXLE_G,f,-
+ITEM_WAGON_AXLE_PL,Wagenachsen,wagon axles
+ITEM_WHEEL_TYRE,Radreifen,wheel tyre
+ITEM_WHEEL_TYRE_G,m,-
+ITEM_WHEEL_TYRE_PL,Radreifen,wheel tyres
+JOB_TITLE,{quality} {item} für {customer},{quality} {item} for {customer}
+JOB_TITLE_QTY,{quality} {item} (×{qty}) für {customer},{quality} {item} (×{qty}) for {customer}
+LANG_DE,Deutsch,Deutsch
+LANG_EN,English,English
+MACHINE_STEAM_HELVE,Dampf-Schwanzhammer,Steam-powered helve hammer
+MACHINE_WATER_HELVE,Wasser-Schwanzhammer,Water-powered helve hammer
+MSG_RUIN_COST,Neuer Rohling: -{cost},New blank: -{cost}
+MS_MS_E1_01_PLOW_TEXT,Der Gutsherr will seine Felder vor dem Frühjahr umbrechen lassen. Eine gute Pflugschar ist Euer erstes Aushängeschild.,The squire wants his fields broken before spring. A good ploughshare will be your first calling card.
+MS_MS_E1_01_PLOW_TITLE,Pflugschar für den Gutsherrn,Ploughshare for the squire
+MS_MS_E1_02_HORSESHOE_TEXT,Der alte Braune des Pfarrers hat ein Eisen verloren – und am Sonntag muss er ins Nachbardorf predigen.,The vicar's old bay has thrown a shoe – and on Sunday he must preach in the next village.
+MS_MS_E1_02_HORSESHOE_TITLE,Hufeisen für das Pferd des Pfarrers,Horseshoe for the vicar's horse
+MS_MS_E1_03_HINGES_TEXT,Der Herbststurm hat Bauer Hollows Scheunentor aus den Angeln gerissen. Die Ernte muss ins Trockene.,The autumn gale tore Farmer Hollow's barn door off its hinges. The harvest must be got in dry.
+MS_MS_E1_03_HINGES_TITLE,Türangeln für Hollows Scheune,Hinges for Hollow's barn
+MS_MS_E1_04_SICKLE_TEXT,"Der Müller von Upton schwört, dass nur eine Sichel aus Eurer Esse sein Korn sauber schneidet.",The miller of Upton swears only a sickle from your forge cuts his corn clean.
+MS_MS_E1_04_SICKLE_TITLE,Erntesichel für den Müller,Harvest sickle for the miller
+MS_MS_E1_05_CHURCH_TEXT,Die Kirchentür bekommt neue Beschläge – das ganze Dorf wird sie jeden Sonntag sehen. Arbeitet genau! Danach empfiehlt Euch der Gutsherr an der neuen Poststraße.,The church door is to get new ironwork – the whole village will see it every Sunday. Work precisely! Afterwards the squire will recommend you on the new post road.
+MS_MS_E1_05_CHURCH_TITLE,Türbeschläge für die Dorfkirche,Door furniture for the parish church
+MS_MS_E2_01_TURNPIKE_TEXT,Die Mautstraßen-Gesellschaft errichtet eine Mautstation vor Eurer Tür. Der Schlagbaum braucht kräftige Beschläge.,The Turnpike Trust is building a toll-house outside your door. The gate needs sturdy fittings.
+MS_MS_E2_01_TURNPIKE_TITLE,Beschläge für den neuen Schlagbaum,Fittings for the new turnpike gate
+MS_MS_E2_02_POSTHORSES_TEXT,"Acht Pferde, acht Eisen, ein Fahrplan. Nutzt mehrere Plätze in der Esse, um Rohlinge gleichzeitig aufzuheizen.","Eight horses, eight shoes, one timetable. Use several places in the forge to heat blanks at the same time."
+MS_MS_E2_02_POSTHORSES_TITLE,Hufeisen für die Postpferde,Shoes for the post-horses
+MS_MS_E2_03_DRAG_SHOE_TEXT,Fuhrmann Bennett hat am Hang vor Bath beinahe seinen Wagen verloren. Ein neuer Hemmschuh muss her.,Carrier Bennett nearly lost his wagon on the hill outside Bath. He needs a new drag shoe.
+MS_MS_E2_03_DRAG_SHOE_TITLE,Hemmschuh für den steilen Hang,Drag shoe for the steep hill
+MS_MS_E2_04_LANTERN_TEXT,Die Nachtkutschen sollen das Posthaus schon von Weitem sehen.,The night coaches should see the coaching inn from afar.
+MS_MS_E2_04_LANTERN_TITLE,Laternenhalter für das Gasthaus an der Mautstraße,Lantern brackets for the inn on the turnpike
+MS_MS_E2_05_AXLE_TEXT,Der Wagenbauer aus York baut eine Kutsche für die lange Strecke nach London. Die Achsen müssen halten.,The York coachbuilder is building a coach for the long road to London. The axles must hold.
+MS_MS_E2_05_AXLE_TITLE,Achsen für eine neue Reisekutsche,Axles for a new travelling coach
+MS_MS_E2_06_FITTINGS_TEXT,Feine Beschläge für eine prächtige Kutsche – hier zählt jede Hitze im engen Zielfenster.,Fine fittings for a splendid coach – every heat in the narrow target window counts.
+MS_MS_E2_06_FITTINGS_TITLE,Beschläge für die Staatskutsche des Bürgermeisters,Fittings for the mayor's state coach
+MS_MS_E2_07_TYRES_TEXT,Die neue Linie nach London startet. Eure Radreifen tragen die Kutsche über hundert Meilen Mautstraße. Danach wartet der Hafen.,"The new line to London is starting. Your tyres will carry the coach over a hundred miles of turnpike. Next, the harbour awaits."
+MS_MS_E2_07_TYRES_TITLE,Radreifen für die erste Postkutsche der Linie,Wheel tyres for the line's first mail coach
+MS_MS_E3_01_BOLTS_TEXT,Ein Bristoler Kaufmann lässt seinen Westindienfahrer überholen. Er braucht Bolzen – viele Bolzen.,A Bristol merchant is refitting his West Indiaman. He needs bolts – lots of bolts.
+MS_MS_E3_01_BOLTS_TITLE,Schiffsbolzen für einen Kauffahrer,Ship's bolts for a merchantman
+MS_MS_E3_02_RING_TEXT,"Euer erstes Feuerschweißen: Bei halber Arbeit muss das Eisen weißglühend (1200–1300 °C) zusammengeschweißt werden – schnell, bevor es verbrennt!","Your first forge weld: halfway through, the iron must be welded at white heat (1200–1300 °C) – quickly, before it burns!"
+MS_MS_E3_02_RING_TITLE,Festmacherring für die neue Kaimauer,Mooring ring for the new quay
+MS_MS_E3_03_BOATHOOK_TEXT,"Der Hafenmeister braucht einen Bootshaken, der auch bei Sturm nicht bricht.",The harbourmaster needs a boathook that will not break even in a gale.
+MS_MS_E3_03_BOATHOOK_TITLE,Bootshaken für die Barkasse des Hafenmeisters,Boathook for the harbourmaster's launch
+MS_MS_E3_04_CARRIAGE_TEXT,Die Kanonen werden gegossen – aber ihre Lafetten brauchen geschmiedete Beschläge. Das Marineamt prüft streng.,The guns are cast – but their carriages need forged fittings. The Navy Board inspects strictly.
+MS_MS_E3_04_CARRIAGE_TITLE,Lafettenbeschläge für eine Fregatte,Gun-carriage fittings for a frigate
+MS_MS_E3_05_PINTLE_TEXT,Ohne Ruder kein Kurs: Der Schiffbaumeister von Portsmouth wartet auf Eure Fingerlinge.,"No rudder, no course: the master shipwright of Portsmouth is waiting for your pintles."
+MS_MS_E3_05_PINTLE_TITLE,Ruderfingerlinge für eine Schaluppe,Rudder pintles for a sloop
+MS_MS_E3_06_CHAIN_TEXT,"Zwölf Glieder, zwölf Schweißungen. Haltet die Esse heiß und die Hand ruhig.","Twelve links, twelve welds. Keep the fire hot and your hand steady."
+MS_MS_E3_06_CHAIN_TITLE,Ankerkette für einen Kauffahrer,Anchor chain for a merchantman
+MS_MS_E3_07_ROPEWALK_TEXT,In der langen Seilerei werden die Taue der Flotte geschlagen – an Euren Haken.,In the long ropewalk the fleet's cables are laid – on your hooks.
+MS_MS_E3_07_ROPEWALK_TITLE,Haken für die Reeperbahn von Chatham,Hooks for the Chatham ropewalk
+MS_MS_E3_08_ANCHOR_TEXT,"Der größte Auftrag Eurer bisherigen Laufbahn: der Ankerschaft für ein Linienschiff. Gelingt er, nimmt Euch die Schmiedegilde auf.","The greatest commission of your career so far: the anchor shank for a ship of the line. If it succeeds, the smiths' guild will admit you."
+MS_MS_E3_08_ANCHOR_TITLE,Anker für ein Linienschiff der Royal Navy,Anchor for a Royal Navy ship of the line
+MS_MS_E4_01_CHISELS_TEXT,Euer erstes Härten: Nach dem Schmieden zieht Ihr das Werkstück bei etwa 800 °C (Kirschrot) in den Löschtrog.,"Your first hardening: after forging, quench the piece in the trough at about 800 °C (cherry red)."
+MS_MS_E4_01_CHISELS_TITLE,Meißel für den Werkzeugmacher,Chisels for the toolmaker
+MS_MS_E4_02_KNIVES_TEXT,"Huntsmans Tiegelstahl hat Sheffield verändert. Die Messerschmiede wollen sehen, ob Ihr mithalten könnt.",Huntsman's crucible steel has changed Sheffield. The cutlers want to see if you can keep up.
+MS_MS_E4_02_KNIVES_TITLE,Klingen für die Messerschmiede von Sheffield,Blades for the Sheffield cutlers
+MS_MS_E4_03_SHEARS_TEXT,Mit diesen Scheren wird der Flor des Tuchs geschoren – sie müssen hart und scharf sein.,These shears crop the nap of the cloth – they must be hard and keen.
+MS_MS_E4_03_SHEARS_TITLE,Tuchscheren für einen Tuchmacher aus Leeds,Cloth shears for a Leeds clothier
+MS_MS_E4_04_SPRINGS_TEXT,Der Herzog reist bequem – oder gar nicht. Gut gehärtete Federn sind Pflicht.,The duke travels in comfort – or not at all. Well-hardened springs are a must.
+MS_MS_E4_04_SPRINGS_TITLE,Kutschfedern für den Herzog,Coach springs for the duke
+MS_MS_E4_05_CARGO_CHAIN_TEXT,Die Kräne der Werft heben Masten und Kanonen. Jede Schweißung muss halten.,The dockyard cranes lift masts and guns. Every weld must hold.
+MS_MS_E4_05_CARGO_CHAIN_TITLE,Ladekette für die Werft in Chatham,Cargo chain for Chatham Dockyard
+MS_MS_E4_06_FILES_TEXT,Feinste Arbeit für feinste Handwerker – präzise geschmiedet und richtig gehärtet.,The finest work for the finest craftsmen – precisely forged and properly hardened.
+MS_MS_E4_06_FILES_TITLE,Feilen für die Uhrmacher von Clerkenwell,Files for the Clerkenwell clockmakers
+MS_MS_E4_07_SPINDLES_TEXT,Hargreaves' Spinning Jenny dreht acht Spindeln auf einmal. Der Spinnmeister will sie nachbauen.,Hargreaves' spinning jenny turns eight spindles at once. The spinning master wants to build one.
+MS_MS_E4_07_SPINDLES_TITLE,Spindeln für eine Spinnmaschine,Spindles for a spinning machine
+MS_MS_E4_08_HOOPS_TEXT,Der Bristoler Kaufmann erinnert sich an Euch und bestellt Reifen für seine Fässer.,The Bristol merchant remembers you and orders hoops for his barrels.
+MS_MS_E4_08_HOOPS_TITLE,Fassreifen für Rumfässer,Hoops for rum barrels
+MS_MS_E4_09_VICTORY_TEXT,In Chatham liegt seit 1759 ein Linienschiff auf Kiel – 1765 soll es vom Stapel laufen. Eure Beschläge fahren mit. Danach lockt ein Hammerwerk mit Wasserrad.,"A ship of the line has been on the stocks at Chatham since 1759 – she is to be launched in 1765. Your ironwork will sail with her. Next, a water-powered hammer mill beckons."
+MS_MS_E4_09_VICTORY_TITLE,Eisenbeschläge für die HMS Victory,Ironwork for HMS Victory
+MS_MS_E5_01_WATERWHEEL_TEXT,"Euer neues Hammerwerk braucht ein verlässliches Wasserrad. Spart auf einen Wasser-Schwanzhammer – er schlägt automatisch mit, solange ein Werkstück auf dem Amboss liegt.",Your new hammer mill needs a reliable water-wheel. Save up for a water-powered helve hammer – it strikes on its own while a piece lies on the anvil.
+MS_MS_E5_01_WATERWHEEL_TITLE,Beschläge für das Wasserrad,Fittings for the water-wheel
+MS_MS_E5_02_PICKS_TEXT,Tief unter der Erde zählt jedes Werkzeug. Gehärtet müssen sie sein.,Deep underground every tool counts. They must be hardened.
+MS_MS_E5_02_PICKS_TITLE,Keilhauen für eine Zinngrube in Cornwall,Picks for a Cornish tin mine
+MS_MS_E5_03_DRILLS_TEXT,Die Zeche treibt neue Strecken vor. Sie braucht Bohreisen – und zwar viele.,The colliery is driving new roadways. It needs drill steels – and plenty of them.
+MS_MS_E5_03_DRILLS_TITLE,Bohreisen für die Zeche von Wednesbury,Drill steels for the Wednesbury colliery
+MS_MS_E5_04_CONVEYOR_TEXT,Mit dieser Kette wird die Kohle aus der Tiefe gezogen.,This chain will haul the coal up from the deep.
+MS_MS_E5_04_CONVEYOR_TITLE,Förderkette für den Schacht,Winding chain for the shaft
+MS_MS_E5_05_VALVES_TEXT,Die alte Newcomen-Pumpe schluckt Kohle wie ein Drache. Präzise Ventile sollen helfen.,The old Newcomen pump swallows coal like a dragon. Precise valves should help.
+MS_MS_E5_05_VALVES_TITLE,Ventilteile für eine Grubenpumpe,Valve parts for a mine pump
+MS_MS_E5_06_CANAL_TEXT,Der Kanalbau verbindet die Gruben mit den Städten. Jede Schleuse braucht Eure Beschläge.,The canal links the mines with the towns. Every lock needs your fittings.
+MS_MS_E5_06_CANAL_TITLE,Schleusenbeschläge für den neuen Kanal,Lock-gate fittings for the new canal
+MS_MS_E5_07_BRIDGE_TEXT,Bei Coalbrookdale entsteht eine Brücke ganz aus Gusseisen (1779). Die Teile werden gegossen – aber die Monteure brauchen geschmiedetes Werkzeug.,At Coalbrookdale a bridge made entirely of cast iron is rising (1779). The parts are cast – but the erectors need forged tools.
+MS_MS_E5_07_BRIDGE_TITLE,Werkzeug für den Bau der Eisenbrücke,Tools for building the Iron Bridge
+MS_MS_E5_08_PUMP_RODS_TEXT,Das Gestänge reicht hundert Klafter in die Tiefe – jede Schweißung muss sitzen.,The rods reach a hundred fathoms down – every weld must hold.
+MS_MS_E5_08_PUMP_RODS_TITLE,Pumpengestänge für eine Grube,Pump rods for a mine
+MS_MS_E5_09_WEDGWOOD_TEXT,Josiah Wedgwood misst die Hitze seiner Öfen mit einem neuen Pyrometer (1782). Zum Dank schenkt er Euch eins für die Werkstatt.,Josiah Wedgwood measures the heat of his kilns with a new pyrometer (1782). As thanks he gives you one for your workshop.
+MS_MS_E5_09_WEDGWOOD_TITLE,Werkzeug für die Töpferei in Etruria,Tools for the Etruria pottery
+MS_MS_E5_10_PISTON_TEXT,Boulton & Watt bauen die Maschine der Zukunft. Die Kolbenstange muss makellos sein. Danach bietet man Euch die Beteiligung an einem Eisenwerk an.,Boulton & Watt are building the engine of the future. The piston rod must be flawless. Afterwards you are offered a share in an ironworks.
+MS_MS_E5_10_PISTON_TITLE,Kolbenstange für eine Boulton-&-Watt-Dampfmaschine,Piston rod for a Boulton & Watt engine
+MS_MS_E6_01_RIVETS_TEXT,Ein Kessel hält nur so gut wie seine Nieten.,A boiler is only as good as its rivets.
+MS_MS_E6_01_RIVETS_TITLE,Kesselnieten für eine Watt-Maschine,Boiler rivets for a Watt engine
+MS_MS_E6_02_PLATES_TEXT,Corts Puddeleisen macht große Bleche erst möglich. Die Maschinenfabrik bestellt.,Cort's puddled iron makes large plates possible at last. The engine works places an order.
+MS_MS_E6_02_PLATES_TITLE,Kesselbleche für eine Maschinenfabrik,Boiler plates for an engine works
+MS_MS_E6_03_AXLES_TEXT,Ein Großschmiedestück: Eure Handschläge wirken nur noch zu einem Viertel – lasst den Dampf-Schwanzhammer arbeiten und haltet das Eisen heiß.,A heavy forging: your hand blows count for only a quarter – let the steam helve do the work and keep the iron hot.
+MS_MS_E6_03_AXLES_TITLE,Wagenachsen für eine Plattenschienen-Bahn,Wagon axles for a plateway
+MS_MS_E6_04_TIE_RODS_TEXT,Die neue Spinnerei soll nicht brennen wie die alten – sie wird mit eisernem Gerippe gebaut.,The new mill must not burn like the old ones – it is being built on an iron frame.
+MS_MS_E6_04_TIE_RODS_TITLE,Zuganker für eine Spinnerei in Eisenskelettbauweise,Tie rods for an iron-framed mill
+MS_MS_E6_05_LATHE_TEXT,Maschinen bauen Maschinen – mit Euren Drehmeißeln.,Machines building machines – with your lathe tools.
+MS_MS_E6_05_LATHE_TITLE,Drehmeißel für eine Maschinenfabrik,Lathe tools for an engine works
+MS_MS_E6_06_CRANK_TEXT,Eure Teilhaber bauen ein Walzwerk. Die Kurbelwelle ist ein schweres Stück Arbeit.,Your partners are building a rolling mill. The crankshaft is a heavy piece of work.
+MS_MS_E6_06_CRANK_TITLE,Kurbelwelle für das Walzwerk,Crankshaft for the rolling mill
+MS_MS_E6_07_SPRINGS_TEXT,Seit 1784 fahren eigene Postkutschen. Euer alter Kunde aus Bath erinnert sich an Euch.,Since 1784 dedicated mail coaches have been running. Your old customer from Bath remembers you.
+MS_MS_E6_07_SPRINGS_TITLE,Blattfedern für die Postkutschen der Royal Mail,Leaf springs for the Royal Mail coaches
+MS_MS_E6_08_EAST_INDIA_TEXT,Die Ostindien-Kompanie verlangt eine Kette für die lange Fahrt nach Bombay.,The East India Company demands a cable for the long voyage to Bombay.
+MS_MS_E6_08_EAST_INDIA_TITLE,Ankerkette für einen Ostindienfahrer,Anchor cable for an East Indiaman
+MS_MS_E6_09_SHAFT_TEXT,"Eine Welle, die hundert Maschinen antreibt.",A shaft to drive a hundred machines.
+MS_MS_E6_09_SHAFT_TITLE,Antriebswelle für eine Baumwollspinnerei,Drive shaft for a cotton mill
+MS_MS_E6_10_PUDDLING_TEXT,Mit Corts Verfahren (1784) rühren die Puddler das Roheisen zu Schmiedeeisen – mit Euren Krücken.,With Cort's process (1784) the puddlers stir pig iron into wrought iron – with your rabbles.
+MS_MS_E6_10_PUDDLING_TITLE,Puddelkrücken für die Puddelöfen,Rabbles for the puddling furnaces
+MS_MS_E6_11_IRONWORKS_TEXT,Das letzte Stück: die Hauptwelle Eures eigenen Eisenwerks. Vom Dorfschmied zum Eisenwerk-Besitzer – Euer Lebenswerk.,The final piece: the main shaft of your own ironworks. From village smith to ironmaster – your life's work.
+MS_MS_E6_11_IRONWORKS_TITLE,Die Hauptwelle für Euer eigenes Eisenwerk,The main shaft for your own ironworks
+QUALITY_FINE_-,Feiner,Fine
+QUALITY_FINE_F,Feine,Fine
+QUALITY_FINE_M,Feiner,Fine
+QUALITY_FINE_N,Feines,Fine
+QUALITY_FINE_PL,Feine,Fine
+QUALITY_MASTERLY_-,Meisterlicher,Masterly
+QUALITY_MASTERLY_F,Meisterliche,Masterly
+QUALITY_MASTERLY_M,Meisterlicher,Masterly
+QUALITY_MASTERLY_N,Meisterliches,Masterly
+QUALITY_MASTERLY_PL,Meisterliche,Masterly
+QUALITY_SIMPLE_-,Einfacher,Simple
+QUALITY_SIMPLE_F,Einfache,Simple
+QUALITY_SIMPLE_M,Einfacher,Simple
+QUALITY_SIMPLE_N,Einfaches,Simple
+QUALITY_SIMPLE_PL,Einfache,Simple
+QUALITY_SOLID_-,Solider,Solid
+QUALITY_SOLID_F,Solide,Solid
+QUALITY_SOLID_M,Solider,Solid
+QUALITY_SOLID_N,Solides,Solid
+QUALITY_SOLID_PL,Solide,Solid
+REP_1,Dorfschmied,Village smith
+REP_2,Geachteter Schmied,Respected smith
+REP_3,Angesehener Meister,Esteemed master
+REP_4,Berühmter Meisterschmied,Renowned master smith
+REP_5,Legende der Zunft,Legend of the guild
+REQ_PRECISION_FORGE,Benötigt eine Esse mit mindestens 1000 °C.,Requires a forge reaching at least 1000 °C.
+REQ_TROUGH,Benötigt einen Löschtrog (ab Epoche 4).,Requires a quench trough (from era 4).
+REQ_WELD_FORGE,Benötigt eine Esse mit mindestens 1250 °C (Ziegel-Esse).,Requires a forge reaching at least 1250 °C (brick forge).
+SET_ALREADY_PAID,(bereits bezahlt),(already paid)
+SET_COSTS,Material & Betrieb,Materials & running costs
+SET_DAMAGE,Gefügeschaden (Ø),Structural damage (avg.)
+SET_HIT_QUOTE,Trefferquote im Zielfenster,Blows in the target window
+SET_LATE,"Verspätet geliefert (halber Lohn, kein Trinkgeld)","Delivered late (half pay, no tip)"
+SET_NET,Gutgeschrieben,Credited
+SET_QUALITY,Qualitätswert Q,Quality value Q
+SET_QUENCH,Abzug durch Härten,Hardening penalty
+SET_TIP,Trinkgeld,Tip
+SET_WAGE,Lohn,Pay
+SET_WAGE_OF,Lohn {who},Wage {who}
+STAFF_APPRENTICE,Lehrling,Apprentice
+STAFF_APPRENTICE_DESC,"Legt Werkstücke automatisch um: vom Amboss in die Esse, wenn sie abkühlen; zurück auf den Amboss, wenn sie heiß genug sind. Legt auch Rohlinge ein. Schwellen einstellbar.","Moves pieces automatically: from the anvil into the fire when they cool, back onto the anvil when hot enough. Also loads blanks. Thresholds adjustable."
+STAFF_JOURNEYMAN,Geselle,Journeyman
+STAFF_JOURNEYMAN_DESC,Bearbeitet im Hintergrund eigene Standardaufträge mit 25 % der Referenzleistung – auch während Ihr nicht spielt (bis zu 8 Stunden).,Works his own standard orders in the background at 25 % of the reference output – even while you are not playing (up to 8 hours).
+STAFF_STRIKER,Zuschläger,Striker
+STAFF_STRIKER_DESC,"Schlägt mit dem Vorschlaghammer mit: Schlagkraft 20, ein Schlag alle 2 Sekunden.","Strikes along with the sledgehammer: striking power 20, one blow every 2 seconds."
+STAT_BEST,Bester Auftrag,Best order
+STAT_EARNED,Insgesamt verdient,Total earned
+STAT_EPOCH,Epoche,Era
+STAT_HITS,Hammerschläge,Hammer blows
+STAT_JOBS,Abgeschlossene Aufträge,Orders completed
+STAT_JOURNEYMAN,Verdienst des Gesellen,Journeyman's earnings
+STAT_MILESTONES,Meilensteine,Milestones
+STAT_PLAYTIME,Spielzeit,Play time
+STAT_REPUTATION,Ruf,Reputation
+STAT_RUINED,Ausschuss,Scrapped pieces
+STAT_STARS,Sterne,Stars
+STAT_THREE_STARS,Aufträge mit 3 Sternen,Three-star orders
+TUT_BUY_HAMMER,Gut verdient! Kauft im Laden [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
+TUT_COLD,Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!,Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!
+TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste.,Forge! Click the anvil or press the space bar.
+TUT_LOAD,Legt den Rohling in die Esse: Klickt auf den Rohling-Stapel oder drückt [R].,Put the blank into the fire: click the stack of blanks or press [R].
+TUT_OPEN_BOOK,Öffnet das Auftragsbuch [J] und nehmt einen Auftrag an.,Open the order book [J] and accept an order.
+TUT_SKIP,Überspringen,Skip
+TUT_TAKE,"Jetzt! Klickt auf das glühende Werkstück, um es auf den Amboss zu legen [E].",Now! Click the glowing piece to lay it on the anvil [E].
+TUT_TITLE,Lehrzeit,Apprenticeship
+TUT_TOO_COLD_SOON,Das Eisen kühlt ab – unter Kirschrot wirken die Schläge schwächer. Zurück in die Esse [E]!,The iron is cooling – below cherry red your blows are weaker. Back into the fire [E]!
+TUT_WAIT_HEAT,"Wartet, bis das Eisen kirschrot glüht (ab 700 °C). Die Glutfarben-Skala unten zeigt die Hitze.",Wait until the iron glows cherry red (700 °C and above). The glow scale below shows the heat.
+TYPE_MILESTONE,Meilenstein,Milestone
+TYPE_PRECISION,Präzision (850–1000 °C),Precision (850–1000 °C)
+TYPE_RUSH,Eilauftrag,Rush order
+TYPE_STANDARD,Standard,Standard
+UI_ABORT_CONFIRM,Wirklich abbrechen? Bereits verbrauchte Rohlinge werden nicht erstattet.,Really abandon? Blanks already used are not refunded.
+UI_ABORT_JOB,Auftrag abbrechen,Abandon order
+UI_ACCEPT,Annehmen,Accept
+UI_ACTIVATE,Aktivieren,Activate
+UI_ACTIVE,Aktiv,Active
+UI_ACTIVE_JOB,Aktiver Auftrag,Active order
+UI_APPRENTICE_THRESHOLDS,Schwellen des Lehrlings,Apprentice thresholds
+UI_BTN_HAMMER,HAMMERN – Klick / Leertaste,HAMMER – click / space
+UI_BTN_LOAD,Rohling einlegen [R],Load blank [R]
+UI_BTN_MOVE,Umlegen [E],Move piece [E]
+UI_BTN_QUENCH,Abschrecken [Q],Quench [Q]
+UI_BUY,Kaufen,Buy
+UI_CANCEL,Abbrechen,Cancel
+UI_CLOSE,Schließen,Close
+UI_CONTINUE,Weiter,Continue
+UI_CONTINUE_GAME,Fortsetzen,Continue
+UI_CREDITS,Mitwirkende,Credits
+UI_DAMAGE_INFO,Gefügeschaden {d} %,Structural damage {d} %
+UI_EPOCH_CHANGE,Epochenwechsel,A new era
+UI_EPOCH_DONE,Epoche {e} abgeschlossen!,Era {e} complete!
+UI_EPOCH_PROGRESS,Aufträge in dieser Epoche: {n} / {total},Orders this era: {n} / {total}
+UI_EQUIP,Benutzen,Use
+UI_EQUIPPED,In Gebrauch,In use
+UI_EXPORT_NOTE,Browserdaten können gelöscht werden – sichert Euren Spielstand regelmäßig als Datei.,Browser data can be cleared – back up your saved game as a file regularly.
+UI_EXPORT_SAVE,Spielstand exportieren,Export saved game
+UI_FINALE_TEXT,Vom Dorfschmied mit Handhammer und Lehm-Esse zum Eisenwerk-Besitzer mit Dampf-Schwanzhammer: Euer Lebenswerk ist vollbracht. Die Werkstatt steht Euch weiter offen – im Freien Spiel kommen endlos neue Aufträge.,"From village smith with a hand hammer and clay forge to ironmaster with a steam helve: your life's work is done. The workshop remains open – in free play, new orders keep coming."
+UI_FINALE_TITLE,Euer eigenes Eisenwerk,Your own ironworks
+UI_FLASH_EFFECTS,Funken- und Blitzeffekte,Spark and flash effects
+UI_FORGE_BURN_NOTE,"Achtung: Ab der Esse mit Doppelblasebalg liegt die Höchsttemperatur über der Verbrennungsgrenze (1300 °C). Bleibt ein Werkstück zu lange im Feuer, verbrennt es.","Careful: from the double-bellows forge upwards, the maximum temperature lies above the burning point (1300 °C). Leave a piece in the fire too long and it burns."
+UI_FORGE_INFO,{k} °C/s · bis {t} °C · {s} Plätze,{k} °C/s · up to {t} °C · {s} places
+UI_FREE_PLAY_NOTE,Freies Spiel: Die Aufträge gehen endlos weiter.,Free play: orders continue endlessly.
+UI_FROM_EPOCH,ab Epoche {e},from era {e}
+UI_FULLSCREEN,Vollbild,Fullscreen
+UI_HAMMER_INFO,Schlagkraft {p},Striking power {p}
+UI_HIRE,Einstellen,Hire
+UI_HIRED,Eingestellt,Hired
+UI_HOLD_TO_HAMMER,Halten-Modus (Gedrückthalten = 4 Schläge/s),Hold mode (hold = 4 blows/s)
+UI_HOURGLASS,Sanduhr:,Hourglass:
+UI_IMPORT_FAILED,Import fehlgeschlagen: Die Datei ist kein gültiger Spielstand.,Import failed: the file is not a valid saved game.
+UI_IMPORT_SAVE,Spielstand importieren,Import saved game
+UI_JOB_BOOK,Auftragsbuch,Order book
+UI_JOB_BOOK_SHORT,Aufträge,Orders
+UI_JOB_INFO,Auftrag {p} % fertig,Order {p} % complete
+UI_JOURNEYMAN_RATE,Der Geselle verdient derzeit etwa {m} je Minute (nach seinem Lohn).,Your journeyman currently earns about {m} per minute (after his wage).
+UI_LANGUAGE,Sprache,Language
+UI_LATE,verspätet,late
+UI_LATER,Später,Later
+UI_MACHINE_COST,Betriebskosten {c} je Minute,running cost {c} per minute
+UI_MACHINE_INFO,Schlagkraft {p} · {h} Schläge/s,Striking power {p} · {h} blows/s
+UI_MACHINE_NOTE,"Maschinen schlagen automatisch zusätzlich zu Euren Schlägen, solange ein Werkstück (ab 400 °C) auf dem Amboss liegt. Es ist immer nur eine Maschine aktiv.",Machines strike automatically in addition to your blows while a piece (400 °C or hotter) lies on the anvil. Only one machine is active at a time.
+UI_MACHINE_WATER,Leistung schwankt mit dem Wasserstand (60–100 %),output varies with the water level (60–100 %)
+UI_MAXED,Höchststufe,Maximum
+UI_MENU,Menü [Esc],Menu [Esc]
+UI_MISSING,Es fehlen noch {m}.,You still need {m}.
+UI_MUSIC_VOLUME,Musik,Music
+UI_NEW_GAME,Neues Spiel,New game
+UI_NEW_GAME_WARNING,"Es gibt bereits einen Spielstand. Ein neues Spiel überschreibt ihn (der alte bleibt als Sicherung erhalten, bis zum nächsten Speichern). Fortfahren?",A saved game already exists. A new game will overwrite it (the old one is kept as a backup until the next save). Continue?
+UI_NEXT_EPOCH,Neuer Standort!,New premises!
+UI_NO_JOB,Kein Auftrag – öffnet das Auftragsbuch [J].,No order – open the order book [J].
+UI_OFFER_DETAILS,{fp} Form-Punkte · Lohn {wage} (2 Sterne) · geschätzt {time},{fp} form points · pay {wage} (2 stars) · est. {time}
+UI_OFFLINE_EARNINGS,Während Eurer Abwesenheit ({t}) hat der Geselle {m} verdient.,"While you were away ({t}), your journeyman earned {m}."
+UI_OK,OK,OK
+UI_PAUSE,Pause,Paused
+UI_PAY_AND_MOVE,Gebühr zahlen & umziehen,Pay the fee & move
+UI_PIECE_INFO,Stück {i}/{n} · {p} %,Piece {i}/{n} · {p} %
+UI_PURSE,Münzbeutel,Purse
+UI_QUANTITY,Menge ×{n},Quantity ×{n}
+UI_QUENCH_INFO,bereit zum Abschrecken,ready to quench
+UI_QUIT,Beenden,Quit
+UI_RAW_STACK,Rohlinge,Blanks
+UI_REROLL,Neue Angebote,New offers
+UI_REROLL_WAIT,Neue Angebote in {s} s,New offers in {s} s
+UI_RESUME,Fortsetzen,Resume
+UI_SAVE_AND_QUIT,Speichern & Beenden,Save & quit
+UI_SAVE_CORRUPT,Der Spielstand ist beschädigt und konnte nicht geladen werden. Bitte beginnt ein neues Spiel.,The saved game is damaged and could not be loaded. Please start a new game.
+UI_SAVE_NEWER,Der Spielstand stammt aus einer neueren Spielversion und kann nicht geladen werden. Die Datei bleibt unverändert.,The saved game comes from a newer version of the game and cannot be loaded. The file is left unchanged.
+UI_SAVE_RESTORED,Der letzte Spielstand war beschädigt – die Sicherung wurde geladen.,The latest save was damaged – the backup was loaded.
+UI_SCREEN_SHAKE,Bildschirmwackeln,Screen shake
+UI_SECTION_FORGES,Essen,Forges
+UI_SECTION_HAMMERS,Hämmer,Hammers
+UI_SECTION_MACHINES,Maschinen,Machines
+UI_SECTION_UPGRADE,Hammer verbessern,Improve hammer
+UI_SETTINGS,Einstellungen,Settings
+UI_SETTLEMENT,Abrechnung,Settlement
+UI_SFX_VOLUME,Effekte,Effects
+UI_SHOP,Laden,Shop
+UI_SHOW_CELSIUS,Temperatur in °C anzeigen,Show temperature in °C
+UI_STAFF,Personal,Staff
+UI_STAFF_NOTE,"Lehrling und Zuschläger arbeiten nur, solange das Spiel läuft. Ihre Löhne werden bei Auftragsabschluss abgezogen.",Apprentice and striker only work while the game is running. Their wages are deducted when an order is completed.
+UI_STATS,Statistik,Statistics
+UI_TIME_LIMIT,Zeitlimit {time},time limit {time}
+UI_TO_ANVIL_AT,Auf den Amboss ab,Onto the anvil from
+UI_TO_FORGE_BELOW,In die Esse unter,Into the fire below
+UI_TROUGH,Löschtrog [Q],Quench trough [Q]
+UI_TUTORIAL,Tutorial und Hinweise,Tutorial and hints
+UI_UNDERSTOOD,Verstanden,Understood
+UI_UPGRADE,"Schärfen, Nachhärten, besserer Stiel","Dressing, re-hardening, better haft"
+UI_UPGRADE_INFO,{name}: Stufe {lvl}/{max} · Schlagkraft {p} (+10 % je Stufe),{name}: level {lvl}/{max} · striking power {p} (+10 % per level)
+UI_WAGE_SHARE_JOB,Lohn: {p} % des Auftragslohns,Wage: {p} % of the order pay
+UI_WAGE_SHARE_OWN,Lohn: {p} % seiner Einnahmen,Wage: {p} % of his earnings
+UI_WELCOME_BACK,Willkommen zurück!,Welcome back!
+UI_WELD_INFO,Feuerschweißen {h}/{n},Forge weld {h}/{n}

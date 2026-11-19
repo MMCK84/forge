@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MachineData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/machine_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "machine_water_helve"
+tier = 1
+name_key = "MACHINE_WATER_HELVE"
+p_base = 100.0
+hits_per_s = 1.0
+price = 36000
+cost_per_minute = 0
+water_powered = true
+min_epoch = 5

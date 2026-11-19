@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ForgeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/forge_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "forge_coke"
+tier = 4
+name_key = "FORGE_COKE"
+k_heat = 100.0
+t_max = 1450.0
+slots = 3
+price = 24000
+min_epoch = 5

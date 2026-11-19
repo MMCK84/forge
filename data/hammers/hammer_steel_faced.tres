@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="HammerData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/hammer_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "hammer_steel_faced"
+tier = 3
+name_key = "HAMMER_STEEL_FACED"
+p_base = 25.0
+price = 600
+min_epoch = 2

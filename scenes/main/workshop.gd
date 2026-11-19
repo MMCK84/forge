@@ -1,0 +1,657 @@
+extends Control
+## Werkstatt (Hauptspiel, 6.2): links die Esse, rechts Amboss und Löschtrog,
+## darunter Glutfarben-Skala, Fortschritt und Aktionen; oben/unten das HUD.
+
+const UIKit = preload("res://scenes/ui/ui_kit.gd")
+const Economy = preload("res://scripts/economy.gd")
+const HeatModel = preload("res://scripts/heat_model.gd")
+const Overlay = preload("res://scenes/ui/overlay.gd")
+const Background = preload("res://scenes/main/workshop_background.gd")
+const ForgeView = preload("res://scenes/main/forge_view.gd")
+const AnvilView = preload("res://scenes/main/anvil_view.gd")
+const TroughView = preload("res://scenes/main/trough_view.gd")
+const MachineView = preload("res://scenes/main/machine_view.gd")
+const PieceView = preload("res://scenes/main/piece_view.gd")
+const GlowScale = preload("res://scenes/ui/glow_scale.gd")
+const Hud = preload("res://scenes/ui/hud.gd")
+const Tutorial = preload("res://scenes/ui/tutorial.gd")
+
+const STAGE_SIZE := Vector2(1920, 1080)
+
+signal quit_to_menu()
+
+var background: Background
+var stage: Control
+var forge_view: ForgeView
+var anvil_view: AnvilView
+var trough_view: TroughView
+var machine_view: MachineView
+var glow_scale: GlowScale
+var hud: Hud
+var tutorial: Tutorial
+var pieces_layer: Node2D
+var fx_layer: Node2D
+var overlay_layer: Control
+var progress_bar: ProgressBar
+var info_label: Label
+var btn_load: Button
+var btn_move: Button
+var btn_hammer: Button
+var btn_quench: Button
+var sparks: CPUParticles2D
+var weld_sparks: CPUParticles2D
+var smoke: CPUParticles2D
+
+var piece_views: Dictionary = {}
+var _hold_active: bool = false
+var _hold_timer: float = 0.0
+var _shake: float = 0.0
+var _hint_queue: Array = []
+var _hint_open: bool = false
+var _cold_msgs: int = 0
+var _locale: String = ""
+
+
+func _ready() -> void:
+	set_anchors_preset(Control.PRESET_FULL_RECT)
+	theme = UIKit.theme()
+	_locale = TranslationServer.get_locale()
+	background = Background.new()
+	add_child(background)
+	stage = Control.new()
+	stage.size = STAGE_SIZE
+	stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(stage)
+
+	machine_view = MachineView.new()
+	machine_view.position = Vector2(900, 100)
+	machine_view.size = Vector2(1020, 330)
+	machine_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stage.add_child(machine_view)
+
+	forge_view = ForgeView.new()
+	forge_view.position = Vector2(150, 120)
+	forge_view.size = Vector2(800, 680)
+	forge_view.raw_rect = Rect2(0, 580, 330, 90)
+	forge_view.slot_clicked.connect(_on_slot_clicked)
+	forge_view.raw_clicked.connect(_on_raw_clicked)
+	stage.add_child(forge_view)
+
+	anvil_view = AnvilView.new()
+	anvil_view.position = Vector2(960, 330)
+	anvil_view.size = Vector2(540, 430)
+	anvil_view.anvil_pressed.connect(_hammer_press)
+	anvil_view.anvil_released.connect(_hammer_release)
+	stage.add_child(anvil_view)
+	machine_view.head_x = anvil_view.position.x + anvil_view.size.x * 0.5 - machine_view.position.x
+
+	trough_view = TroughView.new()
+	trough_view.position = Vector2(1540, 560)
+	trough_view.size = Vector2(320, 170)
+	trough_view.trough_clicked.connect(_on_quench)
+	stage.add_child(trough_view)
+
+	pieces_layer = Node2D.new()
+	stage.add_child(pieces_layer)
+	fx_layer = Node2D.new()
+	stage.add_child(fx_layer)
+	_build_particles()
+
+	glow_scale = GlowScale.new()
+	glow_scale.position = Vector2(240, 800)
+	glow_scale.size = Vector2(1440, 92)
+	glow_scale.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stage.add_child(glow_scale)
+
+	progress_bar = ProgressBar.new()
+	progress_bar.position = Vector2(240, 898)
+	progress_bar.size = Vector2(820, 34)
+	progress_bar.show_percentage = false
+	progress_bar.max_value = 1.0
+	progress_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stage.add_child(progress_bar)
+	info_label = UIKit.label("", 22, UIKit.TEXT_LIGHT)
+	info_label.position = Vector2(1080, 899)
+	info_label.size = Vector2(600, 34)
+	stage.add_child(info_label)
+
+	var buttons := HBoxContainer.new()
+	buttons.position = Vector2(240, 940)
+	buttons.size = Vector2(1440, 60)
+	buttons.add_theme_constant_override("separation", 16)
+	stage.add_child(buttons)
+	btn_load = UIKit.button(tr("UI_BTN_LOAD"), _on_raw_clicked, Vector2(300, 60), 22)
+	buttons.add_child(btn_load)
+	btn_move = UIKit.button(tr("UI_BTN_MOVE"), _on_move, Vector2(300, 60), 22)
+	buttons.add_child(btn_move)
+	btn_hammer = UIKit.button(tr("UI_BTN_HAMMER"), Callable(), Vector2(420, 60), 24)
+	btn_hammer.button_down.connect(_hammer_press)
+	btn_hammer.button_up.connect(_hammer_release)
+	btn_hammer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	buttons.add_child(btn_hammer)
+	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(300, 60), 22)
+	buttons.add_child(btn_quench)
+	for b in [btn_load, btn_move, btn_hammer, btn_quench]:
+		b.focus_mode = Control.FOCUS_NONE
+
+	hud = Hud.new()
+	add_child(hud)
+	_connect_hud()
+
+	tutorial = Tutorial.new()
+	tutorial.position = Vector2(1300, 110)
+	stage.add_child(tutorial)
+
+	overlay_layer = Control.new()
+	overlay_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(overlay_layer)
+
+	var gm := GameManager
+	gm.sim_event.connect(_on_sim_event)
+	gm.state_changed.connect(_on_state_changed)
+	gm.active_job_changed.connect(_clear_piece_views)
+	gm.settlement_ready.connect(_on_settlement)
+	gm.hint_requested.connect(_queue_hint)
+	gm.offline_earnings_ready.connect(_on_offline)
+	gm.epoch_unlocked.connect(_on_epoch_unlocked)
+	gm.message.connect(_on_message)
+	gm.settings_changed.connect(_on_settings_changed)
+	resized.connect(_layout)
+	_layout()
+	_on_state_changed()
+	SoundManager.play_music_for_epoch(gm.current_epoch)
+	SoundManager.update_ambience()
+	gm.take_pending_offline.call_deferred()
+	if gm.active_job == null and int(gm.stats.get("jobs_completed", 0)) == 0:
+		_queue_hint("welcome")
+
+
+func _exit_tree() -> void:
+	var gm := GameManager
+	for sig in [gm.sim_event, gm.state_changed, gm.active_job_changed, gm.settlement_ready, gm.hint_requested,
+			gm.offline_earnings_ready, gm.epoch_unlocked, gm.message, gm.settings_changed]:
+		for c in sig.get_connections():
+			if c["callable"].get_object() == self:
+				sig.disconnect(c["callable"])
+
+
+func _connect_hud() -> void:
+	hud.open_jobs.connect(_open_if_free.bind("res://scenes/ui/job_book.gd"))
+	hud.open_shop.connect(_open_if_free.bind("res://scenes/ui/shop.gd"))
+	hud.open_staff.connect(_open_if_free.bind("res://scenes/ui/staff_panel.gd"))
+	hud.open_stats.connect(_open_if_free.bind("res://scenes/ui/stats_panel.gd"))
+	hud.open_menu.connect(_open_pause)
+	hud.open_epoch.connect(_open_epoch_offer)
+
+
+func _open_if_free(path: String) -> void:
+	if Overlay.open_count == 0:
+		open_overlay(path)
+
+
+func _layout() -> void:
+	stage.position = ((size - STAGE_SIZE) * 0.5).floor()
+	background.stage_offset = stage.position
+	background.queue_redraw()
+
+
+func _build_particles() -> void:
+	sparks = _make_sparks(28, Color(1.0, 0.75, 0.3))
+	weld_sparks = _make_sparks(60, Color(1.0, 0.95, 0.7))
+	smoke = CPUParticles2D.new()
+	smoke.position = forge_view.position + Vector2(440, 260)
+	smoke.amount = 24
+	smoke.lifetime = 4.0
+	smoke.direction = Vector2(0, -1)
+	smoke.spread = 20.0
+	smoke.gravity = Vector2(0, -20)
+	smoke.initial_velocity_min = 20.0
+	smoke.initial_velocity_max = 50.0
+	smoke.scale_amount_min = 14.0
+	smoke.scale_amount_max = 26.0
+	smoke.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	smoke.emission_rect_extents = Vector2(200, 10)
+	smoke.color = Color(0.5, 0.5, 0.5, 0.18)
+	stage.add_child(smoke)
+	stage.move_child(smoke, 0)
+
+
+func _make_sparks(amount: int, col: Color) -> CPUParticles2D:
+	var p := CPUParticles2D.new()
+	p.emitting = false
+	p.one_shot = true
+	p.amount = amount
+	p.lifetime = 0.6
+	p.explosiveness = 1.0
+	p.direction = Vector2(0, -1)
+	p.spread = 75.0
+	p.gravity = Vector2(0, 900)
+	p.initial_velocity_min = 220.0
+	p.initial_velocity_max = 520.0
+	p.scale_amount_min = 2.0
+	p.scale_amount_max = 5.0
+	p.color = col
+	fx_layer.add_child(p)
+	return p
+
+
+func anvil_point() -> Vector2:
+	return anvil_view.position + Vector2(anvil_view.size.x * 0.5, 138)
+
+
+func slot_point(i: int) -> Vector2:
+	return forge_view.position + forge_view.slot_center(i)
+
+
+func raw_point() -> Vector2:
+	return forge_view.position + forge_view.raw_center()
+
+
+# ================================================================== Bildaufbau je Frame
+
+func _process(delta: float) -> void:
+	var gm := GameManager
+	var sim = gm.sim
+	if _hold_active and Overlay.open_count == 0:
+		_hold_timer += delta
+		var iv: float = 1.0 / gm.cfg.hold_hits_per_s
+		while _hold_timer >= iv:
+			_hold_timer -= iv
+			_do_hit()
+	if _shake > 0.0:
+		_shake = maxf(0.0, _shake - delta)
+		var amp := 6.0 * _shake / 0.15
+		stage.position = ((size - STAGE_SIZE) * 0.5).floor() + Vector2(randf_range(-amp, amp), randf_range(-amp, amp))
+	elif stage.position != ((size - STAGE_SIZE) * 0.5).floor():
+		_layout()
+	var j: JobInstance = gm.active_job
+	forge_view.slots = sim.slot_count
+	forge_view.selected_slot = sim.selected_slot
+	forge_view.raw_count = sim.raw_count()
+	forge_view.heating = false
+	for idx in sim.forge_slots:
+		if idx >= 0:
+			forge_view.heating = true
+	var m := gm.current_machine()
+	machine_view.water_level = sim.water_level
+	machine_view.running = m != null and sim.anvil >= 0
+	trough_view.visible = gm.has_trough()
+	_sync_pieces()
+	_update_scale_and_progress(j)
+	_update_buttons(j)
+	tutorial.update_step()
+
+
+func _sync_pieces() -> void:
+	var gm := GameManager
+	var sim = gm.sim
+	var j: JobInstance = gm.active_job
+	if j == null:
+		_clear_piece_views()
+		return
+	var item: ItemData = gm.items.get(j.template_id, null)
+	var shape: String = item.shape if item != null else "bar"
+	var fp := j.piece_fp()
+	for i in j.pieces.size():
+		var p: JobInstance.Piece = j.pieces[i]
+		var visible_here := p.location == JobInstance.LOC_FORGE or p.location == JobInstance.LOC_ANVIL
+		if not visible_here:
+			if piece_views.has(i):
+				piece_views[i].queue_free()
+				piece_views.erase(i)
+			continue
+		var v: PieceView
+		if not piece_views.has(i):
+			v = PieceView.new()
+			v.shape = shape
+			v.damage_warning = gm.cfg.damage_warning
+			v.position = raw_point()
+			pieces_layer.add_child(v)
+			piece_views[i] = v
+		else:
+			v = piece_views[i]
+		var on_anvil := p.location == JobInstance.LOC_ANVIL
+		v.target_pos = anvil_point() if on_anvil else slot_point(maxi(0, p.slot))
+		v.size_px = 190.0 if on_anvil else 150.0
+		var badge := ""
+		if sim.in_weld_phase(i):
+			badge = "weld"
+		elif sim.awaiting_quench(i):
+			badge = "quench"
+		var sel: bool = (not on_anvil) and p.slot == sim.selected_slot
+		v.update_state(p.temp, p.progress / maxf(fp, 0.001), p.damage, sel, badge)
+
+
+func _clear_piece_views() -> void:
+	for k in piece_views.keys():
+		piece_views[k].queue_free()
+	piece_views.clear()
+
+
+func _update_scale_and_progress(j: JobInstance) -> void:
+	var gm := GameManager
+	var sim = gm.sim
+	glow_scale.show_celsius = bool(gm.settings.get("show_celsius", false))
+	glow_scale.pyrometer = gm.has_pyrometer()
+	if j == null:
+		glow_scale.temp = -1.0
+		glow_scale.weld_window = Vector2(-1, -1)
+		glow_scale.quench_window = Vector2(-1, -1)
+		progress_bar.value = 0.0
+		info_label.text = ""
+		glow_scale.queue_redraw()
+		return
+	glow_scale.window = HeatModel.window(gm.cfg, j.is_precision())
+	var f: int = sim.focus_piece()
+	if f >= 0:
+		var p: JobInstance.Piece = j.pieces[f]
+		glow_scale.temp = p.temp
+		glow_scale.label_text = tr(HeatModel.glow_name_key(p.temp))
+		glow_scale.weld_window = Vector2(gm.cfg.weld_min, gm.cfg.weld_max) if sim.in_weld_phase(f) else Vector2(-1, -1)
+		glow_scale.quench_window = Vector2(gm.cfg.quench_good_min, gm.cfg.quench_good_max) if sim.awaiting_quench(f) else Vector2(-1, -1)
+		progress_bar.value = clampf(p.progress / maxf(j.piece_fp(), 0.001), 0.0, 1.0)
+		var txt := tr("UI_PIECE_INFO").format({"i": f + 1, "n": j.quantity, "p": int(progress_bar.value * 100.0)})
+		if sim.in_weld_phase(f):
+			txt += "  ·  " + tr("UI_WELD_INFO").format({"h": p.weld_hits, "n": gm.cfg.weld_hits_required})
+		elif sim.awaiting_quench(f):
+			txt += "  ·  " + tr("UI_QUENCH_INFO")
+		if p.damage > 0.0:
+			txt += "  ·  " + tr("UI_DAMAGE_INFO").format({"d": int(round(p.damage * 100.0))})
+		info_label.text = txt
+	else:
+		glow_scale.temp = -1.0
+		progress_bar.value = sim.total_progress_ratio()
+		info_label.text = tr("UI_JOB_INFO").format({"p": int(progress_bar.value * 100.0)})
+	glow_scale.queue_redraw()
+
+
+func _update_buttons(j: JobInstance) -> void:
+	var gm := GameManager
+	var sim = gm.sim
+	var has := j != null
+	btn_load.disabled = not has or sim.next_raw() < 0 or sim.free_slot() < 0
+	btn_move.disabled = not has or (sim.anvil < 0 and sim.hottest_forge_piece() < 0)
+	btn_hammer.disabled = not has or sim.anvil < 0
+	btn_quench.visible = gm.has_trough() and has and j.needs_harden()
+	var can_quench := false
+	if has and j.needs_harden():
+		for i in j.pieces.size():
+			if sim.awaiting_quench(i):
+				can_quench = true
+	btn_quench.disabled = not can_quench
+	trough_view.active = can_quench
+
+
+# ================================================================== Eingabe
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Overlay.open_count > 0:
+		return
+	if event is InputEventKey and event.is_echo():
+		return
+	var sim = GameManager.sim
+	if event.is_action_pressed("hammer"):
+		_hammer_press()
+	elif event.is_action_released("hammer"):
+		_hammer_release()
+	elif event.is_action_pressed("move_piece"):
+		_on_move()
+	elif event.is_action_pressed("load_raw"):
+		_on_raw_clicked()
+	elif event.is_action_pressed("quench"):
+		_on_quench()
+	elif event.is_action_pressed("select_1"):
+		sim.selected_slot = 0
+	elif event.is_action_pressed("select_2"):
+		sim.selected_slot = mini(1, sim.slot_count - 1)
+	elif event.is_action_pressed("select_3"):
+		sim.selected_slot = mini(2, sim.slot_count - 1)
+	elif event.is_action_pressed("open_jobs"):
+		open_overlay("res://scenes/ui/job_book.gd")
+	elif event.is_action_pressed("open_shop"):
+		open_overlay("res://scenes/ui/shop.gd")
+	elif event.is_action_pressed("open_staff") and GameManager.current_epoch >= 2:
+		open_overlay("res://scenes/ui/staff_panel.gd")
+	elif event.is_action_pressed("pause"):
+		_open_pause()
+	else:
+		return
+	get_viewport().set_input_as_handled()
+
+
+func _hammer_press() -> void:
+	if Overlay.open_count > 0:
+		return
+	_do_hit()
+	if bool(GameManager.settings.get("hold_to_hammer", false)):
+		_hold_active = true
+		_hold_timer = 0.0
+
+
+func _hammer_release() -> void:
+	_hold_active = false
+
+
+func _do_hit() -> void:
+	var kind: String = GameManager.sim.player_hit()
+	if kind != "none":
+		anvil_view.play_swing()
+
+
+func _on_slot_clicked(slot: int) -> void:
+	var sim = GameManager.sim
+	if sim.job == null:
+		return
+	sim.selected_slot = slot
+	if sim.forge_slots[slot] >= 0:
+		sim.move_slot_to_anvil(slot)
+	elif sim.anvil >= 0:
+		sim.move_anvil_to_forge(slot)
+	else:
+		sim.load_raw(slot)
+
+
+func _on_raw_clicked() -> void:
+	GameManager.sim.load_raw()
+
+
+func _on_move() -> void:
+	GameManager.sim.smart_move()
+
+
+func _on_quench() -> void:
+	if GameManager.sim.quench():
+		trough_view.puff()
+
+
+# ================================================================== Effekte
+
+func _on_sim_event(kind: String, data: Dictionary) -> void:
+	var flash := bool(GameManager.settings.get("flash_effects", true))
+	match kind:
+		"hit_good", "hit_overheat":
+			sparks.position = anvil_point()
+			sparks.amount = 28 if flash else 8
+			sparks.restart()
+			_shake_screen()
+		"hit_weld":
+			weld_sparks.position = anvil_point()
+			weld_sparks.amount = 60 if flash else 12
+			weld_sparks.restart()
+			_shake_screen()
+		"hit_cold":
+			if _cold_msgs < 3 or randf() < 0.15:
+				_cold_msgs += 1
+				_float_text(tr("FX_TOO_COLD"), anvil_point() + Vector2(0, -80), Color("9fc5e8"))
+		"weld_phase":
+			_float_text(tr("FX_WELD_PHASE"), anvil_point() + Vector2(0, -110), Color(1, 1, 0.7))
+		"weld_done":
+			_float_text(tr("FX_WELD_DONE"), anvil_point() + Vector2(0, -110), Color(1, 0.95, 0.6))
+		"ready_to_quench":
+			_float_text(tr("FX_READY_TO_QUENCH"), anvil_point() + Vector2(0, -110), Color(0.7, 0.9, 1.0))
+		"quench_good", "quench_uneven", "quench_soft", "quench_crack":
+			trough_view.puff()
+			var col := Color(0.6, 1.0, 0.6) if kind == "quench_good" else Color(1, 0.6, 0.4)
+			_float_text(tr("FX_" + kind.to_upper()) + " (%d °C)" % int(data.get("temp", 0.0)), trough_view.position + Vector2(160, -40), col)
+		"ruin_burned":
+			_float_text(tr("FX_BURNED"), anvil_point() + Vector2(-200, -60), Color(1, 0.4, 0.3))
+		"ruin_damage":
+			_float_text(tr("FX_CRACKED"), anvil_point() + Vector2(0, -60), Color(1, 0.4, 0.3))
+		"machine":
+			machine_view.strike()
+			if str(data.get("kind", "")) in ["good", "overheat", "weak"]:
+				sparks.position = anvil_point()
+				sparks.amount = 16 if flash else 6
+				sparks.restart()
+				_shake_screen()
+		"striker":
+			anvil_view.play_swing()
+		"piece_done":
+			_float_text(tr("FX_PIECE_DONE"), anvil_point() + Vector2(0, -120), Color(0.9, 0.95, 0.7))
+
+
+func _shake_screen() -> void:
+	if bool(GameManager.settings.get("screen_shake", true)):
+		_shake = 0.15
+
+
+func _float_text(text: String, pos: Vector2, col: Color) -> void:
+	var l := UIKit.label(text, 30, col, HORIZONTAL_ALIGNMENT_CENTER)
+	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	l.add_theme_constant_override("outline_size", 6)
+	l.size = Vector2(600, 40)
+	l.position = pos - Vector2(300, 20)
+	stage.add_child(l)
+	var tw := l.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(l, "position:y", l.position.y - 60.0, 1.4)
+	tw.tween_property(l, "modulate:a", 0.0, 1.4).set_delay(0.5)
+	tw.chain().tween_callback(l.queue_free)
+
+
+func _on_message(key: String, args: Dictionary) -> void:
+	_float_text(tr(key).format(args), forge_view.position + Vector2(400, 220), Color(1, 0.7, 0.5))
+
+
+# ================================================================== Fenster
+
+func open_overlay(path: String) -> Node:
+	var p = load(path).new()
+	overlay_layer.add_child(p)
+	return p
+
+
+func _open_pause() -> void:
+	if Overlay.open_count > 0:
+		return
+	var p = open_overlay("res://scenes/ui/pause_menu.gd")
+	p.quit_to_menu.connect(func() -> void: quit_to_menu.emit())
+
+
+func _open_epoch_offer() -> void:
+	if not GameManager.can_advance_epoch():
+		return
+	var p = load("res://scenes/ui/epoch_panel.gd").new()
+	p.mode = "offer"
+	p.epoch = GameManager.current_epoch + 1
+	overlay_layer.add_child(p)
+
+
+func _on_settlement(report: Dictionary) -> void:
+	_hold_active = false
+	var p = load("res://scenes/ui/settlement_panel.gd").new()
+	p.report = report
+	p.continue_pressed.connect(_after_settlement)
+	overlay_layer.add_child(p)
+
+
+func _after_settlement(report: Dictionary) -> void:
+	if bool(report.get("game_done", false)):
+		var p = load("res://scenes/ui/epoch_panel.gd").new()
+		p.mode = "finale"
+		p.epoch = 6
+		overlay_layer.add_child(p)
+	elif bool(report.get("epoch_done", false)):
+		_open_epoch_offer()
+	_show_next_hint()
+
+
+func _queue_hint(id: String) -> void:
+	if _hint_queue.has(id):
+		return
+	_hint_queue.append(id)
+	_show_next_hint.call_deferred()
+
+
+func _show_next_hint() -> void:
+	if _hint_open or _hint_queue.is_empty():
+		return
+	var id: String = _hint_queue.pop_front()
+	if GameManager.seen_hints.has(id):
+		_show_next_hint()
+		return
+	_hint_open = true
+	var p = load("res://scenes/ui/info_panel.gd").new()
+	p.setup("HINT_" + id.to_upper() + "_TITLE", tr("HINT_" + id.to_upper() + "_TEXT"), [[tr("UI_UNDERSTOOD"), Callable()]], 1000.0)
+	p.closed.connect(_on_hint_closed.bind(id))
+	overlay_layer.add_child(p)
+
+
+func _on_hint_closed(id: String) -> void:
+	GameManager.mark_hint_seen(id)
+	_hint_open = false
+	_show_next_hint.call_deferred()
+
+
+func _on_offline(pence: int, seconds: float) -> void:
+	var p = load("res://scenes/ui/info_panel.gd").new()
+	p.setup("UI_WELCOME_BACK", tr("UI_OFFLINE_EARNINGS").format({"m": Economy.format_lsd(pence), "t": Economy.format_duration(seconds)}))
+	overlay_layer.add_child(p)
+
+
+func _on_state_changed() -> void:
+	var gm := GameManager
+	background.set_epoch(gm.current_epoch, _rep_level())
+	var f := gm.current_forge()
+	forge_view.tier = f.tier
+	var m := gm.current_machine()
+	machine_view.machine_id = m.id if m != null else ""
+	machine_view.water_powered = m != null and m.water_powered
+	hud.refresh()
+	SoundManager.update_ambience()
+
+
+func _rep_level() -> int:
+	match GameManager.reputation_title_key():
+		"REP_5":
+			return 5
+		"REP_4":
+			return 4
+		"REP_3":
+			return 3
+		"REP_2":
+			return 2
+	return 1
+
+
+func _on_epoch_unlocked(_e: int) -> void:
+	_on_state_changed()
+	_clear_piece_views()
+
+
+func _on_settings_changed() -> void:
+	# Nur bei geänderter Sprache: HUD neu aufbauen und Texte setzen.
+	if TranslationServer.get_locale() == _locale:
+		return
+	_locale = TranslationServer.get_locale()
+	var old := hud
+	hud = Hud.new()
+	add_child(hud)
+	move_child(hud, old.get_index())
+	old.queue_free()
+	_connect_hud()
+	btn_load.text = tr("UI_BTN_LOAD")
+	btn_move.text = tr("UI_BTN_MOVE")
+	btn_hammer.text = tr("UI_BTN_HAMMER")
+	btn_quench.text = tr("UI_BTN_QUENCH")

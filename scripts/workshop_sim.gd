@@ -1,0 +1,606 @@
+extends RefCounted
+## Simulation der Werkstatt: Esse, Amboss, Löschtrog, Maschine und Personal
+## (Lastenheft 2.3–2.5, 4.4, 5.5). Rein logisch, ohne Darstellung – damit
+## testbar und für das Referenzmodell (Schätzungen, Balancing) nutzbar.
+## Wird in GameManager._physics_process mit festem Zeitschritt fortgeschrieben.
+
+const HeatModel = preload("res://scripts/heat_model.gd")
+const Economy = preload("res://scripts/economy.gd")
+
+## kind: "good", "weak", "overheat", "cold", "weld", "weld_miss", "none"
+signal hit_landed(kind: String, gain: float)
+signal piece_moved(piece_index: int, to: String)
+signal piece_ruined(piece_index: int, reason: String)
+signal piece_finished(piece_index: int)
+signal weld_phase_started(piece_index: int)
+signal weld_completed(piece_index: int)
+signal ready_to_quench(piece_index: int)
+signal quench_done(piece_index: int, result: String, temp: float)
+signal job_finished()
+signal machine_hit(kind: String)
+signal striker_hit(kind: String)
+## Kosten, die während der Arbeit entstehen (Ausschuss, Dampf-Betriebskosten)
+signal cost_incurred(pence: int, reason: String)
+
+const EPS := 0.0001
+
+var cfg: BalanceConfig
+var job: JobInstance = null
+
+# --- Ausrüstung ---
+var k_heat: float = 25.0
+var t_max: float = 1100.0
+var slot_count: int = 1
+var hammer_power: float = 5.0
+var machine: MachineData = null
+var has_trough: bool = false
+var has_apprentice: bool = false
+var striker: StaffData = null
+var apprentice_to_forge_below: float = 750.0
+var apprentice_to_anvil_at: float = 1050.0
+
+# --- Zustand ---
+var forge_slots: Array = []
+var anvil: int = -1
+## Stückindex -> verbleibende Umlegezeit
+var transit: Dictionary = {}
+var selected_slot: int = 0
+var sim_time: float = 0.0
+var last_player_hit: float = -10.0
+var machine_timer: float = 0.0
+var striker_timer: float = 0.0
+var steam_cost_accum: float = 0.0
+var water_level: float = 1.0
+var water_timer: float = 240.0
+var apprentice_timer: float = 0.0
+## Zähler für Statistik
+var pieces_ruined: int = 0
+
+var rng := RandomNumberGenerator.new()
+
+
+func _init(config: BalanceConfig = null) -> void:
+	cfg = config
+	rng.randomize()
+	set_forge(25.0, 1100.0, 1)
+
+
+func set_forge(heat_rate: float, max_temp: float, slots: int) -> void:
+	k_heat = heat_rate
+	t_max = max_temp
+	slot_count = maxi(1, slots)
+	var old: Array = forge_slots.duplicate()
+	forge_slots.clear()
+	for i in slot_count:
+		forge_slots.append(-1)
+	# Werkstücke in überzähligen Plätzen landen in freien Plätzen oder zurück auf dem Stapel
+	for idx in old:
+		if idx is int and idx >= 0:
+			var s := free_slot()
+			if s >= 0:
+				forge_slots[s] = idx
+				_piece(idx).slot = s
+			elif job != null:
+				_piece(idx).location = JobInstance.LOC_RAW
+				_piece(idx).slot = -1
+	selected_slot = clampi(selected_slot, 0, slot_count - 1)
+
+
+## Neuen (oder geladenen) Auftrag übernehmen. Positionen werden aus den Stücken rekonstruiert.
+func load_job(j: JobInstance) -> void:
+	job = j
+	anvil = -1
+	transit.clear()
+	machine_timer = 0.0
+	striker_timer = 0.0
+	for i in slot_count:
+		forge_slots[i] = -1
+	if job == null:
+		return
+	if job.pieces.is_empty():
+		job.reset_pieces(cfg.room_temp)
+	for i in job.pieces.size():
+		var p: JobInstance.Piece = job.pieces[i]
+		if p.location == JobInstance.LOC_ANVIL:
+			if anvil < 0:
+				anvil = i
+			else:
+				_place_in_forge_or_raw(i)
+		elif p.location == JobInstance.LOC_FORGE:
+			if p.slot >= 0 and p.slot < slot_count and forge_slots[p.slot] == -1:
+				forge_slots[p.slot] = i
+			else:
+				_place_in_forge_or_raw(i)
+
+
+func _place_in_forge_or_raw(i: int) -> void:
+	var p: JobInstance.Piece = _piece(i)
+	var s := free_slot()
+	if s >= 0:
+		forge_slots[s] = i
+		p.location = JobInstance.LOC_FORGE
+		p.slot = s
+	else:
+		p.location = JobInstance.LOC_RAW
+		p.slot = -1
+
+
+func clear_job() -> void:
+	job = null
+	anvil = -1
+	transit.clear()
+	for i in slot_count:
+		forge_slots[i] = -1
+
+
+func _piece(i: int) -> JobInstance.Piece:
+	return job.pieces[i]
+
+
+# ------------------------------------------------------------------ Abfragen
+
+func has_job() -> bool:
+	return job != null
+
+
+func free_slot() -> int:
+	for i in forge_slots.size():
+		if forge_slots[i] == -1:
+			return i
+	return -1
+
+
+func raw_count() -> int:
+	if job == null:
+		return 0
+	var n := 0
+	for p in job.pieces:
+		if p.location == JobInstance.LOC_RAW:
+			n += 1
+	return n
+
+
+func next_raw() -> int:
+	if job == null:
+		return -1
+	for i in job.pieces.size():
+		if _piece(i).location == JobInstance.LOC_RAW:
+			return i
+	return -1
+
+
+func in_transit(i: int) -> bool:
+	return transit.has(i)
+
+
+func is_complete(i: int) -> bool:
+	return _piece(i).progress >= job.piece_fp() - EPS
+
+
+func awaiting_quench(i: int) -> bool:
+	var p: JobInstance.Piece = _piece(i)
+	return job.needs_harden() and is_complete(i) and not p.quenched and p.location != JobInstance.LOC_DONE
+
+
+func in_weld_phase(i: int) -> bool:
+	if job == null or not job.needs_weld():
+		return false
+	var p: JobInstance.Piece = _piece(i)
+	return p.weld_hits < cfg.weld_hits_required and p.progress >= job.piece_fp() * cfg.weld_at_progress - EPS
+
+
+func anvil_piece() -> JobInstance.Piece:
+	if job == null or anvil < 0:
+		return null
+	return _piece(anvil)
+
+
+## Index des Werkstücks, das Anzeigen (Glutskala) zeigen sollen.
+func focus_piece() -> int:
+	if job == null:
+		return -1
+	if anvil >= 0:
+		return anvil
+	if selected_slot < forge_slots.size() and forge_slots[selected_slot] >= 0:
+		return forge_slots[selected_slot]
+	var best := -1
+	for idx in forge_slots:
+		if idx >= 0 and (best < 0 or _piece(idx).temp > _piece(best).temp):
+			best = idx
+	return best
+
+
+func hottest_forge_piece() -> int:
+	var best := -1
+	for idx in forge_slots:
+		if idx >= 0 and not in_transit(idx) and (best < 0 or _piece(idx).temp > _piece(best).temp):
+			best = idx
+	return best
+
+
+func total_progress_ratio() -> float:
+	if job == null or job.pieces.is_empty():
+		return 0.0
+	var sum := 0.0
+	for i in job.pieces.size():
+		var p: JobInstance.Piece = _piece(i)
+		if p.location == JobInstance.LOC_DONE:
+			sum += 1.0
+		else:
+			sum += clampf(p.progress / maxf(job.piece_fp(), EPS), 0.0, 1.0)
+	return sum / float(job.pieces.size())
+
+
+func water_factor() -> float:
+	if machine != null and machine.water_powered:
+		return water_level
+	return 1.0
+
+
+# ------------------------------------------------------------------ Aktionen
+
+## Rohling in einen freien Esse-Platz legen. Gibt den Stückindex zurück oder -1.
+func load_raw(slot: int = -1) -> int:
+	if job == null:
+		return -1
+	var idx := next_raw()
+	if idx < 0:
+		return -1
+	if slot < 0 or slot >= slot_count or forge_slots[slot] != -1:
+		slot = free_slot()
+	if slot < 0:
+		return -1
+	var p: JobInstance.Piece = _piece(idx)
+	forge_slots[slot] = idx
+	p.location = JobInstance.LOC_FORGE
+	p.slot = slot
+	transit[idx] = cfg.transfer_time
+	piece_moved.emit(idx, JobInstance.LOC_FORGE)
+	return idx
+
+
+## Werkstück aus einem Esse-Platz auf den Amboss legen (tauscht, falls der Amboss belegt ist).
+func move_slot_to_anvil(slot: int) -> bool:
+	if job == null or slot < 0 or slot >= slot_count:
+		return false
+	var idx: int = forge_slots[slot]
+	if idx < 0 or in_transit(idx):
+		return false
+	if anvil >= 0:
+		if in_transit(anvil):
+			return false
+		var old := anvil
+		var po: JobInstance.Piece = _piece(old)
+		po.location = JobInstance.LOC_FORGE
+		po.slot = slot
+		forge_slots[slot] = old
+		transit[old] = cfg.transfer_time
+		piece_moved.emit(old, JobInstance.LOC_FORGE)
+	else:
+		forge_slots[slot] = -1
+	var p: JobInstance.Piece = _piece(idx)
+	p.location = JobInstance.LOC_ANVIL
+	p.slot = -1
+	anvil = idx
+	transit[idx] = cfg.transfer_time
+	piece_moved.emit(idx, JobInstance.LOC_ANVIL)
+	return true
+
+
+## Werkstück vom Amboss in die Esse legen (freier oder angegebener Platz; tauscht bei belegtem Platz).
+func move_anvil_to_forge(slot: int = -1) -> bool:
+	if job == null or anvil < 0 or in_transit(anvil):
+		return false
+	if slot >= 0 and slot < slot_count and forge_slots[slot] != -1:
+		return move_slot_to_anvil(slot)
+	if slot < 0 or slot >= slot_count:
+		slot = free_slot()
+	if slot < 0:
+		return false
+	var idx := anvil
+	var p: JobInstance.Piece = _piece(idx)
+	p.location = JobInstance.LOC_FORGE
+	p.slot = slot
+	forge_slots[slot] = idx
+	anvil = -1
+	transit[idx] = cfg.transfer_time
+	piece_moved.emit(idx, JobInstance.LOC_FORGE)
+	return true
+
+
+## Tastatur "E": sinnvolle Umlege-Aktion je nach Lage.
+func smart_move() -> bool:
+	if job == null:
+		return false
+	if anvil >= 0:
+		return move_anvil_to_forge(-1)
+	var s := selected_slot
+	if s < slot_count and forge_slots[s] >= 0:
+		return move_slot_to_anvil(s)
+	var h := hottest_forge_piece()
+	if h >= 0:
+		return move_slot_to_anvil(_piece(h).slot)
+	return load_raw() >= 0
+
+
+## Abschrecken im Löschtrog (4.4.2). Bevorzugt das Amboss-Stück, sonst das gewählte bzw. heißeste fertige Stück.
+func quench(piece_index: int = -1) -> bool:
+	if job == null or not has_trough or not job.needs_harden():
+		return false
+	var idx := piece_index
+	if idx < 0:
+		if anvil >= 0 and awaiting_quench(anvil):
+			idx = anvil
+		else:
+			for s in forge_slots:
+				if s >= 0 and awaiting_quench(s) and (idx < 0 or _piece(s).temp > _piece(idx).temp):
+					idx = s
+	if idx < 0 or not awaiting_quench(idx) or in_transit(idx):
+		return false
+	var p: JobInstance.Piece = _piece(idx)
+	var t := p.temp
+	var res: Dictionary = HeatModel.quench_result(cfg, t)
+	p.quench_penalty = float(res["penalty"])
+	p.quenched = true
+	job.quench_temp = t
+	p.temp = cfg.room_temp
+	quench_done.emit(idx, str(res["result"]), t)
+	_finish_piece(idx)
+	return true
+
+
+## Hammerschlag des Spielers. Gibt die Art des Schlags zurück ("none", wenn ignoriert).
+func player_hit() -> String:
+	if job == null or anvil < 0 or in_transit(anvil):
+		return "none"
+	var min_interval := 1.0 / cfg.max_hits_per_s
+	if sim_time - last_player_hit < min_interval - EPS:
+		return "none"
+	last_player_hit = sim_time
+	var power := hammer_power
+	if job.is_big():
+		power *= cfg.big_manual_factor
+	return _strike(anvil, power, true)
+
+
+func _strike(idx: int, power: float, is_player: bool) -> String:
+	var p: JobInstance.Piece = _piece(idx)
+	if p.location == JobInstance.LOC_DONE or is_complete(idx):
+		return "none"
+	var t := p.temp
+	var kind := "none"
+	if t < cfg.cold_limit:
+		p.damage += cfg.cold_hit_damage
+		kind = "cold"
+		if is_player:
+			hit_landed.emit(kind, 0.0)
+		_check_damage(idx)
+		return kind
+	if in_weld_phase(idx):
+		if not is_player:
+			return "none"
+		if HeatModel.in_weld_window(cfg, t):
+			p.weld_hits += 1
+			kind = "weld"
+			hit_landed.emit(kind, 0.0)
+			if p.weld_hits >= cfg.weld_hits_required:
+				weld_completed.emit(idx)
+		else:
+			kind = "weld_miss"
+			hit_landed.emit(kind, 0.0)
+		return kind
+	var fp := job.piece_fp()
+	var cap := fp
+	var weld_pending := job.needs_weld() and p.weld_hits < cfg.weld_hits_required
+	if weld_pending:
+		cap = fp * cfg.weld_at_progress
+	var gain := power * HeatModel.multiplier(cfg, t)
+	gain = clampf(gain, 0.0, maxf(0.0, cap - p.progress))
+	p.progress += gain
+	if HeatModel.in_window(cfg, t, job.is_precision()):
+		p.points_in_window += gain
+	var z := HeatModel.zone(cfg, t)
+	if z == HeatModel.ZONE_OPTIMAL:
+		kind = "good"
+	elif z == HeatModel.ZONE_OVERHEAT:
+		kind = "overheat"
+	else:
+		kind = "weak"
+	if is_player:
+		hit_landed.emit(kind, gain)
+	if weld_pending and p.progress >= cap - EPS:
+		p.progress = cap
+		weld_phase_started.emit(idx)
+	elif p.progress >= fp - EPS:
+		p.progress = fp
+		if job.needs_harden() and not p.quenched:
+			ready_to_quench.emit(idx)
+		else:
+			_finish_piece(idx)
+	return kind
+
+
+func _finish_piece(idx: int) -> void:
+	var p: JobInstance.Piece = _piece(idx)
+	if anvil == idx:
+		anvil = -1
+	if p.slot >= 0 and p.slot < slot_count and forge_slots[p.slot] == idx:
+		forge_slots[p.slot] = -1
+	p.location = JobInstance.LOC_DONE
+	p.slot = -1
+	transit.erase(idx)
+	piece_finished.emit(idx)
+	if job.all_done():
+		job_finished.emit()
+
+
+func _ruin(idx: int, reason: String) -> void:
+	var p: JobInstance.Piece = _piece(idx)
+	if anvil == idx:
+		anvil = -1
+	if p.slot >= 0 and p.slot < slot_count and forge_slots[p.slot] == idx:
+		forge_slots[p.slot] = -1
+	transit.erase(idx)
+	p.progress = 0.0
+	p.points_in_window = 0.0
+	p.damage = 0.0
+	p.weld_hits = 0
+	p.quenched = false
+	p.quench_penalty = 0.0
+	p.temp = cfg.room_temp
+	p.location = JobInstance.LOC_RAW
+	p.slot = -1
+	pieces_ruined += 1
+	piece_ruined.emit(idx, reason)
+	var per_piece := float(job.reward_base_pence) / float(maxi(1, job.quantity))
+	cost_incurred.emit(Economy.round_half_up(per_piece * cfg.ruin_material_cost), "ruin")
+
+
+func _check_damage(idx: int) -> void:
+	if _piece(idx).damage >= 1.0 - EPS:
+		_ruin(idx, "damage")
+
+
+# ------------------------------------------------------------------ Zeitschritt
+
+func step(dt: float) -> void:
+	sim_time += dt
+	_update_water(dt)
+	if job == null:
+		return
+	job.elapsed_s += dt
+	for i in job.pieces.size():
+		var p: JobInstance.Piece = _piece(i)
+		if p.location == JobInstance.LOC_DONE or p.location == JobInstance.LOC_RAW:
+			continue
+		if in_transit(i):
+			continue
+		if p.location == JobInstance.LOC_FORGE:
+			if p.temp < t_max:
+				p.temp = minf(p.temp + k_heat * dt, t_max)
+		elif p.location == JobInstance.LOC_ANVIL:
+			p.temp = maxf(p.temp - cfg.k_cool * dt, cfg.room_temp)
+		if p.temp > cfg.optimal_max:
+			p.damage += HeatModel.overheat_damage_rate(cfg, p.temp) * dt
+		if p.temp > cfg.burn_limit:
+			_ruin(i, "burned")
+			continue
+		_check_damage(i)
+	if job == null:
+		return
+	# Umlegezeit erst nach der Physik herunterzählen: genau transfer_time ohne Temperaturänderung.
+	for k in transit.keys():
+		transit[k] = float(transit[k]) - dt
+		if transit[k] <= 0.000001:
+			transit.erase(k)
+	_step_machine(dt)
+	_step_striker(dt)
+	_step_apprentice(dt)
+
+
+func _update_water(dt: float) -> void:
+	water_timer -= dt
+	if water_timer <= 0.0:
+		water_timer = rng.randf_range(cfg.water_change_min_s, cfg.water_change_max_s)
+		water_level = rng.randf_range(cfg.water_level_min, cfg.water_level_max)
+
+
+func _auto_target_ok() -> bool:
+	if anvil < 0 or in_transit(anvil) or is_complete(anvil):
+		return false
+	return _piece(anvil).temp >= cfg.auto_hit_min_temp
+
+
+func _step_machine(dt: float) -> void:
+	if machine == null or not _auto_target_ok():
+		machine_timer = 0.0
+		return
+	machine_timer += dt
+	var interval := 1.0 / maxf(machine.hits_per_s, 0.01)
+	while machine_timer >= interval and _auto_target_ok():
+		machine_timer -= interval
+		var kind := _strike(anvil, machine.p_base * water_factor(), false)
+		machine_hit.emit(kind)
+		if job == null:
+			return
+	if machine.cost_per_minute > 0:
+		steam_cost_accum += float(machine.cost_per_minute) / 60.0 * dt
+		if steam_cost_accum >= 1.0:
+			var whole := int(floor(steam_cost_accum))
+			steam_cost_accum -= whole
+			cost_incurred.emit(whole, "steam")
+
+
+func _step_striker(dt: float) -> void:
+	if striker == null or striker.hit_interval_s <= 0.0 or not _auto_target_ok():
+		striker_timer = 0.0
+		return
+	striker_timer += dt
+	while striker_timer >= striker.hit_interval_s and _auto_target_ok():
+		striker_timer -= striker.hit_interval_s
+		var power := striker.p_base
+		if job.is_big():
+			power *= cfg.big_manual_factor
+		var kind := _strike(anvil, power, false)
+		striker_hit.emit(kind)
+		if job == null:
+			return
+
+
+## Lehrling: legt Werkstücke nach einstellbaren Schwellen um (5.5).
+func _step_apprentice(dt: float) -> void:
+	if not has_apprentice or job == null:
+		return
+	apprentice_timer += dt
+	if apprentice_timer < 0.1:
+		return
+	apprentice_timer = 0.0
+	if anvil >= 0 and not in_transit(anvil) and not awaiting_quench(anvil):
+		var low := apprentice_to_forge_below
+		if in_weld_phase(anvil):
+			low = cfg.weld_min + 5.0
+		if _piece(anvil).temp < low and free_slot() >= 0:
+			move_anvil_to_forge(-1)
+	if anvil < 0:
+		var best := -1
+		for idx in forge_slots:
+			if idx < 0 or in_transit(idx) or awaiting_quench(idx):
+				continue
+			if _piece(idx).temp >= apprentice_take_temp(idx) - EPS:
+				if best < 0 or _piece(idx).temp > _piece(best).temp:
+					best = idx
+		if best >= 0:
+			move_slot_to_anvil(_piece(best).slot)
+	if free_slot() >= 0 and next_raw() >= 0:
+		load_raw()
+
+
+func apprentice_take_temp(idx: int) -> float:
+	if in_weld_phase(idx):
+		return minf(t_max, cfg.weld_max) - 15.0
+	return minf(apprentice_to_anvil_at, t_max - 1.0)
+
+
+# ------------------------------------------------------------------ Bewertung
+
+## Ergebnis eines fertigen Auftrags: Trefferquote, Schaden, Q, Sterne (2.6).
+func evaluate() -> Dictionary:
+	var total := 0.0
+	var in_win := 0.0
+	var dmg := 0.0
+	var pen := 0.0
+	var n := 0
+	for p in job.pieces:
+		total += p.progress
+		in_win += p.points_in_window
+		dmg += p.damage
+		pen += p.quench_penalty
+		n += 1
+	var quote := in_win / total if total > EPS else 0.0
+	var avg_dmg := dmg / float(maxi(1, n))
+	var avg_pen := pen / float(maxi(1, n))
+	var q := Economy.quality_value(cfg, quote, avg_dmg, avg_pen)
+	return {
+		"hit_quote": quote, "damage": avg_dmg, "quench_penalty": avg_pen,
+		"q": q, "stars": Economy.star_count(cfg, q),
+	}
