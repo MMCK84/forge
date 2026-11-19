@@ -128,17 +128,44 @@ Ebenfalls 3 Plätze; das Gebläse zeichnet das Spiel selbst links daneben.
 2D game asset, a large late-18th-century coke-fired smith's hearth: a long rectangular hearth of cast-iron plates and firebrick with a wide open fire bed of brilliant yellow-white glowing coke that takes up at least half of the forge's width, a cast-iron air pipe entering from the left side, an iron hood and short chimney shown completely inside the image, riveted iron bands, side view from slightly above like a game sprite, the whole object fully inside the frame with a margin, no smoke, no sparks above the forge, no people, no text, no watermark, isolated on pure flat white background
 ```
 
+### Hämmer – genau von der Seite (ersetzt die Schrägansichten)
+
+Die Hämmer schwingen im Spiel über dem Amboss. Damit die Bahn sauber senkrecht auf das
+Werkstück trifft, braucht das Spiel eine **reine Seitenansicht ohne Perspektive**:
+
+```
+        ▄▄▄  ← Rückseite (Finne) oben
+        █ █
+        █ █━━━━━━━━━━━━━━━━━━━━━━━━━━━  ← Stiel waagerecht nach rechts
+        █ █
+        ▀▀▀  ← Bahn (Schlagfläche) unten
+```
+
+Kopf links und senkrecht, Bahn zeigt nach unten, Stiel waagerecht nach rechts.
+Dasselbe Bild dient auch als Bild im Laden. Format 2:1 quer (Midjourney: `--ar 2:1`).
+
 **hammer_hand** – Handhammer (Stufe 1)
 ```
-2D game asset, a simple 18th-century blacksmith's hand hammer: plain forged iron head with a flat face and a short rounded back, wedged into a straight ash-wood handle, three-quarter view from above, head in the upper left and handle pointing to the lower right, hand-painted 2D game art with dark ink outlines, matte dark iron, no engraving, no text, no numbers, no cast shadow, no watermark, isolated on pure flat white background
+2D game asset, a simple 18th-century blacksmith's hand hammer shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the plain forged iron head stands upright on the left: flat striking face pointing straight down, short rounded back pointing straight up, the straight ash-wood handle goes through the middle of the head and points horizontally to the right, the whole hammer is level and not tilted, hand-painted 2D game art with a thin dark ink outline, matte dark iron with hammer marks, no engraving, no text, no numbers, no cast shadow, no watermark, the whole object fully inside the frame with a margin, isolated on pure flat white background, wide 2:1
+```
+
+**hammer_cross_peen** – Kreuzschlaghammer (Stufe 2)
+```
+2D game asset, an 18th-century cast iron cross-peen blacksmith's hammer shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the head stands upright on the left: square flat striking face pointing straight down, the back of the head tapers to a wedge-shaped cross peen pointing straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, the whole hammer is level and not tilted, hand-painted 2D game art with a thin dark ink outline, dark cast iron with slight rust, no engraving, no initials, no text, no numbers, no cast shadow, no watermark, the whole object fully inside the frame with a margin, isolated on pure flat white background, wide 2:1
 ```
 
 **hammer_steel_faced** – Hammer mit verstählter Bahn (Stufe 3)
 ```
-2D game asset, an 18th-century blacksmith's hammer with a steel-faced head: dark wrought iron body with a bright, polished steel striking face forge-welded onto the front, a visible weld line between iron and steel, a wedge-shaped peen on the back, straight hardwood handle with an iron wedge, three-quarter view from above, head in the upper left and handle pointing to the lower right, hand-painted 2D game art with dark ink outlines, no engraving, no text, no numbers, no cast shadow, no watermark, isolated on pure flat white background
+2D game asset, an 18th-century blacksmith's hammer with a steel-faced head shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the head stands upright on the left: dark wrought iron body with a bright polished steel striking face forge-welded onto the bottom, a visible weld line between iron and steel, the striking face points straight down, a wedge-shaped peen points straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, the whole hammer is level and not tilted, hand-painted 2D game art with a thin dark ink outline, no engraving, no text, no numbers, no cast shadow, no watermark, the whole object fully inside the frame with a margin, isolated on pure flat white background, wide 2:1
 ```
 
----
+**hammer_crucible** – Gussstahl-Hammer / Tiegelstahl (Stufe 4)
+```
+2D game asset, a high-quality late-18th-century crucible steel blacksmith's hammer shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap, the whole hammer is level and not tilted, hand-painted 2D game art with a thin dark ink outline, no engraving, no date, no text, no numbers, no cast shadow, no watermark, the whole object fully inside the frame with a margin, isolated on pure flat white background, wide 2:1
+```
+
+**Tipp:** Kippt der Generator den Hammer trotzdem schräg, hilft der Zusatz
+`technical drawing style profile, like a museum catalogue photo from the side`.
 
 ## E · Maschinen in Einzelteilen (optional)
 
