@@ -13,13 +13,18 @@ var big: bool = false
 var hammer_id: String = ""
 ## Handhammer ausblenden, wenn ein Schwanzhammer auf den Amboss schlägt
 var hand_hammer_visible: bool = true
-## Hammergrafiken des Auftraggebers: Griffende (Drehpunkt beim Schlag) und Neigung des Stiels
+## Hammergrafiken des Auftraggebers (schräg von oben gezeichnet): Griffende, Mitte der Bahn
+## und Richtung der Kopfachse (Grad, zur Bahn hin). Beim Schlag wird so gedreht, dass die
+## Bahn senkrecht auf das Werkstück trifft; der Stiel zeigt dann schräg nach oben zur Hand.
 const USER_HAMMERS := {
-	"hammer_hand": [Vector2(348, 192), -0.42],
-	"hammer_cross_peen": [Vector2(345, 192), -0.36],
-	"hammer_steel_faced": [Vector2(348, 210), -0.46],
-	"hammer_crucible": [Vector2(340, 195), -0.38],
+	"hammer_hand": [Vector2(350, 194), Vector2(6, 77), 170.0],
+	"hammer_cross_peen": [Vector2(345, 196), Vector2(13, 122), 151.0],
+	"hammer_steel_faced": [Vector2(350, 213), Vector2(8, 95), 162.0],
+	"hammer_crucible": [Vector2(340, 197), Vector2(14, 124), 148.0],
 }
+const USER_HAMMER_SCALE := 0.62
+## Ausholwinkel (Bogenmaß) zwischen Schlag und angehobenem Hammer
+const USER_HAMMER_RAISE := 0.4
 
 
 func _ready() -> void:
@@ -68,9 +73,14 @@ func _draw() -> void:
 		var ang := 0.55 * (1.0 - swing) + 0.05
 		var user_h := Assets.user(hammer_id + ".png") if hammer_id != "" else null
 		if user_h != null:
-			var spec: Array = USER_HAMMERS.get(hammer_id, [Vector2(345, 192), -0.38])
+			var spec: Array = USER_HAMMERS.get(hammer_id, [Vector2(345, 195), Vector2(12, 110), 155.0])
 			var grip: Vector2 = spec[0]
-			draw_set_transform(pivot + Vector2(0, -12), ang + float(spec[1]), Vector2(0.68, 0.68))
+			var face: Vector2 = spec[1]
+			var base := deg_to_rad(90.0 - float(spec[2]))
+			var k := USER_HAMMER_SCALE
+			# Drehpunkt (Hand) so, dass die Bahn beim Schlag genau auf dem Werkstück sitzt
+			var hand := Vector2(cx, 126.0) - (face - grip).rotated(base) * k
+			draw_set_transform(hand, base + USER_HAMMER_RAISE * (1.0 - swing), Vector2(k, k))
 			draw_texture(user_h, -grip)
 		else:
 			draw_set_transform(pivot, ang, Vector2.ONE)
