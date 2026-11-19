@@ -157,7 +157,8 @@ automatisch; fehlt eine Datei, greift wieder die gerenderte Variante.
 | Lehm-, Ziegel-, Doppelblasebalg- und Koks-Esse | Essen-Stufe 1–4 (Glut eingemalt, Feuerschein flackert darüber, Plätze auf dem Glutbett, Rauch aus dem Schornstein) |
 | Amboss auf Eichenklotz | Amboss in allen Epochen |
 | Handhammer, Kreuzschlaghammer, Hammer mit verstählter Bahn, Tiegelstahl-Hammer | Bild im Laden und schwingender Hammer über dem Amboss |
-| Wasser-Schwanzhammer mit Wasserrad | Bild im Laden (die Maschine in der Werkstatt bleibt animiert aus Einzelteilen) |
+| Wasser-Schwanzhammer mit Wasserrad | Bild im Laden |
+| Maschinen-Einzelteile (Wasserrad, Hammerbalken, Gestell, Schwungrad, Dampfmaschine, Balancier) | animierte Maschinen in Epoche 5/6: Rad und Schwungrad drehen sich, der Balancier wippt, der Hammerbalken schlägt auf den Amboss (auch bei eigenen Schlägen; der Handhammer ist dann ausgeblendet). Den eingemalten Arm der Dampfmaschine entfernt das Importskript. |
 | Auftragsbuch-Seite | Auftragsbuch (Angebote untereinander, scrollbar) |
 | Pergament mit Messingecken | Hintergrund aller Fenster |
 | Leder-Messing-Karte | alle Standardknöpfe (normal / Hover / gedrückt / gesperrt abgeleitet) |
@@ -167,7 +168,7 @@ automatisch; fehlt eine Datei, greift wieder die gerenderte Variante.
 | Guinee, Shilling, Halfpenny | Münzen neben dem gutgeschriebenen Betrag |
 | Münzbeutel | Geldanzeige |
 | Pyrometer-Zeiger | Zeiger des Messing-Pyrometers (ab Freischaltung) |
-| Rohling, Hufeisen | Werkstück-Sprites; der Glow-Shader färbt sie stufenlos nach Temperatur |
+| Rohling und alle 8 Werkstücke der Epoche 1 | Werkstück-Sprites; der Glow-Shader färbt sie stufenlos nach Temperatur (Sticker-Ränder werden entfernt) |
 | App-Icon, Store-Banner | `icon.png` und `store/` (512, 1024, Feature Graphic 1024 × 500) |
 
 Nicht verwendet: Pyrometer-Zifferblatt (Zeiger eingemalt), Siegel „Regina Victoria“ (1837 ff.),

@@ -23,9 +23,9 @@ const STAGE_SIZE := Vector2(1080, 1920)
 const FORGE_X := 120.0
 const ANVIL_POS := Vector2(270, 880)
 const MACHINE_POS := Vector2(210, 650)
-const TROUGH_POS := Vector2(750, 1110)
+const TROUGH_POS := Vector2(20, 1110)
 ## Rohling-Stapel links vor dem Amboss (Bühnen-Koordinaten)
-const RAW_STACK := Rect2(130, 1160, 250, 90)
+const RAW_STACK := Rect2(130, 975, 260, 90)
 ## Bedienfeld unten (Bildschirm-Koordinaten)
 const CONTROLS_SIZE := Vector2(720, 340)
 
@@ -101,6 +101,7 @@ func _ready() -> void:
 	anvil_view.anvil_released.connect(_hammer_release)
 	stage.add_child(anvil_view)
 	machine_view.head_x = anvil_view.position.x + anvil_view.size.x * 0.5 - machine_view.position.x
+	machine_view.strike_y = anvil_point().y - 4.0 - machine_view.position.y
 
 	trough_view = TroughView.new()
 	trough_view.position = TROUGH_POS
@@ -558,6 +559,9 @@ func _do_hit() -> void:
 	var kind: String = GameManager.sim.player_hit()
 	if kind != "none":
 		anvil_view.play_swing()
+		# Mit Maschine führt der Schwanzhammer auch die eigenen Schläge sichtbar aus
+		if machine_view.machine_id != "":
+			machine_view.strike()
 
 
 func _on_slot_clicked(slot: int) -> void:
@@ -752,6 +756,7 @@ func _on_state_changed() -> void:
 	var m := gm.current_machine()
 	machine_view.machine_id = m.id if m != null else ""
 	machine_view.water_powered = m != null and m.water_powered
+	anvil_view.hand_hammer_visible = machine_view.machine_id == "" or not machine_view.has_user_parts()
 	hud.refresh()
 	SoundManager.update_ambience()
 	SoundManager.play_music_for_epoch(gm.current_epoch)

@@ -11,6 +11,8 @@ var has_piece: bool = false
 var big: bool = false
 ## Ausgerüsteter Handhammer; gibt es dazu eine Grafik des Auftraggebers, schwingt diese.
 var hammer_id: String = ""
+## Handhammer ausblenden, wenn ein Schwanzhammer auf den Amboss schlägt
+var hand_hammer_visible: bool = true
 ## Hammergrafiken des Auftraggebers: Griffende (Drehpunkt beim Schlag) und Neigung des Stiels
 const USER_HAMMERS := {
 	"hammer_hand": [Vector2(348, 192), -0.42],
@@ -60,6 +62,8 @@ func _draw() -> void:
 		else:
 			draw_texture(anvil_t, Vector2(-10, -10))
 		# Handhammer: liegt beim Schlag auf (swing = 1) und hebt sich wieder (swing → 0)
+		if not hand_hammer_visible:
+			return
 		var pivot := Vector2(cx + 176, 108)
 		var ang := 0.55 * (1.0 - swing) + 0.05
 		var user_h := Assets.user(hammer_id + ".png") if hammer_id != "" else null

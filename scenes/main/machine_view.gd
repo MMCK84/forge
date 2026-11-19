@@ -11,6 +11,21 @@ var running: bool = false
 var _wheel: float = 0.0
 ## Position des Hammerkopfs über dem Amboss (lokal)
 var head_x: float = 300.0
+## Höhe der Ambossbahn (lokal) – dort trifft der Hammerkopf auf
+var strike_y: float = 364.0
+
+## Maschinenteile des Auftraggebers (ui/user/machine_*.png): Bezugspunkte in Bildpixeln
+const BEAM_PIVOT := Vector2(262, 99)      # Lagerloch im Hammerbalken (Kopf rechts im Bild)
+const BEAM_HEAD := Vector2(655, 199)      # Mitte/Unterkante des Hammerkopfs
+const BEAM_SCALE := 0.85
+const FRAME_BEARING := Vector2(330, 30)   # Lager oben auf dem Gestell
+const FRAME_SCALE := 0.5
+const WHEEL_SCALE := 0.95
+const ENGINE_PIVOT := Vector2(452, 64)    # Säulenkopf der Dampfmaschine
+const ENGINE_ROD := Vector2(215, 4)       # Kolbenstange oben
+const ENGINE_SCALE := 0.42
+const ENGINE_BEAM_PIVOT := Vector2(350, 48)
+const ENGINE_BEAM_HALF := 325.0
 
 
 func strike() -> void:
@@ -26,6 +41,8 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	if machine_id == "":
+		return
+	if _draw_user():
 		return
 	var pivot := Vector2(size.x - 330, 130)
 	var head := Vector2(head_x, 175 + 145 * drop)
@@ -117,3 +134,67 @@ func _draw_textured(pivot: Vector2, head: Vector2) -> bool:
 	draw_set_transform(Vector2.ZERO)
 	draw_texture(head_t, head + Vector2(-60, -30))
 	return true
+
+
+## Hochformat-Maschine aus den Einzelteilen des Auftraggebers: Antrieb rechts hinten,
+## Gestell mit Lager rechts neben dem Amboss, Balken mit Kopf schlägt auf die Ambossbahn.
+func _draw_user() -> bool:
+	var beam := Assets.user("machine_helve_beam.png")
+	var frame := Assets.user("machine_helve_frame.png")
+	if beam == null or frame == null:
+		return false
+	var reach := (BEAM_HEAD.x - BEAM_PIVOT.x) * BEAM_SCALE
+	var pivot := Vector2(head_x + reach, strike_y - (BEAM_HEAD.y - BEAM_PIVOT.y) * BEAM_SCALE)
+	if water_powered:
+		var wheel := Assets.user("machine_water_wheel.png")
+		if wheel == null:
+			return false
+		var wc := pivot + Vector2(150, 80)
+		var ws := wheel.get_size() * WHEEL_SCALE
+		draw_set_transform(wc, _wheel, Vector2.ONE)
+		draw_texture_rect(wheel, Rect2(-ws * 0.5, ws), false)
+		draw_set_transform(Vector2.ZERO)
+	else:
+		var eng := Assets.user("machine_engine_body.png")
+		var eb := Assets.user("machine_engine_beam.png")
+		var fw := Assets.user("machine_flywheel.png")
+		if eng == null or eb == null or fw == null:
+			return false
+		var es := eng.get_size() * ENGINE_SCALE
+		# rechte Kante knapp innerhalb der Bühne (Bühnenbreite 1080, eigene Position abziehen)
+		var eo := Vector2(1060.0 - position.x - es.x, pivot.y + 320.0 - es.y)
+		var fc := eo + Vector2(es.x + 10.0, es.y - 140.0)
+		var fs := fw.get_size() * 0.6
+		draw_set_transform(fc, _wheel * 2.0, Vector2.ONE)
+		draw_texture_rect(fw, Rect2(-fs * 0.5, fs), false)
+		draw_set_transform(Vector2.ZERO)
+		draw_texture_rect(eng, Rect2(eo, es), false)
+		var col_top := eo + ENGINE_PIVOT * ENGINE_SCALE
+		var rod_top := eo + ENGINE_ROD * ENGINE_SCALE
+		var bs := (col_top.x - rod_top.x) / ENGINE_BEAM_HALF
+		draw_set_transform(col_top, sin(_wheel * 2.0) * 0.18, Vector2(bs, bs))
+		draw_texture(eb, -ENGINE_BEAM_PIVOT)
+		draw_set_transform(Vector2.ZERO)
+		if running:
+			for k in 3:
+				var sp := rod_top + Vector2(-30, -20 - k * 30 - fmod(_wheel * 40.0, 30.0))
+				draw_circle(sp, 16.0 + k * 7.0, Color(0.9, 0.9, 0.92, 0.25))
+	var fsz := frame.get_size() * FRAME_SCALE
+	draw_texture_rect(frame, Rect2(pivot - FRAME_BEARING * FRAME_SCALE, fsz), false)
+	# Balken: Bild gespiegelt (Kopf links über dem Amboss), Drehpunkt im Lagerloch
+	var ang := 0.25 * (1.0 - drop)
+	draw_set_transform(pivot, ang, Vector2(-BEAM_SCALE, BEAM_SCALE))
+	draw_texture(beam, -BEAM_PIVOT)
+	draw_set_transform(Vector2.ZERO)
+	if water_powered:
+		# Wasserstand rechts am Bühnenrand
+		var gauge := Rect2(1040.0 - position.x, strike_y - 210.0, 20, 150)
+		draw_rect(gauge, Color(0.1, 0.1, 0.1, 0.65))
+		var h := gauge.size.y * clampf(water_level, 0.0, 1.0)
+		draw_rect(Rect2(gauge.position.x, gauge.end.y - h, gauge.size.x, h), Color(0.3, 0.55, 0.8))
+		draw_string(Assets.ui_font(), Vector2(gauge.position.x - 60, gauge.end.y + 32), "%d %%" % int(round(water_level * 100.0)), HORIZONTAL_ALIGNMENT_LEFT, -1, 26, Color("e9dcc0"))
+	return true
+
+
+func has_user_parts() -> bool:
+	return Assets.user("machine_helve_beam.png") != null and Assets.user("machine_helve_frame.png") != null

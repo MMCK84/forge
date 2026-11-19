@@ -230,6 +230,29 @@ def main():
         h = int(round(b.width * 500 / 1024))
         top = max(0, (b.height - h) // 2)
         b.crop((0, top, b.width, top + h)).resize((1024, 500), Image.LANCZOS).save(os.path.join(store, "feature_graphic_1024x500.png"))
+    # 21 Maschinen in Einzelteilen (weiß): Löcher (Speichen, Gitter, Lager) freistellen
+    mdir = os.path.join(SRC, "machines")
+    if os.path.isdir(mdir):
+        for fn in sorted(os.listdir(mdir)):
+            base, ext = os.path.splitext(fn)
+            if ext.lower() not in (".webp", ".png", ".jpg", ".jpeg"):
+                continue
+            a = np.asarray(Image.open(os.path.join(mdir, fn)).convert("RGB")).astype(np.float32)
+            if base == "engine_body":
+                # eingemalten Balancier entfernen (das Spiel lässt einen eigenen wippen)
+                a[:115, 680:965] = 255.0
+            sat = a.max(axis=2) - a.min(axis=2)
+            white = (a.min(axis=2) > 222) & (sat < 22)
+            bg = flood_bg(white) | enclosed(white, 150)
+            img = to_rgba(a, bg.astype(np.float32))
+            if base in ("water_wheel", "flywheel"):
+                # Drehteile: quadratisch um die Nabe (Bildmitte des Originals), damit sie sauber rotieren
+                c = img.width // 2
+                r = int(max(abs(np.array(img.getbbox()) - np.array([c, c, c, c]))))
+                img = img.crop((c - r, c - r, c + r, c + r))
+                save(img.resize((400, 400), Image.LANCZOS), "machine_" + base + ".png")
+            else:
+                save(img, "machine_" + base + ".png", max_w=700)
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
 
@@ -241,6 +264,12 @@ def item_sprite(path, item_id):
     sat = a.max(axis=2) - a.min(axis=2)
     white = (a.min(axis=2) > 215) & (sat < 25)
     bg = flood_bg(white) | enclosed(white, 20)
+    # Nur das Werkstück behalten: freistehende Reste (z. B. Kontur eines Sticker-Rands) entfernen
+    lab, n = ndimage.label(~bg)
+    if n > 1:
+        sizes = ndimage.sum(~bg, lab, range(1, n + 1))
+        keep = [k + 1 for k, sz in enumerate(sizes) if sz >= 0.3 * sizes.max()]
+        bg = bg | ~np.isin(lab, keep)
     img = to_rgba(a, bg.astype(np.float32))
     img = img.crop(img.getbbox())
     longest = 150.0 if 0.75 < img.width / img.height < 1.33 else 200.0
