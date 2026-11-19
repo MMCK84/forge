@@ -12,7 +12,7 @@ var _step: String = ""
 
 func _ready() -> void:
 	add_theme_stylebox_override("panel", UIKit.panel_box(UIKit.PARCHMENT, UIKit.GOLD, 4, 14, 18))
-	custom_minimum_size = Vector2(560, 0)
+	custom_minimum_size = Vector2(680, 0)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var col := VBoxContainer.new()
 	add_child(col)
@@ -22,7 +22,7 @@ func _ready() -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title)
 	head.add_child(UIKit.button(tr("TUT_SKIP"), _skip, Vector2(0, 48), 20))
-	_label = UIKit.wrap_label("", 24, UIKit.INK, 520.0)
+	_label = UIKit.wrap_label("", 22, UIKit.INK, 630.0)
 	col.add_child(_label)
 	visible = false
 

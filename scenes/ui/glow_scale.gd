@@ -26,7 +26,7 @@ func _x(t: float, bar: Rect2) -> float:
 
 
 func _draw() -> void:
-	var bar_w := size.x - (220.0 if pyrometer else 0.0)
+	var bar_w := size.x - (130.0 if pyrometer else 0.0)
 	var bar := Rect2(0, 26, bar_w, 34)
 	var steps := 96
 	for i in steps:
@@ -57,7 +57,7 @@ func _draw() -> void:
 			txt += "  %d °C" % int(round(temp))
 		draw_string(Assets.ui_font(), Vector2(0, bar.end.y + 34), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("f3e7cf"))
 	if pyrometer:
-		_draw_pyrometer(Vector2(size.x - 100, 52), 70.0)
+		_draw_pyrometer(Vector2(size.x - 58, 50), 50.0)
 
 
 func _bracket(w: Vector2, bar: Rect2, col: Color, row: int) -> void:

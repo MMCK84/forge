@@ -8,4 +8,4 @@ func _init() -> void:
 
 
 func build(box: VBoxContainer) -> void:
-	box.add_child(UIKit.wrap_label(tr("CREDITS_TEXT"), 24, UIKit.INK, 920.0))
+	box.add_child(UIKit.wrap_label(tr("CREDITS_TEXT"), 24, UIKit.INK, UIKit.CW))

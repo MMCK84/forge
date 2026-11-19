@@ -16,31 +16,33 @@ func build(box: VBoxContainer) -> void:
 	var gm := GameManager
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 10)
-	box.add_child(scroll(list, 780))
+	box.add_child(scroll(list, 900))
 	if gm.in_game:
-		list.add_child(UIKit.label(tr("TEST_INFO").format({
+		list.add_child(UIKit.wrap_label(tr("TEST_INFO").format({
 			"e": gm.current_epoch, "n": gm.jobs_completed_in_epoch + 1, "total": gm.epoch_job_count(),
 			"c": "%.2f" % gm.current_complexity(), "m": Economy.format_lsd(gm.total_pence),
-		}), 24, UIKit.INK))
+		}), 22, UIKit.INK, UIKit.CW - 20.0))
 	# --- Epochen
 	list.add_child(_section("TEST_EPOCHS"))
-	list.add_child(UIKit.wrap_label(tr("TEST_EPOCHS_NOTE"), 20, UIKit.INK_LIGHT, 1200.0))
+	list.add_child(UIKit.wrap_label(tr("TEST_EPOCHS_NOTE"), 20, UIKit.INK_LIGHT, UIKit.CW))
 	var grid := GridContainer.new()
 	grid.columns = 4
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 6)
 	for e in range(1, 7):
-		grid.add_child(UIKit.label(tr("EPOCH_%d_NAME" % e), 22, UIKit.INK))
+		grid.add_child(UIKit.label("%d" % e, 24, UIKit.INK))
 		for pos in [[0.0, "TEST_START"], [0.5, "TEST_MIDDLE"], [1.0, "TEST_END"]]:
-			grid.add_child(UIKit.button(tr(pos[1]), _jump.bind(e, float(pos[0])), Vector2(200, 52), 20))
+			grid.add_child(UIKit.button(tr(pos[1]), _jump.bind(e, float(pos[0])), Vector2(170, 52), 20))
 	list.add_child(grid)
 	# --- Schnellaktionen (nur im laufenden Spiel)
 	if gm.in_game:
 		list.add_child(_section("TEST_QUICK"))
 		var row := HBoxContainer.new()
-		row.add_child(UIKit.button("+ £10", _money.bind(2400), Vector2(140, 52), 20))
-		row.add_child(UIKit.button("+ £100", _money.bind(24000), Vector2(140, 52), 20))
-		row.add_child(UIKit.button("+ £1.000", _money.bind(240000), Vector2(150, 52), 20))
+		row.add_child(UIKit.button("+ £10", _money.bind(2400), Vector2(150, 52), 20))
+		row.add_child(UIKit.button("+ £100", _money.bind(24000), Vector2(150, 52), 20))
+		row.add_child(UIKit.button("+ £1.000", _money.bind(240000), Vector2(160, 52), 20))
+		list.add_child(row)
+		row = HBoxContainer.new()
 		var fin := UIKit.button(tr("TEST_FINISH_JOB"), _finish, Vector2(0, 52), 20)
 		fin.disabled = gm.active_job == null
 		row.add_child(fin)
@@ -64,10 +66,9 @@ func build(box: VBoxContainer) -> void:
 				"i": i, "e": info["epoch"], "n": int(info["n"]) + 1, "m": Economy.format_lsd(int(info["pence"])),
 				"date": Time.get_datetime_string_from_unix_time(int(info["saved_at"]) + _tz_offset(), true),
 			})
-		var l := UIKit.label(text, 22, UIKit.INK if not info.is_empty() else UIKit.INK_LIGHT)
-		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		r.add_child(l)
-		var sv := UIKit.button(tr("TEST_SAVE"), _save.bind(i), Vector2(170, 52), 20)
+		var l := UIKit.wrap_label(text, 20, UIKit.INK if not info.is_empty() else UIKit.INK_LIGHT, UIKit.CW)
+		list.add_child(l)
+		var sv := UIKit.button(tr("TEST_SAVE"), _save.bind(i), Vector2(160, 52), 20)
 		sv.disabled = not gm.in_game
 		r.add_child(sv)
 		var ld := UIKit.button(tr("TEST_LOAD"), _load.bind(i), Vector2(170, 52), 20)

@@ -36,7 +36,7 @@
 6. Grafischer Spieltest (spielt Abläufe durch und speichert Screenshots nach `user://playtest/`):
 
    ```bash
-   godot --path . --rendering-driver opengl3 --resolution 1920x1080 res://tools/playtest.tscn
+   godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn
    ```
 
 ## Testmenü (F12)
@@ -131,47 +131,54 @@ Fehlt eine Datei, nutzt das Spiel automatisch die im Code gezeichnete bzw. synth
 Ersatzvariante. Für ein kommerzielles Release bleibt Kapitel 12 (Punkte 3 und 4) offen:
 Die gerenderten Assets sind solide, ersetzen aber keinen Illustrator und keine eingespielte Musik.
 
+### Hochformat (Mobile)
+
+Das Spiel läuft im **Hochformat**: Grundauflösung 720 × 1280 (Bedienoberfläche), die Werkstatt-Bühne
+ist in 1080 × 1920 gezeichnet und wird eingepasst. Am PC öffnet sich ein hochkantes Fenster
+(540 × 960, frei skalierbar). Aufbau von oben nach unten: Statusleiste (Geld, Menü, Epoche,
+Hammer, aktueller Auftrag) – Esse an der Rückwand – Amboss mit Rohling-Stapel, Löschtrog und
+Maschine – Bedienfeld (Glühskala, Fortschritt, Aktionen, großer HAMMERN-Knopf) – Navigationsleiste
+(Aufträge, Laden, Personal, Statistik). Fenster sind schmal und scrollen bei Bedarf. Höhere
+Handys (20:9) bekommen oben und unten verlängerten Hintergrund; breite Fenster seitliche Ränder.
+Die Wand-Boden-Kante je Hintergrund steht in `workshop_background.gd` (`USER_FLOOR_Y`), daran
+wird die Esse ausgerichtet. App-Icon und Store-Grafiken liegen in `store/`.
+
 ### Grafiken des Auftraggebers
 
 Die selbst erstellten Grafiken (Originale in `assets/source/user_art/`, Prompts in
-`Graphiken_HUD_und_UI.docx`) werden mit `python tools/art/import_user_art.py` freigestellt,
-zerlegt und nach `assets/sprites/ui/user/` geschrieben. Das Spiel bevorzugt sie automatisch;
-fehlt eine Datei, greift wieder die gerenderte Variante.
+`Graphiken_HUD_und_UI.docx`, `Graphiken_Werkstatt_Equipment.docx`, `PROMPTS_Werkstuecke.md`
+und `PROMPTS_Hochformat.md`) werden mit `python tools/art/import_user_art.py` freigestellt,
+zerlegt, skaliert und nach `assets/sprites/ui/user/` geschrieben. Das Spiel bevorzugt sie
+automatisch; fehlt eine Datei, greift wieder die gerenderte Variante.
 
 | Grafik | Verwendung |
 |---|---|
-| Pergament mit Messingecken | Hintergrund aller Fenster (Abrechnung, Laden, Einstellungen …) |
-| Leder-Messing-Karte | alle Standardknöpfe (normal / Hover / gedrückt / gesperrt abgeleitet) |
-| Holzrahmen mit Eisenplatte | HUD-Leisten oben und unten |
-| Glut-Knopf mit Hammer im Zahnrad | großer HAMMERN-Knopf rechts neben der Glühskala |
-| Kontorbuch | Auftragsbuch als aufgeschlagenes Buch (zwei Angebote links, eins rechts) |
-| Wachssiegel George III / Admiralität | Meilenstein-Aufträge bzw. Aufträge der Marine (Navy Board, Werften, Hafenmeister) im Auftragsbuch und in der Abrechnung |
-| Guinee, Shilling, Halfpenny | Münzen neben dem gutgeschriebenen Betrag (£ → Guinee, s → Shilling, d → Halfpenny) |
-| Münzbeutel | Geldanzeige im HUD |
-| Pyrometer-Zeiger | Zeiger des Messing-Pyrometers (ab Freischaltung) |
+| 6 Werkstatt-Hintergründe (Hochformat) | je Epoche ein Raum; Esse, Amboss und Maschinen stehen davor |
+| Lehm-, Ziegel-, Doppelblasebalg- und Koks-Esse | Essen-Stufe 1–4 (Glut eingemalt, Feuerschein flackert darüber, Plätze auf dem Glutbett, Rauch aus dem Schornstein) |
 | Amboss auf Eichenklotz | Amboss in allen Epochen |
-| Lehm-Esse, Ziegel-Esse | Essen-Stufe 1 und 2 (Glut eingemalt, Feuerschein flackert darüber; Rauchpartikel aus dem Schornstein) |
+| Handhammer, Kreuzschlaghammer, Hammer mit verstählter Bahn, Tiegelstahl-Hammer | Bild im Laden und schwingender Hammer über dem Amboss |
 | Wasser-Schwanzhammer mit Wasserrad | Bild im Laden (die Maschine in der Werkstatt bleibt animiert aus Einzelteilen) |
-| Hufeisen (kalt) | Werkstück-Sprite „Hufeisen“; der Glow-Shader färbt es stufenlos nach Temperatur |
-| Gusseisen-Kreuzschlaghammer, polierter Stahlhammer | Kreuzschlaghammer bzw. Tiegelstahl-Hammer: Bild im Laden und schwingender Hammer über dem Amboss |
+| Auftragsbuch-Seite | Auftragsbuch (Angebote untereinander, scrollbar) |
+| Pergament mit Messingecken | Hintergrund aller Fenster |
+| Leder-Messing-Karte | alle Standardknöpfe (normal / Hover / gedrückt / gesperrt abgeleitet) |
+| Holzrahmen mit Eisenplatte | Status- und Navigationsleiste |
+| Glut-Knopf mit Hammer im Zahnrad | großer HAMMERN-Knopf (Daumen, rechts unten) |
+| Wachssiegel George III / Admiralität | Meilenstein-Aufträge bzw. Marine-Kunden im Auftragsbuch und in der Abrechnung |
+| Guinee, Shilling, Halfpenny | Münzen neben dem gutgeschriebenen Betrag |
+| Münzbeutel | Geldanzeige |
+| Pyrometer-Zeiger | Zeiger des Messing-Pyrometers (ab Freischaltung) |
+| Rohling, Hufeisen | Werkstück-Sprites; der Glow-Shader färbt sie stufenlos nach Temperatur |
+| App-Icon, Store-Banner | `icon.png` und `store/` (512, 1024, Feature Graphic 1024 × 500) |
 
-Nicht verwendet: das Pyrometer-Zifferblatt (Zeiger fest eingemalt – für eine Verwendung wird
-eine Fassung ohne Zeiger benötigt), Siegel „Regina Victoria“ (1837 ff., passt nicht in 1700–1800),
-Siegel Ludwig XV. und Russland (kein Kunde), Karte 4 (Art-déco-Stil), die Stein-Esse mit großem
-Blasebalg (Feueröffnung zu schmal für die 3 Plätze der Stufe 3, Schornstein oben abgeschnitten,
-Rauch liegt über dem Mauerwerk). Stufe 3 und 4 nutzen weiter die gerenderten Essen; aus demselben Grund
-nicht die Koks-Esse. Holzschlegel und Steinhammer passen nicht in eine Schmiede des
-18. Jahrhunderts (der Hammerkatalog des Spiels beginnt beim eisernen Handhammer).
+Nicht verwendet: Pyrometer-Zifferblatt (Zeiger eingemalt), Siegel „Regina Victoria“ (1837 ff.),
+Siegel Ludwig XV. und Russland (kein Kunde), Karte 4 (Art déco), das aufgeschlagene Kontorbuch
+(Doppelseite zu breit fürs Hochformat), die ersten Fassungen von Stein- und Koks-Esse (Feueröffnung
+zu schmal für 3 Plätze), Holzschlegel und Steinhammer (keine Schmiedewerkzeuge des 18. Jh.),
+Dampf-Fallhammer (erst ab 1839) und die glühenden Hufeisen (Glut kommt aus dem Shader).
 Weitere Werkstücke: Bild als `assets/source/user_art/items/<item_id>.webp` ablegen und das
-Importskript starten. Fertige Prompts für alle 49 Werkstücke stehen in
-`assets/source/user_art/PROMPTS_Werkstuecke.md`.
-
-Nicht verwendet außerdem: der Dampf-Fallhammer (senkrechte Dampfhämmer gibt es erst ab 1839,
-im Spiel ist es ein dampfgetriebener Schwanzhammer wie bei Watt/Wilkinson um 1783) und die
-glühenden Hufeisen (die Glut berechnet der Shader stufenlos aus der Temperatur).
-Der Laden zeigt jetzt Bilder zu Hämmern und Essen; ohne Grafik des Auftraggebers die gerenderten. Kleine Unschärfe: George III
-regierte ab 1760 – Siegel und Münzen sind in den Epochen 1–3 streng genommen etwas zu früh.
-Vor einer Veröffentlichung die Nutzungsbedingungen des verwendeten Bildgenerators prüfen.
+Importskript starten. Kleine Unschärfe: George III regierte ab 1760 – Siegel und Münzen sind in
+den Epochen 1–3 streng genommen etwas zu früh. Vor einer Veröffentlichung die Nutzungsbedingungen
+des verwendeten Bildgenerators prüfen.
 
 ## Erweiterungen gegenüber dem Lastenheft
 

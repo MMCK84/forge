@@ -1,7 +1,7 @@
 extends Node
 ## Automatischer Spieltest: startet das echte Spiel, spielt Abläufe durch und speichert Screenshots.
 ## Aufruf mit Grafik (z. B. unter xvfb-run):
-##   godot --path . --rendering-driver opengl3 --resolution 1920x1080 res://tools/playtest.tscn
+##   godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn
 ## Screenshots landen in user://playtest/ (Pfad wird ausgegeben).
 
 const OUT := "user://playtest/"

@@ -11,9 +11,13 @@ var has_piece: bool = false
 var big: bool = false
 ## Ausgerüsteter Handhammer; gibt es dazu eine Grafik des Auftraggebers, schwingt diese.
 var hammer_id: String = ""
-## Griffende in den Hammergrafiken des Auftraggebers (Drehpunkt beim Schlag) und Griffneigung
-const USER_HAMMER_GRIP := Vector2(345, 182)
-const USER_HAMMER_TILT := -0.36
+## Hammergrafiken des Auftraggebers: Griffende (Drehpunkt beim Schlag) und Neigung des Stiels
+const USER_HAMMERS := {
+	"hammer_hand": [Vector2(348, 192), -0.42],
+	"hammer_cross_peen": [Vector2(345, 192), -0.36],
+	"hammer_steel_faced": [Vector2(348, 210), -0.46],
+	"hammer_crucible": [Vector2(340, 195), -0.38],
+}
 
 
 func _ready() -> void:
@@ -60,8 +64,10 @@ func _draw() -> void:
 		var ang := 0.55 * (1.0 - swing) + 0.05
 		var user_h := Assets.user(hammer_id + ".png") if hammer_id != "" else null
 		if user_h != null:
-			draw_set_transform(pivot + Vector2(0, -12), ang + USER_HAMMER_TILT, Vector2(0.68, 0.68))
-			draw_texture(user_h, -USER_HAMMER_GRIP)
+			var spec: Array = USER_HAMMERS.get(hammer_id, [Vector2(345, 192), -0.38])
+			var grip: Vector2 = spec[0]
+			draw_set_transform(pivot + Vector2(0, -12), ang + float(spec[1]), Vector2(0.68, 0.68))
+			draw_texture(user_h, -grip)
 		else:
 			draw_set_transform(pivot, ang, Vector2.ONE)
 			draw_texture(hammer_t, Vector2(-216, -42))

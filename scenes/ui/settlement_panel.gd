@@ -21,7 +21,7 @@ func build(box: VBoxContainer) -> void:
 	box.add_child(head)
 	var title := UIKit.label(gm.job_title(j), 28, UIKit.INK)
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	title.custom_minimum_size.x = 680
+	title.custom_minimum_size.x = 400
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title)
 	var seal := ""

@@ -138,11 +138,7 @@ def main():
         save(piece, name, max_w=128)
 
     # 9 Auftragsbuch (dunkelgrau); Wasserzeichen fällt als Hintergrundobjekt weg
-    a = load("ledger.webp")
-    ref = np.array([31, 35, 36], np.float32)
-    bg = flood_bg(np.abs(a - ref).max(axis=2) < 14)
-    book = objects(to_rgba(a, bg.astype(np.float32)), min_area=200000)[0]
-    save(book, "ledger.png")
+    # (Doppelseite im Hochformat nicht mehr verwendet – nur noch als Quelle vorhanden)
 
     # 10 Wachssiegel (weiß): nur die historisch passenden (George III, Admiralität)
     a = load("wax_seals.webp")
@@ -162,8 +158,11 @@ def main():
     save(img.resize((457, int(img.height * 457 / img.width)), Image.LANCZOS), "anvil.png")
 
     # 12/13 Lehm- und Ziegelesse (weiß); Rauch über dem Schornstein abschneiden (Partikel übernehmen)
-    for name, cut in [("forge_clay", 140), ("forge_brick", 142)]:
-        a = load(name + ".webp")[cut:]
+    for name, cut in [("forge_clay", 140), ("forge_brick", 142), ("forge_double_bellows", 0), ("forge_coke", 0)]:
+        src = name + (".webp" if os.path.exists(os.path.join(SRC, name + ".webp")) else ".jpg")
+        if not os.path.exists(os.path.join(SRC, src)):
+            continue
+        a = load(src)[cut:]
         sat = a.max(axis=2) - a.min(axis=2)
         img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
         arr = np.asarray(img).copy()
@@ -175,7 +174,8 @@ def main():
         img = img.crop(img.getbbox())
         save(img.resize((int(img.width * 0.8), int(img.height * 0.8)), Image.LANCZOS), name + ".png")
     # 14/15 Hämmer (weiß): Gusseisen-Kreuzschlag → Kreuzschlaghammer, polierter Stahl → Tiegelstahl
-    for src, name in [("hammer_cast_iron.webp", "hammer_cross_peen.png"), ("hammer_polished_steel.webp", "hammer_crucible.png")]:
+    for src, name in [("hammer_cast_iron.webp", "hammer_cross_peen.png"), ("hammer_polished_steel.webp", "hammer_crucible.png"),
+                      ("hammer_hand.jpg", "hammer_hand.png"), ("hammer_steel_faced.jpg", "hammer_steel_faced.png")]:
         a = load(src)
         sat = a.max(axis=2) - a.min(axis=2)
         img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
@@ -192,6 +192,44 @@ def main():
             base, ext = os.path.splitext(fn)
             if ext.lower() in (".webp", ".png", ".jpg", ".jpeg"):
                 item_sprite(os.path.join(items_dir, fn), base)
+    # 18 Werkstatt-Hintergründe im Hochformat → 1080×1920 (unten beschneiden, dort ist nur dunkler Boden)
+    bg_dir = os.path.join(SRC, "backgrounds")
+    if os.path.isdir(bg_dir):
+        for fn in sorted(os.listdir(bg_dir)):
+            base, ext = os.path.splitext(fn)
+            if ext.lower() in (".webp", ".png", ".jpg", ".jpeg") and base.startswith("background_"):
+                im = Image.open(os.path.join(bg_dir, fn)).convert("RGB")
+                h = int(round(im.height * 1080 / im.width))
+                im = im.resize((1080, h), Image.LANCZOS)
+                if h >= 1920:
+                    im = im.crop((0, 0, 1080, 1920))
+                else:
+                    canvas = Image.new("RGB", (1080, 1920), im.getpixel((540, h - 1)))
+                    canvas.paste(im, (0, 0))
+                    im = canvas
+                os.makedirs(OUT, exist_ok=True)
+                im.save(os.path.join(OUT, base + ".jpg"), quality=88, optimize=True)
+    # 19 Auftragsbuch-Einzelseite (weiß) für das Hochformat
+    a = load("ledger_page.jpg")
+    sat = a.max(axis=2) - a.min(axis=2)
+    save(to_rgba(a, flood_bg((a.min(axis=2) > 225) & (sat < 22)).astype(np.float32)), "ledger_page.png", max_w=760)
+
+    # 20 App-Icon: quadratisch, 1024 (iOS) und 512 (Google Play), 192 für Godot/Android
+    icon = Image.open(os.path.join(SRC, "app_icon.jpg")).convert("RGB")
+    side = min(icon.size)
+    icon = icon.crop(((icon.width - side) // 2, (icon.height - side) // 2, (icon.width + side) // 2, (icon.height + side) // 2))
+    store = os.path.join(ROOT, "store")
+    os.makedirs(store, exist_ok=True)
+    icon.resize((1024, 1024), Image.LANCZOS).save(os.path.join(store, "app_icon_1024.png"))
+    icon.resize((512, 512), Image.LANCZOS).save(os.path.join(store, "app_icon_512.png"))
+    icon.resize((256, 256), Image.LANCZOS).save(os.path.join(ROOT, "icon.png"))
+    # Store-Banner (Google Play Feature Graphic 1024 × 500)
+    banner_src = os.path.join(store, "store_banner_source.jpg")
+    if os.path.exists(banner_src):
+        b = Image.open(banner_src).convert("RGB")
+        h = int(round(b.width * 500 / 1024))
+        top = max(0, (b.height - h) // 2)
+        b.crop((0, top, b.width, top + h)).resize((1024, 500), Image.LANCZOS).save(os.path.join(store, "feature_graphic_1024x500.png"))
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
 
@@ -235,6 +273,9 @@ def derived():
     em = Image.open(os.path.join(OUT, "button_ember.png"))
     w = 440
     states(em.resize((w, int(em.height * w / em.width)), Image.LANCZOS), "ember")
+    # Pergament für schmale Hochformat-Fenster: 60 % (Rand ca. 66 px statt 110 px)
+    pa = Image.open(os.path.join(OUT, "panel_parchment.png"))
+    save(pa.resize((int(pa.width * 0.6), int(pa.height * 0.6)), Image.LANCZOS), "panel_parchment_m.png")
 
 
 if __name__ == "__main__":

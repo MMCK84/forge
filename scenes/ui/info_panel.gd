@@ -13,7 +13,7 @@ func setup(title: String, body: String, button_list: Array = [], width: float = 
 
 
 func build(box: VBoxContainer) -> void:
-	box.add_child(UIKit.wrap_label(body_text, 26, UIKit.INK, panel_width - 80.0))
+	box.add_child(UIKit.wrap_label(body_text, 24, UIKit.INK, minf(panel_width - 80.0, UIKit.CW)))
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_END
 	box.add_child(row)

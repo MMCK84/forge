@@ -18,6 +18,11 @@ const GREEN := Color("4f6b2f")
 const TEXT_LIGHT := Color("f3e7cf")
 const GOLD := Color("e8b54a")
 
+## Nutzbare Inhaltsbreite in Fenstern (Hochformat 720 px minus Rand und Pergament)
+const CW := 580.0
+## Fensterbreite im Hochformat
+const PANEL_W := 696.0
+
 static var _theme: Theme = null
 
 
@@ -90,7 +95,7 @@ static func theme() -> Theme:
 	# Panels: Pergament
 	t.set_stylebox("panel", "PanelContainer", _box(PARCHMENT, BRASS, 4, 12, 24))
 	t.set_stylebox("panel", "Panel", _box(PARCHMENT, BRASS, 4, 12, 24))
-	var parch := _tex_box("ui/user/panel_parchment.png", 110.0, 72.0, 58.0)
+	var parch := _tex_box("ui/user/panel_parchment_m.png", 66.0, 46.0, 38.0)
 	if parch == null:
 		parch = _tex_box("ui/parchment.png", 40.0, 30.0, 24.0)
 	if parch != null:

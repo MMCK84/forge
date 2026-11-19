@@ -16,7 +16,7 @@ func build(box: VBoxContainer) -> void:
 	box.add_child(UIKit.label(tr("UI_PURSE") + ": " + Economy.format_lsd(gm.total_pence), 28, UIKit.INK))
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 8)
-	box.add_child(scroll(list, 720))
+	box.add_child(scroll(list, 860))
 	# Hämmer
 	list.add_child(_section("UI_SECTION_HAMMERS"))
 	for h in Catalog.HAMMERS:
@@ -28,7 +28,7 @@ func build(box: VBoxContainer) -> void:
 			if gm.equipped_hammer_id == h.id:
 				btn = _status_btn(tr("UI_EQUIPPED"))
 			else:
-				btn = UIKit.button(tr("UI_EQUIP"), _do.bind(func() -> void: gm.equip_hammer(h.id)), Vector2(240, 60))
+				btn = UIKit.button(tr("UI_EQUIP"), _do.bind(func() -> void: gm.equip_hammer(h.id)), Vector2(160, 56), 20)
 		else:
 			btn = _buy_btn(h.price, h.min_epoch, func() -> void: gm.buy_hammer(h.id))
 		row.add_child(btn)
@@ -58,12 +58,12 @@ func build(box: VBoxContainer) -> void:
 			if gm.equipped_forge_id == f.id:
 				f_row.add_child(_status_btn(tr("UI_EQUIPPED")))
 			else:
-				f_row.add_child(UIKit.button(tr("UI_EQUIP"), _do.bind(func() -> void: gm.equip_forge(f.id)), Vector2(240, 60)))
+				f_row.add_child(UIKit.button(tr("UI_EQUIP"), _do.bind(func() -> void: gm.equip_forge(f.id)), Vector2(160, 56), 20))
 		else:
 			f_row.add_child(_buy_btn(f.price, f.min_epoch, func() -> void: gm.buy_forge(f.id)))
 		list.add_child(f_row)
 	if gm.current_epoch >= 3:
-		list.add_child(UIKit.wrap_label(tr("UI_FORGE_BURN_NOTE"), 20, UIKit.RED, 1200.0))
+		list.add_child(UIKit.wrap_label(tr("UI_FORGE_BURN_NOTE"), 19, UIKit.RED, UIKit.CW - 20.0))
 	# Maschinen
 	list.add_child(_section("UI_SECTION_MACHINES"))
 	for m in Catalog.MACHINES:
@@ -78,11 +78,11 @@ func build(box: VBoxContainer) -> void:
 			if gm.active_machine_id == m.id:
 				m_row.add_child(_status_btn(tr("UI_ACTIVE")))
 			else:
-				m_row.add_child(UIKit.button(tr("UI_ACTIVATE"), _do.bind(func() -> void: gm.activate_machine(m.id)), Vector2(240, 60)))
+				m_row.add_child(UIKit.button(tr("UI_ACTIVATE"), _do.bind(func() -> void: gm.activate_machine(m.id)), Vector2(160, 56), 20))
 		else:
 			m_row.add_child(_buy_btn(m.price, m.min_epoch, func() -> void: gm.buy_machine(m.id)))
 		list.add_child(m_row)
-	list.add_child(UIKit.wrap_label(tr("UI_MACHINE_NOTE"), 20, UIKit.INK_LIGHT, 1200.0))
+	list.add_child(UIKit.wrap_label(tr("UI_MACHINE_NOTE"), 19, UIKit.INK_LIGHT, UIKit.CW - 20.0))
 
 
 func _section(key: String) -> Control:
@@ -102,7 +102,7 @@ func _machine_icon(id: String, water: bool) -> Texture2D:
 
 
 func _forge_icon(tier: int) -> Texture2D:
-	var user_files := {1: "forge_clay.png", 2: "forge_brick.png"}
+	var user_files := {1: "forge_clay.png", 2: "forge_brick.png", 3: "forge_double_bellows.png", 4: "forge_coke.png"}
 	var t: Texture2D = Assets.user(str(user_files[tier])) if user_files.has(tier) else null
 	return t if t != null else Assets.tex("environment/forge_%d.png" % clampi(tier, 1, 4))
 
@@ -115,7 +115,7 @@ func _row(title: String, info: String, price: int, min_epoch: int, icon: Texture
 		r.texture = icon
 		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		r.custom_minimum_size = Vector2(120, 72)
+		r.custom_minimum_size = Vector2(96, 60)
 		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if locked:
 			r.modulate = Color(0.55, 0.55, 0.55, 0.7)
@@ -123,17 +123,18 @@ func _row(title: String, info: String, price: int, min_epoch: int, icon: Texture
 	var col := VBoxContainer.new()
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.add_theme_constant_override("separation", 2)
-	col.add_child(UIKit.label(title, 26, UIKit.INK if not locked else UIKit.INK_LIGHT))
+	col.custom_minimum_size.x = UIKit.CW - 96.0 - 160.0 - 40.0
+	col.add_child(UIKit.wrap_label(title, 23, UIKit.INK if not locked else UIKit.INK_LIGHT, col.custom_minimum_size.x))
 	var sub := info
 	if price > 0:
 		sub += "  ·  " + Economy.format_lsd(price)
-	col.add_child(UIKit.label(sub, 21, UIKit.INK_LIGHT))
+	col.add_child(UIKit.wrap_label(sub, 18, UIKit.INK_LIGHT, col.custom_minimum_size.x))
 	row.add_child(col)
 	return row
 
 
 func _status_btn(text: String) -> Button:
-	var b := UIKit.button(text, Callable(), Vector2(240, 60))
+	var b := UIKit.button(text, Callable(), Vector2(160, 56), 20)
 	b.disabled = true
 	return b
 
@@ -141,10 +142,10 @@ func _status_btn(text: String) -> Button:
 func _buy_btn(price: int, min_epoch: int, action: Callable) -> Button:
 	var gm := GameManager
 	if min_epoch > gm.current_epoch:
-		var b := UIKit.button(tr("UI_FROM_EPOCH").format({"e": min_epoch}), Callable(), Vector2(240, 60))
+		var b := UIKit.button(tr("UI_FROM_EPOCH").format({"e": min_epoch}), Callable(), Vector2(160, 56), 20)
 		b.disabled = true
 		return b
-	var buy := UIKit.button(tr("UI_BUY"), _do.bind(action), Vector2(240, 60))
+	var buy := UIKit.button(tr("UI_BUY"), _do.bind(action), Vector2(160, 56), 20)
 	buy.disabled = not gm.can_afford(price)
 	return buy
 

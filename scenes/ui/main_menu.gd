@@ -35,14 +35,18 @@ func _ready() -> void:
 	if title_tex != null:
 		var tr_title := TextureRect.new()
 		tr_title.texture = title_tex
-		tr_title.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		tr_title.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr_title.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		var tw := minf(660.0, float(title_tex.get_width()))
+		tr_title.custom_minimum_size = Vector2(tw, tw * title_tex.get_height() / title_tex.get_width())
 		col.add_child(tr_title)
 	else:
-		var title := UIKit.label(tr("GAME_TITLE"), 96, UIKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+		var title := UIKit.label(tr("GAME_TITLE"), 72, UIKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 		title.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
 		title.add_theme_constant_override("outline_size", 12)
 		col.add_child(title)
-	var sub_l := UIKit.label(tr("GAME_SUBTITLE"), 32, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+	var sub_l := UIKit.wrap_label(tr("GAME_SUBTITLE"), 26, UIKit.TEXT_LIGHT, 640.0)
+	sub_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub_l.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
 	sub_l.add_theme_constant_override("outline_size", 6)
 	col.add_child(sub_l)

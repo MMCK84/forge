@@ -15,6 +15,7 @@ var panel: PanelContainer
 var content: VBoxContainer
 var _title_label: Label
 var _counted: bool = false
+var _scroll: ScrollContainer
 
 static var open_count: int = 0
 
@@ -37,7 +38,7 @@ func _ready() -> void:
 		_finish_ready()
 		return
 	panel = PanelContainer.new()
-	panel.custom_minimum_size.x = panel_width
+	panel.custom_minimum_size.x = minf(panel_width, UIKit.PANEL_W)
 	center.add_child(panel)
 	var outer := VBoxContainer.new()
 	outer.add_theme_constant_override("separation", 14)
@@ -57,9 +58,23 @@ func _ready() -> void:
 	outer.add_child(UIKit.hsep())
 	content = VBoxContainer.new()
 	content.add_theme_constant_override("separation", 12)
-	outer.add_child(content)
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# Inhalt scrollt, wenn das Fenster höher als der Bildschirm würde (Hochformat)
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.add_child(content)
+	outer.add_child(_scroll)
 	build(content)
+	_fit_scroll.call_deferred()
 	_finish_ready()
+
+
+## Scrollbereich so hoch wie der Inhalt, höchstens bis zum Bildschirmrand.
+func _fit_scroll() -> void:
+	if _scroll == null or content == null or not is_inside_tree():
+		return
+	var max_h := get_viewport_rect().size.y - 230.0
+	_scroll.custom_minimum_size.y = minf(content.get_combined_minimum_size().y, max_h)
 
 
 func _finish_ready() -> void:
@@ -117,6 +132,7 @@ func rebuild() -> void:
 	for c in content.get_children():
 		c.queue_free()
 	build(content)
+	_fit_scroll.call_deferred()
 
 
 func _unhandled_input(event: InputEvent) -> void:

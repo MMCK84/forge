@@ -31,9 +31,9 @@ func build(box: VBoxContainer) -> void:
 	]
 	var grid := GridContainer.new()
 	grid.columns = 2
-	grid.add_theme_constant_override("h_separation", 40)
+	grid.add_theme_constant_override("h_separation", 24)
 	grid.add_theme_constant_override("v_separation", 8)
 	for r in rows:
-		grid.add_child(UIKit.label(tr(r[0]), 26, UIKit.INK_LIGHT))
-		grid.add_child(UIKit.label(str(r[1]), 26, UIKit.INK))
+		grid.add_child(UIKit.label(tr(r[0]), 22, UIKit.INK_LIGHT))
+		grid.add_child(UIKit.label(str(r[1]), 22, UIKit.INK))
 	box.add_child(grid)

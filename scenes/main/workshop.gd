@@ -18,7 +18,16 @@ const Hud = preload("res://scenes/ui/hud.gd")
 const Tutorial = preload("res://scenes/ui/tutorial.gd")
 const StepMarks = preload("res://scenes/ui/step_marks.gd")
 
-const STAGE_SIZE := Vector2(1920, 1080)
+const STAGE_SIZE := Vector2(1080, 1920)
+## Bühnen-Positionen (Hochformat)
+const FORGE_X := 120.0
+const ANVIL_POS := Vector2(270, 880)
+const MACHINE_POS := Vector2(210, 650)
+const TROUGH_POS := Vector2(750, 1110)
+## Rohling-Stapel links vor dem Amboss (Bühnen-Koordinaten)
+const RAW_STACK := Rect2(130, 1160, 250, 90)
+## Bedienfeld unten (Bildschirm-Koordinaten)
+const CONTROLS_SIZE := Vector2(720, 340)
 
 signal quit_to_menu()
 
@@ -34,6 +43,8 @@ var tutorial: Tutorial
 var pieces_layer: Node2D
 var fx_layer: Node2D
 var overlay_layer: Control
+var controls: Control
+var _stage_base := Vector2.ZERO
 var progress_bar: ProgressBar
 var step_marks: StepMarks
 var info_label: Label
@@ -69,22 +80,22 @@ func _ready() -> void:
 	stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(stage)
 
+	# Bühne (Bühnen-Koordinaten 1080 × 1920, skaliert): Esse oben an der Rückwand,
+	# Amboss davor auf dem Boden, Maschine/Löschtrog rechts daneben.
 	machine_view = MachineView.new()
-	machine_view.position = Vector2(900, 100)
+	machine_view.position = MACHINE_POS
 	machine_view.size = Vector2(1020, 330)
 	machine_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	stage.add_child(machine_view)
 
 	forge_view = ForgeView.new()
-	forge_view.position = Vector2(150, 120)
-	forge_view.size = Vector2(800, 680)
-	forge_view.raw_rect = Rect2(0, 580, 330, 90)
+	forge_view.position = Vector2(FORGE_X, 200)
 	forge_view.slot_clicked.connect(_on_slot_clicked)
 	forge_view.raw_clicked.connect(_on_raw_clicked)
 	stage.add_child(forge_view)
 
 	anvil_view = AnvilView.new()
-	anvil_view.position = Vector2(960, 330)
+	anvil_view.position = ANVIL_POS
 	anvil_view.size = Vector2(540, 430)
 	anvil_view.anvil_pressed.connect(_hammer_press)
 	anvil_view.anvil_released.connect(_hammer_release)
@@ -92,7 +103,7 @@ func _ready() -> void:
 	machine_view.head_x = anvil_view.position.x + anvil_view.size.x * 0.5 - machine_view.position.x
 
 	trough_view = TroughView.new()
-	trough_view.position = Vector2(1540, 560)
+	trough_view.position = TROUGH_POS
 	trough_view.size = Vector2(320, 170)
 	trough_view.trough_clicked.connect(_on_quench)
 	stage.add_child(trough_view)
@@ -103,46 +114,57 @@ func _ready() -> void:
 	stage.add_child(fx_layer)
 	_build_particles()
 
+	# Bedienfeld (Bildschirm-Koordinaten) unten über der Navigationsleiste
+	controls = Control.new()
+	controls.size = CONTROLS_SIZE
+	controls.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(controls)
+
 	glow_scale = GlowScale.new()
-	glow_scale.position = Vector2(240, 800)
-	glow_scale.size = Vector2(1440, 92)
+	glow_scale.position = Vector2(20, 0)
+	glow_scale.size = Vector2(680, 92)
 	glow_scale.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	stage.add_child(glow_scale)
+	controls.add_child(glow_scale)
 
 	progress_bar = ProgressBar.new()
-	progress_bar.position = Vector2(240, 898)
-	progress_bar.size = Vector2(820, 34)
+	progress_bar.position = Vector2(20, 98)
+	progress_bar.size = Vector2(680, 30)
 	progress_bar.show_percentage = false
 	progress_bar.max_value = 1.0
 	progress_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	stage.add_child(progress_bar)
+	controls.add_child(progress_bar)
 	step_marks = StepMarks.new()
 	step_marks.position = progress_bar.position
 	step_marks.size = progress_bar.size
 	step_marks.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	stage.add_child(step_marks)
-	info_label = UIKit.label("", 22, UIKit.TEXT_LIGHT)
-	info_label.position = Vector2(1080, 899)
-	info_label.size = Vector2(600, 34)
-	stage.add_child(info_label)
+	controls.add_child(step_marks)
+	info_label = UIKit.label("", 19, UIKit.TEXT_LIGHT)
+	info_label.position = Vector2(20, 131)
+	info_label.size = Vector2(680, 28)
+	info_label.clip_text = true
+	info_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	info_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	info_label.add_theme_constant_override("outline_size", 4)
+	controls.add_child(info_label)
 
-	var buttons := HBoxContainer.new()
-	buttons.position = Vector2(240, 940)
-	buttons.size = Vector2(1440, 60)
-	buttons.add_theme_constant_override("separation", 16)
-	stage.add_child(buttons)
-	btn_load = UIKit.button(tr("UI_BTN_LOAD"), _on_raw_clicked, Vector2(300, 60), 22)
+	var buttons := VBoxContainer.new()
+	buttons.position = Vector2(20, 166)
+	buttons.size = Vector2(330, 170)
+	buttons.add_theme_constant_override("separation", 6)
+	controls.add_child(buttons)
+	btn_load = UIKit.button(tr("UI_BTN_LOAD"), _on_raw_clicked, Vector2(330, 52), 22)
 	buttons.add_child(btn_load)
-	btn_move = UIKit.button(tr("UI_BTN_MOVE"), _on_move, Vector2(300, 60), 22)
+	btn_move = UIKit.button(tr("UI_BTN_MOVE"), _on_move, Vector2(330, 52), 22)
 	buttons.add_child(btn_move)
-	btn_hammer = UIKit.button(tr("UI_BTN_HAMMER"), Callable(), Vector2(420, 60), 24)
+	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(330, 52), 22)
+	buttons.add_child(btn_quench)
+	btn_hammer = UIKit.button(_hammer_text(), Callable(), Vector2(330, 168), 30)
 	btn_hammer.button_down.connect(_hammer_press)
 	btn_hammer.button_up.connect(_hammer_release)
-	if not _make_ember_hammer():
-		btn_hammer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		buttons.add_child(btn_hammer)
-	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(300, 60), 22)
-	buttons.add_child(btn_quench)
+	btn_hammer.position = Vector2(370, 166)
+	btn_hammer.size = btn_hammer.custom_minimum_size
+	controls.add_child(btn_hammer)
+	_make_ember_hammer()
 	for b in [btn_load, btn_move, btn_hammer, btn_quench]:
 		b.focus_mode = Control.FOCUS_NONE
 
@@ -151,8 +173,7 @@ func _ready() -> void:
 	_connect_hud()
 
 	tutorial = Tutorial.new()
-	tutorial.position = Vector2(1300, 110)
-	stage.add_child(tutorial)
+	add_child(tutorial)
 
 	overlay_layer = Control.new()
 	overlay_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -202,7 +223,7 @@ func _open_if_free(path: String) -> void:
 		open_overlay(path)
 
 
-## Großer runder HAMMERN-Knopf aus der Glut-Grafik des Auftraggebers rechts neben der Glühskala.
+## Großer HAMMERN-Knopf aus der Glut-Grafik des Auftraggebers (Daumen-Knopf rechts unten).
 func _make_ember_hammer() -> bool:
 	var boxes := {}
 	for st in ["normal", "hover", "pressed", "disabled"]:
@@ -217,20 +238,35 @@ func _make_ember_hammer() -> bool:
 	btn_hammer.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	btn_hammer.text = ""
 	btn_hammer.tooltip_text = tr("UI_BTN_HAMMER")
-	btn_hammer.custom_minimum_size = Vector2(212, 110)
-	btn_hammer.position = Vector2(1692, 788)
+	btn_hammer.custom_minimum_size = Vector2(300, 155)
+	btn_hammer.position = Vector2(385, 160)
 	btn_hammer.size = btn_hammer.custom_minimum_size
-	stage.add_child(btn_hammer)
-	hammer_label = UIKit.label(tr("UI_BTN_HAMMER"), 21, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
-	hammer_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hammer_label.custom_minimum_size = Vector2(232, 0)
-	hammer_label.position = Vector2(1682, 900)
-	hammer_label.size = Vector2(232, 60)
+	hammer_label = UIKit.label(_hammer_text(), 20, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+	hammer_label.position = Vector2(385, 312)
+	hammer_label.size = Vector2(300, 26)
 	hammer_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
 	hammer_label.add_theme_constant_override("outline_size", 6)
 	hammer_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	stage.add_child(hammer_label)
+	controls.add_child(hammer_label)
 	return true
+
+
+## Kurzer Text für den Hammer-Knopf (ohne Tastenhinweis auf Touch-Geräten).
+func _hammer_text() -> String:
+	var t := tr("UI_BTN_HAMMER")
+	if DisplayServer.is_touchscreen_available() or OS.has_feature("mobile"):
+		return t.get_slice(" – ", 0)
+	return t
+
+
+## Esse an die Wand-Boden-Kante des Hintergrunds stellen; Rohling-Stapel bleibt vor dem Amboss.
+func _place_forge() -> void:
+	var floor_y := Background.floor_y_for(GameManager.current_epoch)
+	var bottom := forge_view.body_bottom()
+	forge_view.position = Vector2(FORGE_X, floor_y + 40.0 - bottom)
+	forge_view.raw_rect = Rect2(RAW_STACK.position - forge_view.position, RAW_STACK.size)
+	forge_view.size = Vector2(920, RAW_STACK.end.y - forge_view.position.y + 10.0)
+	_place_smoke()
 
 
 ## Rauch aus dem Schornstein der jeweiligen Esse (schmal bei den Essen des Auftraggebers).
@@ -242,9 +278,15 @@ func _place_smoke() -> void:
 
 
 func _layout() -> void:
-	stage.position = ((size - STAGE_SIZE) * 0.5).floor()
-	background.stage_offset = stage.position
+	var f := Background.fit(size)
+	_stage_base = f[0]
+	stage.position = _stage_base
+	stage.scale = Vector2(f[1], f[1])
 	background.queue_redraw()
+	var nav_h := hud.nav_height() if hud != null else 80.0
+	controls.position = Vector2(floor((size.x - CONTROLS_SIZE.x) * 0.5), size.y - nav_h - CONTROLS_SIZE.y)
+	if tutorial != null:
+		tutorial.position = Vector2(floor((size.x - 680.0) * 0.5), (hud.top_height() if hud != null else 150.0) + 8.0)
 
 
 func _build_particles() -> void:
@@ -324,9 +366,9 @@ func _process(delta: float) -> void:
 	if _shake > 0.0:
 		_shake = maxf(0.0, _shake - delta)
 		var amp := 6.0 * _shake / 0.15
-		stage.position = ((size - STAGE_SIZE) * 0.5).floor() + Vector2(randf_range(-amp, amp), randf_range(-amp, amp))
-	elif stage.position != ((size - STAGE_SIZE) * 0.5).floor():
-		_layout()
+		stage.position = _stage_base + Vector2(randf_range(-amp, amp), randf_range(-amp, amp))
+	elif stage.position != _stage_base:
+		stage.position = _stage_base
 	var j: JobInstance = gm.active_job
 	forge_view.slots = sim.slot_count
 	forge_view.selected_slot = sim.selected_slot
@@ -605,11 +647,11 @@ func _shake_screen() -> void:
 
 
 func _float_text(text: String, pos: Vector2, col: Color) -> void:
-	var l := UIKit.label(text, 30, col, HORIZONTAL_ALIGNMENT_CENTER)
+	var l := UIKit.label(text, 44, col, HORIZONTAL_ALIGNMENT_CENTER)
 	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
-	l.add_theme_constant_override("outline_size", 6)
-	l.size = Vector2(600, 40)
-	l.position = pos - Vector2(300, 20)
+	l.add_theme_constant_override("outline_size", 9)
+	l.size = Vector2(1000, 60)
+	l.position = Vector2(clampf(pos.x - 500.0, 40.0, STAGE_SIZE.x - 1040.0), pos.y - 30.0)
 	stage.add_child(l)
 	var tw := l.create_tween()
 	tw.set_parallel(true)
@@ -619,7 +661,7 @@ func _float_text(text: String, pos: Vector2, col: Color) -> void:
 
 
 func _on_message(key: String, args: Dictionary) -> void:
-	_float_text(tr(key).format(args), forge_view.position + Vector2(400, 220), Color(1, 0.7, 0.5))
+	_float_text(tr(key).format(args), forge_view.position + forge_view.smoke_point() + Vector2(-80, 180), Color(1, 0.7, 0.5))
 
 
 # ================================================================== Fenster
@@ -703,6 +745,7 @@ func _on_state_changed() -> void:
 	background.set_epoch(gm.current_epoch, _rep_level())
 	var f := gm.current_forge()
 	forge_view.tier = f.tier
+	_place_forge()
 	anvil_view.hammer_id = gm.current_hammer().id
 	anvil_view.queue_redraw()
 	_place_smoke()
@@ -746,7 +789,7 @@ func _on_settings_changed() -> void:
 	btn_load.text = tr("UI_BTN_LOAD")
 	btn_move.text = tr("UI_BTN_MOVE")
 	if hammer_label != null:
-		hammer_label.text = tr("UI_BTN_HAMMER")
+		hammer_label.text = _hammer_text()
 	else:
-		btn_hammer.text = tr("UI_BTN_HAMMER")
+		btn_hammer.text = _hammer_text()
 	btn_quench.text = tr("UI_BTN_QUENCH")
