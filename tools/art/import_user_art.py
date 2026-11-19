@@ -180,6 +180,30 @@ def main():
         sat = a.max(axis=2) - a.min(axis=2)
         img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
         save(img, name, max_w=360)
+    # 16 Wasser-Schwanzhammer (weiß) als Bild im Laden
+    a = load("water_helve.webp")
+    sat = a.max(axis=2) - a.min(axis=2)
+    save(to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32)), "machine_water_helve.png", max_w=360)
+
+    # 17 Hufeisen (weiß) als Werkstück-Sprite: Graustufen im Rotkanal (Glow-Shader färbt nach Temperatur)
+    a = load("horseshoe.webp")
+    white = a.min(axis=2) > 215
+    bg = flood_bg(white) | enclosed(white, 20)
+    img = to_rgba(a, bg.astype(np.float32))
+    img = img.crop(img.getbbox())
+    s = 150.0 / img.height
+    img = img.resize((int(img.width * s), 150), Image.LANCZOS)
+    arr = np.asarray(img).astype(np.float32)
+    lum = arr[..., :3].mean(axis=2)
+    vis = arr[..., 3] > 128
+    lo, hi = np.percentile(lum[vis], 2), np.percentile(lum[vis], 98)
+    g = np.clip(0.12 + 0.88 * (lum - lo) / max(hi - lo, 1.0), 0, 1) * 255
+    out = np.dstack([g, g, g, arr[..., 3]]).astype(np.uint8)
+    canvas = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+    piece = Image.fromarray(out, "RGBA")
+    canvas.alpha_composite(piece, ((256 - piece.width) // 2, (256 - piece.height) // 2))
+    os.makedirs(OUT, exist_ok=True)
+    canvas.save(os.path.join(OUT, "item_horseshoe.png"), optimize=True)
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
 

@@ -151,6 +151,8 @@ fehlt eine Datei, greift wieder die gerenderte Variante.
 | Pyrometer-Zeiger | Zeiger des Messing-Pyrometers (ab Freischaltung) |
 | Amboss auf Eichenklotz | Amboss in allen Epochen |
 | Lehm-Esse, Ziegel-Esse | Essen-Stufe 1 und 2 (Glut eingemalt, Feuerschein flackert darüber; Rauchpartikel aus dem Schornstein) |
+| Wasser-Schwanzhammer mit Wasserrad | Bild im Laden (die Maschine in der Werkstatt bleibt animiert aus Einzelteilen) |
+| Hufeisen (kalt) | Werkstück-Sprite „Hufeisen“; der Glow-Shader färbt es stufenlos nach Temperatur |
 | Gusseisen-Kreuzschlaghammer, polierter Stahlhammer | Kreuzschlaghammer bzw. Tiegelstahl-Hammer: Bild im Laden und schwingender Hammer über dem Amboss |
 
 Nicht verwendet: das Pyrometer-Zifferblatt (Zeiger fest eingemalt – für eine Verwendung wird
@@ -160,6 +162,9 @@ Blasebalg (Feueröffnung zu schmal für die 3 Plätze der Stufe 3, Schornstein o
 Rauch liegt über dem Mauerwerk). Stufe 3 und 4 nutzen weiter die gerenderten Essen; aus demselben Grund
 nicht die Koks-Esse. Holzschlegel und Steinhammer passen nicht in eine Schmiede des
 18. Jahrhunderts (der Hammerkatalog des Spiels beginnt beim eisernen Handhammer).
+Nicht verwendet außerdem: der Dampf-Fallhammer (senkrechte Dampfhämmer gibt es erst ab 1839,
+im Spiel ist es ein dampfgetriebener Schwanzhammer wie bei Watt/Wilkinson um 1783) und die
+glühenden Hufeisen (die Glut berechnet der Shader stufenlos aus der Temperatur).
 Der Laden zeigt jetzt Bilder zu Hämmern und Essen; ohne Grafik des Auftraggebers die gerenderten. Kleine Unschärfe: George III
 regierte ab 1760 – Siegel und Münzen sind in den Epochen 1–3 streng genommen etwas zu früh.
 Vor einer Veröffentlichung die Nutzungsbedingungen des verwendeten Bildgenerators prüfen.

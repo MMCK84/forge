@@ -23,8 +23,10 @@ static func tex(rel: String) -> Texture2D:
 	return _load(SPRITES + rel) as Texture2D
 
 
+## Werkstück-Sprite; eine Grafik des Auftraggebers (ui/user/item_<id>.png) hat Vorrang.
 static func item_tex(item_id: String) -> Texture2D:
-	return tex("items/" + item_id + ".png")
+	var t := user("item_" + item_id + ".png")
+	return t if t != null else tex("items/" + item_id + ".png")
 
 
 static func portrait(customer_id: String) -> Texture2D:

@@ -73,7 +73,7 @@ func build(box: VBoxContainer) -> void:
 			m_info += " · " + tr("UI_MACHINE_COST").format({"c": Economy.format_lsd(m.cost_per_minute)})
 		if m.water_powered:
 			m_info += " · " + tr("UI_MACHINE_WATER")
-		var m_row := _row(tr(m.name_key), m_info, m.price, m.min_epoch)
+		var m_row := _row(tr(m.name_key), m_info, m.price, m.min_epoch, _machine_icon(m.id, m.water_powered))
 		if m_owned:
 			if gm.active_machine_id == m.id:
 				m_row.add_child(_status_btn(tr("UI_ACTIVE")))
@@ -94,6 +94,11 @@ func _section(key: String) -> Control:
 func _hammer_icon(id: String) -> Texture2D:
 	var t := Assets.user(id + ".png")
 	return t if t != null else Assets.tex("tools/hand_hammer.png")
+
+
+func _machine_icon(id: String, water: bool) -> Texture2D:
+	var t := Assets.user(id + ".png")
+	return t if t != null else Assets.tex("tools/water_wheel.png" if water else "tools/engine.png")
 
 
 func _forge_icon(tier: int) -> Texture2D:
