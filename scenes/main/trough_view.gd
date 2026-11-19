@@ -52,4 +52,4 @@ func _draw_effects() -> void:
 		for k in 6:
 			var p := Vector2(size.x * (0.2 + 0.12 * k), 50 - (1.0 - steam) * 120.0 - k * 6)
 			draw_circle(p, 20.0 + (1.0 - steam) * 30.0, Color(0.9, 0.9, 0.95, 0.35 * steam))
-	draw_string(ThemeDB.fallback_font, Vector2(20, size.y + 30), tr("UI_TROUGH"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("e9dcc0"))
+	draw_string(Assets.ui_font(), Vector2(20, size.y + 30), tr("UI_TROUGH"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("e9dcc0"))

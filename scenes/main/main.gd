@@ -8,7 +8,7 @@ var _current: Control
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	show_main_menu()
 	if SaveManager.last_load_status == "newer":
 		(_current as MainMenu).show_notice("UI_SAVE_NEWER")

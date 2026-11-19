@@ -24,16 +24,17 @@ var _stars: Control
 var _stars_value: int = 0
 var _money_flash: float = 0.0
 var _delta_label: Label
+var _hourglass: Control
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	theme = UIKit.theme()
 	# Obere Leiste
 	var top := PanelContainer.new()
 	top.add_theme_stylebox_override("panel", UIKit.bar_box())
-	top.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	top.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	top.custom_minimum_size.y = 88
 	add_child(top)
 	var tr_row := HBoxContainer.new()
@@ -41,19 +42,21 @@ func _ready() -> void:
 	top.add_child(tr_row)
 	tr_row.add_child(UIKit.icon("ui/icon_coin.png", 52))
 	_money = UIKit.label("", 34, UIKit.GOLD)
-	_money.custom_minimum_size.x = 300
+	_money.custom_minimum_size.x = 230
 	tr_row.add_child(_money)
 	_delta_label = UIKit.label("", 24, UIKit.TEXT_LIGHT)
-	_delta_label.custom_minimum_size.x = 120
+	_delta_label.custom_minimum_size.x = 110
 	tr_row.add_child(_delta_label)
-	_hammer = UIKit.label("", 24, UIKit.TEXT_LIGHT)
-	_hammer.custom_minimum_size.x = 300
+	_hammer = UIKit.label("", 22, UIKit.TEXT_LIGHT)
+	_hammer.custom_minimum_size.x = 120
 	_hammer.clip_text = true
+	_hammer.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	tr_row.add_child(_hammer)
-	_epoch = UIKit.label("", 24, UIKit.BRASS_LIGHT)
+	_epoch = UIKit.label("", 22, UIKit.BRASS_LIGHT)
 	_epoch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_epoch.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_epoch.clip_text = true
+	_epoch.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_epoch.custom_minimum_size.x = 120
 	tr_row.add_child(_epoch)
 	_epoch_btn = UIKit.button(tr("UI_NEXT_EPOCH"), func() -> void: open_epoch.emit(), Vector2(0, 64), 24)
@@ -67,7 +70,7 @@ func _ready() -> void:
 	# Untere Leiste
 	var bottom := PanelContainer.new()
 	bottom.add_theme_stylebox_override("panel", UIKit.bar_box())
-	bottom.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	bottom.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	bottom.custom_minimum_size.y = 76
 	bottom.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	add_child(bottom)
@@ -86,7 +89,8 @@ func _ready() -> void:
 	_stars.custom_minimum_size = Vector2(120, 40)
 	_stars.draw.connect(func() -> void: UIKit.draw_stars(_stars, Vector2(18, 22), _stars_value, 34.0))
 	br.add_child(_stars)
-	br.add_child(UIKit.icon("ui/icon_hourglass.png", 44))
+	_hourglass = UIKit.icon("ui/icon_hourglass.png", 44)
+	br.add_child(_hourglass)
 	_timer = UIKit.label("", 26, UIKit.TEXT_LIGHT)
 	_timer.custom_minimum_size.x = 170
 	br.add_child(_timer)
@@ -118,7 +122,8 @@ func refresh() -> void:
 	var h := gm.current_hammer()
 	var lvl: int = gm.hammer_level(h.id)
 	_hammer.text = tr(h.name_key) + (" +%d" % lvl if lvl > 0 else "")
-	_epoch.text = "%s  (%s)  ·  %s" % [gm.epoch_name(), gm.EPOCH_YEARS[gm.current_epoch - 1], tr(gm.reputation_title_key())]
+	_epoch.text = "%s (%s)" % [gm.epoch_name(), gm.EPOCH_YEARS[gm.current_epoch - 1]]
+	_epoch.tooltip_text = tr(gm.reputation_title_key())
 	_staff_btn.visible = gm.current_epoch >= 2
 	_epoch_btn.visible = gm.can_advance_epoch()
 
@@ -134,6 +139,7 @@ func _process(delta: float) -> void:
 		_job_info.text = ""
 		_timer.text = ""
 		_stars.visible = false
+		_hourglass.visible = false
 		return
 	_job.text = gm.job_title(j)
 	_job_info.text = "%d/%d" % [j.pieces_done(), j.quantity]
@@ -142,6 +148,7 @@ func _process(delta: float) -> void:
 	if int(ev["stars"]) != _stars_value:
 		_stars_value = int(ev["stars"])
 		_stars.queue_redraw()
+	_hourglass.visible = j.is_rush()
 	if j.is_rush():
 		var left := j.time_limit_s - j.elapsed_s
 		_timer.text = Economy.format_duration(left) if left > 0 else tr("UI_LATE")

@@ -118,7 +118,7 @@ func _draw_textured(body: Texture2D) -> void:
 	else:
 		var bl := Assets.tex("tools/blower.png")
 		if bl != null:
-			draw_texture(bl, Vector2(-170, 300))
+			draw_texture(bl, Vector2(-110, 300))
 	draw_texture(body, Vector2(-160, -160))
 	var glow := Assets.tex("environment/fire_glow.png")
 	if glow != null:
@@ -134,7 +134,7 @@ func _draw_overlay() -> void:
 		var r := slot_rect(i)
 		var col := Color(1, 0.85, 0.5, 0.55) if i == selected_slot else Color(1, 0.8, 0.5, 0.18)
 		draw_rect(r, col, false, 3.0)
-		draw_string(ThemeDB.fallback_font, r.position + Vector2(8, 26), str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, col)
+		draw_string(Assets.ui_font(), r.position + Vector2(8, 26), str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, col)
 	# Blasebalg (bei Doppelblasebalg zwei, bei Koks-Esse Zylindergebläse)
 	var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
 	if tier < 4:
@@ -161,4 +161,4 @@ func _draw_overlay() -> void:
 		else:
 			draw_rect(Rect2(x2, y2, 110, 12), Color("6d6f73"))
 			draw_rect(Rect2(x2, y2, 110, 4), Color("9a9ca0"))
-	draw_string(ThemeDB.fallback_font, raw_rect.position + Vector2(10, 32), tr("UI_RAW_STACK") + ": " + str(raw_count), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("e9dcc0"))
+	draw_string(Assets.ui_font(), raw_rect.position + Vector2(10, 32), tr("UI_RAW_STACK") + ": " + str(raw_count), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("e9dcc0"))

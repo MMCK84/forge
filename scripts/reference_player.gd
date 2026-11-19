@@ -45,9 +45,21 @@ func act(dt: float) -> void:
 				moved = sim.move_anvil_to_forge(-1)
 		elif t < cfg.ref_return_temp:
 			moved = sim.move_anvil_to_forge(-1)
-	# 2) Freie Plätze mit Rohlingen füllen
-	while sim.free_slot() >= 0 and sim.next_raw() >= 0:
-		sim.load_raw()
+	# 2) Rohlinge rechtzeitig nachlegen: höchstens ein Stück wartet in der Esse, und erst dann,
+	#    wenn das Amboss-Stück fertig ist, bevor der neue Rohling überhitzt.
+	if sim.free_slot() >= 0 and sim.next_raw() >= 0:
+		var in_forge := 0
+		for idx in sim.forge_slots:
+			if idx >= 0:
+				in_forge += 1
+		if sim.anvil < 0 and in_forge == 0:
+			sim.load_raw()
+		elif sim.anvil >= 0 and in_forge == 0 and not sim.has_apprentice:
+			var t_anvil: float = sim.job.pieces[sim.anvil].temp
+			var work_left := maxf(0.0, t_anvil - cfg.ref_return_temp) / cfg.k_cool
+			var heat_time := (take_temp() - cfg.room_temp) / sim.k_heat
+			if work_left <= heat_time:
+				sim.load_raw()
 	# 3) Amboss frei: heißestes fertig aufgeheiztes Stück holen
 	if sim.anvil < 0:
 		var best := -1

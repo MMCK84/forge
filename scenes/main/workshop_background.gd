@@ -13,7 +13,7 @@ const FLOORS := [Color("2e2218"), Color("33261b"), Color("2a2a28"), Color("2f262
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
@@ -140,7 +140,7 @@ func _draw_window(win: Rect2) -> void:
 
 func _draw_sign(p: Vector2, text: String) -> void:
 	draw_rect(Rect2(p.x - 60, p.y, 120, 50), Color("2f4f7a"))
-	draw_string(ThemeDB.fallback_font, p + Vector2(-40, 36), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 28, Color("e9dcc0"))
+	draw_string(Assets.ui_font(), p + Vector2(-40, 36), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 28, Color("e9dcc0"))
 
 
 func _draw_rope(p: Vector2) -> void:

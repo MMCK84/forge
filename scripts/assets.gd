@@ -44,3 +44,9 @@ static func sound(rel: String, loop: bool = false) -> AudioStream:
 
 static func font(file: String) -> Font:
 	return _load(FONTS + file) as Font
+
+
+## Schrift für direkt gezeichnete Texte (draw_string): EB Garamond, sonst Godot-Standard.
+static func ui_font() -> Font:
+	var f := font("EBGaramond.ttf")
+	return f if f != null else ThemeDB.fallback_font

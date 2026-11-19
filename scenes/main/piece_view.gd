@@ -103,8 +103,8 @@ func _draw_overlay() -> void:
 		_overlay.draw_circle(p, 18.0, Color(0, 0, 0, 0.55))
 		_overlay.draw_polyline(PackedVector2Array([p + Vector2(-2, -12), p + Vector2(4, -3), p + Vector2(-3, 3), p + Vector2(3, 12)]), col, 3.0, true)
 		if damage >= damage_warning:
-			_overlay.draw_string(ThemeDB.fallback_font, p + Vector2(16, 8), "!", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, col)
+			_overlay.draw_string(Assets.ui_font(), p + Vector2(16, 8), "!", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, col)
 	if badge == "weld":
-		_overlay.draw_string(ThemeDB.fallback_font, Vector2(-size_px * 0.5, -size_px * 0.35), tr("BADGE_WELD"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(1, 0.95, 0.7))
+		_overlay.draw_string(Assets.ui_font(), Vector2(-size_px * 0.5, -size_px * 0.35), tr("BADGE_WELD"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(1, 0.95, 0.7))
 	elif badge == "quench":
-		_overlay.draw_string(ThemeDB.fallback_font, Vector2(-size_px * 0.5, -size_px * 0.35), tr("BADGE_QUENCH"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(0.75, 0.9, 1.0))
+		_overlay.draw_string(Assets.ui_font(), Vector2(-size_px * 0.5, -size_px * 0.35), tr("BADGE_QUENCH"), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(0.75, 0.9, 1.0))

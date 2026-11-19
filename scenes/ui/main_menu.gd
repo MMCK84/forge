@@ -14,7 +14,7 @@ var _needs_rebuild: bool = false
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = UIKit.theme()
 	_locale = TranslationServer.get_locale()
 	var bg := Background.new()
@@ -22,11 +22,11 @@ func _ready() -> void:
 	bg.set_epoch(1, 1)
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.45)
-	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(dim)
 	var center := CenterContainer.new()
-	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(center)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 18)
@@ -63,7 +63,7 @@ func _ready() -> void:
 	col.add_child(_notice)
 	col.add_child(UIKit.label("v" + GameManager.GAME_VERSION, 18, Color(1, 1, 1, 0.5), HORIZONTAL_ALIGNMENT_CENTER))
 	_overlay_layer = Control.new()
-	_overlay_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_overlay_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_overlay_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_overlay_layer)
 	GameManager.settings_changed.connect(_on_settings_changed)

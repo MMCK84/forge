@@ -215,3 +215,37 @@ func test_big_forging_manual_factor() -> void:
 	s.transit.clear()
 	_hit(s)
 	assert_near(s.job.pieces[0].progress, 2.5, 0.001, "Handschläge wirken nur zu 25 %")
+
+
+func test_apprentice_fetches_quench_piece() -> void:
+	# Ein fertig geschmiedetes Härte-Stück in der Esse holt der Lehrling bei Abschrecktemperatur auf den Amboss.
+	var s := _sim(_job(10, 1, "harden"), 65.0, 1350.0, 3)
+	s.has_trough = true
+	s.has_apprentice = true
+	var p: JobInstance.Piece = s.job.pieces[0]
+	s.load_raw()
+	s.transit.clear()
+	p.progress = 10.0
+	p.temp = 500.0
+	assert_true(s.awaiting_quench(0))
+	_run(s, 6.0)
+	assert_eq(s.anvil, 0, "Lehrling legt das Stück auf den Amboss")
+	assert_true(p.temp < 1000.0, "nicht verbrannt")
+	assert_true(s.quench(), "Spieler kann abschrecken")
+
+
+func test_apprentice_holds_waiting_pieces() -> void:
+	# In einer Esse über der Verbrennungsgrenze verbrennen wartende Stücke nicht, solange der Lehrling aufpasst.
+	var s := _sim(_job(100000, 3), 65.0, 1350.0, 3)
+	s.has_apprentice = true
+	var ruined := [0]
+	s.piece_ruined.connect(func(_i: int, _r: String) -> void: ruined[0] += 1)
+	_run(s, 120.0)
+	assert_eq(ruined[0], 0, "kein Stück verbrannt")
+	assert_true(s.anvil >= 0, "ein Stück liegt auf dem Amboss")
+	var s2 := _sim(_job(100000, 3), 65.0, 1350.0, 3)
+	var ruined2 := [0]
+	s2.piece_ruined.connect(func(_i: int, _r: String) -> void: ruined2[0] += 1)
+	s2.load_raw()
+	_run(s2, 25.0)
+	assert_true(ruined2[0] > 0, "ohne Lehrling verbrennt ein vergessenes Stück (5.3: mehr Leistung, mehr Aufmerksamkeit)")

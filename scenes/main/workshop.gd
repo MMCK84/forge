@@ -54,7 +54,7 @@ var _locale: String = ""
 
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = UIKit.theme()
 	_locale = TranslationServer.get_locale()
 	background = Background.new()
@@ -144,7 +144,7 @@ func _ready() -> void:
 	stage.add_child(tutorial)
 
 	overlay_layer = Control.new()
-	overlay_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(overlay_layer)
 

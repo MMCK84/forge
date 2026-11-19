@@ -476,8 +476,11 @@ func step(dt: float) -> void:
 		if in_transit(i):
 			continue
 		if p.location == JobInstance.LOC_FORGE:
-			if p.temp < t_max:
-				p.temp = minf(p.temp + k_heat * dt, t_max)
+			var cap := t_max
+			if has_apprentice and anvil >= 0 and anvil != i and not _anvil_needs_reheat():
+				cap = minf(cap, apprentice_hold_temp(i))
+			if p.temp < cap:
+				p.temp = minf(p.temp + k_heat * dt, cap)
 		elif p.location == JobInstance.LOC_ANVIL:
 			p.temp = maxf(p.temp - cfg.k_cool * dt, cfg.room_temp)
 		if p.temp > cfg.optimal_max:
@@ -555,24 +558,56 @@ func _step_apprentice(dt: float) -> void:
 	if apprentice_timer < 0.1:
 		return
 	apprentice_timer = 0.0
-	if anvil >= 0 and not in_transit(anvil) and not awaiting_quench(anvil):
-		var low := apprentice_to_forge_below
-		if in_weld_phase(anvil):
-			low = cfg.weld_min + 5.0
-		if _piece(anvil).temp < low and free_slot() >= 0:
+	if anvil >= 0 and not in_transit(anvil) and _anvil_needs_reheat():
+		if free_slot() >= 0:
 			move_anvil_to_forge(-1)
+		else:
+			# Esse voll: gegen das heißeste bereite Stück tauschen
+			var swap := _apprentice_ready_piece()
+			if swap >= 0:
+				move_slot_to_anvil(_piece(swap).slot)
 	if anvil < 0:
-		var best := -1
+		# Fertig geschmiedete Härte-Stücke bei Abschrecktemperatur auf den Amboss holen (sonst verbrennen sie).
 		for idx in forge_slots:
-			if idx < 0 or in_transit(idx) or awaiting_quench(idx):
-				continue
-			if _piece(idx).temp >= apprentice_take_temp(idx) - EPS:
-				if best < 0 or _piece(idx).temp > _piece(best).temp:
-					best = idx
+			if idx >= 0 and not in_transit(idx) and awaiting_quench(idx) and _piece(idx).temp >= cfg.quench_good_max - 10.0:
+				move_slot_to_anvil(_piece(idx).slot)
+				break
+	if anvil < 0:
+		var best := _apprentice_ready_piece()
 		if best >= 0:
 			move_slot_to_anvil(_piece(best).slot)
 	if free_slot() >= 0 and next_raw() >= 0:
 		load_raw()
+
+
+func _apprentice_ready_piece() -> int:
+	var best := -1
+	for idx in forge_slots:
+		if idx < 0 or in_transit(idx) or awaiting_quench(idx):
+			continue
+		if _piece(idx).temp >= apprentice_take_temp(idx) - EPS:
+			if best < 0 or _piece(idx).temp > _piece(best).temp:
+				best = idx
+	return best
+
+
+## Muss das Amboss-Stück zurück ins Feuer? (Härte-Stücke bleiben dem Spieler überlassen)
+func _anvil_needs_reheat() -> bool:
+	if anvil < 0 or awaiting_quench(anvil):
+		return false
+	var low := apprentice_to_forge_below
+	if in_weld_phase(anvil):
+		low = cfg.weld_min + 5.0
+	return _piece(anvil).temp < low
+
+
+## Solange der Amboss belegt ist, hält der Lehrling wartende Stücke am Rand des Feuers bei dieser Temperatur.
+func apprentice_hold_temp(idx: int) -> float:
+	if awaiting_quench(idx):
+		return cfg.quench_good_max - 10.0
+	if in_weld_phase(idx):
+		return cfg.optimal_max
+	return apprentice_take_temp(idx)
 
 
 func apprentice_take_temp(idx: int) -> float:

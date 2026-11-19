@@ -3,6 +3,7 @@ extends Control
 ## Optional Zahlenwert in °C (Barrierefreiheit) und Messing-Pyrometer (ab Freischaltung).
 
 const HeatModel = preload("res://scripts/heat_model.gd")
+const Assets = preload("res://scripts/assets.gd")
 
 var temp: float = -1.0
 var window := Vector2(700, 1100)
@@ -45,7 +46,7 @@ func _draw() -> void:
 		var txt := label_text
 		if show_celsius:
 			txt += "  %d °C" % int(round(temp))
-		draw_string(ThemeDB.fallback_font, Vector2(0, bar.end.y + 34), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("f3e7cf"))
+		draw_string(Assets.ui_font(), Vector2(0, bar.end.y + 34), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color("f3e7cf"))
 	if pyrometer:
 		_draw_pyrometer(Vector2(size.x - 100, 52), 70.0)
 
@@ -68,5 +69,5 @@ func _draw_pyrometer(c: Vector2, r: float) -> void:
 	if temp >= 0.0:
 		var ang := PI * 0.75 + clampf(temp / T_MAX, 0.0, 1.0) * PI * 1.5
 		draw_line(c, c + Vector2(cos(ang), sin(ang)) * (r - 8), Color("8c2f1f"), 4.0)
-		draw_string(ThemeDB.fallback_font, c + Vector2(-38, r * 0.55), "%d °" % int(round(temp)), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("3a2a1a"))
+		draw_string(Assets.ui_font(), c + Vector2(-38, r * 0.55), "%d °" % int(round(temp)), HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("3a2a1a"))
 	draw_circle(c, 6, Color("3a2a1a"))

@@ -3,11 +3,10 @@
 2D-Schmiede-Simulation mit Incremental-/Tycoon-Elementen im Großbritannien des
 18. Jahrhunderts. Umsetzung des Lastenhefts v1.1 (Stand 19.11.2026) in **Godot 4.3+ (GDScript)**.
 
-> **Status:** Der Code ist vollständig geschrieben, wurde aber noch **nie in Godot
-> ausgeführt**. In der Entwicklungsumgebung durfte die Engine nicht gestartet werden.
-> Alle Skripte bestehen eine Syntaxprüfung (gdtoolkit), und die Spielregeln wurden mit
-> einer unabhängigen Python-Simulation gegengerechnet. Beim ersten Start im Editor
-> können trotzdem noch Fehler auftauchen. Siehe „Erster Start“.
+> **Status:** In Godot 4.3 getestet. 935 Unit-Prüfungen sind grün, und ein automatischer
+> grafischer Spieltest (`tools/playtest.gd`) spielt alle sechs Epochen mit Mengenaufträgen,
+> Feuerschweißen, Härten, Maschinen, Großschmiedestücken, Speichern/Laden und allen Fenstern
+> ohne Laufzeitfehler durch. Von Menschen gespielt wurde das Spiel noch nicht.
 
 ## Erster Start
 
@@ -32,6 +31,12 @@
 
    ```bash
    godot --headless --path . -s res://tools/balance_sim.gd -- --mixed
+   ```
+
+6. Grafischer Spieltest (spielt Abläufe durch und speichert Screenshots nach `user://playtest/`):
+
+   ```bash
+   godot --path . --rendering-driver opengl3 --resolution 1920x1080 res://tools/playtest.tscn
    ```
 
 ## Steuerung (2.7)
@@ -129,6 +134,7 @@ alle Zahlen liegen in `balance_config.tres`:
 | Maschinen/Zuschläger auf kaltem Eisen | schlagen erst ab 400 °C (sonst Dauerschaden ohne Zutun des Spielers) |
 | Zuschläger bei Großschmiedestücken | zählt als Handarbeit (× 0,25) |
 | Schweißschläge | nur der Spieler; Maschinen pausieren in der Schweißphase |
+| Lehrling und Härten | Er holt fertig geschmiedete Härte-Stücke bei ca. 830 °C aus der Esse auf den Amboss (sonst verbrennen sie in heißen Essen); abschrecken muss der Spieler |
 | Zeitlimit Eilauftrag | max(45 s; 1,5 × geschätzte Dauer). Die Dauer wird mit dem Referenzspieler simuliert, inkl. Aufheizen und Mengen |
 | Großschmiedestücke | werden erst angeboten, wenn eine Maschine vorhanden ist |
 | Schweißaufträge | werden erst angeboten, wenn die Esse ≥ 1250 °C erreicht |
@@ -139,18 +145,19 @@ alle Zahlen liegen in `balance_config.tres`:
 
 ## Balancing-Befund
 
-Eine unabhängige Nachrechnung des Referenzmodells (5.8) mit genau den Regeln aus
-Kapitel 2–5 ergibt:
+Die Balancing-Simulation (`tools/balance_sim.gd`, Referenzspieler aus 5.8 mit genau den
+Regeln aus Kapitel 2–5) und eine unabhängige Python-Nachrechnung ergeben übereinstimmend
+(12,3 h bzw. 12,2 h):
 
-| Epoche | Spielzeit (Ziel) | Einnahmen (Ziel) |
-|---|---|---|
-| 1 | ca. 29 min (12) | £3 15s (£3 15s) |
-| 2 | ca. 50 min (23) | £29 (£30) |
-| 3 | ca. 90 min (56) | £100 (£109) |
-| 4 | ca. 126 min (83) | £253 (£281) |
-| 5 | ca. 183 min (131) | £701 (£779) |
-| 6 | ca. 256 min (157) | £1.701 (£1.890) |
-| **Gesamt** | **ca. 12,2 h (7,7 h)** | |
+| Epoche | Spielzeit (Ziel) | Einnahmen (Ziel) | Spielzeit mit Auftragsmix |
+|---|---|---|---|
+| 1 | ca. 29 min (12) | £3 15s (£3 15s) | ca. 30 min |
+| 2 | ca. 51 min (23) | £29 (£30) | ca. 56 min |
+| 3 | ca. 90 min (56) | £100 (£109) | ca. 92 min |
+| 4 | ca. 126 min (83) | £253 (£281) | ca. 110 min |
+| 5 | ca. 185 min (131) | £701 (£779) | ca. 185 min |
+| 6 | ca. 259 min (157) | £1.696 (£1.890) | ca. 244 min |
+| **Gesamt** | **ca. 12,3 h (7,7 h)** | | **ca. 11,9 h** |
 
 Die Einnahmen treffen die Zielwerte gut. Die Spielzeit liegt aber etwa 60 % darüber, vor
 allem weil jeder Rohling bei 20 °C startet: Mit der Lehm-Esse (25 °C/s) dauert allein das

@@ -57,7 +57,7 @@ func _offer_card(i: int, j: JobInstance) -> Control:
 		portrait.color = cust.portrait_color if cust != null else UIKit.LEATHER
 		portrait.custom_minimum_size = Vector2(90, 110)
 		var initial := UIKit.label(tr("CUST_" + j.customer_id.to_upper()).substr(0, 1).to_upper(), 48, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
-		initial.set_anchors_preset(Control.PRESET_FULL_RECT)
+		initial.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		initial.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		portrait.add_child(initial)
 		row.add_child(portrait)
