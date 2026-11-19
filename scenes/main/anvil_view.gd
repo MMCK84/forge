@@ -44,7 +44,12 @@ func _draw() -> void:
 	var anvil_t := Assets.tex("tools/anvil.png")
 	var hammer_t := Assets.tex("tools/hand_hammer.png")
 	if anvil_t != null and hammer_t != null:
-		draw_texture(anvil_t, Vector2(-10, -10))
+		var user_t := Assets.user("anvil.png")
+		if user_t != null:
+			# Amboss des Auftraggebers: Bahnmitte über der Ablage, Bahnoberkante bei y ≈ 137 (Werkstück liegt bei 138)
+			draw_texture(user_t, Vector2(rest_point().x - 153.0, 134.0))
+		else:
+			draw_texture(anvil_t, Vector2(-10, -10))
 		# Handhammer: liegt beim Schlag auf (swing = 1) und hebt sich wieder (swing → 0)
 		var pivot := Vector2(cx + 176, 108)
 		draw_set_transform(pivot, 0.55 * (1.0 - swing) + 0.05, Vector2.ONE)

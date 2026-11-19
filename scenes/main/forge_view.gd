@@ -16,6 +16,13 @@ var _t: float = 0.0
 ## Bereich des Rohling-Stapels (lokal)
 var raw_rect := Rect2(0, 600, 300, 100)
 
+## Essen-Grafiken des Auftraggebers (vorskaliert, 1:1 gezeichnet): Zeichenursprung,
+## Glutbett (Mitte/Breite) und Schornsteinmündung für den Rauch, alles lokal.
+const USER_FORGES := {
+	1: {"file": "forge_clay.png", "origin": Vector2(-60, 118), "bed": Vector2(440, 380), "bed_w": 300.0, "chimney": Vector2(565, 122)},
+	2: {"file": "forge_brick.png", "origin": Vector2(-60, 118), "bed": Vector2(440, 380), "bed_w": 300.0, "chimney": Vector2(571, 122)},
+}
+
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -26,9 +33,32 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
+## Essen-Grafik des Auftraggebers für die aktuelle Stufe (leer, wenn keine vorhanden).
+func user_forge() -> Dictionary:
+	var d: Dictionary = USER_FORGES.get(tier, {})
+	if d.is_empty() or Assets.user(str(d["file"])) == null:
+		return {}
+	return d
+
+
+## Schornsteinmündung (lokal) – dort steigt der Rauch auf.
+func smoke_point() -> Vector2:
+	var d := user_forge()
+	if d.is_empty():
+		return Vector2(440, 260)
+	var p: Vector2 = d["chimney"]
+	return p
+
+
 ## Mittelpunkt eines Platzes (lokal).
 func slot_center(i: int) -> Vector2:
 	var n := maxi(1, slots)
+	var d := user_forge()
+	if not d.is_empty():
+		var bed: Vector2 = d["bed"]
+		var half := float(d["bed_w"]) * 0.25 * (n - 1)
+		var bx := bed.x if n == 1 else bed.x - half + 2.0 * half * float(i) / float(n - 1)
+		return Vector2(bx, bed.y - 12.0)
 	var x0 := 230.0
 	var x1 := 650.0
 	var x := (x0 + x1) * 0.5 if n == 1 else x0 + (x1 - x0) * float(i) / float(n - 1)
@@ -37,7 +67,10 @@ func slot_center(i: int) -> Vector2:
 
 func slot_rect(i: int) -> Rect2:
 	var c := slot_center(i)
-	return Rect2(c.x - 90, c.y - 80, 180, 140)
+	var w := 180.0
+	if slots > 1:
+		w = minf(w, absf(slot_center(1).x - slot_center(0).x) - 8.0)
+	return Rect2(c.x - w * 0.5, c.y - 80, w, 140)
 
 
 func raw_center() -> Vector2:
@@ -60,6 +93,11 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
+	var ua := user_forge()
+	if not ua.is_empty():
+		_draw_user(ua)
+		_draw_overlay(false)
+		return
 	var body := Assets.tex("environment/forge_%d.png" % clampi(tier, 1, 4))
 	if body != null:
 		_draw_textured(body)
@@ -128,8 +166,30 @@ func _draw_textured(body: Texture2D) -> void:
 		draw_texture(coal, Vector2(440 - coal.get_width() * 0.5, 340), Color(flick, 0.85 + 0.15 * flick, 0.8 + 0.2 * flick))
 
 
+## Essen-Grafik des Auftraggebers: Glut ist eingemalt, darüber flackert nur der Feuerschein.
+## Die Lehmesse hat keinen eigenen Blasebalg – dann pumpt der gerenderte daneben.
+func _draw_user(d: Dictionary) -> void:
+	var flick := 0.8 + 0.2 * sin(_t * 7.0) * sin(_t * 3.1)
+	if heating:
+		flick += 0.15
+	if tier == 1:
+		var bel := Assets.tex("tools/bellows.png")
+		if bel != null:
+			var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
+			draw_set_transform(Vector2(-150, 470), 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
+			draw_texture(bel, Vector2(0, -bel.get_height() * 0.5))
+			draw_set_transform(Vector2.ZERO)
+	draw_texture(Assets.user(str(d["file"])), d["origin"])
+	var glow := Assets.tex("environment/fire_glow.png")
+	if glow != null:
+		var bed: Vector2 = d["bed"]
+		var w := float(d["bed_w"]) * 1.7
+		var h := w * glow.get_height() / glow.get_width()
+		draw_texture_rect(glow, Rect2(bed.x - w * 0.5, bed.y - h * 0.6, w, h), false, Color(1, 1, 1, clampf(0.35 * flick, 0.0, 1.0)))
+
+
 ## Platzmarkierungen und Rohling-Stapel (über Code- und Sprite-Grafik)
-func _draw_overlay() -> void:
+func _draw_overlay(code_bellows: bool = true) -> void:
 	for i in slots:
 		var r := slot_rect(i)
 		var col := Color(1, 0.85, 0.5, 0.55) if i == selected_slot else Color(1, 0.8, 0.5, 0.18)
@@ -137,7 +197,9 @@ func _draw_overlay() -> void:
 		draw_string(Assets.ui_font(), r.position + Vector2(8, 26), str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 24, col)
 	# Blasebalg (bei Doppelblasebalg zwei, bei Koks-Esse Zylindergebläse)
 	var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
-	if tier < 4:
+	if not code_bellows:
+		pass
+	elif tier < 4:
 		var n := 2 if tier == 3 else 1
 		for k in n:
 			var by := 420.0 + k * 90.0

@@ -233,6 +233,14 @@ func _make_ember_hammer() -> bool:
 	return true
 
 
+## Rauch aus dem Schornstein der jeweiligen Esse (schmal bei den Essen des Auftraggebers).
+func _place_smoke() -> void:
+	if smoke == null:
+		return
+	smoke.position = forge_view.position + forge_view.smoke_point()
+	smoke.emission_rect_extents = Vector2(200, 10) if forge_view.user_forge().is_empty() else Vector2(40, 6)
+
+
 func _layout() -> void:
 	stage.position = ((size - STAGE_SIZE) * 0.5).floor()
 	background.stage_offset = stage.position
@@ -695,6 +703,7 @@ func _on_state_changed() -> void:
 	background.set_epoch(gm.current_epoch, _rep_level())
 	var f := gm.current_forge()
 	forge_view.tier = f.tier
+	_place_smoke()
 	var m := gm.current_machine()
 	machine_view.machine_id = m.id if m != null else ""
 	machine_view.water_powered = m != null and m.water_powered

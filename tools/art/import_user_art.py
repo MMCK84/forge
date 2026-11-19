@@ -154,6 +154,26 @@ def main():
     for k, piece in enumerate(seals):
         if k in names:
             save(piece, names[k], max_w=160)
+    # 11 Amboss auf Holzklotz (weiß), auf Spielgröße vorskaliert (wird 1:1 gezeichnet)
+    a = load("anvil.webp")
+    sat = a.max(axis=2) - a.min(axis=2)
+    img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
+    img = img.crop(img.getbbox())
+    save(img.resize((457, int(img.height * 457 / img.width)), Image.LANCZOS), "anvil.png")
+
+    # 12/13 Lehm- und Ziegelesse (weiß); Rauch über dem Schornstein abschneiden (Partikel übernehmen)
+    for name, cut in [("forge_clay", 140), ("forge_brick", 142)]:
+        a = load(name + ".webp")[cut:]
+        sat = a.max(axis=2) - a.min(axis=2)
+        img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
+        arr = np.asarray(img).copy()
+        top = arr[:20]
+        rgb = top[..., :3].astype(int)
+        smoke = (rgb.max(axis=2) - rgb.min(axis=2) < 25) & (rgb.mean(axis=2) > 120)
+        top[..., 3] = np.where(smoke, 0, top[..., 3])
+        img = Image.fromarray(arr)
+        img = img.crop(img.getbbox())
+        save(img.resize((int(img.width * 0.8), int(img.height * 0.8)), Image.LANCZOS), name + ".png")
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
 
