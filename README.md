@@ -129,6 +129,7 @@ alle Zahlen liegen in `balance_config.tres`:
 | Anteile Spezialaufträge | 40 % Schweißen + 35 % Härten + 30 % Großschmiede ergäben in Ep. 6 über 100 %. Gewählt: Ep. 3: 40/–/–, Ep. 4: 30/35/–, Ep. 5: 30/30/–, Ep. 6: 25/20/30 |
 | Anteil Mengenaufträge | nicht spezifiziert: 35 % ab Ep. 2 (Ep. 6: 30 %), Mengen 2–12 gewichtet zugunsten kleiner Mengen |
 | Freischaltung der Meilensteine | gleichmäßig verteilt: Meilenstein i von m ab n = round(i·(N_e−1)/m); der letzte beim letzten Auftrag |
+| Balancing | Aufheizraten, FP_Start und Satz auf die Zielzeiten aus 5.8 abgestimmt (siehe „Balancing“); Löhne unverändert |
 | Ausschuss-Materialkosten | 20 % des Lohns **je Stück** (bei 12 Stück sonst unverhältnismäßig) |
 | Löschtrog, Pyrometer | ohne Preis im Lastenheft: Löschtrog kommt mit Epoche 4; Pyrometer als Geschenk von Wedgwood beim Meilenstein „Werkzeug für die Töpferei in Etruria“ (Ep. 5, 1782) |
 | Maschinen/Zuschläger auf kaltem Eisen | schlagen erst ab 400 °C (sonst Dauerschaden ohne Zutun des Spielers) |
@@ -143,29 +144,40 @@ alle Zahlen liegen in `balance_config.tres`:
 | Ruf | Titelstufen nach gesammelten Sternen; kosmetisch: Zunftschild in der Werkstatt |
 | Geselle online | Einnahmen laufend, Gutschrift alle 10 s |
 
-## Balancing-Befund
+## Balancing (abgestimmt auf 5.8)
 
-Die Balancing-Simulation (`tools/balance_sim.gd`, Referenzspieler aus 5.8 mit genau den
-Regeln aus Kapitel 2–5) und eine unabhängige Python-Nachrechnung ergeben übereinstimmend
-(12,3 h bzw. 12,2 h):
+Mit den Startwerten des Lastenhefts ergab die Simulation **12,3 h statt 7,7 h**: Jeder
+Rohling startet bei 20 °C, und mit der Lehm-Esse (25 °C/s) dauerte allein das erste
+Aufheizen 43 s. Das Referenzmodell in 5.8 rechnet dieses Aufheizen offenbar nicht mit.
+
+Die Werte sind deshalb auf die Zielzeiten aus 5.8 abgestimmt (`tools/tune_balance.py`):
+
+| Wert | Lastenheft | Jetzt |
+|---|---|---|
+| Aufheizrate Lehm- / Ziegel- / Doppelblasebalg- / Koks-Esse | 25 / 40 / 65 / 100 °C/s | 60 / 80 / 100 / 130 °C/s |
+| FP_Start Epoche 1–6 | 300 / 1.800 / 6.000 / 12.000 / 25.000 / 40.000 | 114 / 900 / 4.012 / 8.380 / 18.264 / 24.599 |
+| Satz (d je Form-Punkt) Epoche 1–6 | 0,040 / 0,040 / 0,035 / 0,045 / 0,050 / 0,065 | 0,1053 / 0,080 / 0,0523 / 0,0644 / 0,0684 / 0,1057 |
+
+FP_Start und Satz sind im selben Verhältnis geändert: **Die Löhne je Auftrag (Tabelle 3.3)
+bleiben exakt gleich**, nur der Arbeitsaufwand sinkt. Alle anderen Regeln (Faktor 5 je
+Epoche, Temperaturen, Schaden, Sterne, Preise, Gebühren) sind unverändert.
+
+Ergebnis der Balancing-Simulation in Godot (Referenzspieler aus 5.8):
 
 | Epoche | Spielzeit (Ziel) | Einnahmen (Ziel) | Spielzeit mit Auftragsmix |
 |---|---|---|---|
-| 1 | ca. 29 min (12) | £3 15s (£3 15s) | ca. 30 min |
-| 2 | ca. 51 min (23) | £29 (£30) | ca. 56 min |
-| 3 | ca. 90 min (56) | £100 (£109) | ca. 92 min |
-| 4 | ca. 126 min (83) | £253 (£281) | ca. 110 min |
-| 5 | ca. 185 min (131) | £701 (£779) | ca. 185 min |
-| 6 | ca. 259 min (157) | £1.696 (£1.890) | ca. 244 min |
-| **Gesamt** | **ca. 12,3 h (7,7 h)** | | **ca. 11,9 h** |
+| 1 | 12,3 min (12) | £3 15s (£3 15s) | 12,4 min |
+| 2 | 22,9 min (23) | £28 19s (£30) | 26,7 min |
+| 3 | 56,0 min (56) | £100 (£109) | 59,5 min |
+| 4 | 83,0 min (83) | £253 (£281) | 75,5 min |
+| 5 | 131,0 min (131) | £701 (£779) | 135,3 min |
+| 6 | 157,0 min (157) | £1.698 (£1.890) | 151,6 min |
+| **Gesamt** | **7,70 h (7,7 h)** | | **7,68 h** |
 
-Die Einnahmen treffen die Zielwerte gut. Die Spielzeit liegt aber etwa 60 % darüber, vor
-allem weil jeder Rohling bei 20 °C startet: Mit der Lehm-Esse (25 °C/s) dauert allein das
-erste Aufheizen 43 s, der erste Auftrag also rund 56 s statt 20 s. Das Referenzmodell in
-5.8 berücksichtigt dieses Aufheizen offenbar nicht. Das Abnahmekriterium „±25 %“
-(Phase 3) wird mit den Startwerten daher verfehlt. Mögliche Stellschrauben in
-`balance_config.tres` bzw. den Essen: höhere `k_heat`, vorgewärmte Rohlinge oder weniger
-Aufträge je Epoche. Die Werte sind laut 5.8 ohnehin Startwerte für Spielertests.
+„Auftragsmix“ nutzt den echten Generator (Qualitätsstufen, Mengen-, Eil-, Präzisions-,
+Schweiß-, Härte- und Großaufträge). Dort liegen die Einnahmen 13–44 % über den Zielwerten,
+weil feine und meisterliche Qualität, Präzision, Eile und Meilensteine laut 3.2/3.3 mehr
+zahlen als der Referenzauftrag. Die Werte bleiben Startwerte für Tests mit echten Spielern (5.8).
 
 ## Offene Punkte (Kapitel 12)
 

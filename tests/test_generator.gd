@@ -80,7 +80,7 @@ func test_milestones_count_and_unlock() -> void:
 			item = it
 	var j := g.make_milestone(ms, item, 0)
 	assert_eq(j.type, "milestone")
-	assert_eq(j.form_points, int(round(300 * item.factor * 1.5)))
+	assert_eq(j.form_points, int(round(cfg.fp_start[0] * item.factor * 1.5)))
 
 
 func test_catalog_references() -> void:

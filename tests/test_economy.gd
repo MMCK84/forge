@@ -55,7 +55,8 @@ func test_exponent_capped() -> void:
 
 func test_milestone_factors() -> void:
 	var fp := Economy.job_form_points(cfg, 1, 0, 1.0, 1.0, true)
-	assert_eq(fp, 450, "Meilenstein × 1,5")
+	assert_eq(fp, Economy.round_half_up(cfg.fp_start[0] * 1.5), "Meilenstein × 1,5")
+	# Lohn: 1,5-facher Aufwand × Typfaktor 2,0 = dreifacher Lohn des ersten Auftrags (12d)
 	assert_eq(Economy.reward_base(cfg, 1, fp, 1.0, "milestone"), 36, "Typfaktor 2,0")
 
 
@@ -72,10 +73,12 @@ func test_stars() -> void:
 
 
 func test_rush_payout() -> void:
-	var base := Economy.reward_base(cfg, 2, 1000, 1.0, "rush")
-	assert_eq(base, 60, "1000 FP × 0,04 × 1,5")
-	assert_eq(Economy.job_payout(cfg, base, false, 2, false), 60)
-	assert_eq(Economy.job_payout(cfg, base, false, 3, true), 20, "verspätet: Typfaktor 0,5 statt 1,5")
+	# Eilauftrag mit dem Aufwand des ersten Auftrags in Epoche 2 (Lohn Standard 72d)
+	var fp := int(cfg.fp_start[1])
+	var base := Economy.reward_base(cfg, 2, fp, 1.0, "rush")
+	assert_eq(base, 108, "72d × Typfaktor 1,5")
+	assert_eq(Economy.job_payout(cfg, base, false, 2, false), 108)
+	assert_eq(Economy.job_payout(cfg, base, false, 3, true), 36, "verspätet: Typfaktor 0,5 statt 1,5, kein Trinkgeld")
 
 
 func test_quality_value() -> void:
