@@ -67,6 +67,7 @@ FORGE_COKE,Koks-Esse mit Zylindergebläse,Coke forge with blowing cylinders
 FORGE_DOUBLE_BELLOWS,Esse mit Doppelblasebalg,Forge with double bellows
 FX_BURNED,Verbrannt! Ausschuss,Burnt! Scrapped
 FX_CRACKED,Gerissen! Ausschuss,Cracked! Scrapped
+FX_NEXT_STEP,Nächster Arbeitsgang: {step} ({lo}–{hi} °C),Next step: {step} ({lo}–{hi} °C)
 FX_PIECE_DONE,Stück fertig,Piece finished
 FX_QUENCH_CRACK,Härteriss,Quench crack
 FX_QUENCH_GOOD,Richtig gehärtet,Properly hardened
@@ -76,6 +77,7 @@ FX_READY_TO_QUENCH,Bei ca. 800 °C abschrecken!,Quench at about 800 °C!
 FX_TOO_COLD,Zu kalt!,Too cold!
 FX_WELD_DONE,Geschweißt!,Welded!
 FX_WELD_PHASE,Schweißhitze! 1200–1300 °C,Welding heat! 1200–1300 °C
+FX_WRONG_HEAT,Falsche Hitze für diesen Arbeitsgang,Wrong heat for this step
 GAME_SUBTITLE,Eine Schmiede im Großbritannien des 18. Jahrhunderts,A smithy in 18th-century Britain
 GAME_TITLE,Forge Workshop,Forge Workshop
 GLOW_CHERRY,Kirschrot,cherry red
@@ -102,11 +104,15 @@ HINT_MACHINE_TEXT,"Eure Maschine schlägt automatisch mit, solange ein Werkstüc
 HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
 HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr im engen Zielfenster von 850–1000 °C schmiedet. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the narrow window of 850–1000 °C counts here. Three stars earn a 25 % tip.
 HINT_PRECISION_TITLE,Präzisionsauftrag,Precision order
-HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet. Nutzt alle Plätze der Esse, damit die nächsten Stücke schon heizen, während Ihr schmiedet.",Several pieces: each is heated and forged on its own. Use every place in the forge so the next pieces are heating while you work.
+HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet. Nutzt alle Plätze der Esse, damit die nächsten Stücke schon heizen, während Ihr schmiedet.\n\nWird das Stück auf dem Amboss zu kalt, tauscht Ihr es mit [E] oder per Klick auf ein heißes Stück in der Esse.","Several pieces: each is heated and forged on its own. Use every place in the forge so the next pieces are heating while you work.\n\nWhen the piece on the anvil gets too cold, swap it with [E] or by clicking a hot piece in the forge."
 HINT_QUANTITY_TITLE,Mengenauftrag,Quantity order
 HINT_RUSH_TEXT,Die Sanduhr läuft ab Annahme. Pünktlich gibt es 50 % mehr Lohn; verspätet nur die Hälfte und kein Trinkgeld.,The hourglass runs from acceptance. On time pays 50 % more; late pays only half and no tip.
 HINT_RUSH_TITLE,Eilauftrag,Rush order
-HINT_WELCOME_TEXT,"Ein Werkstück wird in mehreren Hitzen fertig: in der Esse aufheizen, auf dem Amboss schmieden, solange es glüht, zurück ins Feuer, wieder schmieden. Das Timing zwischen Esse und Amboss ist Eure wichtigste Fertigkeit.\n\nZu kalt (unter 400 °C) beschädigt das Eisen, zu heiß (über 1100 °C) ebenso – über 1300 °C verbrennt es.","A piece is finished over several heats: heat it in the forge, forge it on the anvil while it glows, back into the fire, forge again. Timing between forge and anvil is your most important skill.\n\nToo cold (below 400 °C) damages the iron, too hot (above 1100 °C) as well – above 1300 °C it burns."
+HINT_STEEL_TEXT,"Stahl wird kühler geschmiedet als Schmiedeeisen: Alle Zielfenster liegen 50 °C tiefer, und Stahl verbrennt schon ab 1250 °C. Lasst ihn nicht zu lange im Feuer!","Steel is forged cooler than wrought iron: every target window lies 50 °C lower, and steel burns from 1250 °C. Don't leave it in the fire too long!"
+HINT_STEEL_TITLE,Stahl,Steel
+HINT_STEPS_TEXT,"Jedes Stück entsteht in mehreren Arbeitsgängen, jeder mit eigener Hitze: Strecken bei Gelbglut, Biegen und Lochen bei Kirschrot, Schlichten bei dunkler Glut. Das helle Zielfenster auf der Glutfarben-Skala zeigt die richtige Hitze für den aktuellen Arbeitsgang, die Abschnitte über dem Fortschrittsbalken zeigen, was noch kommt.\n\nTipp: Oft lässt sich ein Stück im Abkühlen vom einen in den nächsten Arbeitsgang schmieden.","Every piece is made in several steps, each with its own heat: drawing out at yellow heat, bending and punching at cherry red, planishing at a dull glow. The bright target window on the glow scale shows the right heat for the current step; the sections above the progress bar show what comes next.\n\nTip: a piece can often be worked from one step into the next as it cools."
+HINT_STEPS_TITLE,Arbeitsgänge,Working steps
+HINT_WELCOME_TEXT,"Ein Werkstück wird in mehreren Hitzen fertig: in der Esse aufheizen, auf dem Amboss schmieden, solange es die richtige Glut hat, zurück ins Feuer, wieder schmieden. Das Timing zwischen Esse und Amboss ist Eure wichtigste Fertigkeit.\n\nZu kalt (unter 400 °C) beschädigt das Eisen, zu heiß (über 1100 °C) ebenso – über 1300 °C verbrennt es.","A piece is finished over several heats: heat it in the forge, forge it on the anvil while it has the right glow, back into the fire, forge again. Timing between forge and anvil is your most important skill.\n\nToo cold (below 400 °C) damages the iron, too hot (above 1100 °C) as well – above 1300 °C it burns."
 HINT_WELCOME_TITLE,Willkommen in der Dorfschmiede,Welcome to the village smithy
 HINT_WELD_TEXT,"Bei halber Arbeit hält der Fortschritt an: Setzt 6 Schläge bei Weißglut (1200–1300 °C). Schläge außerhalb zählen nicht – und in dieser Hitze leidet das Gefüge, also schnell und genau!","Halfway through, progress pauses: strike 6 blows at white heat (1200–1300 °C). Blows outside don't count – and the iron suffers at this heat, so be quick and precise!"
 HINT_WELD_TITLE,Feuerschweißen,Forge welding
@@ -260,6 +266,8 @@ LANG_DE,Deutsch,Deutsch
 LANG_EN,English,English
 MACHINE_STEAM_HELVE,Dampf-Schwanzhammer,Steam-powered helve hammer
 MACHINE_WATER_HELVE,Wasser-Schwanzhammer,Water-powered helve hammer
+MAT_IRON,Schmiedeeisen,Wrought iron
+MAT_STEEL,Stahl,Steel
 MSG_RUIN_COST,Neuer Rohling: -{cost},New blank: -{cost}
 MS_MS_E1_01_PLOW_TEXT,Der Gutsherr will seine Felder vor dem Frühjahr umbrechen lassen. Eine gute Pflugschar ist Euer erstes Aushängeschild.,The squire wants his fields broken before spring. A good ploughshare will be your first calling card.
 MS_MS_E1_01_PLOW_TITLE,Pflugschar für den Gutsherrn,Ploughshare for the squire
@@ -418,6 +426,15 @@ STAT_REPUTATION,Ruf,Reputation
 STAT_RUINED,Ausschuss,Scrapped pieces
 STAT_STARS,Sterne,Stars
 STAT_THREE_STARS,Aufträge mit 3 Sternen,Three-star orders
+STEP_BEND,Biegen,Bending
+STEP_CUT,Spalten,Splitting
+STEP_DRAW,Strecken,Drawing out
+STEP_FLATTEN,Breiten,Spreading
+STEP_PLANISH,Schlichten,Planishing
+STEP_POINT,Anspitzen,Pointing
+STEP_PUNCH,Lochen,Punching
+STEP_TWIST,Verdrehen,Twisting
+STEP_UPSET,Stauchen,Upsetting
 TUT_BUY_HAMMER,Gut verdient! Kauft im Laden [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
 TUT_COLD,Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!,Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!
 TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste.,Forge! Click the anvil or press the space bar.
@@ -426,8 +443,9 @@ TUT_OPEN_BOOK,Öffnet das Auftragsbuch [J] und nehmt einen Auftrag an.,Open the 
 TUT_SKIP,Überspringen,Skip
 TUT_TAKE,"Jetzt! Klickt auf das glühende Werkstück, um es auf den Amboss zu legen [E].",Now! Click the glowing piece to lay it on the anvil [E].
 TUT_TITLE,Lehrzeit,Apprenticeship
-TUT_TOO_COLD_SOON,Das Eisen kühlt ab – unter Kirschrot wirken die Schläge schwächer. Zurück in die Esse [E]!,The iron is cooling – below cherry red your blows are weaker. Back into the fire [E]!
-TUT_WAIT_HEAT,"Wartet, bis das Eisen kirschrot glüht (ab 700 °C). Die Glutfarben-Skala unten zeigt die Hitze.",Wait until the iron glows cherry red (700 °C and above). The glow scale below shows the heat.
+TUT_TOO_COLD_SOON,Zu kühl für diesen Arbeitsgang – Schläge zählen nicht für die Qualität. Zurück in die Esse [E]!,Too cool for this step – blows don't count towards quality. Back into the fire [E]!
+TUT_TOO_HOT,"Noch zu heiß für diesen Arbeitsgang – lasst das Eisen kurz abkühlen, bis der Zeiger im hellen Zielfenster steht.",Still too hot for this step – let the iron cool a moment until the pointer is inside the bright target window.
+TUT_WAIT_HEAT,"Wartet, bis das Eisen die Hitze des Arbeitsgangs erreicht: Der Zeiger der Glutfarben-Skala muss im hellen Zielfenster stehen.",Wait until the iron reaches the heat for this step: the pointer on the glow scale must be inside the bright target window.
 TYPE_MILESTONE,Meilenstein,Milestone
 TYPE_PRECISION,Präzision (850–1000 °C),Precision (850–1000 °C)
 TYPE_RUSH,Eilauftrag,Rush order
@@ -522,6 +540,7 @@ UI_SHOW_CELSIUS,Temperatur in °C anzeigen,Show temperature in °C
 UI_STAFF,Personal,Staff
 UI_STAFF_NOTE,"Lehrling und Zuschläger arbeiten nur, solange das Spiel läuft. Ihre Löhne werden bei Auftragsabschluss abgezogen.",Apprentice and striker only work while the game is running. Their wages are deducted when an order is completed.
 UI_STATS,Statistik,Statistics
+UI_STEP_INFO,Arbeitsgang {k}/{n}: {step} ({lo}–{hi} °C),Step {k}/{n}: {step} ({lo}–{hi} °C)
 UI_TIME_LIMIT,Zeitlimit {time},time limit {time}
 UI_TO_ANVIL_AT,Auf den Amboss ab,Onto the anvil from
 UI_TO_FORGE_BELOW,In die Esse unter,Into the fire below

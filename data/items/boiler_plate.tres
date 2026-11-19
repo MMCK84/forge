@@ -10,3 +10,11 @@ factor = 1.2
 category = "normal"
 shape = "plate"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "flatten",
+"share": 0.7
+}, {
+"id": "planish",
+"share": 0.3
+}]

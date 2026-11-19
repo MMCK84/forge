@@ -168,7 +168,7 @@ func _on_sim_event(kind: String, _data: Dictionary) -> void:
 	match kind:
 		"hit_good":
 			play("hit_good")
-		"hit_weak":
+		"hit_weak", "hit_off":
 			play("hit_weak", -3.0)
 		"hit_overheat":
 			play("hit_overheat")

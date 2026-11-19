@@ -3,6 +3,7 @@ extends "res://tests/test_base.gd"
 
 const WorkshopSim = preload("res://scripts/workshop_sim.gd")
 const Catalog = preload("res://scripts/catalog.gd")
+const ReferencePlayer = preload("res://scripts/reference_player.gd")
 var cfg: BalanceConfig = Catalog.BALANCE
 
 
@@ -249,3 +250,90 @@ func test_apprentice_holds_waiting_pieces() -> void:
 	s2.load_raw()
 	_run(s2, 25.0)
 	assert_true(ruined2[0] > 0, "ohne Lehrling verbrennt ein vergessenes Stück (5.3: mehr Leistung, mehr Aufmerksamkeit)")
+
+
+func test_smart_move_swaps_when_forge_full() -> void:
+	# Ein Platz, zwei Stücke: E tauscht das kalte Amboss-Stück gegen das heiße aus der Esse.
+	var s := _sim(_job(1000, 2), 60.0, 1200.0, 1)
+	s.load_raw()
+	s.transit.clear()
+	s.move_slot_to_anvil(0)
+	s.transit.clear()
+	s.load_raw()
+	s.transit.clear()
+	s.job.pieces[0].temp = 500.0
+	s.job.pieces[1].temp = 1000.0
+	assert_eq(s.free_slot(), -1)
+	assert_true(s.smart_move(), "Umlegen tauscht bei voller Esse")
+	assert_eq(s.anvil, 1, "heißes Stück liegt jetzt auf dem Amboss")
+	assert_eq(s.job.pieces[0].location, "forge", "kaltes Stück ist in der Esse")
+
+
+func test_clay_forge_can_overheat() -> void:
+	# Lehm-Esse 1200 °C: ein vergessenes Stück wird zu heiß (Gefügeschaden), verbrennt aber nicht.
+	var f: ForgeData = Catalog.FORGES[0]
+	assert_true(f.t_max > cfg.optimal_max, "T_max liegt über dem Schmiedefenster")
+	assert_true(f.t_max < cfg.burn_limit, "aber unter der Verbrennungsgrenze")
+	var s := _sim(_job(1000), f.k_heat, f.t_max, 1)
+	s.load_raw()
+	_run(s, 40.0)
+	assert_true(s.job.pieces[0].damage > 0.0, "Überhitzung schadet dem Gefüge")
+	assert_eq(s.job.pieces[0].location, "forge", "nicht verbrannt")
+
+
+func _step_job(fp: int, steps: Array, material: String = "iron", precise: bool = false) -> JobInstance:
+	var j := _job(fp, 1, "normal", precise)
+	j.steps = steps
+	j.material = material
+	return j
+
+
+func test_steps_change_window() -> void:
+	# Hufeisen: Strecken 40 %, Biegen 35 %, Lochen 25 %
+	var j := _step_job(100, [{"id": "draw", "share": 0.4}, {"id": "bend", "share": 0.35}, {"id": "punch", "share": 0.25}])
+	var s := _sim(j)
+	var changes := []
+	s.step_changed.connect(func(_i: int, k: int) -> void: changes.append(k))
+	var p: JobInstance.Piece = j.pieces[0]
+	s.load_raw()
+	s.transit.clear()
+	s.move_slot_to_anvil(0)
+	s.transit.clear()
+	assert_eq(s.step_window(0), Vector2(950, 1100), "Strecken: 950–1100 °C")
+	p.temp = 1000.0
+	assert_eq(_hit(s), "good")
+	p.temp = 800.0
+	assert_eq(_hit(s), "off", "800 °C ist zu kühl zum Strecken")
+	assert_near(p.points_in_window, 10.0, 0.001, "nur der Schlag im Fenster zählt für die Qualität")
+	for k in 3:
+		_hit(s)
+	assert_eq(s.step_index(0), 1, "nach 40 % beginnt das Biegen")
+	assert_eq(changes, [1], "Wechsel wird gemeldet")
+	assert_eq(s.step_window(0), Vector2(750, 900), "Biegen: 750–900 °C")
+	p.temp = 1000.0
+	assert_eq(_hit(s), "off", "1000 °C ist zu heiß zum Biegen")
+
+
+func test_steel_offset_and_burn() -> void:
+	var j := _step_job(1000, [{"id": "draw", "share": 1.0}], "steel")
+	var s := _sim(j, 100.0, 1450.0)
+	assert_eq(s.step_window(0), Vector2(900, 1050), "Stahl wird 50 °C kühler gestreckt")
+	assert_near(s.burn_temp(), 1250.0, 0.001, "Stahl verbrennt ab 1250 °C")
+	var reasons := []
+	s.piece_ruined.connect(func(_i: int, r: String) -> void: reasons.append(r))
+	s.load_raw()
+	_run(s, 13.0)
+	assert_eq(reasons, ["burned"], "verbrennt vor 1300 °C")
+
+
+func test_precision_narrows_step_window() -> void:
+	var s := _sim(_step_job(100, [{"id": "draw", "share": 1.0}], "iron", true))
+	var w: Vector2 = s.step_window(0)
+	assert_near(w.x, 980.0, 0.01, "mittlere 60 % von 950–1100")
+	assert_near(w.y, 1070.0, 0.01)
+
+
+func test_reference_player_handles_steps() -> void:
+	var j := _step_job(600, [{"id": "draw", "share": 0.4}, {"id": "bend", "share": 0.35}, {"id": "planish", "share": 0.25}])
+	var d := ReferencePlayer.estimate_job(cfg, j, {"k_heat": 60.0, "t_max": 1200.0, "slots": 1, "hammer_power": 10.0})
+	assert_true(d < 600.0, "Referenzspieler schließt Aufträge mit Arbeitsgängen ab (%.0f s)" % d)

@@ -10,3 +10,14 @@ factor = 0.9
 category = "harden"
 shape = "spring"
 allow_quantity = true
+material = "steel"
+steps = [{
+"id": "draw",
+"share": 0.4
+}, {
+"id": "flatten",
+"share": 0.3
+}, {
+"id": "bend",
+"share": 0.3
+}]

@@ -29,7 +29,16 @@ func _init() -> void:
 	forge = Catalog.FORGES[0]
 	levels[hammer.id] = 0
 	var gen := JobGenerator.new(cfg, Catalog.ITEMS, Catalog.CUSTOMERS)
-	gen.set_seed(12345)
+	# Referenzauftrag: Hufeisen (Strecken, Biegen, Lochen), Schmiedeeisen
+	var ref_item: ItemData = null
+	for it in Catalog.ITEMS:
+		if it.id == "horseshoe":
+			ref_item = it
+	var seed_value := 12345
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--seed="):
+			seed_value = int(a.substr(7))
+	gen.set_seed(seed_value)
 	var total_s := 0.0
 	print("Epoche | Spielzeit (Ziel)      | Einnahmen (Ziel)              | erster → letzter Auftrag | Ausrüstung")
 	for e in range(1, 7):
@@ -50,9 +59,14 @@ func _init() -> void:
 			else:
 				job = JobInstance.new()
 				job.template_id = "horseshoe"
+				job.steps = ref_item.steps.duplicate(true)
+				job.material = ref_item.material
 				job.form_points = Economy.job_form_points(cfg, e, mini(n, ne - 1), 1.0, 1.0, false)
 				job.reward_base_pence = Economy.reward_base(cfg, e, job.form_points, 1.0, "standard")
 			var d := ReferencePlayer.estimate_job(cfg, job, _setup(e), 0.05)
+			if d > 1500.0:
+				_dump_stuck(job, _setup(e))
+				print("WARNUNG: Auftrag hängt (%.0f s): Epoche %d, %s, Kategorie %s, Menge %d, %s, Präzision %s, Esse %s" % [d, e, job.template_id, job.category, job.quantity, job.material, job.is_precision(), forge.id])
 			var gross := Economy.job_payout(cfg, job.reward_base_pence, job.is_precision(), 2, false)
 			var wages := 0
 			for s in staff:
@@ -129,3 +143,25 @@ func _shop(e: int, fee: int) -> void:
 				money -= c
 				levels[hammer.id] = lvl + 1
 				changed = true
+
+
+## Diagnose: hängenden Auftrag erneut simulieren und den Endzustand ausgeben.
+func _dump_stuck(job: JobInstance, setup: Dictionary) -> void:
+	var s = load("res://scripts/workshop_sim.gd").new(cfg)
+	ReferencePlayer.apply_setup(s, setup)
+	s.water_level = 0.8
+	s.water_timer = 1.0e9
+	var copy := job.duplicate_offer()
+	copy.reset_pieces(cfg.room_temp)
+	s.load_job(copy)
+	var bot = load("res://scripts/reference_player.gd").new(cfg, s)
+	var t := 0.0
+	while t < 600.0:
+		bot.act(0.05)
+		s.step(0.05)
+		t += 0.05
+	print("  Setup: ", setup)
+	print("  FP %d, Amboss %d, Esse %s, Ausschuss %d" % [copy.form_points, s.anvil, str(s.forge_slots), s.pieces_ruined])
+	for i in copy.pieces.size():
+		var p = copy.pieces[i]
+		print("  Stück %d: %s T=%.0f prog=%.0f/%.0f quench_wait=%s weld=%s step=%d window=%s" % [i, p.location, p.temp, p.progress, copy.piece_fp(), s.awaiting_quench(i), s.in_weld_phase(i), s.step_index(i), s.step_window(i)])

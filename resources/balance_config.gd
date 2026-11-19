@@ -40,7 +40,7 @@ extends Resource
 @export_group("Auftragsbuch (3.1)")
 @export var offers_count: int = 3
 @export var reroll_cooldown_s: int = 60
-@export var tutorial_standard_only_jobs: int = 10
+@export var tutorial_standard_only_jobs: int = 4
 ## Gewichte [Standard, Präzision, Eil] je Epoche 1..6
 @export var type_weights: Array = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20]]
 ## Wahrscheinlichkeit für Mengenaufträge je Epoche
@@ -51,6 +51,18 @@ extends Resource
 @export var weld_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.40, 0.30, 0.30, 0.25])
 @export var harden_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.35, 0.30, 0.20])
 @export var big_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.30])
+
+@export_group("Steigende Komplexität")
+## Innerhalb einer Epoche wächst der Komplexitätsgrad c = n / (N_e − 1) von 0 auf 1.
+## Seltene Merkmale (Präzision, Eile, Spezialaufträge, Mengen) werden mit diesem Faktor gewichtet:
+## am Epochenanfang × ramp_min, am Ende × ramp_max (im Mittel × 1).
+@export var complexity_ramp_min: float = 0.3
+@export var complexity_ramp_max: float = 1.7
+## Breite der Gegenstands-Auswahl um den aktuellen Grad (0..1, nach Komplexität sortiert)
+@export var item_complexity_spread: float = 0.5
+## Qualitätsgewichte [Einfach, Solide, Fein, Meisterlich] am Anfang und am Ende einer Epoche
+@export var quality_weights_start: PackedFloat32Array = PackedFloat32Array([55, 40, 5, 0])
+@export var quality_weights_end: PackedFloat32Array = PackedFloat32Array([5, 35, 40, 20])
 
 @export_group("Qualitätsstufen (3.2)")
 ## Jede Stufe: id, fp, wage, weight, min_epoch
@@ -77,6 +89,18 @@ extends Resource
 @export var milestone_fp_factor: float = 1.5
 @export var rush_min_time_s: float = 45.0
 @export var rush_time_factor: float = 1.5
+
+@export_group("Arbeitsgänge & Werkstoffe")
+## Zielfenster je Arbeitsgang für Schmiedeeisen [min, max] in °C
+@export var step_windows: Dictionary = {
+	"draw": [950.0, 1100.0], "upset": [1000.0, 1100.0], "flatten": [850.0, 1050.0],
+	"point": [850.0, 1000.0], "punch": [800.0, 950.0], "bend": [750.0, 900.0],
+	"twist": [750.0, 900.0], "cut": [900.0, 1050.0], "planish": [700.0, 850.0],
+}
+## Stahl wird um diesen Betrag kühler geschmiedet; alle Temperaturgrenzen (M(T), Schaden, Verbrennen) verschieben sich mit
+@export var steel_temp_offset: float = 50.0
+## Präzisionsaufträge nutzen nur den mittleren Teil des Zielfensters
+@export var precision_window_keep: float = 0.6
 
 @export_group("Feuerschweißen (4.4.1)")
 @export var weld_at_progress: float = 0.5

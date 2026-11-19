@@ -10,3 +10,14 @@ factor = 1.4
 category = "harden"
 shape = "shears"
 allow_quantity = true
+material = "steel"
+steps = [{
+"id": "flatten",
+"share": 0.4
+}, {
+"id": "cut",
+"share": 0.3
+}, {
+"id": "planish",
+"share": 0.3
+}]

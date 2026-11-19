@@ -28,7 +28,7 @@ max_hits_per_s = 8.0
 hold_hits_per_s = 4.0
 offers_count = 3
 reroll_cooldown_s = 60
-tutorial_standard_only_jobs = 10
+tutorial_standard_only_jobs = 4
 type_weights = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20]]
 quantity_chance = PackedFloat32Array(0.0, 0.35, 0.35, 0.35, 0.35, 0.3)
 quantity_values = PackedInt32Array(2, 3, 4, 6, 8, 12)
@@ -36,6 +36,11 @@ quantity_weights = PackedFloat32Array(30.0, 25.0, 20.0, 12.0, 8.0, 5.0)
 weld_share = PackedFloat32Array(0.0, 0.0, 0.4, 0.3, 0.3, 0.25)
 harden_share = PackedFloat32Array(0.0, 0.0, 0.0, 0.35, 0.3, 0.2)
 big_share = PackedFloat32Array(0.0, 0.0, 0.0, 0.0, 0.0, 0.3)
+complexity_ramp_min = 0.3
+complexity_ramp_max = 1.7
+item_complexity_spread = 0.5
+quality_weights_start = PackedFloat32Array(55.0, 40.0, 5.0, 0.0)
+quality_weights_end = PackedFloat32Array(5.0, 35.0, 40.0, 20.0)
 quality_tiers = [{
 "id": "simple",
 "fp": 0.8,
@@ -62,8 +67,8 @@ quality_tiers = [{
 "min_epoch": 2
 }]
 epoch_job_counts = PackedInt32Array(30, 40, 50, 50, 60, 70)
-fp_start = PackedFloat32Array(114.0, 900.0, 4012.0, 8380.0, 18264.0, 24599.0)
-rate_per_fp = PackedFloat32Array(0.105263, 0.08, 0.052343, 0.064439, 0.068441, 0.105695)
+fp_start = PackedFloat32Array(75.0, 450.0, 1728.0, 5875.0, 13943.0, 24083.0)
+rate_per_fp = PackedFloat32Array(0.16, 0.16, 0.121528, 0.091915, 0.089651, 0.10796)
 scale_per_epoch = 5.0
 free_play_exponent_cap = 1.5
 type_factor_standard = 1.0
@@ -74,6 +79,19 @@ type_factor_milestone = 2.0
 milestone_fp_factor = 1.5
 rush_min_time_s = 45.0
 rush_time_factor = 1.5
+step_windows = {
+"bend": [750.0, 900.0],
+"cut": [900.0, 1050.0],
+"draw": [950.0, 1100.0],
+"flatten": [850.0, 1050.0],
+"planish": [700.0, 850.0],
+"point": [850.0, 1000.0],
+"punch": [800.0, 950.0],
+"twist": [750.0, 900.0],
+"upset": [1000.0, 1100.0]
+}
+steel_temp_offset = 50.0
+precision_window_keep = 0.6
 weld_at_progress = 0.5
 weld_hits_required = 6
 weld_min = 1200.0

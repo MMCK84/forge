@@ -78,6 +78,12 @@ func _offer_card(i: int, j: JobInstance) -> Control:
 	if j.quantity > 1:
 		tags.append(tr("UI_QUANTITY").format({"n": j.quantity}))
 	col.add_child(UIKit.label(" · ".join(tags), 22, UIKit.LEATHER))
+	if not j.steps.is_empty():
+		var names: PackedStringArray = []
+		for s in j.steps:
+			names.append(tr("STEP_" + str(s.get("id", "")).to_upper()))
+		var steps_text := tr("MAT_" + j.material.to_upper()) + ":  " + " – ".join(names)
+		col.add_child(UIKit.label(steps_text, 21, UIKit.INK_LIGHT))
 	var details := tr("UI_OFFER_DETAILS").format({
 		"fp": Economy.group_thousands(j.form_points, "." if TranslationServer.get_locale().begins_with("de") else ","),
 		"wage": Economy.format_lsd(j.reward_base_pence),

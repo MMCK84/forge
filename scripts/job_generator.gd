@@ -41,10 +41,33 @@ func _weighted_index(weights: Array) -> int:
 	return weights.size() - 1
 
 
-func _pick_type(epoch: int, n: int) -> String:
+## Gewichtung seltener Merkmale nach Komplexitätsgrad c (0..1).
+func ramp(c: float) -> float:
+	return lerpf(cfg.complexity_ramp_min, cfg.complexity_ramp_max, clampf(c, 0.0, 1.0))
+
+
+static func complexity_grade(cfg_: BalanceConfig, epoch: int, n: int, free_play: bool) -> float:
+	if free_play:
+		return 1.0
+	var ne: int = cfg_.epoch_job_counts[clampi(epoch, 1, 6) - 1]
+	return clampf(float(n) / float(maxi(1, ne - 1)), 0.0, 1.0)
+
+
+## Komplexität eines Gegenstands: Arbeitsgänge, Werkstoff, Aufwand, Sondermechanik.
+static func item_complexity(it: ItemData) -> float:
+	var score := float(it.steps.size()) + it.factor
+	if it.material == "steel":
+		score += 0.6
+	if it.category != "normal":
+		score += 0.5
+	return score
+
+
+func _pick_type(epoch: int, n: int, c: float = 0.5) -> String:
 	if epoch == 1 and n < cfg.tutorial_standard_only_jobs:
 		return JobInstance.TYPE_STANDARD
-	var w: Array = cfg.type_weights[clampi(epoch, 1, cfg.type_weights.size()) - 1]
+	var base: Array = cfg.type_weights[clampi(epoch, 1, cfg.type_weights.size()) - 1]
+	var w := [float(base[0]), float(base[1]) * ramp(c), float(base[2]) * ramp(c)]
 	match _weighted_index(w):
 		1:
 			return JobInstance.TYPE_PRECISION
@@ -54,12 +77,18 @@ func _pick_type(epoch: int, n: int) -> String:
 
 
 ## ctx: {"can_weld": bool, "can_harden": bool, "can_big": bool}
-func _pick_category(epoch: int, ctx: Dictionary) -> String:
+func _pick_category(epoch: int, ctx: Dictionary, c: float = 0.5) -> String:
 	var e := clampi(epoch, 1, 6) - 1
 	var r := rng.randf()
-	var weld: float = cfg.weld_share[e] if ctx.get("can_weld", true) else 0.0
-	var harden: float = cfg.harden_share[e] if ctx.get("can_harden", true) else 0.0
-	var big: float = cfg.big_share[e] if ctx.get("can_big", true) else 0.0
+	var k := ramp(c)
+	var weld: float = cfg.weld_share[e] * k if ctx.get("can_weld", true) else 0.0
+	var harden: float = cfg.harden_share[e] * k if ctx.get("can_harden", true) else 0.0
+	var big: float = cfg.big_share[e] * k if ctx.get("can_big", true) else 0.0
+	var total := weld + harden + big
+	if total > 0.95:
+		weld *= 0.95 / total
+		harden *= 0.95 / total
+		big *= 0.95 / total
 	if r < weld:
 		return "weld"
 	if r < weld + harden:
@@ -69,7 +98,7 @@ func _pick_category(epoch: int, ctx: Dictionary) -> String:
 	return "normal"
 
 
-func _pick_item(epoch: int, category: String) -> ItemData:
+func _pick_item(epoch: int, category: String, c: float = -1.0) -> ItemData:
 	var pool: Array = []
 	for it in items:
 		if it.epoch == epoch and it.category == category:
@@ -84,16 +113,29 @@ func _pick_item(epoch: int, category: String) -> ItemData:
 				pool.append(it)
 	if pool.is_empty():
 		pool = items.duplicate()
-	return pool[rng.randi_range(0, pool.size() - 1)]
+	if c < 0.0 or pool.size() == 1:
+		return pool[rng.randi_range(0, pool.size() - 1)]
+	# Nach Komplexität sortieren und bevorzugt Gegenstände nahe am aktuellen Grad wählen
+	pool.sort_custom(func(a, b): return item_complexity(a) < item_complexity(b))
+	var weights: Array = []
+	for i in pool.size():
+		var rank := float(i) / float(pool.size() - 1)
+		var d := (rank - c) / maxf(cfg.item_complexity_spread, 0.05)
+		weights.append(exp(-d * d))
+	return pool[_weighted_index(weights)]
 
 
-func _pick_quality(epoch: int) -> Dictionary:
+func _pick_quality(epoch: int, c: float = -1.0) -> Dictionary:
 	var tiers: Array = []
 	var weights: Array = []
-	for t in cfg.quality_tiers:
+	for i in cfg.quality_tiers.size():
+		var t: Dictionary = cfg.quality_tiers[i]
 		if int(t.get("min_epoch", 1)) <= epoch:
 			tiers.append(t)
-			weights.append(float(t.get("weight", 1.0)))
+			var w := float(t.get("weight", 1.0))
+			if c >= 0.0 and i < cfg.quality_weights_start.size():
+				w = lerpf(cfg.quality_weights_start[i], cfg.quality_weights_end[i], c)
+			weights.append(w)
 	return tiers[_weighted_index(weights)]
 
 
@@ -107,13 +149,18 @@ func _pick_customer(epoch: int) -> CustomerData:
 	return pool[rng.randi_range(0, pool.size() - 1)]
 
 
-func _pick_quantity(epoch: int, item: ItemData, category: String) -> int:
+func _pick_quantity(epoch: int, item: ItemData, category: String, c: float = 0.5) -> int:
 	if category == "big" or not item.allow_quantity:
 		return 1
-	var chance: float = cfg.quantity_chance[clampi(epoch, 1, 6) - 1]
+	var chance: float = cfg.quantity_chance[clampi(epoch, 1, 6) - 1] * ramp(c)
 	if rng.randf() >= chance:
 		return 1
-	return cfg.quantity_values[_weighted_index(Array(cfg.quantity_weights))]
+	# Am Epochenanfang nur kleine Mengen, später bis zur größten
+	var max_idx := clampi(int(round(c * float(cfg.quantity_values.size() - 1))), 0, cfg.quantity_values.size() - 1)
+	var weights: Array = []
+	for i in max_idx + 1:
+		weights.append(cfg.quantity_weights[i])
+	return cfg.quantity_values[_weighted_index(weights)]
 
 
 func _next_uid(epoch: int) -> String:
@@ -124,17 +171,20 @@ func _next_uid(epoch: int) -> String:
 ## Erzeugt einen generierten Auftrag. n = in der Epoche abgeschlossene Aufträge.
 func generate(epoch: int, n: int, free_play: bool, ctx: Dictionary) -> JobInstance:
 	var j := JobInstance.new()
+	var c := complexity_grade(cfg, epoch, n, free_play)
 	j.epoch = epoch
-	j.type = _pick_type(epoch, n)
+	j.type = _pick_type(epoch, n, c)
 	j.precise = j.type == JobInstance.TYPE_PRECISION
-	var category := _pick_category(epoch, ctx)
-	var item := _pick_item(epoch, category)
+	var category := _pick_category(epoch, ctx, c)
+	var item := _pick_item(epoch, category, c)
 	j.category = item.category
 	j.template_id = item.id
-	var q := _pick_quality(epoch)
+	j.steps = item.steps.duplicate(true)
+	j.material = item.material
+	var q := _pick_quality(epoch, c)
 	j.quality = str(q.get("id", "solid"))
 	j.customer_id = _pick_customer(epoch).id
-	j.quantity = _pick_quantity(epoch, item, j.category)
+	j.quantity = _pick_quantity(epoch, item, j.category, c)
 	j.form_points = Economy.job_form_points(cfg, epoch, n, item.factor, float(q.get("fp", 1.0)), false, free_play)
 	j.reward_base_pence = Economy.reward_base(cfg, epoch, j.form_points, float(q.get("wage", 1.0)), j.type)
 	j.uid = _next_uid(epoch)
@@ -150,6 +200,9 @@ func make_milestone(ms: MilestoneData, item: ItemData, n: int) -> JobInstance:
 	j.milestone_id = ms.id
 	j.template_id = ms.item_id
 	j.category = item.category if item != null else "normal"
+	if item != null:
+		j.steps = item.steps.duplicate(true)
+		j.material = item.material
 	j.quality = "solid"
 	j.customer_id = ms.customer_id
 	j.quantity = maxi(1, ms.quantity)

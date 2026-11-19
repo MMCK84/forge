@@ -13,6 +13,8 @@ signal piece_moved(piece_index: int, to: String)
 signal piece_ruined(piece_index: int, reason: String)
 signal piece_finished(piece_index: int)
 signal weld_phase_started(piece_index: int)
+## Ein Stück beginnt einen neuen Arbeitsgang (Index in job.steps)
+signal step_changed(piece_index: int, step: int)
 signal weld_completed(piece_index: int)
 signal ready_to_quench(piece_index: int)
 signal quench_done(piece_index: int, result: String, temp: float)
@@ -189,6 +191,45 @@ func in_weld_phase(i: int) -> bool:
 	return p.weld_hits < cfg.weld_hits_required and p.progress >= job.piece_fp() * cfg.weld_at_progress - EPS
 
 
+## Stahl wird kühler geschmiedet: alle Temperaturgrenzen liegen um diesen Betrag tiefer.
+func temp_offset() -> float:
+	if job != null and job.is_steel():
+		return cfg.steel_temp_offset
+	return 0.0
+
+
+## Temperatur, ab der das Werkstück verbrennt (Werkstoff berücksichtigt).
+func burn_temp() -> float:
+	return cfg.burn_limit - temp_offset()
+
+
+func step_index(i: int) -> int:
+	if job == null:
+		return 0
+	return job.step_index_at(_piece(i).progress / maxf(job.piece_fp(), EPS))
+
+
+## Zielfenster (min, max) des aktuellen Arbeitsgangs eines Stücks.
+func step_window(i: int) -> Vector2:
+	if job == null:
+		return HeatModel.window(cfg, false)
+	return window_for_step(job.step_id(step_index(i)))
+
+
+func window_for_step(step_id: String) -> Vector2:
+	var w: Vector2
+	if step_id == "" or not cfg.step_windows.has(step_id):
+		w = HeatModel.window(cfg, job.is_precision() if job != null else false)
+		return w
+	var arr: Array = cfg.step_windows[step_id]
+	w = Vector2(float(arr[0]), float(arr[1])) - Vector2.ONE * temp_offset()
+	if job != null and job.is_precision():
+		var mid := (w.x + w.y) * 0.5
+		var half := (w.y - w.x) * 0.5 * cfg.precision_window_keep
+		w = Vector2(mid - half, mid + half)
+	return w
+
+
 func anvil_piece() -> JobInstance.Piece:
 	if job == null or anvil < 0:
 		return null
@@ -313,7 +354,14 @@ func smart_move() -> bool:
 	if job == null:
 		return false
 	if anvil >= 0:
-		return move_anvil_to_forge(-1)
+		if free_slot() >= 0:
+			return move_anvil_to_forge(-1)
+		# Esse voll: mit dem gewählten (sonst dem heißesten) Stück tauschen
+		var sw := selected_slot if selected_slot < slot_count and forge_slots[selected_slot] >= 0 else -1
+		if sw < 0:
+			var h0 := hottest_forge_piece()
+			sw = _piece(h0).slot if h0 >= 0 else -1
+		return move_slot_to_anvil(sw) if sw >= 0 else false
 	var s := selected_slot
 	if s < slot_count and forge_slots[s] >= 0:
 		return move_slot_to_anvil(s)
@@ -368,8 +416,9 @@ func _strike(idx: int, power: float, is_player: bool) -> String:
 	if p.location == JobInstance.LOC_DONE or is_complete(idx):
 		return "none"
 	var t := p.temp
+	var te := t + temp_offset()
 	var kind := "none"
-	if t < cfg.cold_limit:
+	if te < cfg.cold_limit:
 		p.damage += cfg.cold_hit_damage
 		kind = "cold"
 		if is_player:
@@ -385,6 +434,7 @@ func _strike(idx: int, power: float, is_player: bool) -> String:
 			hit_landed.emit(kind, 0.0)
 			if p.weld_hits >= cfg.weld_hits_required:
 				weld_completed.emit(idx)
+				step_changed.emit(idx, step_index(idx))
 		else:
 			kind = "weld_miss"
 			hit_landed.emit(kind, 0.0)
@@ -394,20 +444,28 @@ func _strike(idx: int, power: float, is_player: bool) -> String:
 	var weld_pending := job.needs_weld() and p.weld_hits < cfg.weld_hits_required
 	if weld_pending:
 		cap = fp * cfg.weld_at_progress
-	var gain := power * HeatModel.multiplier(cfg, t)
+	var gain := power * HeatModel.multiplier(cfg, te)
 	gain = clampf(gain, 0.0, maxf(0.0, cap - p.progress))
+	var step_before := step_index(idx)
+	var w := step_window(idx)
 	p.progress += gain
-	if HeatModel.in_window(cfg, t, job.is_precision()):
+	var in_win := t >= w.x and t <= w.y
+	if in_win:
 		p.points_in_window += gain
-	var z := HeatModel.zone(cfg, t)
-	if z == HeatModel.ZONE_OPTIMAL:
-		kind = "good"
-	elif z == HeatModel.ZONE_OVERHEAT:
+	var z := HeatModel.zone(cfg, te)
+	if z == HeatModel.ZONE_OVERHEAT:
 		kind = "overheat"
+	elif in_win:
+		kind = "good"
+	elif z == HeatModel.ZONE_OPTIMAL:
+		kind = "off"
 	else:
 		kind = "weak"
 	if is_player:
 		hit_landed.emit(kind, gain)
+	var step_after := step_index(idx)
+	if step_after != step_before and p.progress < fp - EPS and not (weld_pending and p.progress >= cap - EPS):
+		step_changed.emit(idx, step_after)
 	if weld_pending and p.progress >= cap - EPS:
 		p.progress = cap
 		weld_phase_started.emit(idx)
@@ -469,6 +527,7 @@ func step(dt: float) -> void:
 	if job == null:
 		return
 	job.elapsed_s += dt
+	var release := _hold_release_piece()
 	for i in job.pieces.size():
 		var p: JobInstance.Piece = _piece(i)
 		if p.location == JobInstance.LOC_DONE or p.location == JobInstance.LOC_RAW:
@@ -477,15 +536,16 @@ func step(dt: float) -> void:
 			continue
 		if p.location == JobInstance.LOC_FORGE:
 			var cap := t_max
-			if has_apprentice and anvil >= 0 and anvil != i and not _anvil_needs_reheat():
+			if has_apprentice and anvil >= 0 and anvil != i and i != release:
 				cap = minf(cap, apprentice_hold_temp(i))
 			if p.temp < cap:
 				p.temp = minf(p.temp + k_heat * dt, cap)
 		elif p.location == JobInstance.LOC_ANVIL:
 			p.temp = maxf(p.temp - cfg.k_cool * dt, cfg.room_temp)
-		if p.temp > cfg.optimal_max:
-			p.damage += HeatModel.overheat_damage_rate(cfg, p.temp) * dt
-		if p.temp > cfg.burn_limit:
+		var te := p.temp + temp_offset()
+		if te > cfg.optimal_max:
+			p.damage += HeatModel.overheat_damage_rate(cfg, te) * dt
+		if te > cfg.burn_limit:
 			_ruin(i, "burned")
 			continue
 		_check_damage(i)
@@ -511,7 +571,7 @@ func _update_water(dt: float) -> void:
 func _auto_target_ok() -> bool:
 	if anvil < 0 or in_transit(anvil) or is_complete(anvil):
 		return false
-	return _piece(anvil).temp >= cfg.auto_hit_min_temp
+	return _piece(anvil).temp + temp_offset() >= cfg.auto_hit_min_temp
 
 
 func _step_machine(dt: float) -> void:
@@ -580,6 +640,19 @@ func _step_apprentice(dt: float) -> void:
 		load_raw()
 
 
+## Muss das Amboss-Stück nachgewärmt werden, darf genau ein wartendes Stück (das heißeste) weiter aufheizen.
+func _hold_release_piece() -> int:
+	if not has_apprentice or anvil < 0 or not _anvil_needs_reheat():
+		return -1
+	var best := -1
+	for idx in forge_slots:
+		if idx < 0 or awaiting_quench(idx):
+			continue
+		if best < 0 or _piece(idx).temp > _piece(best).temp:
+			best = idx
+	return best
+
+
 func _apprentice_ready_piece() -> int:
 	var best := -1
 	for idx in forge_slots:
@@ -593,12 +666,18 @@ func _apprentice_ready_piece() -> int:
 
 ## Muss das Amboss-Stück zurück ins Feuer? (Härte-Stücke bleiben dem Spieler überlassen)
 func _anvil_needs_reheat() -> bool:
-	if anvil < 0 or awaiting_quench(anvil):
+	if anvil < 0:
 		return false
-	var low := apprentice_to_forge_below
-	if in_weld_phase(anvil):
-		low = cfg.weld_min + 5.0
-	return _piece(anvil).temp < low
+	if awaiting_quench(anvil):
+		# Fertiges Härte-Stück ist unter die Abschrecktemperatur abgekühlt: nachwärmen
+		return _piece(anvil).temp < cfg.quench_good_min
+	return _piece(anvil).temp < low_temp_for(anvil)
+
+
+func low_temp_for(idx: int) -> float:
+	if in_weld_phase(idx):
+		return cfg.weld_min + 5.0
+	return maxf(apprentice_to_forge_below - temp_offset(), step_window(idx).x)
 
 
 ## Solange der Amboss belegt ist, hält der Lehrling wartende Stücke am Rand des Feuers bei dieser Temperatur.
@@ -613,7 +692,7 @@ func apprentice_hold_temp(idx: int) -> float:
 func apprentice_take_temp(idx: int) -> float:
 	if in_weld_phase(idx):
 		return minf(t_max, cfg.weld_max) - 15.0
-	return minf(apprentice_to_anvil_at, t_max - 1.0)
+	return minf(minf(apprentice_to_anvil_at - temp_offset(), step_window(idx).y), t_max - 1.0)
 
 
 # ------------------------------------------------------------------ Bewertung

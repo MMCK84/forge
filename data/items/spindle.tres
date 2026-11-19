@@ -10,3 +10,14 @@ factor = 0.9
 category = "normal"
 shape = "spindle"
 allow_quantity = true
+material = "steel"
+steps = [{
+"id": "draw",
+"share": 0.6
+}, {
+"id": "point",
+"share": 0.2
+}, {
+"id": "planish",
+"share": 0.2
+}]

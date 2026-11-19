@@ -10,3 +10,14 @@ factor = 1.0
 category = "weld"
 shape = "tyre"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.25
+}, {
+"id": "bend",
+"share": 0.25
+}, {
+"id": "planish",
+"share": 0.5
+}]

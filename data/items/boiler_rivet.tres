@@ -10,3 +10,11 @@ factor = 0.8
 category = "normal"
 shape = "rivet"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.4
+}, {
+"id": "upset",
+"share": 0.6
+}]

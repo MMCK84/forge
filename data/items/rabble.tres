@@ -10,3 +10,14 @@ factor = 1.1
 category = "normal"
 shape = "bar"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.5
+}, {
+"id": "bend",
+"share": 0.3
+}, {
+"id": "flatten",
+"share": 0.2
+}]

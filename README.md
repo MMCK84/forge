@@ -117,6 +117,38 @@ Fehlt eine Datei, nutzt das Spiel automatisch die im Code gezeichnete bzw. synth
 Ersatzvariante. Für ein kommerzielles Release bleibt Kapitel 12 (Punkte 3 und 4) offen:
 Die gerenderten Assets sind solide, ersetzen aber keinen Illustrator und keine eingespielte Musik.
 
+## Erweiterungen gegenüber dem Lastenheft
+
+Nach den ersten Spieltests wurde das Spiel um mehr Abwechslung erweitert:
+
+**Arbeitsgänge.** Jedes Werkstück entsteht in 2–3 Arbeitsgängen, jeder mit eigenem
+Zielfenster (Schmiedeeisen):
+
+| Arbeitsgang | Zielfenster | Arbeitsgang | Zielfenster |
+|---|---|---|---|
+| Strecken | 950–1100 °C | Lochen | 800–950 °C |
+| Stauchen | 1000–1100 °C | Biegen | 750–900 °C |
+| Breiten | 850–1050 °C | Verdrehen | 750–900 °C |
+| Anspitzen | 850–1000 °C | Schlichten | 700–850 °C |
+| Spalten | 900–1050 °C | | |
+
+Ein Hufeisen wird zum Beispiel gestreckt, gebogen und gelocht. Die Glutfarben-Skala zeigt
+das Fenster des aktuellen Arbeitsgangs, die Abschnitte über dem Fortschrittsbalken die
+Reihenfolge. Nur Schläge im Fenster zählen für die Qualität (Sterne). Präzisionsaufträge
+nutzen die mittleren 60 % jedes Fensters. Feuerschweißen liegt immer an einer Grenze
+zwischen zwei Arbeitsgängen. Die Werte stehen in `balance_config.tres` (`step_windows`),
+die Arbeitsgänge je Gegenstand in `data/items/*.tres`.
+
+**Werkstoffe.** Stahl (Klingen, Federn, Werkzeuge, Sicheln, Spindeln) wird 50 °C kühler
+geschmiedet; alle Grenzen verschieben sich mit, er verbrennt also schon ab 1250 °C.
+
+**Steigende Komplexität.** Innerhalb jeder Epoche wächst ein Komplexitätsgrad von 0 auf 1.
+Er bestimmt, welche Gegenstände kommen (sortiert nach Arbeitsgängen, Werkstoff, Aufwand),
+wie hoch die Qualitätsstufen sind (am Anfang 55 % „Einfach“, am Ende 20 % „Meisterlich“)
+und wie oft Präzisions-, Eil-, Spezial- und Mengenaufträge auftreten (×0,3 am Anfang,
+×1,7 am Ende; Mengen anfangs nur ×2, später bis ×12). Präzisionsaufträge gibt es in
+Epoche 1 schon ab dem 5. Auftrag.
+
 ## Umsetzungsentscheidungen
 
 An einigen Stellen war das Lastenheft offen oder widersprüchlich. So wurde entschieden;
@@ -129,13 +161,15 @@ alle Zahlen liegen in `balance_config.tres`:
 | Anteile Spezialaufträge | 40 % Schweißen + 35 % Härten + 30 % Großschmiede ergäben in Ep. 6 über 100 %. Gewählt: Ep. 3: 40/–/–, Ep. 4: 30/35/–, Ep. 5: 30/30/–, Ep. 6: 25/20/30 |
 | Anteil Mengenaufträge | nicht spezifiziert: 35 % ab Ep. 2 (Ep. 6: 30 %), Mengen 2–12 gewichtet zugunsten kleiner Mengen |
 | Freischaltung der Meilensteine | gleichmäßig verteilt: Meilenstein i von m ab n = round(i·(N_e−1)/m); der letzte beim letzten Auftrag |
-| Balancing | Aufheizraten, FP_Start und Satz auf die Zielzeiten aus 5.8 abgestimmt (siehe „Balancing“); Löhne unverändert |
+| Balancing | Aufheizraten, FP_Start und Satz auf die Zielzeiten aus 5.8 abgestimmt, gemessen mit dem echten Auftragsmix (siehe „Balancing“); Löhne unverändert |
 | Ausschuss-Materialkosten | 20 % des Lohns **je Stück** (bei 12 Stück sonst unverhältnismäßig) |
 | Löschtrog, Pyrometer | ohne Preis im Lastenheft: Löschtrog kommt mit Epoche 4; Pyrometer als Geschenk von Wedgwood beim Meilenstein „Werkzeug für die Töpferei in Etruria“ (Ep. 5, 1782) |
 | Maschinen/Zuschläger auf kaltem Eisen | schlagen erst ab 400 °C (sonst Dauerschaden ohne Zutun des Spielers) |
 | Zuschläger bei Großschmiedestücken | zählt als Handarbeit (× 0,25) |
 | Schweißschläge | nur der Spieler; Maschinen pausieren in der Schweißphase |
-| Lehrling und Härten | Er holt fertig geschmiedete Härte-Stücke bei ca. 830 °C aus der Esse auf den Amboss (sonst verbrennen sie in heißen Essen); abschrecken muss der Spieler |
+| Lehrling | Er kennt die Fenster der Arbeitsgänge. Wartende Stücke hält er am Rand des Feuers, bis der Amboss frei wird; bei voller Esse tauscht er. Fertige Härte-Stücke holt er bei ca. 830 °C auf den Amboss und legt sie zurück, wenn sie zu kalt werden; abschrecken muss der Spieler |
+| Lehm-Esse | Höchsttemperatur 1200 statt 1100 °C, damit auch in Epoche 1 Überhitzen möglich ist (Gefügeschaden, aber kein Verbrennen) |
+| Tauschen | Taste E bzw. „Umlegen“ tauscht bei voller Esse das Amboss-Stück gegen das gewählte bzw. heißeste Stück in der Esse; ebenso ein Klick auf ein Stück in der Esse |
 | Zeitlimit Eilauftrag | max(45 s; 1,5 × geschätzte Dauer). Die Dauer wird mit dem Referenzspieler simuliert, inkl. Aufheizen und Mengen |
 | Großschmiedestücke | werden erst angeboten, wenn eine Maschine vorhanden ist |
 | Schweißaufträge | werden erst angeboten, wenn die Esse ≥ 1250 °C erreicht |
@@ -148,34 +182,37 @@ alle Zahlen liegen in `balance_config.tres`:
 
 Mit den Startwerten des Lastenhefts ergab die Simulation **12,3 h statt 7,7 h**: Jeder
 Rohling startet bei 20 °C, und mit der Lehm-Esse (25 °C/s) dauerte allein das erste
-Aufheizen 43 s. Das Referenzmodell in 5.8 rechnet dieses Aufheizen offenbar nicht mit.
+Aufheizen 43 s. Mit Arbeitsgängen kommen weitere Hitzen hinzu.
 
-Die Werte sind deshalb auf die Zielzeiten aus 5.8 abgestimmt (`tools/tune_balance.py`):
+Abgestimmt wird mit `tools/tune_balance.py` auf die Zielzeiten aus 5.8, und zwar mit dem
+**echten Auftragsmix** (Generator mit steigender Komplexität), gemittelt über vier Seeds:
 
 | Wert | Lastenheft | Jetzt |
 |---|---|---|
-| Aufheizrate Lehm- / Ziegel- / Doppelblasebalg- / Koks-Esse | 25 / 40 / 65 / 100 °C/s | 60 / 80 / 100 / 130 °C/s |
-| FP_Start Epoche 1–6 | 300 / 1.800 / 6.000 / 12.000 / 25.000 / 40.000 | 114 / 900 / 4.012 / 8.380 / 18.264 / 24.599 |
-| Satz (d je Form-Punkt) Epoche 1–6 | 0,040 / 0,040 / 0,035 / 0,045 / 0,050 / 0,065 | 0,1053 / 0,080 / 0,0523 / 0,0644 / 0,0684 / 0,1057 |
+| Aufheizrate Lehm- / Ziegel- / Doppelblasebalg- / Koks-Esse | 25 / 40 / 65 / 100 °C/s | 90 / 110 / 125 / 150 °C/s |
+| Höchsttemperatur Lehm-Esse | 1100 °C | 1200 °C |
+| FP_Start Epoche 1–6 | 300 / 1.800 / 6.000 / 12.000 / 25.000 / 40.000 | 75 / 450 / 1.728 / 5.875 / 13.943 / 24.083 |
+| Satz (d je Form-Punkt) Epoche 1–6 | 0,040 / 0,040 / 0,035 / 0,045 / 0,050 / 0,065 | 0,160 / 0,160 / 0,1215 / 0,0919 / 0,0897 / 0,1080 |
 
 FP_Start und Satz sind im selben Verhältnis geändert: **Die Löhne je Auftrag (Tabelle 3.3)
-bleiben exakt gleich**, nur der Arbeitsaufwand sinkt. Alle anderen Regeln (Faktor 5 je
-Epoche, Temperaturen, Schaden, Sterne, Preise, Gebühren) sind unverändert.
+bleiben exakt gleich**, nur der Arbeitsaufwand sinkt. Die Untergrenze von 25 % der
+ursprünglichen Form-Punkte sorgt dafür, dass auch frühe Aufträge rund 15 Hammerschläge brauchen.
 
-Ergebnis der Balancing-Simulation in Godot (Referenzspieler aus 5.8):
+Ergebnis (Auftragsmix, Mittel aus vier Seeds):
 
-| Epoche | Spielzeit (Ziel) | Einnahmen (Ziel) | Spielzeit mit Auftragsmix |
-|---|---|---|---|
-| 1 | 12,3 min (12) | £3 15s (£3 15s) | 12,4 min |
-| 2 | 22,9 min (23) | £28 19s (£30) | 26,7 min |
-| 3 | 56,0 min (56) | £100 (£109) | 59,5 min |
-| 4 | 83,0 min (83) | £253 (£281) | 75,5 min |
-| 5 | 131,0 min (131) | £701 (£779) | 135,3 min |
-| 6 | 157,0 min (157) | £1.698 (£1.890) | 151,6 min |
-| **Gesamt** | **7,70 h (7,7 h)** | | **7,68 h** |
+| Epoche | Spielzeit | Ziel (5.8) |
+|---|---|---|
+| 1 | 12,9 min | 12 min |
+| 2 | 26,6 min | 23 min |
+| 3 | 56,1 min | 56 min |
+| 4 | 83,0 min | 83 min |
+| 5 | 131,0 min | 131 min |
+| 6 | 156,9 min | 157 min |
+| **Gesamt** | **7,78 h** | **7,7 h** |
 
-„Auftragsmix“ nutzt den echten Generator (Qualitätsstufen, Mengen-, Eil-, Präzisions-,
-Schweiß-, Härte- und Großaufträge). Dort liegen die Einnahmen 13–44 % über den Zielwerten,
+Gegenprobe mit vier weiteren Seeds: 7,3–7,8 h. In den Epochen 1 und 2 bestimmen Aufheizen
+und Abkühlen zwischen den Arbeitsgängen die Dauer, deshalb liegen sie etwas über dem Ziel
+(innerhalb der ±25 % aus Phase 3). Die Einnahmen liegen im Auftragsmix über den Zielwerten,
 weil feine und meisterliche Qualität, Präzision, Eile und Meilensteine laut 3.2/3.3 mehr
 zahlen als der Referenzauftrag. Die Werte bleiben Startwerte für Tests mit echten Spielern (5.8).
 

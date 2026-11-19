@@ -10,3 +10,14 @@ factor = 1.5
 category = "big"
 shape = "crank"
 allow_quantity = false
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.4
+}, {
+"id": "bend",
+"share": 0.3
+}, {
+"id": "planish",
+"share": 0.3
+}]

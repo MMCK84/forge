@@ -72,6 +72,9 @@ var milestone_id: String = ""
 var precise: bool = false
 ## Geschätzte Dauer laut Referenzmodell (Anzeige im Auftragsbuch)
 var estimate_s: float = 0.0
+## Arbeitsgänge [{"id", "share"}] und Werkstoff (beim Erzeugen aus dem Gegenstand übernommen)
+var steps: Array = []
+var material: String = "iron"
 ## Während der Arbeit angefallene Kosten (Ausschuss, Betriebskosten) in Pence
 var costs_pence: int = 0
 ## Letzte Abschrecktemperatur (Anzeige)
@@ -101,6 +104,36 @@ func needs_harden() -> bool:
 
 func is_big() -> bool:
 	return category == "big"
+
+
+func is_steel() -> bool:
+	return material == "steel"
+
+
+## Index des Arbeitsgangs für einen Fortschrittsanteil (0..1).
+func step_index_at(ratio: float) -> int:
+	if steps.is_empty():
+		return 0
+	var cum := 0.0
+	for k in steps.size():
+		cum += float(steps[k].get("share", 0.0))
+		if ratio < cum - 0.000001:
+			return k
+	return steps.size() - 1
+
+
+func step_id(k: int) -> String:
+	if steps.is_empty() or k < 0 or k >= steps.size():
+		return ""
+	return str(steps[k].get("id", ""))
+
+
+## Anteil des Fortschritts, an dem Arbeitsgang k beginnt.
+func step_start(k: int) -> float:
+	var cum := 0.0
+	for i in mini(k, steps.size()):
+		cum += float(steps[i].get("share", 0.0))
+	return cum
 
 
 func piece_fp() -> float:
@@ -143,6 +176,7 @@ func to_dict(include_pieces: bool = true) -> Dictionary:
 		"time_limit_s": (time_limit_s if time_limit_s > 0.0 else null),
 		"category": category, "epoch": epoch, "milestone_id": milestone_id,
 		"precise": precise, "estimate_s": estimate_s,
+		"steps": steps.duplicate(true), "material": material,
 	}
 	if include_pieces:
 		d["elapsed_s"] = elapsed_s
@@ -177,6 +211,9 @@ static func from_dict(d: Dictionary) -> JobInstance:
 	j.milestone_id = str(d.get("milestone_id", ""))
 	j.estimate_s = float(d.get("estimate_s", 0.0))
 	j.precise = bool(d.get("precise", j.type == TYPE_PRECISION))
+	var st = d.get("steps", [])
+	j.steps = st.duplicate(true) if st is Array else []
+	j.material = str(d.get("material", "iron"))
 	var qt = d.get("quench_temp", null)
 	j.quench_temp = float(qt) if qt != null else -1.0
 	j.pieces.clear()

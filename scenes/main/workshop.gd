@@ -16,6 +16,7 @@ const PieceView = preload("res://scenes/main/piece_view.gd")
 const GlowScale = preload("res://scenes/ui/glow_scale.gd")
 const Hud = preload("res://scenes/ui/hud.gd")
 const Tutorial = preload("res://scenes/ui/tutorial.gd")
+const StepMarks = preload("res://scenes/ui/step_marks.gd")
 
 const STAGE_SIZE := Vector2(1920, 1080)
 
@@ -34,6 +35,7 @@ var pieces_layer: Node2D
 var fx_layer: Node2D
 var overlay_layer: Control
 var progress_bar: ProgressBar
+var step_marks: StepMarks
 var info_label: Label
 var btn_load: Button
 var btn_move: Button
@@ -50,6 +52,7 @@ var _shake: float = 0.0
 var _hint_queue: Array = []
 var _hint_open: bool = false
 var _cold_msgs: int = 0
+var _off_msgs: int = 0
 var _locale: String = ""
 
 
@@ -111,6 +114,11 @@ func _ready() -> void:
 	progress_bar.max_value = 1.0
 	progress_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	stage.add_child(progress_bar)
+	step_marks = StepMarks.new()
+	step_marks.position = progress_bar.position
+	step_marks.size = progress_bar.size
+	step_marks.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stage.add_child(step_marks)
 	info_label = UIKit.label("", 22, UIKit.TEXT_LIGHT)
 	info_label.position = Vector2(1080, 899)
 	info_label.size = Vector2(600, 34)
@@ -351,20 +359,34 @@ func _update_scale_and_progress(j: JobInstance) -> void:
 		glow_scale.temp = -1.0
 		glow_scale.weld_window = Vector2(-1, -1)
 		glow_scale.quench_window = Vector2(-1, -1)
+		glow_scale.window_label = ""
+		step_marks.steps = []
+		step_marks.queue_redraw()
 		progress_bar.value = 0.0
 		info_label.text = ""
 		glow_scale.queue_redraw()
 		return
-	glow_scale.window = HeatModel.window(gm.cfg, j.is_precision())
 	var f: int = sim.focus_piece()
+	glow_scale.burn = sim.burn_temp()
+	glow_scale.window = sim.step_window(f) if f >= 0 else HeatModel.window(gm.cfg, j.is_precision())
+	glow_scale.window_label = ""
+	step_marks.steps = j.steps
+	step_marks.current = sim.step_index(f) if f >= 0 else -1
+	step_marks.queue_redraw()
 	if f >= 0:
 		var p: JobInstance.Piece = j.pieces[f]
+		var k: int = sim.step_index(f)
+		if j.steps.size() > 0 and not sim.in_weld_phase(f) and not sim.awaiting_quench(f):
+			glow_scale.window_label = tr("STEP_" + j.step_id(k).to_upper())
 		glow_scale.temp = p.temp
 		glow_scale.label_text = tr(HeatModel.glow_name_key(p.temp))
 		glow_scale.weld_window = Vector2(gm.cfg.weld_min, gm.cfg.weld_max) if sim.in_weld_phase(f) else Vector2(-1, -1)
 		glow_scale.quench_window = Vector2(gm.cfg.quench_good_min, gm.cfg.quench_good_max) if sim.awaiting_quench(f) else Vector2(-1, -1)
 		progress_bar.value = clampf(p.progress / maxf(j.piece_fp(), 0.001), 0.0, 1.0)
 		var txt := tr("UI_PIECE_INFO").format({"i": f + 1, "n": j.quantity, "p": int(progress_bar.value * 100.0)})
+		if j.steps.size() > 0 and not sim.in_weld_phase(f) and not sim.awaiting_quench(f):
+			var w: Vector2 = sim.step_window(f)
+			txt += "  ·  " + tr("UI_STEP_INFO").format({"k": k + 1, "n": j.steps.size(), "step": tr("STEP_" + j.step_id(k).to_upper()), "lo": int(w.x), "hi": int(w.y)})
 		if sim.in_weld_phase(f):
 			txt += "  ·  " + tr("UI_WELD_INFO").format({"h": p.weld_hits, "n": gm.cfg.weld_hits_required})
 		elif sim.awaiting_quench(f):
@@ -497,6 +519,15 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 			if _cold_msgs < 3 or randf() < 0.15:
 				_cold_msgs += 1
 				_float_text(tr("FX_TOO_COLD"), anvil_point() + Vector2(0, -80), Color("9fc5e8"))
+		"step":
+			var sid := str(data.get("id", ""))
+			if sid != "" and GameManager.active_job != null:
+				var w: Vector2 = GameManager.sim.window_for_step(sid)
+				_float_text(tr("FX_NEXT_STEP").format({"step": tr("STEP_" + sid.to_upper()), "lo": int(w.x), "hi": int(w.y)}), anvil_point() + Vector2(0, -140), Color(1, 0.92, 0.7))
+		"hit_off":
+			if _off_msgs < 3 or randf() < 0.1:
+				_off_msgs += 1
+				_float_text(tr("FX_WRONG_HEAT"), anvil_point() + Vector2(0, -80), Color(1, 0.8, 0.5))
 		"weld_phase":
 			_float_text(tr("FX_WELD_PHASE"), anvil_point() + Vector2(0, -110), Color(1, 1, 0.7))
 		"weld_done":

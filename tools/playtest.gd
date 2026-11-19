@@ -110,7 +110,7 @@ func _run() -> void:
 	Engine.time_scale = 1.0
 	await shot("esse_aufheizen")
 	Engine.time_scale = 6.0
-	await run_until(func() -> bool: return gm.active_job.pieces[0].temp >= 1095.0, 30.0)
+	await run_until(func() -> bool: return gm.active_job.pieces[0].temp >= sim.step_window(0).y - 10.0, 30.0)
 	Engine.time_scale = 1.0
 	sim.move_slot_to_anvil(0)
 	await wait(0.6)
@@ -125,7 +125,7 @@ func _run() -> void:
 			if sim.hottest_forge_piece() < 0 and sim.next_raw() >= 0:
 				sim.load_raw()
 			var h: int = sim.hottest_forge_piece()
-			if h >= 0 and gm.active_job.pieces[h].temp >= 1090.0:
+			if h >= 0 and gm.active_job.pieces[h].temp >= sim.step_window(h).y - 10.0:
 				Engine.time_scale = 1.0
 				sim.move_slot_to_anvil(gm.active_job.pieces[h].slot)
 				await wait(0.6)
@@ -133,9 +133,13 @@ func _run() -> void:
 				await wait(0.1)
 			continue
 		var p = gm.active_job.pieces[sim.anvil]
-		if p.temp < 720.0:
+		var w: Vector2 = sim.step_window(sim.anvil)
+		if p.temp < w.x:
 			sim.move_anvil_to_forge(-1)
 			await wait(0.6)
+			continue
+		if p.temp > w.y:
+			await wait(0.1)
 			continue
 		workshop().call("_do_hit")
 		hits += 1
@@ -275,7 +279,7 @@ func _epoch_scene(e: int) -> void:
 						Engine.time_scale = 4.0
 					sim.last_player_hit = -10.0
 					workshop().call("_do_hit")
-			elif p.temp >= 720.0 and p.temp <= 1100.0:
+			elif p.temp >= sim.step_window(i).x and p.temp <= sim.step_window(i).y:
 				sim.last_player_hit = -10.0
 				workshop().call("_do_hit")
 				if not shot_taken and (e == 2 or e >= 5) and k > 20:

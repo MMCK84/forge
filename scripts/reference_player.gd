@@ -39,12 +39,12 @@ func act(dt: float) -> void:
 				sim.quench(i)
 				moved = true
 			elif t < cfg.quench_good_min:
-				moved = sim.move_anvil_to_forge(-1)
+				moved = _reheat_anvil()
 		elif sim.in_weld_phase(i):
 			if t < cfg.weld_min:
-				moved = sim.move_anvil_to_forge(-1)
-		elif t < cfg.ref_return_temp:
-			moved = sim.move_anvil_to_forge(-1)
+				moved = _reheat_anvil()
+		elif t < _return_temp(i):
+			moved = _reheat_anvil()
 	# 2) Rohlinge rechtzeitig nachlegen: höchstens ein Stück wartet in der Esse, und erst dann,
 	#    wenn das Amboss-Stück fertig ist, bevor der neue Rohling überhitzt.
 	if sim.free_slot() >= 0 and sim.next_raw() >= 0:
@@ -77,7 +77,8 @@ func act(dt: float) -> void:
 	# 4) Schlagen
 	if sim.anvil >= 0 and not sim.in_transit(sim.anvil) and not sim.awaiting_quench(sim.anvil):
 		var t2: float = sim.job.pieces[sim.anvil].temp
-		var ok := t2 >= cfg.ref_return_temp
+		var w: Vector2 = sim.step_window(sim.anvil)
+		var ok := t2 >= w.x and t2 <= w.y
 		if sim.in_weld_phase(sim.anvil):
 			ok = t2 >= cfg.weld_min and t2 <= cfg.weld_max
 		if ok:
@@ -98,7 +99,28 @@ func _target_temp(idx: int) -> float:
 		return (cfg.quench_good_min + cfg.quench_good_max) * 0.5 + 10.0
 	if sim.in_weld_phase(idx):
 		return minf(sim.t_max, cfg.weld_max) - 15.0
-	return take_temp()
+	return minf(sim.step_window(idx).y, sim.t_max - 1.0)
+
+
+## Amboss-Stück zurück ins Feuer; bei voller Esse nur gegen ein Stück tauschen, das schon heiß genug ist.
+func _reheat_anvil() -> bool:
+	if sim.free_slot() >= 0:
+		return sim.move_anvil_to_forge(-1)
+	var best := -1
+	for idx in sim.forge_slots:
+		if idx < 0 or sim.in_transit(idx):
+			continue
+		if sim.job.pieces[idx].temp >= _target_temp(idx) - 0.01:
+			if best < 0 or sim.job.pieces[idx].temp > sim.job.pieces[best].temp:
+				best = idx
+	if best < 0:
+		return false
+	return sim.move_slot_to_anvil(sim.job.pieces[best].slot)
+
+
+## Zurück in die Esse, sobald das Stück unter das Zielfenster seines Arbeitsgangs fällt.
+func _return_temp(idx: int) -> float:
+	return sim.step_window(idx).x
 
 
 ## Simuliert einen Auftrag mit dem Referenzspieler. Gibt die Dauer in Sekunden zurück.

@@ -12,6 +12,10 @@ var quench_window := Vector2(-1, -1)
 var show_celsius: bool = false
 var pyrometer: bool = false
 var label_text: String = ""
+## Verbrennungsgrenze (Stahl: tiefer)
+var burn: float = 1300.0
+## Beschriftung über dem Zielfenster (Arbeitsgang)
+var window_label: String = ""
 const T_MAX := 1450.0
 
 
@@ -30,13 +34,16 @@ func _draw() -> void:
 		draw_rect(Rect2(x0, bar.position.y, x1 - x0 + 1.0, bar.size.y), HeatModel.glow_color(t0 + T_MAX / steps * 0.5))
 	draw_rect(bar, Color("b08d57"), false, 3.0)
 	# Gefahrenzone (Verbrennen)
-	draw_rect(Rect2(_x(1300, bar), bar.position.y, bar.end.x - _x(1300, bar), bar.size.y), Color(0.6, 0, 0, 0.25))
+	draw_rect(Rect2(_x(burn, bar), bar.position.y, bar.end.x - _x(burn, bar), bar.size.y), Color(0.6, 0, 0, 0.3))
 	_bracket(window, bar, Color("f3e7cf"), 0)
+	if window_label != "":
+		var wx := _x(window.x, bar)
+		draw_string(Assets.ui_font(), Vector2(wx + 4, bar.position.y - 10), window_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("f3e7cf"))
 	if weld_window.x >= 0.0:
 		_bracket(weld_window, bar, Color(1, 1, 0.6), 1)
 	if quench_window.x >= 0.0:
 		_bracket(quench_window, bar, Color(0.6, 0.85, 1.0), 1)
-	for t in [400, 700, 1100, 1300]:
+	for t in [400, 700, 1100, burn]:
 		var x := _x(t, bar)
 		draw_line(Vector2(x, bar.end.y), Vector2(x, bar.end.y + 8), Color("e9dcc0"), 2.0)
 	if temp >= 0.0:

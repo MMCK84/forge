@@ -10,3 +10,11 @@ factor = 0.8
 category = "normal"
 shape = "nail"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.6
+}, {
+"id": "point",
+"share": 0.4
+}]

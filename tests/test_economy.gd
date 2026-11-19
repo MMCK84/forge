@@ -98,3 +98,22 @@ func test_fees() -> void:
 	assert_eq(Economy.epoch_fee(cfg, 1), 480)
 	assert_eq(Economy.epoch_fee(cfg, 5), 96000)
 	assert_eq(Economy.epoch_fee(cfg, 6), -1)
+
+
+func test_items_have_valid_steps() -> void:
+	for it in Catalog.ITEMS:
+		var total := 0.0
+		for s in it.steps:
+			assert_true(cfg.step_windows.has(str(s["id"])), "%s: Arbeitsgang %s bekannt" % [it.id, s["id"]])
+			total += float(s["share"])
+		assert_near(total, 1.0, 0.0001, "%s: Anteile ergeben 1" % it.id)
+		if it.category == "weld":
+			var cum := 0.0
+			var boundary := false
+			for s in it.steps:
+				cum += float(s["share"])
+				if absf(cum - cfg.weld_at_progress) < 0.0001:
+					boundary = true
+			assert_true(boundary, "%s: Schweißen liegt an einer Arbeitsgang-Grenze" % it.id)
+		if it.category == "harden":
+			assert_eq(it.material, "steel", "%s: gehärtet wird Stahl" % it.id)

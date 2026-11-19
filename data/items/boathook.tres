@@ -10,3 +10,14 @@ factor = 1.0
 category = "weld"
 shape = "boathook"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.3
+}, {
+"id": "point",
+"share": 0.2
+}, {
+"id": "bend",
+"share": 0.5
+}]

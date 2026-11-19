@@ -93,3 +93,59 @@ func test_catalog_references() -> void:
 	for ms in Catalog.MILESTONES:
 		assert_true(ids.has(ms.item_id), "Meilenstein %s: Gegenstand vorhanden" % ms.id)
 		assert_true(cust.has(ms.customer_id), "Meilenstein %s: Kunde vorhanden" % ms.id)
+
+
+func _stats(epoch: int, n: int, count: int, seed_value: int) -> Dictionary:
+	var g := _gen()
+	g.set_seed(seed_value)
+	var cx := 0.0
+	var qty := 0.0
+	var prec := 0
+	var special := 0
+	var fine := 0
+	for i in count:
+		var j := g.generate(epoch, n, false, {"can_weld": true, "can_harden": true, "can_big": true})
+		var it: ItemData = null
+		for x in Catalog.ITEMS:
+			if x.id == j.template_id:
+				it = x
+		cx += JobGenerator.item_complexity(it)
+		qty += j.quantity
+		if j.is_precision():
+			prec += 1
+		if j.category != "normal":
+			special += 1
+		if j.quality == "fine" or j.quality == "masterly":
+			fine += 1
+	return {"cx": cx / count, "qty": qty / count, "prec": prec, "special": special, "fine": fine}
+
+
+func test_complexity_rises_within_epoch() -> void:
+	for e in [3, 5]:
+		var ne: int = cfg.epoch_job_counts[e - 1]
+		var early := _stats(e, 0, 300, 11)
+		var late := _stats(e, ne - 1, 300, 11)
+		assert_true(late["cx"] > early["cx"] + 0.3, "Epoche %d: spätere Gegenstände sind komplexer (%.2f → %.2f)" % [e, early["cx"], late["cx"]])
+		assert_true(late["qty"] > early["qty"], "Epoche %d: größere Mengen" % e)
+		assert_true(late["prec"] > early["prec"] * 2, "Epoche %d: mehr Präzisionsaufträge" % e)
+		assert_true(late["special"] > early["special"] * 2, "Epoche %d: mehr Spezialaufträge" % e)
+		assert_true(late["fine"] > early["fine"] * 2, "Epoche %d: höhere Qualitätsstufen" % e)
+
+
+func test_early_quantities_small() -> void:
+	var g := _gen()
+	g.set_seed(3)
+	for i in 200:
+		var j := g.generate(2, 0, false, {})
+		assert_true(j.quantity <= 2, "am Epochenanfang höchstens ×2")
+
+
+func test_jobs_carry_steps() -> void:
+	var g := _gen()
+	g.set_seed(1)
+	for e in range(1, 7):
+		var j := g.generate(e, 5, false, {"can_weld": true, "can_harden": true, "can_big": true})
+		assert_true(j.steps.size() >= 2, "jeder Auftrag hat Arbeitsgänge")
+		var back := JobInstance.from_dict(j.to_dict())
+		assert_eq(back.steps, j.steps, "Arbeitsgänge werden gespeichert")
+		assert_eq(back.material, j.material)

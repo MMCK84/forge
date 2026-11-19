@@ -10,3 +10,11 @@ factor = 1.5
 category = "normal"
 shape = "axle"
 allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.6
+}, {
+"id": "planish",
+"share": 0.4
+}]

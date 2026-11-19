@@ -54,17 +54,20 @@ func update_step() -> void:
 	elif jobs < TUTORIAL_JOBS:
 		var anvil_piece: JobInstance.Piece = sim.anvil_piece()
 		if anvil_piece != null:
-			if anvil_piece.temp < gm.cfg.cold_limit:
+			var w: Vector2 = sim.step_window(sim.anvil)
+			if anvil_piece.temp + sim.temp_offset() < gm.cfg.cold_limit:
 				step = "TUT_COLD"
-			elif anvil_piece.temp < gm.cfg.optimal_min:
+			elif anvil_piece.temp < w.x:
 				step = "TUT_TOO_COLD_SOON"
+			elif anvil_piece.temp > w.y:
+				step = "TUT_TOO_HOT"
 			else:
 				step = "TUT_HAMMER"
 		else:
 			var hot: int = sim.hottest_forge_piece()
 			if hot < 0:
 				step = "TUT_LOAD"
-			elif j.pieces[hot].temp >= gm.cfg.optimal_min:
+			elif j.pieces[hot].temp >= sim.step_window(hot).x:
 				step = "TUT_TAKE"
 			else:
 				step = "TUT_WAIT_HEAT"

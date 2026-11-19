@@ -141,6 +141,7 @@ func _connect_sim() -> void:
 	sim.piece_ruined.connect(_on_piece_ruined)
 	sim.piece_finished.connect(func(i: int) -> void: sim_event.emit("piece_done", {"piece": i}))
 	sim.weld_phase_started.connect(func(i: int) -> void: sim_event.emit("weld_phase", {"piece": i}))
+	sim.step_changed.connect(_on_step_changed)
 	sim.weld_completed.connect(func(i: int) -> void: sim_event.emit("weld_done", {"piece": i}))
 	sim.ready_to_quench.connect(func(i: int) -> void: sim_event.emit("ready_to_quench", {"piece": i}))
 	sim.quench_done.connect(_on_quench_done)
@@ -153,6 +154,11 @@ func _connect_sim() -> void:
 func _on_hit_landed(kind: String, gain: float) -> void:
 	stats["hits"] = int(stats.get("hits", 0)) + 1
 	sim_event.emit("hit_" + kind, {"gain": gain})
+
+
+func _on_step_changed(i: int, step: int) -> void:
+	if active_job != null:
+		sim_event.emit("step", {"piece": i, "step": step, "id": active_job.step_id(step)})
 
 
 func _on_quench_done(i: int, result: String, t: float) -> void:
@@ -506,6 +512,10 @@ func abort_job() -> void:
 
 
 func _request_job_hints(j: JobInstance) -> void:
+	if j.steps.size() > 1:
+		request_hint("steps")
+	if j.is_steel():
+		request_hint("steel")
 	if j.quantity > 1:
 		request_hint("quantity")
 	if j.is_rush():
@@ -938,6 +948,10 @@ func _job_valid(j: JobInstance) -> bool:
 	if not items.has(j.template_id):
 		_log_unknown("item", j.template_id)
 		return false
+	# Spielstände vor Einführung der Arbeitsgänge: aus dem Gegenstand ergänzen
+	if j.steps.is_empty():
+		j.steps = items[j.template_id].steps.duplicate(true)
+		j.material = items[j.template_id].material
 	if j.is_milestone() and not milestones.has(j.milestone_id):
 		_log_unknown("milestone", j.milestone_id)
 		return false
