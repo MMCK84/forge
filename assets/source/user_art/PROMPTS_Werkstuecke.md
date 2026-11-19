@@ -4,6 +4,9 @@
 gerenderte Sprite. Die Glut färbt das Spiel selbst ein (stufenlos nach Temperatur) –
 deshalb brauchen wir jedes Stück nur **einmal, kalt**.
 
+Gilt unverändert auch für das Hochformat. Hintergründe, Auftragsbuch, App-Icon und fehlende
+Ausrüstung stehen in `PROMPTS_Hochformat.md`.
+
 ## Was das Spiel technisch braucht
 
 | Anforderung | Warum |
