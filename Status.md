@@ -2,7 +2,8 @@
 
 Stand: 20.11.2026 · Branch `claude/sharp-rubin-jfnibw` · Godot 4.7.2
 
-**Prompts für alle Bilder:** `assets/source/user_art/PROMPTS_Hochformat.md` (186 Bilder, nach jeder Lieferung neu erzeugt).
+**Prompts für alle Bilder:** `assets/source/user_art/PROMPTS_Hochformat.md` (186 Bilder, nach jeder Lieferung neu erzeugt).  
+**Prompts für die Musik (Suno):** `assets/source/user_audio/PROMPTS_Musik.md` (11 Stücke + 2 optionale Jingles).
 
 ## Kurzüberblick
 
@@ -45,6 +46,17 @@ wenn alles fertig ist.
 
 Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
+## Musik (Suno)
+
+- Bisher spielt das Spiel selbst erzeugte Musik (`tools/art/render_audio.py`, 11 Schleifen: Menü + Epoche 1–10).
+  Sie soll durch Suno-Stücke ersetzt werden (Auftraggeber bucht Suno Pro für einen Monat).
+- Heft: `assets/source/user_audio/PROMPTS_Musik.md` (Generator `tools/content/gen_music_book.py`) mit Styles,
+  Exclude Styles und Strukturangaben je Stück; Tempo und Tonart wie bisher. Zeitgerechte Instrumente je Epoche.
+- Jede Lieferung: Original nach `assets/source/user_audio/music/<id>.wav`, Schleife schneiden und überblenden,
+  Lautstärke angleichen, OGG nach `assets/audio/music/`, `provenance.json` (Suno, gut/ändern), Heft neu erzeugen.
+  Das Import-Skript (Schleife, Lautstärke) schreibe ich mit der ersten Lieferung.
+- Optional: Fanfare „neue Epoche“ und Meilenstein-Jingle (spielt das Spiel noch nicht ab, würde ich einbauen).
+
 ## Arbeitsweise mit Bildern (Midjourney v8.2)
 
 - Jede Lieferung: Original nach `assets/source/user_art/` (`items/`, `machines/`, `backgrounds/`),
@@ -71,7 +83,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
 4. Später: Querformat für Tablets (Anordnung der Bedienelemente, Querformat-Ausschnitt der 1:1-Hintergründe;
    der Boden ist dort nur ~20 % hoch – ggf. ebenfalls verlängern).
-5. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen des Bildgenerators prüfen.
+5. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
+6. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
 ## Verlauf
 
@@ -81,6 +94,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: Hintergründe auf **1:1** umgestellt (Hoch- und Querformat aus demselben Bild): Prompts (Bildaufbau,
   Fenster/Randdeko in die mittleren drei Viertel), Erkenntnis in `LESSONS`, Import schneidet 1:1 auf den mittleren
   3:4-Ausschnitt, neue quadratische Bildaufbau-Vorlage. Vorhandene Hintergründe unverändert.
+- 20.11.: Musik-Prompt-Heft für Suno angelegt (`gen_music_book.py`, `PROMPTS_Musik.md`, `user_audio/provenance.json`).
 
 ## Prüfen
 
