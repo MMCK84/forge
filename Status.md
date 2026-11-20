@@ -36,8 +36,8 @@ wenn alles fertig ist.
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (1:1) | 2 (Ep. 1, 2) | 1 (Ep. 7) | 4 (Ep. 3–6) | 3 (Ep. 8–10) |
-| B Essen (frontal) | – | – | 4 (Schrägansicht) | 2 (Stufe 5, 6) |
+| A Hintergründe (1:1) | **10 (alle)** | – | – | – |
+| B Essen (frontal) | 4 (Stufe 1, 2, 4, 5) | 1 (Stufe 3: Doppelbalg fehlt) | – | 1 (Stufe 6) |
 | C Amboss, Hämmer | – | – | 5 | – |
 | D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
 | E Werkstücke | – | – | 9 | 72 (Epochen 2–10) |
@@ -68,7 +68,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
   Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
   der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
-  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 1053, Ep. 2 = 991). Bildaufbau-Vorlage (1:1, Bild-Prompt):
+  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1–10 eingetragen). Zu tiefe Kante: `BG_TOP_CROP` im Import (Ep. 10: 300 px). Bildaufbau-Vorlage (1:1, Bild-Prompt):
   `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
   **Erst nach dem Upscale 2× (2048 × 2048) schicken** – ohne Upscale nur 1024 × 1024.
 - **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
@@ -78,8 +78,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 ## Offen / nächste Schritte
 
-1. Midjourney-Bilder einbinden, sobald sie kommen: Hintergründe 8–10 (1:1), Hintergrund 7 neu
-   (Fenster zu hoch), Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
+1. Midjourney-Bilder einbinden, sobald sie kommen: Esse Stufe 3 neu (Doppelbalg), Siemens-Ofen (Stufe 6), Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
    optional Kundenporträts.
 2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
@@ -122,7 +121,13 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Unit-Tests grün, Spieltest 34 Screenshots, 0 Probleme.
 - 20.11.: BG3–BG10 laut Auftraggeber hochgeladen, auf GitHub aber noch nicht angekommen (Commit fehlt vermutlich).
   Auftraggeber findet die Hintergründe etwas dunkel – Aufhellung beim Import möglich, Entscheidung wenn alle 10 im Spiel sind.
-- 20.11.: Konzept „Aufbau der Werkstatt“ geschrieben (`docs/Konzept_Aufbau.md`).
+- 20.11.: Konzept „Aufbau der Werkstatt“ geschrieben (`docs/Konzept_Aufbau.md`). Auftraggeber: „klingt sehr gut“.
+- 20.11.: **Hintergründe 3–10** (1:1, 2048²) und **Essen Stufe 1–5** (Frontalansicht) eingebaut. Alle 10 Hintergründe ✅.
+  Essen: Originale in `assets/source/user_art/forges/`; der Import misst Glutbett, Schornstein und Lage selbst und schreibt
+  `scripts/user_forge_meta.gd` (ersetzt die Handwerte in `forge_view.gd`). Stufe 3 „ändern“ (nur ein Blasebalg).
+  Ep. 10: Kante 84 % → Import schneidet oben 300 px ab. Erkenntnisse (gemaltes Feuer, zweites Fenster rechts, dunkel,
+  Doppelbalg) in alle Prompts übernommen. Unit-Tests grün, Spieltest 0 Probleme.
+  Offen: In Epoche 9/10 verdeckt das Dampfhammer-Gestell die Anzeige „Rohlinge“ (Zeichenreihenfolge).
 
 ## Prüfen
 

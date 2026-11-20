@@ -164,22 +164,8 @@ def main():
     img = img.crop(img.getbbox())
     save(img.resize((457, int(img.height * 457 / img.width)), Image.LANCZOS), "anvil.png")
 
-    # 12/13 Lehm- und Ziegelesse (weiß); Rauch über dem Schornstein abschneiden (Partikel übernehmen)
-    for name, cut in [("forge_clay", 140), ("forge_brick", 142), ("forge_double_bellows", 0), ("forge_coke", 0)]:
-        src = name + (".webp" if os.path.exists(os.path.join(SRC, name + ".webp")) else ".jpg")
-        if not os.path.exists(os.path.join(SRC, src)):
-            continue
-        a = load(src)[cut:]
-        sat = a.max(axis=2) - a.min(axis=2)
-        img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
-        arr = np.asarray(img).copy()
-        top = arr[:20]
-        rgb = top[..., :3].astype(int)
-        smoke = (rgb.max(axis=2) - rgb.min(axis=2) < 25) & (rgb.mean(axis=2) > 120)
-        top[..., 3] = np.where(smoke, 0, top[..., 3])
-        img = Image.fromarray(arr)
-        img = img.crop(img.getbbox())
-        save(img.resize((int(img.width * 0.8), int(img.height * 0.8)), Image.LANCZOS), name + ".png")
+    # 12/13 Essen in Frontalansicht (Midjourney, weiß): assets/source/user_art/forges/<forge_id>.png
+    forge_import()
     # 14 Hämmer in reiner Seitenansicht (Kopf links senkrecht, Bahn unten, Stiel waagerecht nach rechts)
     for hid in ["hammer_hand", "hammer_cross_peen", "hammer_steel_faced", "hammer_crucible"]:
         path = os.path.join(SRC, hid + ".jpg")
@@ -215,6 +201,10 @@ def main():
                     cw = int(round(im.height * 3 / 4))
                     x0 = (im.width - cw) // 2
                     im = im.crop((x0, 0, x0 + cw, im.height))
+                # Liegt die Wand-Boden-Kante sehr tief, oben etwas Decke abschneiden (Kante rückt nach oben)
+                top = BG_TOP_CROP.get(base, 0)
+                if top:
+                    im = im.crop((0, top, im.width, im.height))
                 # Einfarbigen Balken am unteren Rand (Midjourney malt manchmal einen) abschneiden –
                 # der Boden wird ohnehin nach unten verlängert
                 g = np.asarray(im.convert("L")).astype(np.float32)
@@ -289,6 +279,72 @@ def main():
                 save(img, "machine_" + base + ".png", max_w=700)
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
+
+
+# Hintergründe mit sehr tiefer Wand-Boden-Kante: so viele Pixel (Original) oben abschneiden
+BG_TOP_CROP = {"background_10": 300}
+
+FORGE_IDS = ["forge_clay", "forge_brick", "forge_double_bellows", "forge_coke", "forge_welding_furnace", "forge_siemens"]
+FORGE_W = 920          # Breite im Spiel (Bühnen-Pixel)
+FORGE_CENTER_X = 420   # Mitte der Esse im Koordinatensystem der Essen-Ansicht (wie bisher)
+FORGE_TOP_Y = 118
+
+
+def forge_import():
+    """Essen freistellen, auf Spielbreite bringen und vermessen: Glutbett (Mitte, Breite) und
+    Schornsteinmündung. Die Maße schreibt das Skript nach scripts/user_forge_meta.gd."""
+    fdir = os.path.join(SRC, "forges")
+    meta = {}
+    for tier, fid in enumerate(FORGE_IDS, start=1):
+        path = next((os.path.join(fdir, fid + e) for e in (".png", ".webp", ".jpg") if os.path.exists(os.path.join(fdir, fid + e))), None)
+        if path is None:
+            continue
+        a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
+        sat = a.max(axis=2) - a.min(axis=2)
+        white = (a.min(axis=2) > 215) & (sat < 28)
+        bg = flood_bg(white) | enclosed(white, 4000)
+        # dünne waagerechte Bodenlinien und Bodenflecken unter der Esse entfernen: Zeilen unten,
+        # die nur schmal oder sehr niedrig gefüllt sind, gelten als Boden
+        solid = ~bg
+        lab, n = ndimage.label(solid)
+        if n > 1:
+            sizes = ndimage.sum(solid, lab, range(1, n + 1))
+            keep = [k + 1 for k, sz in enumerate(sizes) if sz >= 0.05 * sizes.max()]
+            solid = np.isin(lab, keep)
+        img = to_rgba(a, (~solid).astype(np.float32))
+        box = img.getbbox()
+        img = img.crop(box)
+        s = FORGE_W / img.width
+        img = img.resize((FORGE_W, int(round(img.height * s))), Image.LANCZOS)
+        arr = np.asarray(img).astype(np.float32)
+        r, g, b, al = arr[..., 0], arr[..., 1], arr[..., 2], arr[..., 3]
+        glow = (al > 200) & (r > 225) & (g > 90) & (g < 225) & (b < 120) & (r - b > 120)
+        rows = glow.sum(axis=1)
+        # Glutbett = unterste Zeile mit kräftiger Glut (Flammen darüber zählen nicht)
+        strong = np.where(rows >= 0.35 * rows.max())[0]
+        bed_y = int(strong[-1]) - 6 if len(strong) else int(np.argmax(rows))
+        band = glow[max(0, bed_y - 12):bed_y + 12]
+        xs = np.where(band.any(axis=0))[0]
+        if len(xs) == 0:
+            xs = np.array([img.width * 0.3, img.width * 0.7])
+        lo, hi = np.percentile(xs, 3), np.percentile(xs, 97)
+        top_rows = np.where((al > 128).any(axis=1))[0]
+        ty = int(top_rows[0])
+        cx = np.where(al[ty:ty + max(4, img.height // 30)] > 128)[1]
+        ox = FORGE_CENTER_X - img.width / 2.0
+        meta[tier] = {"file": fid + ".png", "origin": (round(ox), FORGE_TOP_Y),
+                      "bed": (round(ox + (lo + hi) / 2), FORGE_TOP_Y + bed_y), "bed_w": round(float(hi - lo)),
+                      "chimney": (round(ox + float(np.median(cx))), FORGE_TOP_Y + ty + 4)}
+        save(img, fid + ".png")
+    lines = ["## Automatisch erzeugt von tools/art/import_user_art.py – nicht von Hand ändern.",
+             "## Essen-Grafiken des Auftraggebers: Zeichenursprung, Glutbett (Mitte/Breite) und Schornsteinmündung, lokal.",
+             "", "const META := {"]
+    for t, m in sorted(meta.items()):
+        lines.append(f'\t{t}: {{"file": "{m["file"]}", "origin": Vector2{m["origin"]}, "bed": Vector2{m["bed"]}, '
+                     f'"bed_w": {float(m["bed_w"])}, "chimney": Vector2{m["chimney"]}}},')
+    lines.append("}")
+    open(os.path.join(ROOT, "scripts", "user_forge_meta.gd"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    return meta
 
 
 def item_sprite(path, item_id):

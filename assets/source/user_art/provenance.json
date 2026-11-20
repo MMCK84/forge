@@ -12,32 +12,44 @@
    "hinweis": "20.11.: 1:1, PNG 2048 × 2048, nachgeschärfter Prompt: Abendstimmung mit Feuerschein in der Wandmitte, Bruchstein, Steinplatten, Rad und Geschirr an den Rändern. Kante 69 % (Bühne y 991). Zweites, großes Fenster rechts der Mitte steht teils hinter der Esse, die Postkutsche darin ist kaum zu sehen – im Spiel unauffällig."
   },
   "background_3": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Hafen: Ziegel, geteerte Balken, Dielen, Fass, Tau und Kette an den Rändern; Kante 58 % (Bühne y 833). Aussichtsfenster mit Schiffsmasten rechts am Rand, im Hochformat angeschnitten – wirkt trotzdem gut."
   },
   "background_4": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Sheffield: Ziegel, Steinplatten, Fenster mit rauchenden Schornsteinen; Kante 60 % (Bühne y 867). Eher dunkel und kühl."
   },
   "background_5": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Severn: Iron Bridge im Fenster, nasser Steinboden; Kante 68 % (Bühne y 984). Gemaltes Feuer in der Wandmitte steht hinter der Esse und fällt im Spiel kaum auf."
   },
   "background_6": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Eisenwerk: gusseiserne Säulen, Hochöfen im Fenster; Kante 65 % (Bühne y 932)."
   },
   "forge_clay": {
-   "quelle": "Gemini",
-   "hinweis": "Schrägansicht – neu als Frontalansicht (Prompt unten)."
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend."
   },
   "forge_brick": {
-   "quelle": "Gemini",
-   "hinweis": "Schrägansicht – neu als Frontalansicht (Prompt unten)."
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Frontalansicht, Ziegelherd mit Eisenbändern, Schieferdach-Haube, Schornstein rechts; Blasebalg links steht senkrecht statt waagerecht – unkritisch."
   },
   "forge_double_bellows": {
-   "quelle": "Gemini",
-   "hinweis": "Schrägansicht – neu als Frontalansicht (Prompt unten)."
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "20.11.: Esse selbst gut (Ziegel/Stein, Eisenbänder), aber links nur ein Blasebalg und ein Sack statt zweier übereinanderliegender Bälge mit Hebel."
   },
   "forge_coke": {
-   "quelle": "Gemini",
-   "hinweis": "Schrägansicht – neu als Frontalansicht (Prompt unten)."
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Frontalansicht, genietete Eisenhaube, Gebläsezylinder links mit Luftrohr, Rohrschornstein rechts; Flammen etwas hoch – im Spiel unauffällig."
   },
   "forge_stone": {
    "quelle": "Gemini"
@@ -150,8 +162,28 @@
   },
   "background_7": {
    "quelle": "Midjourney",
-   "bewertung": "ändern",
-   "hinweis": "Fenster sitzt ganz oben und wird zur Hälfte von der Statusleiste verdeckt; Wand-Boden-Kante bei 49 % (Ziel 40 %). Im Spiel nutzbar."
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. London: gelber Ziegel, Steinplatten; St Paul's im Fenster am rechten Rand (im Hochformat angeschnitten); Kante 56 % (Bühne y 812). Ersetzt die frühere Fassung mit zu hohem Fenster."
+  },
+  "background_8": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Newcastle: zugemauerte Bögen, Lokomotive im Tor, Räder und Ketten an den Rändern; Kante 57 % (Bühne y 827)."
+  },
+  "background_9": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Gießerei: hohe Ziegelwand mit Säulen, Rundbogenfenster; Kante 70 % (Bühne y 1005). Gemaltes Feuer in der Wandmitte hinter Esse und Dampfhammer."
+  },
+  "background_10": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048. Stahlwerk: Eisenbinder, Kranbahn, Bessemer-Funken im Fenster. Kante sehr tief (84 %): der Import schneidet oben 300 px Decke ab (Bühne y 1000)."
+  },
+  "forge_welding_furnace": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: niedriger Ziegelbogen über langem Glutbett, Schornstein rechts – genau wie gewünscht."
   }
  },
  "abgelehnt": {

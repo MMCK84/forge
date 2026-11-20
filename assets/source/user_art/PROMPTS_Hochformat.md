@@ -15,16 +15,16 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 2 |
+| ✅ gut (Midjourney) | 14 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 41 |
-| ⬜ noch nicht vorhanden | 81 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 33 |
+| ⬜ noch nicht vorhanden | 77 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
-| A · Werkstatt-Hintergründe | 2 | 1 | 4 | 3 | 0 |
-| B · Essen | 0 | 0 | 4 | 2 | 0 |
+| A · Werkstatt-Hintergründe | 10 | 0 | 0 | 0 | 0 |
+| B · Essen | 4 | 1 | 0 | 1 | 0 |
 | C · Amboss und Hämmer | 0 | 0 | 5 | 0 | 0 |
 | D · Maschinen | 0 | 0 | 7 | 3 | 4 |
 | E · Werkstücke | 0 | 0 | 9 | 72 | 0 |
@@ -64,6 +64,8 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | alle | Midjourney meldet „Long prompt – Prompts of this length will be adjusted … may increase variability“ (Hintergründe hatten ~320 Wörter) | alle Prompts gekürzt: Bausteine in Stichworten, Verbote knapp (`--no text, numbers, watermark`, freigestellt zusätzlich `border, shadow`); Wortzahl steht jetzt bei jedem Prompt |
 | 20.11. | Hintergründe | gekürzter Prompt (Epoche 1 V4, Epoche 2): kein schwarzer Streifen mehr, Upscale 2000 × 2000 – aber Kante tiefer (72 % bzw. ~80 %), Tageslicht statt Feuerschein, Epoche 2 mit zweitem Fenster außerhalb des Hochformats und verwischter grauer Fläche („plain wall“) | „high viewpoint, the floor fills the lower half“, „Evening, warm orange firelight on the centre of the back wall“, „only one small window“, „centre free of posts and windows“ statt „plain wall“; `--no daylight beam, second window` |
 | 20.11. | Hintergründe | Epoche 2 mit nachgeschärftem Prompt: Abendlicht und Feuerschein in der Wandmitte klappen, Kante 69 % (vorher ~80 %), aber trotz `--no second window` ein zweites großes Fenster rechts der Mitte | Bausteine beibehalten; Fenster noch deutlicher: „Only one small window, high in the upper left part of the back wall“ |
+| 20.11. | Hintergründe | Lieferung Epoche 3–10: Stimmung und Inhalt gut; aber (a) alle eher dunkel, (b) Epoche 5 und 9 mit gemaltem Feuer in der Wandmitte, (c) Epoche 3 und 7 mit zweitem, großem Aussichtsfenster am rechten Rand (im Hochformat angeschnitten), (d) Kante 56–84 % | „Evening but well lit“; `--no fireplace, flames`; „Through the small window: …“ statt „Window view“, damit die Aussicht im kleinen Fenster links landet; zu tiefe Kante gleicht der Import aus (oben Decke abschneiden, `BG_TOP_CROP`) |
+| 20.11. | Essen | erste Frontalansichten (Stufe 1–5): Aufbau, Blasebalg links und offenes Glutbett gelungen; Stufe 3 zeigt nur einen Blasebalg und einen Sack statt zwei übereinanderliegender Bälge; Stufe 1 hat ein schmales Glutbett (~25 % der Breite) | Doppelblasebalg ausdrücklich: „two identical teardrop bellows stacked one above the other, one lever“; Glutbett „wide, about two thirds of the width“; Glutbett, Schornstein und Ursprung misst jetzt der Import selbst |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -101,115 +103,121 @@ Raw hält sich genauer an Vorgaben wie „genau von der Seite“ oder „Kopf li
 
 Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 55–60 % der Höhe, unteres Drittel ruhig und dunkel (Bedienelemente).
 
-**Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle) und erst das vergrößerte Bild (2048 × 2048) schicken** – ohne Upscale sind es nur 1024 × 1024. Ein Bild für beide Ausrichtungen: Im Hochformat nimmt das Spiel den mittleren 3:4-Ausschnitt (die äußeren Achtel links und rechts fallen weg) und verlängert den dunklen Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (1:1) als **Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–65 % geht).
-
-Vorhandene gute 3:4-Bilder (Epoche 1) nicht neu erzeugen, sondern im Midjourney-Editor links und rechts um je ein Sechstel der Breite auf 1:1 erweitern.
+**Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle) und erst das vergrößerte Bild (2048 × 2048) schicken** – ohne Upscale sind es nur 1024 × 1024. Ein Bild für beide Ausrichtungen: Im Hochformat nimmt das Spiel den mittleren 3:4-Ausschnitt (die äußeren Achtel links und rechts fallen weg) und verlängert den dunklen Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (1:1) als **Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–70 % geht; liegt sie tiefer, schneidet der Import oben Decke ab).
 
 **background_1** – Die Dorfschmiede (1700–1715) · ✅ gut (Midjourney)  
-Regler: **Square 1:1** · 108 Wörter  
+Regler: **Square 1:1** · 111 Wörter  
 *20.11.: Variante 4 als Original (PNG 2048 × 2048): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (73 %, Bühne y 1053), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch.*
 ```
-background_1 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_1 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Through the small window: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_2** – Kutschen & Handelswege (1715–1735) · ✅ gut (Midjourney)  
-Regler: **Square 1:1** · 111 Wörter  
+Regler: **Square 1:1** · 114 Wörter  
 *20.11.: 1:1, PNG 2048 × 2048, nachgeschärfter Prompt: Abendstimmung mit Feuerschein in der Wandmitte, Bruchstein, Steinplatten, Rad und Geschirr an den Rändern. Kante 69 % (Bühne y 991). Zweites, großes Fenster rechts der Mitte steht teils hinter der Esse, die Postkutsche darin ist kaum zu sehen – im Spiel unauffällig.*
 ```
-background_2 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_2 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Through the small window: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
-**background_3** – Hafen & Royal Navy (1735–1750) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 115 Wörter
+**background_3** – Hafen & Royal Navy (1735–1750) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 118 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Hafen: Ziegel, geteerte Balken, Dielen, Fass, Tau und Kette an den Rändern; Kante 58 % (Bühne y 833). Aussichtsfenster mit Schiffsmasten rechts am Rand, im Hochformat angeschnitten – wirkt trotzdem gut.*
 ```
-background_3 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Window view: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
-```
-
-**background_4** – Stahl & Tuch (1750–1765) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 108 Wörter
-```
-background_4 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Window view: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_3 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Through the small window: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
-**background_5** – Das Zeitalter des Dampfes (1765–1785) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 115 Wörter
+**background_4** – Stahl & Tuch (1750–1765) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 111 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Sheffield: Ziegel, Steinplatten, Fenster mit rauchenden Schornsteinen; Kante 60 % (Bühne y 867). Eher dunkel und kühl.*
 ```
-background_5 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Window view: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
-```
-
-**background_6** – Das Zeitalter der Eisenwerke (1785–1800) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 112 Wörter
-```
-background_6 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Window view: glowing blast furnaces at dusk. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_4 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Through the small window: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
-**background_7** – Krieg & Erfindergeist (1800–1820) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
-Regler: **Square 1:1** · 109 Wörter  
-*Fenster sitzt ganz oben und wird zur Hälfte von der Statusleiste verdeckt; Wand-Boden-Kante bei 49 % (Ziel 40 %). Im Spiel nutzbar.*
+**background_5** – Das Zeitalter des Dampfes (1765–1785) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 118 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Severn: Iron Bridge im Fenster, nasser Steinboden; Kante 68 % (Bühne y 984). Gemaltes Feuer in der Wandmitte steht hinter der Esse und fällt im Spiel kaum auf.*
 ```
-background_7 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Window view: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
-```
-
-**background_8** – Eisenbahnfieber (1820–1839) · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 110 Wörter
-```
-background_8 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Window view: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_5 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Through the small window: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
-**background_9** – Der Dampfhammer (1839–1860) · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 111 Wörter
+**background_6** – Das Zeitalter der Eisenwerke (1785–1800) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 115 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Eisenwerk: gusseiserne Säulen, Hochöfen im Fenster; Kante 65 % (Bühne y 932).*
 ```
-background_9 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Window view: canal with a narrowboat, foundry chimneys. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_6 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Through the small window: glowing blast furnaces at dusk. Right third of the floor empty --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
-**background_10** – Das Stahlzeitalter (1860–1880) · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 112 Wörter
+**background_7** – Krieg & Erfindergeist (1800–1820) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 112 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. London: gelber Ziegel, Steinplatten; St Paul's im Fenster am rechten Rand (im Hochformat angeschnitten); Kante 56 % (Bühne y 812). Ersetzt die frühere Fassung mit zu hohem Fenster.*
 ```
-background_10 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Window view: Bessemer converters blowing sparks at night. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+background_7 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Through the small window: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+```
+
+**background_8** – Eisenbahnfieber (1820–1839) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 113 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Newcastle: zugemauerte Bögen, Lokomotive im Tor, Räder und Ketten an den Rändern; Kante 57 % (Bühne y 827).*
+```
+background_8 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Through the small window: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+```
+
+**background_9** – Der Dampfhammer (1839–1860) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 114 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Gießerei: hohe Ziegelwand mit Säulen, Rundbogenfenster; Kante 70 % (Bühne y 1005). Gemaltes Feuer in der Wandmitte hinter Esse und Dampfhammer.*
+```
+background_9 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Through the small window: canal with a narrowboat, foundry chimneys. Right third of the floor empty --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+```
+
+**background_10** – Das Stahlzeitalter (1860–1880) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 115 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048. Stahlwerk: Eisenbinder, Kranbahn, Bessemer-Funken im Fenster. Kante sehr tief (84 %): der Import schneidet oben 300 px Decke ab (Bühne y 1000).*
+```
+background_10 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Through the small window: Bessemer converters blowing sparks at night. Right third of the floor empty --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 ## B · Essen (Frontalansicht, alle sechs Stufen)
 
-Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Die bisherigen Schrägansichten (Stufe 1–4) werden ersetzt.
+Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.
 
-**forge_clay** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Landscape 2:1** · 97 Wörter  
-*Schrägansicht – neu als Frontalansicht (Prompt unten).*
-```
-forge_clay — 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, orange glowing charcoal fire, front view from slightly above, glowing coal bed a flat band across 60 percent of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
-```
-
-**forge_brick** – Ziegel-Esse (Stufe 2, Epoche 2) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
+**forge_clay** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · ✅ gut (Midjourney)  
 Regler: **Landscape 2:1** · 99 Wörter  
-*Schrägansicht – neu als Frontalansicht (Prompt unten).*
+*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend.*
 ```
-forge_brick — 2D game asset, a smith's forge of the 1720s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, bright orange coal fire, front view from slightly above, glowing coal bed a flat band across 60 percent of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
-```
-
-**forge_double_bellows** – Esse mit Doppelblasebalg (Stufe 3, Epoche 3) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Landscape 2:1** · 96 Wörter  
-*Schrägansicht – neu als Frontalansicht (Prompt unten).*
-```
-forge_double_bellows — 2D game asset, a large smith's forge of the 1740s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of brick and stone, a wide brick hood bound with iron bands, on the left two stacked teardrop-shaped leather bellows with one long lever, hot yellow-orange coal fire, front view from slightly above, glowing coal bed a flat band across 60 percent of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
+forge_clay — 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
 ```
 
-**forge_coke** – Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Landscape 2:1** · 100 Wörter  
-*Schrägansicht – neu als Frontalansicht (Prompt unten).*
+**forge_brick** – Ziegel-Esse (Stufe 2, Epoche 2) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 101 Wörter  
+*20.11.: Frontalansicht, Ziegelherd mit Eisenbändern, Schieferdach-Haube, Schornstein rechts; Blasebalg links steht senkrecht statt waagerecht – unkritisch.*
 ```
-forge_coke — 2D game asset, a long late-18th-century coke-fired smith's forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire, front view from slightly above, glowing coal bed a flat band across 60 percent of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
+forge_brick — 2D game asset, a smith's forge of the 1720s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, bright orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
 ```
 
-**forge_welding_furnace** – Schweißofen (Stufe 5, Epoche 8) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 2:1** · 79 Wörter
+**forge_double_bellows** – Esse mit Doppelblasebalg (Stufe 3, Epoche 3) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Landscape 2:1** · 103 Wörter  
+*20.11.: Esse selbst gut (Ziegel/Stein, Eisenbänder), aber links nur ein Blasebalg und ein Sack statt zweier übereinanderliegender Bälge mit Hebel.*
 ```
-forge_welding_furnace — 2D game asset, a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney, front view from slightly above, glowing coal bed a flat band across 60 percent of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
+forge_double_bellows — 2D game asset, a large smith's forge of the 1740s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever, hot yellow-orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, sack, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
+```
+
+**forge_coke** – Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 102 Wörter  
+*20.11.: Frontalansicht, genietete Eisenhaube, Gebläsezylinder links mit Luftrohr, Rohrschornstein rechts; Flammen etwas hoch – im Spiel unauffällig.*
+```
+forge_coke — 2D game asset, a long late-18th-century coke-fired smith's forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
+```
+
+**forge_welding_furnace** – Schweißofen (Stufe 5, Epoche 8) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 81 Wörter  
+*20.11.: niedriger Ziegelbogen über langem Glutbett, Schornstein rechts – genau wie gewünscht.*
+```
+forge_welding_furnace — 2D game asset, a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
 ```
 
 **forge_siemens** – Siemens-Gasofen (Stufe 6, Epoche 10) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 2:1** · 87 Wörter
+Regler: **Landscape 2:1** · 89 Wörter
 ```
-forge_siemens — 2D game asset, a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub, front view from slightly above, glowing coal bed a flat band across 60 percent of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
+forge_siemens — 2D game asset, a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow
 ```
 
 ## C · Amboss und Hämmer

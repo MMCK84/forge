@@ -4,6 +4,7 @@ extends "res://scenes/ui/overlay.gd"
 const Economy = preload("res://scripts/economy.gd")
 const Catalog = preload("res://scripts/catalog.gd")
 const Assets = preload("res://scripts/assets.gd")
+const UserForgeMeta = preload("res://scripts/user_forge_meta.gd")
 
 
 func _init() -> void:
@@ -103,8 +104,8 @@ func _machine_icon(id: String, water: bool) -> Texture2D:
 
 
 func _forge_icon(tier: int) -> Texture2D:
-	var user_files := {1: "forge_clay.png", 2: "forge_brick.png", 3: "forge_double_bellows.png", 4: "forge_coke.png"}
-	var t: Texture2D = Assets.user(str(user_files[tier])) if user_files.has(tier) else null
+	var meta: Dictionary = UserForgeMeta.META.get(tier, {})
+	var t: Texture2D = Assets.user(str(meta["file"])) if not meta.is_empty() else null
 	return t if t != null else Assets.tex("environment/forge_%d.png" % clampi(tier, 1, 4))
 
 

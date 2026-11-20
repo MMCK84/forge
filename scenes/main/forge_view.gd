@@ -16,14 +16,9 @@ var _t: float = 0.0
 ## Bereich des Rohling-Stapels (lokal)
 var raw_rect := Rect2(0, 600, 300, 100)
 
-## Essen-Grafiken des Auftraggebers (vorskaliert, 1:1 gezeichnet): Zeichenursprung,
-## Glutbett (Mitte/Breite) und Schornsteinmündung für den Rauch, alles lokal.
-const USER_FORGES := {
-	1: {"file": "forge_clay.png", "origin": Vector2(-60, 118), "bed": Vector2(440, 380), "bed_w": 300.0, "chimney": Vector2(565, 122)},
-	2: {"file": "forge_brick.png", "origin": Vector2(-60, 118), "bed": Vector2(440, 380), "bed_w": 300.0, "chimney": Vector2(571, 122)},
-	3: {"file": "forge_double_bellows.png", "origin": Vector2(-34, 118), "bed": Vector2(584, 493), "bed_w": 400.0, "chimney": Vector2(606, 123)},
-	4: {"file": "forge_coke.png", "origin": Vector2(-66, 118), "bed": Vector2(654, 442), "bed_w": 380.0, "chimney": Vector2(688, 123)},
-}
+## Essen-Grafiken des Auftraggebers: Maße erzeugt der Import (scripts/user_forge_meta.gd).
+const UserForgeMeta = preload("res://scripts/user_forge_meta.gd")
+const USER_FORGES: Dictionary = UserForgeMeta.META
 
 
 func _ready() -> void:

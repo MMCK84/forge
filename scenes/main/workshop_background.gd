@@ -8,7 +8,7 @@ const Assets = preload("res://scripts/assets.gd")
 
 const STAGE := Vector2(1080, 1920)
 ## Höhe der Wand-Boden-Kante (Bühnen-Koordinaten) in den Hochformat-Bildern je Epoche
-const USER_FLOOR_Y := [1053.0, 991.0, 905.0, 889.0, 780.0, 865.0, 947.0, 800.0, 800.0, 800.0]
+const USER_FLOOR_Y := [1053.0, 991.0, 833.0, 867.0, 984.0, 932.0, 812.0, 827.0, 1005.0, 1000.0]
 ## Wand-Boden-Kante, wenn nur das Querformat-Bild oder der Code-Hintergrund vorhanden ist
 const DEFAULT_FLOOR_Y := 800.0
 

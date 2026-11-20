@@ -78,6 +78,10 @@ LESSONS = [
      "„high viewpoint, the floor fills the lower half“, „Evening, warm orange firelight on the centre of the back wall“, „only one small window“, „centre free of posts and windows“ statt „plain wall“; `--no daylight beam, second window`"),
     ("20.11.", "Hintergründe", "Epoche 2 mit nachgeschärftem Prompt: Abendlicht und Feuerschein in der Wandmitte klappen, Kante 69 % (vorher ~80 %), aber trotz `--no second window` ein zweites großes Fenster rechts der Mitte",
      "Bausteine beibehalten; Fenster noch deutlicher: „Only one small window, high in the upper left part of the back wall“"),
+    ("20.11.", "Hintergründe", "Lieferung Epoche 3–10: Stimmung und Inhalt gut; aber (a) alle eher dunkel, (b) Epoche 5 und 9 mit gemaltem Feuer in der Wandmitte, (c) Epoche 3 und 7 mit zweitem, großem Aussichtsfenster am rechten Rand (im Hochformat angeschnitten), (d) Kante 56–84 %",
+     "„Evening but well lit“; `--no fireplace, flames`; „Through the small window: …“ statt „Window view“, damit die Aussicht im kleinen Fenster links landet; zu tiefe Kante gleicht der Import aus (oben Decke abschneiden, `BG_TOP_CROP`)"),
+    ("20.11.", "Essen", "erste Frontalansichten (Stufe 1–5): Aufbau, Blasebalg links und offenes Glutbett gelungen; Stufe 3 zeigt nur einen Blasebalg und einen Sack statt zwei übereinanderliegender Bälge; Stufe 1 hat ein schmales Glutbett (~25 % der Breite)",
+     "Doppelblasebalg ausdrücklich: „two identical teardrop bellows stacked one above the other, one lever“; Glutbett „wide, about two thirds of the width“; Glutbett, Schornstein und Ursprung misst jetzt der Import selbst"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow"]
@@ -247,35 +251,35 @@ def parse_prompts(path):
 
 # ------------------------------------------------------------------ Bausteine der Prompts
 
-BG_HEAD = ("Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. "
+BG_HEAD = ("Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. "
            "Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. "
            "Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. "
            "Props only at the far left and right edges. ")
-BG_TAIL = "No forge, no fire, no anvil, no machine, no people, no daylight beam, no second window."
+BG_TAIL = "No forge, no fire, no fireplace, no flames, no anvil, no machine, no people, no daylight beam, no second window."
 BACKGROUNDS = {
-    1: "English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam. ",
-    2: "Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs. ",
-    3: "Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Window view: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain. ",
-    4: "Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Window view: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades. ",
-    5: "Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Window view: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty. ",
-    6: "Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Window view: glowing blast furnaces at dusk. Right third of the floor empty. ",
-    7: "London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Window view: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates. ",
-    8: "Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Window view: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains. ",
-    9: "Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Window view: canal with a narrowboat, foundry chimneys. Right third of the floor empty. ",
-    10: "Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Window view: Bessemer converters blowing sparks at night. Right third of the floor empty. ",
+    1: "English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Through the small window: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam. ",
+    2: "Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Through the small window: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs. ",
+    3: "Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Through the small window: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain. ",
+    4: "Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Through the small window: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades. ",
+    5: "Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Through the small window: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty. ",
+    6: "Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Through the small window: glowing blast furnaces at dusk. Right third of the floor empty. ",
+    7: "London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Through the small window: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates. ",
+    8: "Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Through the small window: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains. ",
+    9: "Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Through the small window: canal with a narrowboat, foundry chimneys. Right third of the floor empty. ",
+    10: "Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Through the small window: Bessemer converters blowing sparks at night. Right third of the floor empty. ",
 }
 
 ## Offene Schmiede-Esse (Stufe 1–4): Midjourney macht aus „hearth with hood“ sonst einen Backofen
 OPEN_HEARTH = "open waist-high hearth table, coals lying openly on top, hood above with a clear gap (no oven, no dome, no arch over the fire)"
 BELLOWS = "a teardrop-shaped leather bellows with wooden boards on a stand (no cannon)"
 
-FORGE_TAIL = ("front view from slightly above (no perspective), glowing coal bed a flat band across 60 percent of the width, "
+FORGE_TAIL = ("front view from slightly above (no perspective), wide glowing coal bed, a flat band across about two thirds of the width, "
               "hood and chimney centred and fully visible, level bottom edge (no floor), hand-painted 2D game art, dark ink outlines, "
               "nothing in front (no smoke, no flames, no people), isolated on pure flat white background, wide 2:1")
 FORGES = [
     ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left " + BELLOWS + ", orange glowing charcoal fire"),
     ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left " + BELLOWS + ", bright orange coal fire"),
-    ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", built of brick and stone, a wide brick hood bound with iron bands, on the left two stacked teardrop-shaped leather bellows with one long lever (no cannon), hot yellow-orange coal fire"),
+    ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever (no cannon, no sack), hot yellow-orange coal fire"),
     ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's forge, " + OPEN_HEARTH + ", built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire"),
     ("forge_welding_furnace", "Schweißofen (Stufe 5, Epoche 8)", "a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney"),
     ("forge_siemens", "Siemens-Gasofen (Stufe 6, Epoche 10)", "a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub"),
@@ -415,9 +419,7 @@ def main():
                      "Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die "
                      "mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage "
                      "`assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (1:1) als **Bild-Prompt** vor den Text setzen (nicht als "
-                     "Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–65 % geht).\n\n"
-                     "Vorhandene gute 3:4-Bilder (Epoche 1) nicht neu erzeugen, sondern im Midjourney-Editor links und rechts um je ein "
-                     "Sechstel der Breite auf 1:1 erweitern.", a))
+                     "Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–70 % geht; liegt sie tiefer, schneidet der Import oben Decke ab).", a))
     # B Essen
     b = []
     for fid, title, desc in FORGES:
@@ -425,8 +427,8 @@ def main():
         b.append(block(title, f"2D game asset, {desc}, {FORGE_TAIL}", st, fid))
     sections.append(("B · Essen (Frontalansicht, alle sechs Stufen)",
                      "Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, "
-                     "damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Die bisherigen "
-                     "Schrägansichten (Stufe 1–4) werden ersetzt.", b))
+                     "damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. "
+                     "Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.", b))
     # C Amboss & Hämmer
     c = [block("Amboss auf Eichenklotz (alle Epochen)", "2D game sprite asset, heavy 18th-century cast iron anvil mounted on a thick oak wood stump, blacksmith equipment, side-view orthographic perspective, horn pointing to the right, crisp clean edges, isolated on white background, game art", add(status("anvil.png")), "anvil")]
     for hid, title, desc in HAMMERS:
