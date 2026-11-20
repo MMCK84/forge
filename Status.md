@@ -156,6 +156,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hufeisen, Schlagbaumbeschlag ✅, Hemmschuh 🟠 (falsches Objekt → Prompt in Seitenansicht); Epoche 3 Kettenglied ✅.
   Fotorealistisch auf grauem Grund – Import stellt sauber frei. Frage des Auftraggebers: Was fehlt für Epoche 1? → Antwort:
   spielbar ist sie schon; für einen einheitlichen Midjourney-Look fehlen 9 Werkstücke, 5 Einrichtungsstücke und die UI-Bilder.
+- 20.11.: Projekt als ZIP an den Auftraggeber (spielt am PC in Godot). Rückmeldung umgesetzt: **„Neues Spiel“ im Pausemenü**
+  (mit Rückfrage), „Speichern & Beenden“ heißt jetzt „Speichern & zum Hauptmenü“; **Schlagstärke** deutlicher: Knöpfe in der
+  Lehrzeit ausgeblendet (erscheinen mit dem Erklär-Hinweis), der verlangte Knopf pulsiert golden, wenn eine andere Stärke
+  gewählt ist.
 
 ## Prüfen
 

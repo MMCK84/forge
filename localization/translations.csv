@@ -835,7 +835,7 @@ UI_RAW_STACK,Rohlinge,Blanks
 UI_REROLL,Neue Angebote,New offers
 UI_REROLL_WAIT,Neue Angebote in {s} s,New offers in {s} s
 UI_RESUME,Fortsetzen,Resume
-UI_SAVE_AND_QUIT,Speichern & Beenden,Save & quit
+UI_SAVE_AND_QUIT,Speichern & zum Hauptmenü,Save & main menu
 UI_SAVE_CORRUPT,Der Spielstand ist beschädigt und konnte nicht geladen werden. Bitte beginnt ein neues Spiel.,The saved game is damaged and could not be loaded. Please start a new game.
 UI_SAVE_NEWER,Der Spielstand stammt aus einer neueren Spielversion und kann nicht geladen werden. Die Datei bleibt unverändert.,The saved game comes from a newer version of the game and cannot be loaded. The file is left unchanged.
 UI_SAVE_RESTORED,Der letzte Spielstand war beschädigt – die Sicherung wurde geladen.,The latest save was damaged – the backup was loaded.

@@ -36,7 +36,14 @@ func show_main_menu() -> void:
 		m.show_notice("UI_SAVE_RESTORED")
 
 
+## Neues Spiel aus dem Pausemenü: Spielstand neu anlegen und die Werkstatt frisch aufbauen.
+func _restart_new_game() -> void:
+	SaveManager.start_new_game()
+	show_workshop()
+
+
 func show_workshop() -> void:
 	var w := Workshop.new()
 	w.quit_to_menu.connect(show_main_menu)
+	w.new_game_requested.connect(_restart_new_game)
 	_swap(w)

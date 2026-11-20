@@ -29,7 +29,7 @@ t("UI_UNDERSTOOD", "Verstanden", "Understood")
 t("UI_MENU", "Menü [Esc]", "Menu [Esc]")
 t("UI_PAUSE", "Pause", "Paused")
 t("UI_RESUME", "Fortsetzen", "Resume")
-t("UI_SAVE_AND_QUIT", "Speichern & Beenden", "Save & quit")
+t("UI_SAVE_AND_QUIT", "Speichern & zum Hauptmenü", "Save & main menu")
 t("UI_WELCOME_BACK", "Willkommen zurück!", "Welcome back!")
 t("UI_OFFLINE_EARNINGS", "Während Eurer Abwesenheit ({t}) hat der Geselle {m} verdient.", "While you were away ({t}), your journeyman earned {m}.")
 # HUD

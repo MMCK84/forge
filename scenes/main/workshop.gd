@@ -31,6 +31,7 @@ const RAW_STACK := Rect2(130, 975, 260, 90)
 const CONTROLS_SIZE := Vector2(720, 380)
 
 signal quit_to_menu()
+signal new_game_requested()
 
 var background: Background
 var stage: Control
@@ -58,6 +59,10 @@ var hammer_label: Label
 var btn_quench: Button
 ## Schlagstärke-Wahl (leicht, mittel, schwer)
 var force_buttons: Array = []
+var force_row: HBoxContainer
+## Verlangte Stärke des aktuellen Arbeitsgangs (-1 = keine); der passende Knopf pulsiert, wenn eine andere gewählt ist
+var _required_force: int = -1
+var _force_pulse: float = 0.0
 var _force_hint_checked: bool = false
 var sparks: CPUParticles2D
 var weld_sparks: CPUParticles2D
@@ -171,7 +176,7 @@ func _ready() -> void:
 	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(330, 52), 22)
 	buttons.add_child(btn_quench)
 	# Schlagstärke: drei Knöpfe über dem Hammer
-	var force_row := HBoxContainer.new()
+	force_row = HBoxContainer.new()
 	force_row.position = Vector2(385, 166)
 	force_row.size = Vector2(300, 46)
 	force_row.add_theme_constant_override("separation", 4)
@@ -388,6 +393,7 @@ func raw_point() -> Vector2:
 func _process(delta: float) -> void:
 	var gm := GameManager
 	var sim = gm.sim
+	_pulse_force(delta)
 	if _hold_active and Overlay.open_count == 0:
 		_hold_timer += delta
 		var iv: float = 1.0 / gm.cfg.hold_hits_per_s
@@ -498,6 +504,9 @@ func _update_scale_and_progress(j: JobInstance) -> void:
 			var rf: int = sim.required_force(f)
 			if rf >= 0 and sim.force_enabled:
 				glow_scale.window_label += " · " + tr("FORCE_%d_LC" % rf)
+			_required_force = rf if sim.force_enabled else -1
+		else:
+			_required_force = -1
 		glow_scale.temp = p.temp
 		glow_scale.label_text = tr(HeatModel.glow_name_key(p.temp))
 		glow_scale.weld_window = Vector2(gm.cfg.weld_min, gm.cfg.weld_max) if sim.in_weld_phase(f) else Vector2(-1, -1)
@@ -718,12 +727,31 @@ func _set_force(level: int) -> void:
 	_sync_force_buttons()
 
 
+## Passenden Stärke-Knopf golden pulsieren lassen, solange eine andere Stärke gewählt ist.
+func _pulse_force(delta: float) -> void:
+	var sim = GameManager.sim
+	_force_pulse += delta
+	for k in force_buttons.size():
+		var b: Button = force_buttons[k]
+		if not sim.force_enabled:
+			continue
+		var on: bool = k == sim.force
+		if k == _required_force and not on:
+			var a := 0.5 + 0.5 * sin(_force_pulse * 7.0)
+			b.modulate = Color(1.0, 0.85 + 0.15 * a, 0.45 + 0.4 * a).lerp(Color(1.4, 1.2, 0.6), a * 0.6)
+		else:
+			b.modulate = Color.WHITE if on else Color(0.62, 0.6, 0.58)
+
+
 func _sync_force_buttons() -> void:
 	var sim = GameManager.sim
 	for k in force_buttons.size():
 		var b: Button = force_buttons[k]
 		var on: bool = k == (sim.force if sim.force_enabled else 1)
 		b.disabled = not sim.force_enabled
+		# In der Lehrzeit (Stärke zählt noch nicht) sind die Knöpfe ausgeblendet
+		if force_row != null:
+			force_row.visible = sim.force_enabled
 		b.set_pressed_no_signal(on)
 		# Gewählte Stärke deutlich hervorheben: hell mit Goldschrift, die anderen gedämpft
 		b.modulate = Color.WHITE if on else Color(0.62, 0.6, 0.58)
@@ -786,6 +814,7 @@ func _open_pause() -> void:
 		return
 	var p = open_overlay("res://scenes/ui/pause_menu.gd")
 	p.quit_to_menu.connect(func() -> void: quit_to_menu.emit())
+	p.new_game_requested.connect(func() -> void: new_game_requested.emit())
 
 
 func _open_epoch_offer() -> void:
