@@ -84,6 +84,10 @@ LESSONS = [
      "Doppelblasebalg ausdrücklich: „two identical teardrop bellows stacked one above the other, one lever“; Glutbett „wide, about two thirds of the width“; Glutbett, Schornstein und Ursprung misst jetzt der Import selbst"),
     ("20.11.", "Hämmer, Amboss (Raw)", "Formen und Ansicht genau richtig, aber fotorealistische 3D-Renderings statt handgemalt mit Tuschekontur – der Raw-Modus überstimmt die Stilangabe; Amboss mit Horn nach links",
      "Raw nur noch, wenn die Form nicht stimmt; sonst Standard mit Stil-Referenz (ein Hintergrund oder eine Esse); `--no photo, 3d render`; Horn-Richtung gleicht der Import aus (spiegeln); Griff, Bahn und Ambossbahn misst der Import selbst"),
+    ("20.11.", "Essen", "Esse Stufe 3 (neu) und Siemens-Ofen: Inhalt gelungen (zwei Bälge mit Hebel bzw. genieteter Gasofen), aber trotz `--no smoke` Rauch über dem Schornstein",
+     "„the chimney top is clean (no smoke)“; den Rest schneidet der Import weg (`FORGE_SMOKE`), das Spiel erzeugt eigenen Rauch"),
+    ("20.11.", "Maschinenteile", "neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock",
+     "historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -277,7 +281,7 @@ BELLOWS = "a teardrop-shaped leather bellows with wooden boards on a stand (no c
 
 FORGE_TAIL = ("front view from slightly above (no perspective), wide glowing coal bed, a flat band across about two thirds of the width, "
               "hood and chimney centred and fully visible, level bottom edge (no floor), hand-painted 2D game art, dark ink outlines, "
-              "nothing in front (no smoke, no flames, no people), isolated on pure flat white background, wide 2:1")
+              "nothing in front, the chimney top is clean (no smoke, no flames, no people), isolated on pure flat white background, wide 2:1")
 FORGES = [
     ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left " + BELLOWS + ", orange glowing charcoal fire"),
     ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left " + BELLOWS + ", bright orange coal fire"),

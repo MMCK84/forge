@@ -22,11 +22,15 @@ var head_x: float = 300.0
 var strike_y: float = 364.0
 
 ## Maschinenteile des Auftraggebers (ui/user/machine_*.png): Bezugspunkte in Bildpixeln
-const BEAM_PIVOT := Vector2(262, 99)      # Lagerloch im Hammerbalken (Kopf rechts im Bild)
-const BEAM_HEAD := Vector2(655, 199)      # Mitte/Unterkante des Hammerkopfs
-const BEAM_SCALE := 0.85
-const FRAME_BEARING := Vector2(330, 30)   # Lager oben auf dem Gestell
-const FRAME_SCALE := 0.5
+## Schwanzhammer-Teile des Auftraggebers: Maße misst der Import (scripts/user_machine_meta.gd).
+const UserMachineMeta = preload("res://scripts/user_machine_meta.gd")
+var BEAM_PIVOT: Vector2 = UserMachineMeta.META.get("BEAM_PIVOT", Vector2(262, 99))   # Lagerloch im Balken (Kopf rechts)
+var BEAM_HEAD: Vector2 = UserMachineMeta.META.get("BEAM_HEAD", Vector2(655, 199))    # Mitte/Unterkante des Hammerkopfs
+## Reichweite Lager → Kopf und Höhe des Gestells im Spiel (Bühnen-Pixel), unabhängig von der Grafik
+const BEAM_REACH := 334.0
+const FRAME_DRAW_HEIGHT := 328.0
+var FRAME_BEARING: Vector2 = UserMachineMeta.META.get("FRAME_BEARING", Vector2(330, 30))   # Lager oben auf dem Gestell
+var FRAME_SIZE: Vector2 = UserMachineMeta.META.get("FRAME_HEIGHT", Vector2(670, 657))
 const WHEEL_SCALE := 0.95
 const ENGINE_PIVOT := Vector2(452, 64)    # Säulenkopf der Dampfmaschine
 const ENGINE_ROD := Vector2(215, 4)       # Kolbenstange oben
@@ -153,8 +157,10 @@ func _draw_user() -> bool:
 	var frame := Assets.user("machine_helve_frame.png")
 	if beam == null or frame == null:
 		return false
-	var reach := (BEAM_HEAD.x - BEAM_PIVOT.x) * BEAM_SCALE
-	var pivot := Vector2(head_x + reach, strike_y - (BEAM_HEAD.y - BEAM_PIVOT.y) * BEAM_SCALE)
+	var beam_scale := BEAM_REACH / maxf(1.0, BEAM_HEAD.x - BEAM_PIVOT.x)
+	var frame_scale := FRAME_DRAW_HEIGHT / maxf(1.0, FRAME_SIZE.y)
+	var reach := BEAM_REACH
+	var pivot := Vector2(head_x + reach, strike_y - (BEAM_HEAD.y - BEAM_PIVOT.y) * beam_scale)
 	if water_powered:
 		var wheel := Assets.user("machine_water_wheel.png")
 		if wheel == null:
@@ -189,11 +195,11 @@ func _draw_user() -> bool:
 			for k in 3:
 				var sp := rod_top + Vector2(-30, -20 - k * 30 - fmod(_wheel * 40.0, 30.0))
 				draw_circle(sp, 16.0 + k * 7.0, Color(0.9, 0.9, 0.92, 0.25))
-	var fsz := frame.get_size() * FRAME_SCALE
-	draw_texture_rect(frame, Rect2(pivot - FRAME_BEARING * FRAME_SCALE, fsz), false)
+	var fsz := frame.get_size() * frame_scale
+	draw_texture_rect(frame, Rect2(pivot - FRAME_BEARING * frame_scale, fsz), false)
 	# Balken: Bild gespiegelt (Kopf links über dem Amboss), Drehpunkt im Lagerloch
 	var ang := 0.25 * (1.0 - drop)
-	draw_set_transform(pivot, ang, Vector2(-BEAM_SCALE, BEAM_SCALE))
+	draw_set_transform(pivot, ang, Vector2(-beam_scale, beam_scale))
 	draw_texture(beam, -BEAM_PIVOT)
 	draw_set_transform(Vector2.ZERO)
 	if water_powered:

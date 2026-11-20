@@ -41,12 +41,13 @@ wenn alles fertig ist.
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
 | A Hintergründe (1:1) | **10 (alle)** | – | – | – |
-| B Essen (frontal) | 4 (Stufe 1, 2, 4, 5) | 1 (Stufe 3: Doppelbalg fehlt) | – | 1 (Stufe 6) |
+| B Essen (frontal) | **6 (alle)** | – | – | – |
 | C Amboss, Hämmer | 5 (fotorealistisch) | – | – | – |
-| D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
+| D Maschinenteile | 4 (Wasserrad, Balken, Gestell, Schwungrad) | – | 3 | 3 + 4 optional (u. a. Dampfhammer) |
 | E Werkstücke | – | – | 9 | 72 (Epochen 2–10) |
 | F Kundenporträts (optional) | – | – | – | 54 |
 | G Oberfläche, Store | – | – | 12 | 5 |
+| H Werkstatt-Einrichtung | – | – | – | 50 (Platzhalter im Spiel) |
 
 Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
@@ -82,7 +83,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 ## Offen / nächste Schritte
 
-1. Midjourney-Bilder einbinden, sobald sie kommen: Esse Stufe 3 neu (Doppelbalg), Siemens-Ofen (Stufe 6), Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
+1. Midjourney-Bilder einbinden, sobald sie kommen: Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
    optional Kundenporträts.
 2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
@@ -140,8 +141,14 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Werkstatt-Einrichtung (Aufbau Teil 1)** eingebaut: Daten, Wirkungen in Simulation/Abrechnung/Auftragsbuch,
   Laden-Abschnitt, Darstellung mit Platzhaltern, Speichern, Prämie, Statistik, Hinweis, Klang; 183 neue Prüfungen; Spieltest
   kauft Einrichtung in Ep. 3/5–10. Balancing: mit Einrichtung 12,98 h statt 13,58 h (Vorteile beschleunigen) → Nachstimmen
-  der Epochen mit `tune_balance.py` läuft. Prompt-Heft: Bereich H (50 Einrichtungsbilder), Reihenfolge und Regeln aktualisiert;
+  der Epochen mit `tune_balance.py`. Prompt-Heft: Bereich H (50 Einrichtungsbilder), Reihenfolge und Regeln aktualisiert;
   Import für `assets/source/user_art/furnishings/`.
+- 20.11.: **Balancing nachgestimmt** (`tune_balance.py`, 8 Iterationen): mit Einrichtung 13,51 h, Minuten je Epoche
+  12.6/23.8/55.3/82.9/131.0/157.0/77.9/83.8/90.0/96.0 (`fp_start`/`rate_per_fp` angepasst, Löhne unverändert).
+- 20.11.: **Esse Stufe 3 neu und Siemens-Ofen** (alle sechs Essen ✅) sowie **Wasserrad, Hammerbalken, Gestell, Schwungrad**
+  (Midjourney) eingebaut. Gemalten Rauch schneidet der Import weg (`FORGE_SMOKE`). Schwanzhammer: Lager, Kopf und Gestell-
+  Lager misst der Import (`scripts/user_machine_meta.gd`), die Maschinenansicht skaliert passend. Tests grün (1841/0),
+  Spieltest 0 Probleme.
 
 ## Prüfen
 

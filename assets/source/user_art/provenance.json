@@ -43,8 +43,8 @@
   },
   "forge_double_bellows": {
    "quelle": "Midjourney",
-   "bewertung": "ändern",
-   "hinweis": "20.11.: Esse selbst gut (Ziegel/Stein, Eisenbänder), aber links nur ein Blasebalg und ein Sack statt zweier übereinanderliegender Bälge mit Hebel."
+   "bewertung": "gut",
+   "hinweis": "20.11.: neu: zwei tropfenförmige Bälge mit Hebel links, Ziegel/Stein mit Eisenbändern, hohes Rohr und Ziegelschornstein. Gemalten Rauch schneidet der Import weg."
   },
   "forge_coke": {
    "quelle": "Midjourney",
@@ -80,16 +80,24 @@
    "hinweis": "20.11.: Gussstahl mit Messingzwinge und Endkappe, reine Seitenansicht, Bahn unten – genau wie gewünscht. Fotorealistisch statt gezeichnet; im Spiel klein, fällt kaum auf."
   },
   "water_wheel": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: unterschlächtiges Wasserrad, acht Speichen, Nabe mittig – dreht sauber."
   },
   "helve_beam": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Lager am Balkenende statt bei einem Drittel – entspricht dem englischen Brust-Schwanzhammer (belly helve); Lager und Kopf misst der Import."
   },
   "helve_frame": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Eichengestell mit mittigem Lagerbock und Daumenwelle unten; Lager oben misst der Import."
   },
   "flywheel": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: gusseisernes Schwungrad mit acht geraden Speichen (statt sechs gebogenen) – unkritisch."
   },
   "engine_body": {
    "quelle": "Gemini"
@@ -194,6 +202,11 @@
    "quelle": "Midjourney",
    "bewertung": "gut",
    "hinweis": "20.11.: niedriger Ziegelbogen über langem Glutbett, Schornstein rechts – genau wie gewünscht."
+  },
+  "forge_siemens": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: genieteter Eisenkörper mit Ankerstäben, weißglühende Arbeitsöffnung, Gasleitungen mit Ventilen beidseitig, Schornsteinstutzen. Gemalten Rauch schneidet der Import weg."
   }
  },
  "abgelehnt": {
@@ -215,6 +228,9 @@
   ],
   "background_2": [
    "20.11.: 1:1 (gekürzter Prompt): Kante ~80 %, zweites Fenster rechts außerhalb des Hochformat-Ausschnitts, kalte graue Wand mit verwischter Fläche in der Mitte, kein Feuerschein – neu erzeugen"
+  ],
+  "forge_double_bellows": [
+   "20.11.: erste Frontalansicht mit nur einem Blasebalg und einem Sack – ersetzt"
   ]
  }
 }

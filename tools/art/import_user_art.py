@@ -248,29 +248,66 @@ def main():
         h = int(round(b.width * 500 / 1024))
         top = max(0, (b.height - h) // 2)
         b.crop((0, top, b.width, top + h)).resize((1024, 500), Image.LANCZOS).save(os.path.join(store, "feature_graphic_1024x500.png"))
-    # 21 Maschinen in Einzelteilen (weiß): Löcher (Speichen, Gitter, Lager) freistellen
+    # 21 Maschinen in Einzelteilen (weiß): Löcher (Speichen, Gitter, Lager) freistellen;
+    # Lager, Hammerkopf und Gestell-Lager werden vermessen (scripts/user_machine_meta.gd)
     mdir = os.path.join(SRC, "machines")
+    mmeta = {}
     if os.path.isdir(mdir):
         for fn in sorted(os.listdir(mdir)):
             base, ext = os.path.splitext(fn)
             if ext.lower() not in (".webp", ".png", ".jpg", ".jpeg"):
                 continue
-            a = np.asarray(Image.open(os.path.join(mdir, fn)).convert("RGB")).astype(np.float32)
+            a = np.asarray(Image.open(os.path.join(mdir, fn)).convert("RGB")).astype(np.float32).copy()
             if base == "engine_body":
                 # eingemalten Balancier entfernen (das Spiel lässt einen eigenen wippen)
                 a[:115, 680:965] = 255.0
             sat = a.max(axis=2) - a.min(axis=2)
             white = (a.min(axis=2) > 222) & (sat < 22)
             bg = flood_bg(white) | enclosed(white, 150)
-            img = to_rgba(a, bg.astype(np.float32))
+            solid = ~bg
+            lab, n = ndimage.label(solid)
+            if n > 1:
+                sizes = ndimage.sum(solid, lab, range(1, n + 1))
+                solid = np.isin(lab, [k + 1 for k, sz in enumerate(sizes) if sz >= 0.02 * sizes.max()])
+            img = to_rgba(a, (~solid).astype(np.float32))
             if base in ("water_wheel", "flywheel"):
-                # Drehteile: quadratisch um die Nabe (Bildmitte des Originals), damit sie sauber rotieren
-                c = img.width // 2
-                r = int(max(abs(np.array(img.getbbox()) - np.array([c, c, c, c]))))
-                img = img.crop((c - r, c - r, c + r, c + r))
+                # Drehteile: quadratisch um die Nabe (Mitte des Umrisses), damit sie sauber rotieren
+                x0, y0, x1, y1 = img.getbbox()
+                cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
+                r = max(x1 - cx, cx - x0, y1 - cy, cy - y0)
+                img = img.crop((cx - r, cy - r, cx + r, cy + r))
                 save(img.resize((400, 400), Image.LANCZOS), "machine_" + base + ".png")
-            else:
-                save(img, "machine_" + base + ".png", max_w=700)
+                continue
+            img = save(img, "machine_" + base + ".png", max_w=700)
+            al = np.asarray(img)[..., 3] > 128
+            if base == "helve_beam":
+                cols = np.where(al.any(axis=0))[0]
+                top = np.array([np.argmax(al[:, x]) if al[:, x].any() else 0 for x in range(img.width)])
+                bot = np.array([img.height - 1 - np.argmax(al[::-1, x]) if al[:, x].any() else 0 for x in range(img.width)])
+                thick = np.where(al.any(axis=0), bot - top, 0)
+                med = np.median(thick[cols])
+                head = [x for x in cols if thick[x] > 1.6 * med and x > img.width * 0.6]
+                hx = int(np.mean(head)) if head else int(img.width * 0.92)
+                hy = int(max(bot[x] for x in head)) if head else int(img.height * 0.9)
+                body = [x for x in cols if x < img.width * 0.6]
+                axis_y = int(np.median([(top[x] + bot[x]) / 2 for x in body]))
+                boss = [x for x in body if thick[x] > 1.25 * med]
+                px = int(np.mean(boss)) if boss else int(cols[0] + img.width * 0.06)
+                mmeta["BEAM_PIVOT"] = (px, axis_y)
+                mmeta["BEAM_HEAD"] = (hx, hy)
+            elif base == "helve_frame":
+                ys = np.where(al.any(axis=1))[0]
+                ty = int(ys[0])
+                xs = np.where(al[ty:ty + max(4, img.height // 40)].any(axis=0))[0]
+                mmeta["FRAME_BEARING"] = (int(np.median(xs)), ty + 6)
+                mmeta["FRAME_HEIGHT"] = (img.width, img.height)
+    lines = ["## Automatisch erzeugt von tools/art/import_user_art.py – nicht von Hand ändern.",
+             "## Schwanzhammer: Lagerloch und Hammerkopf (Unterkante) im Balken, Lager oben auf dem Gestell, Größe des Gestells.", "",
+             "const META := {"]
+    for k, v in mmeta.items():
+        lines.append(f'\t"{k}": Vector2{v},')
+    lines.append("}")
+    open(os.path.join(ROOT, "scripts", "user_machine_meta.gd"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
 
@@ -352,6 +389,12 @@ FORGE_IDS = ["forge_clay", "forge_brick", "forge_double_bellows", "forge_coke", 
 FORGE_W = 920          # Breite im Spiel (Bühnen-Pixel)
 FORGE_CENTER_X = 420   # Mitte der Esse im Koordinatensystem der Essen-Ansicht (wie bisher)
 FORGE_TOP_Y = 118
+# Rauch über dem Schornstein, den Midjourney trotz „no smoke“ malt: Rechtecke (x0, y0, x1, y1) im Original
+# werden vor dem Freistellen weiß gefüllt (das Spiel erzeugt eigenen Rauch)
+FORGE_SMOKE = {
+    "forge_double_bellows": [(1950, 0, 3104, 140)],
+    "forge_siemens": [(1950, 0, 2230, 118), (2230, 0, 3104, 232)],
+}
 
 
 def forge_import():
@@ -363,7 +406,9 @@ def forge_import():
         path = next((os.path.join(fdir, fid + e) for e in (".png", ".webp", ".jpg") if os.path.exists(os.path.join(fdir, fid + e))), None)
         if path is None:
             continue
-        a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
+        a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32).copy()
+        for x0, y0, x1, y1 in FORGE_SMOKE.get(fid, []):
+            a[y0:y1, x0:x1] = 255.0
         sat = a.max(axis=2) - a.min(axis=2)
         white = (a.min(axis=2) > 215) & (sat < 28)
         bg = flood_bg(white) | enclosed(white, 4000)

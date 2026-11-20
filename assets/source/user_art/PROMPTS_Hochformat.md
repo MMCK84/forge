@@ -15,18 +15,18 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 19 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 28 |
-| ⬜ noch nicht vorhanden | 127 |
+| ✅ gut (Midjourney) | 25 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 0 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 24 |
+| ⬜ noch nicht vorhanden | 126 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
 | A · Werkstatt-Hintergründe | 10 | 0 | 0 | 0 | 0 |
-| B · Essen | 4 | 1 | 0 | 1 | 0 |
+| B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
-| D · Maschinen | 0 | 0 | 7 | 3 | 4 |
+| D · Maschinen | 4 | 0 | 3 | 3 | 4 |
 | E · Werkstücke | 0 | 0 | 9 | 72 | 0 |
 | F · Kundenporträts | 0 | 0 | 0 | 0 | 54 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
@@ -68,6 +68,8 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Hintergründe | Lieferung Epoche 3–10: Stimmung und Inhalt gut; aber (a) alle eher dunkel, (b) Epoche 5 und 9 mit gemaltem Feuer in der Wandmitte, (c) Epoche 3 und 7 mit zweitem, großem Aussichtsfenster am rechten Rand (im Hochformat angeschnitten), (d) Kante 56–84 % | „Evening but well lit“; `--no fireplace, flames`; „Through the small window: …“ statt „Window view“, damit die Aussicht im kleinen Fenster links landet; zu tiefe Kante gleicht der Import aus (oben Decke abschneiden, `BG_TOP_CROP`) |
 | 20.11. | Essen | erste Frontalansichten (Stufe 1–5): Aufbau, Blasebalg links und offenes Glutbett gelungen; Stufe 3 zeigt nur einen Blasebalg und einen Sack statt zwei übereinanderliegender Bälge; Stufe 1 hat ein schmales Glutbett (~25 % der Breite) | Doppelblasebalg ausdrücklich: „two identical teardrop bellows stacked one above the other, one lever“; Glutbett „wide, about two thirds of the width“; Glutbett, Schornstein und Ursprung misst jetzt der Import selbst |
 | 20.11. | Hämmer, Amboss (Raw) | Formen und Ansicht genau richtig, aber fotorealistische 3D-Renderings statt handgemalt mit Tuschekontur – der Raw-Modus überstimmt die Stilangabe; Amboss mit Horn nach links | Raw nur noch, wenn die Form nicht stimmt; sonst Standard mit Stil-Referenz (ein Hintergrund oder eine Esse); `--no photo, 3d render`; Horn-Richtung gleicht der Import aus (spiegeln); Griff, Bahn und Ambossbahn misst der Import selbst |
+| 20.11. | Essen | Esse Stufe 3 (neu) und Siemens-Ofen: Inhalt gelungen (zwei Bälge mit Hebel bzw. genieteter Gasofen), aber trotz `--no smoke` Rauch über dem Schornstein | „the chimney top is clean (no smoke)“; den Rest schneidet der Import weg (`FORGE_SMOKE`), das Spiel erzeugt eigenen Rauch |
+| 20.11. | Maschinenteile | neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock | historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -184,44 +186,45 @@ background_10 — Square 2D game background, hand-painted, dark ink outlines. Ev
 Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.
 
 **forge_clay** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 99 Wörter  
+Regler: **Landscape 2:1** · 104 Wörter  
 *20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend.*
 ```
-forge_clay — 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_clay — 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_brick** – Ziegel-Esse (Stufe 2, Epoche 2) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 101 Wörter  
+Regler: **Landscape 2:1** · 106 Wörter  
 *20.11.: Frontalansicht, Ziegelherd mit Eisenbändern, Schieferdach-Haube, Schornstein rechts; Blasebalg links steht senkrecht statt waagerecht – unkritisch.*
 ```
-forge_brick — 2D game asset, a smith's forge of the 1720s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, bright orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_brick — 2D game asset, a smith's forge of the 1720s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, bright orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**forge_double_bellows** – Esse mit Doppelblasebalg (Stufe 3, Epoche 3) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
-Regler: **Landscape 2:1** · 103 Wörter  
-*20.11.: Esse selbst gut (Ziegel/Stein, Eisenbänder), aber links nur ein Blasebalg und ein Sack statt zweier übereinanderliegender Bälge mit Hebel.*
+**forge_double_bellows** – Esse mit Doppelblasebalg (Stufe 3, Epoche 3) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 108 Wörter  
+*20.11.: neu: zwei tropfenförmige Bälge mit Hebel links, Ziegel/Stein mit Eisenbändern, hohes Rohr und Ziegelschornstein. Gemalten Rauch schneidet der Import weg.*
 ```
-forge_double_bellows — 2D game asset, a large smith's forge of the 1740s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever, hot yellow-orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, sack, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_double_bellows — 2D game asset, a large smith's forge of the 1740s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever, hot yellow-orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, sack, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_coke** – Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 102 Wörter  
+Regler: **Landscape 2:1** · 107 Wörter  
 *20.11.: Frontalansicht, genietete Eisenhaube, Gebläsezylinder links mit Luftrohr, Rohrschornstein rechts; Flammen etwas hoch – im Spiel unauffällig.*
 ```
-forge_coke — 2D game asset, a long late-18th-century coke-fired smith's forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_coke — 2D game asset, a long late-18th-century coke-fired smith's forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_welding_furnace** – Schweißofen (Stufe 5, Epoche 8) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 81 Wörter  
+Regler: **Landscape 2:1** · 86 Wörter  
 *20.11.: niedriger Ziegelbogen über langem Glutbett, Schornstein rechts – genau wie gewünscht.*
 ```
-forge_welding_furnace — 2D game asset, a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_welding_furnace — 2D game asset, a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**forge_siemens** – Siemens-Gasofen (Stufe 6, Epoche 10) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 2:1** · 89 Wörter
+**forge_siemens** – Siemens-Gasofen (Stufe 6, Epoche 10) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 94 Wörter  
+*20.11.: genieteter Eisenkörper mit Ankerstäben, weißglühende Arbeitsöffnung, Gasleitungen mit Ventilen beidseitig, Schornsteinstutzen. Gemalten Rauch schneidet der Import weg.*
 ```
-forge_siemens — 2D game asset, a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_siemens — 2D game asset, a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ## C · Amboss und Hämmer
@@ -267,26 +270,30 @@ hammer_crucible — 2D game asset, a high-quality late-18th-century crucible ste
 
 Drehteile genau von vorn und kreisrund, Mittelpunkt = Bildmitte; bewegliche Teile einzeln.
 
-**water_wheel** – Wasserrad (Wasser-Schwanzhammer, Epoche 5) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 56 Wörter
+**water_wheel** – Wasserrad (Wasser-Schwanzhammer, Epoche 5) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 56 Wörter  
+*20.11.: unterschlächtiges Wasserrad, acht Speichen, Nabe mittig – dreht sauber.*
 ```
 water_wheel — 2D game asset, a single wooden undershot water wheel seen exactly from the side so that it is a perfect circle, eight straight spokes, wooden paddles all around the rim, iron bands and an iron axle hub exactly in the centre of the image, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no water, frame, stand, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**helve_beam** – Hammerbalken mit Hammerkopf (Epoche 5–8) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 64 Wörter
+**helve_beam** – Hammerbalken mit Hammerkopf (Epoche 5–8) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter  
+*20.11.: Lager am Balkenende statt bei einem Drittel – entspricht dem englischen Brust-Schwanzhammer (belly helve); Lager und Kopf misst der Import.*
 ```
 helve_beam — 2D game asset, a single helve-hammer beam seen exactly from the side: a long heavy oak beam lying horizontally, bound with iron hoops, a round iron pivot boss with a hole at one third from the left end, a heavy forged iron hammer head fixed at the right end pointing straight down, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no frame, posts, anvil, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**helve_frame** – Gestell mit Daumenwelle · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 61 Wörter
+**helve_frame** – Gestell mit Daumenwelle · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 61 Wörter  
+*20.11.: Eichengestell mit mittigem Lagerbock und Daumenwelle unten; Lager oben misst der Import.*
 ```
 helve_frame — 2D game asset, the wooden support frame of an 18th-century helve hammer seen exactly from the side: two heavy upright oak posts joined by cross beams, an iron bearing on top of the posts for a pivot, and a horizontal cam shaft with four iron cams at the bottom, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no hammer beam, water wheel, anvil, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**flywheel** – Schwungrad (Dampf-Schwanzhammer, Epoche 6–8) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 54 Wörter
+**flywheel** – Schwungrad (Dampf-Schwanzhammer, Epoche 6–8) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 54 Wörter  
+*20.11.: gusseisernes Schwungrad mit acht geraden Speichen (statt sechs gebogenen) – unkritisch.*
 ```
 flywheel — 2D game asset, a single cast-iron flywheel of an 18th-century beam engine seen exactly from the front so that it is a perfect circle, six gently curved spokes, a heavy rim, the hub exactly in the centre of the image, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 1:1 --no frame, shaft stand, text, numbers, watermark, border, shadow, photo, 3d render
 ```
