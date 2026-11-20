@@ -12,6 +12,7 @@ const Catalog = preload("res://scripts/catalog.gd")
 const Localization = preload("res://scripts/localization.gd")
 const Furnishings = preload("res://scripts/furnishings.gd")
 const Mastery = preload("res://scripts/mastery.gd")
+const Masterpieces = preload("res://scripts/masterpieces.gd")
 
 const GAME_VERSION := "0.1.0"
 const EPOCH_YEARS := ["1700–1715", "1715–1735", "1735–1750", "1750–1765", "1765–1785", "1785–1800", "1800–1820", "1820–1839", "1839–1860", "1860–1880"]
@@ -74,6 +75,8 @@ var current_epoch: int = 1
 var furnished: Array = []
 ## Meisterschaft je Werkstück: item_id -> {"jobs": n, "best": Sterne}
 var mastery: Dictionary = {}
+## Meisterstück: Abschluss-Meilenstein -> Anzahl bestandener Teile
+var masterpiece_progress: Dictionary = {}
 var jobs_completed_in_epoch: int = 0
 var completed_milestone_ids: Array = []
 var generator_seed: int = 0
@@ -237,6 +240,7 @@ func new_game() -> void:
 	current_epoch = 1
 	furnished = []
 	mastery = {}
+	masterpiece_progress = {}
 	jobs_completed_in_epoch = 0
 	completed_milestone_ids = []
 	var r := RandomNumberGenerator.new()
@@ -451,8 +455,22 @@ func _make_generated_offer() -> JobInstance:
 
 
 func _make_milestone_offer(ms: MilestoneData) -> JobInstance:
-	var j := generator.make_milestone(ms, items.get(ms.item_id, null), jobs_completed_in_epoch)
+	var j: JobInstance
+	if Masterpieces.is_masterpiece(ms.id):
+		var done := int(masterpiece_progress.get(ms.id, 0))
+		var n_parts := Masterpieces.part_count(ms.id)
+		var pt: Array = Masterpieces.part(ms.id, done)
+		if not pt.is_empty() and items.has(str(pt[0])):
+			j = generator.make_masterpiece_part(ms, items[str(pt[0])], int(pt[1]), bool(pt[2]), jobs_completed_in_epoch, done + 1, n_parts)
+		else:
+			j = generator.make_milestone(ms, items.get(ms.item_id, null), jobs_completed_in_epoch)
+			j.part = n_parts
+			j.parts = n_parts
+	else:
+		j = generator.make_milestone(ms, items.get(ms.item_id, null), jobs_completed_in_epoch)
 	_finalize_offer(j)
+	if j.is_masterpiece():
+		request_hint("masterpiece")
 	return j
 
 
@@ -463,6 +481,9 @@ func refresh_offers() -> void:
 	var keep: Array = []
 	for o in job_offers:
 		if o.is_milestone() and (ms == null or o.milestone_id != ms.id):
+			continue
+		# Ältere Spielstände: Meisterstück-Angebot ohne Teile neu erzeugen
+		if o.is_milestone() and Masterpieces.is_masterpiece(o.milestone_id) and not o.is_masterpiece():
 			continue
 		if o.epoch != current_epoch:
 			continue
@@ -668,7 +689,17 @@ func _complete_active_job() -> void:
 		request_hint("furnish_intro")
 	var epoch_done := false
 	var game_done := false
-	if j.is_milestone():
+	# Meisterstück: Die Zunft prüft jeden Teil; bestandene Vorarbeiten zählen, erst das Hauptstück schließt ab
+	var mp_passed := true
+	var milestone_done := j.is_milestone()
+	if j.is_masterpiece():
+		mp_passed = stars >= Masterpieces.MIN_STARS
+		if mp_passed:
+			masterpiece_progress[j.milestone_id] = j.part
+		milestone_done = mp_passed and j.part >= j.parts
+		if milestone_done:
+			stats["masterpieces"] = int(stats.get("masterpieces", 0)) + 1
+	if milestone_done:
 		completed_milestone_ids.append(j.milestone_id)
 		stats["milestones"] = int(stats.get("milestones", 0)) + 1
 		if j.milestone_id == "ms_e5_09_wedgwood" and not cosmetics.has("pyrometer"):
@@ -688,6 +719,7 @@ func _complete_active_job() -> void:
 		"epoch_done": epoch_done, "game_done": game_done,
 		"mastery_before": lv_before, "mastery_after": lv_after, "mastery_jobs": int(m_entry.get("jobs", 0)),
 		"mastery_bonus": Mastery.payout_factor(cfg, lv_before) - 1.0,
+		"masterpiece_part": j.part, "masterpiece_parts": j.parts, "masterpiece_passed": mp_passed,
 	}
 	active_job = null
 	sim.clear_job()
@@ -981,6 +1013,7 @@ func to_save_dict() -> Dictionary:
 			"current_epoch": current_epoch, "jobs_completed_in_epoch": jobs_completed_in_epoch,
 			"furnished": furnished.duplicate(),
 			"mastery": mastery.duplicate(true),
+			"masterpiece_progress": masterpiece_progress.duplicate(),
 			"completed_milestone_ids": completed_milestone_ids.duplicate(),
 			"generator_seed": generator_seed, "generator_state": str(generator.get_state()),
 			"generator_uid": generator.uid_counter,
@@ -1051,6 +1084,12 @@ func load_from_dict(d: Dictionary) -> void:
 				mastery[str(k)] = {"jobs": maxi(0, int(ma[k].get("jobs", 0))), "best": clampi(int(ma[k].get("best", 0)), 0, 3)}
 			else:
 				_log_unknown("item", str(k))
+	masterpiece_progress = {}
+	var mpp = pr.get("masterpiece_progress", {})
+	if mpp is Dictionary:
+		for k in mpp:
+			if milestones.has(str(k)) and Masterpieces.is_masterpiece(str(k)):
+				masterpiece_progress[str(k)] = clampi(int(mpp[k]), 0, Masterpieces.part_count(str(k)))
 	completed_milestone_ids = _known_ids(pr.get("completed_milestone_ids", []), milestones, "milestone")
 	generator_seed = int(pr.get("generator_seed", 1))
 	var gs := str(pr.get("generator_state", ""))
@@ -1141,6 +1180,9 @@ func mastery_jobs(item_id: String) -> int:
 
 
 func job_title(j: JobInstance) -> String:
+	if j.is_masterpiece():
+		return Localization.trf("MP_TITLE", {"title": tr("MS_" + j.milestone_id.to_upper() + "_TITLE"),
+			"k": j.part, "n": j.parts, "item": item_name(j.template_id, j.quantity > 1), "qty": j.quantity})
 	if j.is_milestone():
 		return tr("MS_" + j.milestone_id.to_upper() + "_TITLE")
 	var plural := j.quantity > 1

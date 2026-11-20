@@ -61,32 +61,41 @@ CUST_WEDGWOOD_ETRURIA,Josiah Wedgwood in Etruria,Josiah Wedgwood of Etruria
 CUST_WHITE_STAR,die White Star Line,the White Star Line
 EPOCH_10_INTRO,"Euer eigenes Stahlwerk in Sheffield: Der Siemens-Gasofen erreicht 1550 °C, der große Dampfhammer schmiedet Panzerplatten und Wellen für Ozeandampfer. Stahl verlangt engere Fenster und oft das Härten – das Meisterstück Eures Lebens.","Your own steelworks in Sheffield: the Siemens gas furnace reaches 1550 °C, the great steam hammer forges armour plate and shafts for ocean liners. Steel demands narrower windows and often hardening – the masterpiece of your life."
 EPOCH_10_NAME,Das Stahlzeitalter,The Age of Steel
+EPOCH_10_NEW,Riesige Teile aus Bessemer-Stahl | Siemens-Ofen und großer Dampfhammer | Das letzte Meisterstück Eures Lebens,Huge parts of Bessemer steel | Siemens furnace and great steam hammer | The last masterpiece of your life
 EPOCH_10_TEASER,"Bessemer und Siemens machen Stahl zum Massengut. Panzerschiffe, Ozeandampfer und Eisenbahnen verlangen Stahl in nie gekannten Mengen.","Bessemer and Siemens make steel a bulk material. Ironclads, ocean liners and railways demand steel as never before."
 EPOCH_1_INTRO,"Landwirtschaft und Alltag: Nägel, Hufeisen, Haken, Türangeln, Sicheln und Pflugscharen.","Farming and everyday life: nails, horseshoes, hooks, hinges, sickles and ploughshares."
 EPOCH_1_NAME,Die Dorfschmiede,The Village Smithy
 EPOCH_2_INTRO,"Ihr habt die Schmiede an der Poststraße gepachtet. Kutscher und Postmeister brauchen Radreifen, Achsen und Beschläge – oft gleich mehrere Stück und manchmal in Eile. Eine Ziegel-Esse mit zwei Plätzen und ein Lehrling helfen dabei.","You have leased the smithy on the post road. Coachmen and postmasters need tyres, axles and fittings – often several at once, and sometimes in a hurry. A brick forge with two places and an apprentice will help."
 EPOCH_2_NAME,Kutschen & Handelswege,Coaches & Trade Roads
+EPOCH_2_NEW,"Mengenaufträge: mehrere Stücke auf einmal, dazu die Ziegel-Esse mit zwei Plätzen | Der Lehrling legt Stücke für Euch um | Mittlere Schlagstärke | Eilaufträge mit Zeitlimit (ab der Mitte des Kapitels)","Bulk orders: several pieces at once, with the brick forge holding two | The apprentice moves pieces for you | Medium blow force | Rush orders with a time limit (from the middle of the chapter)"
 EPOCH_2_TEASER,"Die Mautstraßen werden ausgebaut, Postkutschen rollen durchs Land. Eine Schmiede an der Poststraße wartet auf Euch.",The turnpikes are spreading and mail coaches roll across the land. A smithy on the post road awaits you.
 EPOCH_3_INTRO,"Eure neue Werkstatt liegt am Hafen. Ketten, Anker und Bootshaken müssen feuergeschweißt werden: Bei halber Arbeit braucht das Eisen Weißglut (1200–1300 °C). Ein Zuschläger mit dem Vorschlaghammer beschleunigt die Arbeit.","Your new workshop lies on the harbour. Chains, anchors and boathooks must be forge-welded: halfway through, the iron needs white heat (1200–1300 °C). A striker with a sledgehammer speeds up the work."
 EPOCH_3_NAME,Hafen & Royal Navy,Harbour & Royal Navy
+EPOCH_3_NEW,"Feuerschweißen in der Weißglut – schnell sein, sonst verbrennt das Eisen | Doppelbalg-Esse mit drei Plätzen | Der Zuschläger schlägt mit dem Vorschlaghammer mit",Forge welding at white heat – be quick or the iron burns | Double-bellows forge with three places | The striker joins in with the sledgehammer
 EPOCH_3_TEASER,"Die Flotte wächst. Im Hafen sucht man Schmiede, die Ketten und Anker im Feuer schweißen können.",The fleet is growing. The harbour needs smiths who can forge-weld chains and anchors.
 EPOCH_4_INTRO,"Mit dem Meisterbrief der Gilde fertigt Ihr nun Klingen, Federn und Werkzeuge. Nach dem Schmieden werden sie im Löschtrog gehärtet – am besten bei Kirschrot (760–840 °C). Ein Geselle arbeitet für Euch, sogar während Ihr ruht.","With the guild's master certificate you now make blades, springs and tools. After forging they are hardened in the quench trough – best at cherry red (760–840 °C). A journeyman works for you, even while you rest."
 EPOCH_4_NAME,Stahl & Tuch,Steel & Cloth
+EPOCH_4_NEW,"Stahl: kühler schmieden als Eisen | Härten im Löschtrog bei der richtigen Hitze | Der Geselle arbeitet auch, wenn Ihr nicht da seid | Mehr Präzisionsaufträge",Steel: forge it cooler than iron | Hardening in the quench trough at the right heat | The journeyman works even while you are away | More precision orders
 EPOCH_4_TEASER,Huntsmans Tiegelstahl aus Sheffield und die ersten Spinnmaschinen verlangen nach gehärtetem Werkzeug.,Huntsman's Sheffield crucible steel and the first spinning machines call for hardened tools.
 EPOCH_5_INTRO,"Ihr habt ein Hammerwerk mit Wasserrad übernommen. Ein Wasser-Schwanzhammer schlägt von selbst mit, solange ein Werkstück auf dem Amboss liegt – je nach Wasserstand mit 60 bis 100 % Kraft. Die Koks-Esse heizt schneller und heißer als alles zuvor.",You have taken over a hammer mill with a water-wheel. A water-powered helve strikes on its own while a piece lies on the anvil – at 60 to 100 % power depending on the water level. The coke forge heats faster and hotter than anything before.
 EPOCH_5_NAME,Das Zeitalter des Dampfes,The Age of Steam
+EPOCH_5_NEW,Die erste Maschine: der Wasser-Schwanzhammer – achtet auf den Wasserstand | Koks-Esse,The first machine: the water-powered helve hammer – watch the water level | Coke forge
 EPOCH_5_TEASER,"Watts Dampfmaschine, Gruben und Kanäle: Ein Hammerwerk mit Wasserrad steht zum Verkauf.","Watt's steam engine, mines and canals: a hammer mill with a water-wheel is for sale."
 EPOCH_6_INTRO,"Als Teilhaber eines Eisenwerks schmiedet Ihr Wellen, Achsen und Kesselteile. Großschmiedestücke sind zu schwer für den Handhammer – hier arbeitet vor allem der Dampf-Schwanzhammer, Ihr steuert Hitze und Abläufe. Dampf kostet Kohle: 5s je Betriebsminute.","As a partner in an ironworks you forge shafts, axles and boiler parts. Heavy forgings are too much for the hand hammer – the steam helve does most of the work while you manage heat and timing. Steam costs coal: 5s per minute of operation."
 EPOCH_6_NAME,Das Zeitalter der Eisenwerke,The Age of Ironworks
+EPOCH_6_NEW,"Große Schmiedestücke, die nur mit Maschine gelingen | Dampf-Schwanzhammer, unabhängig vom Wasser","Large forgings that only succeed with a machine | Steam helve hammer, independent of the water"
 EPOCH_6_TEASER,Corts Puddelverfahren macht Schmiedeeisen massenhaft verfügbar. Ein Eisenwerk sucht Teilhaber.,Cort's puddling process makes wrought iron plentiful. An ironworks is looking for partners.
 EPOCH_7_INTRO,"Eure neue Schmiede liegt in Lambeth, Tür an Tür mit Henry Maudslays Werkstatt. Die Royal Navy bestellt in großen Mengen, Telford braucht Eisen für Kanäle und Brücken, und London bekommt Gaslaternen. Ein Heizer hält Eure Esse heißer – und Maudslays Präzisionsaufträge verlangen die richtige Schlagstärke für jeden Arbeitsgang.","Your new smithy is in Lambeth, next door to Henry Maudslay's workshop. The Royal Navy orders in bulk, Telford needs iron for canals and bridges, and London is getting gas lamps. A stoker keeps your fire hotter – and Maudslay's precision orders demand the right blow strength for every step."
 EPOCH_7_NAME,Krieg & Erfindergeist,War & Invention
+EPOCH_7_NEW,Präzision im Maschinenbau: enge Zielfenster | Der Heizer hält die Esse heiß,Precision engineering: narrow target windows | The stoker keeps the forge hot
 EPOCH_7_TEASER,"Napoleon sperrt den Kontinent, die Navy braucht Eisen, und in London baut Maudslay Maschinen, die Maschinen bauen.","Napoleon blockades the Continent, the Navy needs iron, and in London Maudslay builds machines that build machines."
 EPOCH_8_INTRO,"Newcastle ist das Herz des Lokomotivbaus. Ihr schmiedet in Serie: Schienennägel, Kupplungen, Radreifen, Treibstangen und schwere Kurbelachsen. Der neue Schweißofen erreicht 1500 °C und heizt schneller als jede Esse zuvor.","Newcastle is the heart of locomotive building. You forge in series: track spikes, couplings, tyres, connecting rods and heavy crank axles. The new welding furnace reaches 1500 °C and heats faster than any forge before."
 EPOCH_8_NAME,Eisenbahnfieber,Railway Mania
+EPOCH_8_NEW,Große Mengen für die Eisenbahn | Der Schweißofen,Large quantities for the railway | The welding furnace
 EPOCH_8_TEASER,"1825 fährt der erste Zug von Stockton nach Darlington. Lokomotiven brauchen Achsen, Radreifen und Kupplungen – viele davon.","In 1825 the first train runs from Stockton to Darlington. Locomotives need axles, tyres and couplings – lots of them."
 EPOCH_9_INTRO,"In Patricroft arbeitet Ihr mit Nasmyths Dampfhammer. Anders als der Schwanzhammer schlägt er mit genau der Stärke, die Ihr wählt – und arbeitet deshalb in jedem Arbeitsgang mit. Brunels „Great Britain“, die Britannia-Brücke und der Kristallpalast warten auf Eure Schmiedestücke.","At Patricroft you work with Nasmyth's steam hammer. Unlike the helve it strikes with exactly the strength you choose – and therefore works in every step. Brunel's Great Britain, the Britannia Bridge and the Crystal Palace are waiting for your forgings."
 EPOCH_9_NAME,Der Dampfhammer,The Steam Hammer
+EPOCH_9_NEW,Der Nasmyth-Dampfhammer mit wählbarer Schlagstärke,The Nasmyth steam hammer with selectable blow force
 EPOCH_9_TEASER,"James Nasmyth hat einen Hammer erfunden, den Dampf hebt und fallen lässt – fein genug für ein Ei, stark genug für eine Schiffswelle.","James Nasmyth has invented a hammer lifted and dropped by steam – gentle enough for an egg, strong enough for a ship's shaft."
 ERR_INVALID,Ungültiges Angebot.,Invalid offer.
 ERR_JOB_ACTIVE,Es läuft bereits ein Auftrag.,An order is already in progress.
@@ -221,6 +230,8 @@ HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab �
 HINT_JOURNEYMAN_TITLE,Der Geselle,The journeyman
 HINT_MACHINE_TEXT,"Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur schwer und ruht in leichten Arbeitsgängen.","You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes heavy only and rests during light steps."
 HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
+HINT_MASTERPIECE_TEXT,"Am Ende jedes Kapitels steht ein Meisterstück: ein großer Auftrag aus mehreren Teilen, der alles verlangt, was Ihr in dieser Werkstatt gelernt habt. Die Zunft prüft jeden Teil und verlangt mindestens zwei Sterne – sonst wird er neu geschmiedet. Erst mit dem Meisterbrief geht es weiter.",Every chapter ends with a masterpiece: a large commission in several parts that demands everything you have learned in this workshop. The guild inspects every part and demands at least two stars – otherwise it must be forged again. Only with the master's certificate can you move on.
+HINT_MASTERPIECE_TITLE,Das Meisterstück,The masterpiece
 HINT_MASTERY_TEXT,"Euer erstes Siegel! Wer ein Werkstück immer wieder schmiedet, erhält Bronze-, Silber- und Goldsiegel – und für dieses Werkstück jedes Mal mehr Lohn. Alle Werkstücke und Siegel findet Ihr im Musterbuch (Statistik).","Your first seal! Forge a piece again and again to earn bronze, silver and gold seals – and a higher wage for that piece each time. All pieces and seals are in the pattern book (statistics)."
 HINT_MASTERY_TITLE,Meisterschaft,Mastery
 HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr in der Mitte des Zielfensters schmiedet: Jedes Fenster ist auf seine mittleren 60 % verengt. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the middle of the target window counts here: every window is narrowed to its central 60 %. Three stars earn a 25 % tip.
@@ -492,6 +503,15 @@ MASTERY_GOLD,Goldsiegel,Gold seal
 MASTERY_SILVER,Silbersiegel,Silver seal
 MAT_IRON,Schmiedeeisen,Wrought iron
 MAT_STEEL,Stahl,Steel
+MP_BOOK,Meisterstück: {title} – {state},Masterpiece: {title} – {state}
+MP_BOOK_DONE,vollbracht,completed
+MP_BOOK_OPEN,{k} von {n} Teilen,{k} of {n} parts
+MP_DONE,Meisterstück vollbracht: {title}! Die Zunft verleiht Euch den Meisterbrief.,Masterpiece completed: {title}! The guild awards you the master's certificate.
+MP_FAILED,Die Zunft verlangt mindestens {n} Sterne – dieser Teil muss neu geschmiedet werden.,The guild demands at least {n} stars – this part must be forged again.
+MP_HEAD,Meisterstück der Epoche: {title},Masterpiece of the era: {title}
+MP_PART_DONE,Teil {k} von {n} des Meisterstücks hat die Prüfung der Zunft bestanden!,Part {k} of {n} of the masterpiece has passed the guild's inspection!
+MP_RULE,"Die Zunft prüft jeden Teil: mindestens {n} Sterne, sonst wird er neu geschmiedet.","The guild inspects every part: at least {n} stars, otherwise it must be forged again."
+MP_TITLE,Meisterstück {k}/{n}: {item},Masterpiece {k}/{n}: {item}
 MSG_FURNISHED,Werkstatt vollständig eingerichtet! Prämie der Zunft: {bonus},Workshop fully fitted out! Guild bonus: {bonus}
 MSG_RUIN_COST,Neuer Rohling: -{cost},New blank: -{cost}
 MS_MS_E10_01_REAPERS_TEXT,Die Mähmaschine ersetzt die Sense. Hornsby verkauft sie bis nach Russland.,The reaping machine replaces the scythe. Hornsby sells them as far as Russia.
@@ -726,6 +746,7 @@ STAT_FURNISHED,Vollständig eingerichtete Werkstätten,Workshops fully fitted ou
 STAT_HITS,Hammerschläge,Hammer blows
 STAT_JOBS,Abgeschlossene Aufträge,Orders completed
 STAT_JOURNEYMAN,Verdienst des Gesellen,Journeyman's earnings
+STAT_MASTERPIECES,Meisterstücke,Masterpieces
 STAT_MILESTONES,Meilensteine,Milestones
 STAT_PLAYTIME,Spielzeit,Play time
 STAT_REPUTATION,Ruf,Reputation
@@ -794,6 +815,9 @@ UI_CREDITS,Mitwirkende,Credits
 UI_DAMAGE_INFO,Gefügeschaden {d} %,Structural damage {d} %
 UI_EPOCH_CHANGE,Epochenwechsel,A new era
 UI_EPOCH_DONE,Epoche {e} abgeschlossen!,Era {e} complete!
+UI_EPOCH_EXPECT,Was Euch erwartet:,What awaits you:
+UI_EPOCH_NEW,Neu in diesem Kapitel:,New in this chapter:
+UI_EPOCH_NEW_ALWAYS,Eine neue Werkstatt zum Einrichten und am Ende ein Meisterstück,A new workshop to fit out and a masterpiece at the end
 UI_EPOCH_PROGRESS,Aufträge in dieser Epoche: {n} / {total},Orders this era: {n} / {total}
 UI_EQUIP,Benutzen,Use
 UI_EQUIPPED,In Gebrauch,In use

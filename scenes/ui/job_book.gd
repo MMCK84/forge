@@ -5,6 +5,7 @@ extends "res://scenes/ui/overlay.gd"
 const Economy = preload("res://scripts/economy.gd")
 const Mastery = preload("res://scripts/mastery.gd")
 const Seal = preload("res://scenes/ui/mastery_seal.gd")
+const Masterpieces = preload("res://scripts/masterpieces.gd")
 const Assets = preload("res://scripts/assets.gd")
 ## Kunden der Marine bekommen das Admiralitätssiegel
 const NAVY := ["navy_board", "dockyard_chatham", "harbourmaster", "shipwright_portsmouth"]
@@ -119,8 +120,13 @@ func _book_entry(i: int, j: JobInstance, width: float) -> Control:
 		seal.custom_minimum_size = Vector2(70, 70)
 		seal.tooltip_text = tr("TYPE_MILESTONE") if j.is_milestone() else tr("CUST_" + j.customer_id.to_upper())
 		row.add_child(seal)
+	if j.is_masterpiece():
+		box.add_child(UIKit.wrap_label(tr("MP_HEAD").format({"title": tr("MS_" + j.milestone_id.to_upper() + "_TITLE")}), 20, UIKit.LEATHER, width))
 	if j.is_milestone():
 		box.add_child(UIKit.wrap_label(tr("MS_" + j.milestone_id.to_upper() + "_TEXT"), 18, UIKit.INK_LIGHT, width))
+	if j.is_masterpiece():
+		box.add_child(UIKit.wrap_label(_masterpiece_parts(j), 18, UIKit.INK, width))
+		box.add_child(UIKit.wrap_label(tr("MP_RULE").format({"n": Masterpieces.MIN_STARS}), 18, UIKit.RED, width))
 	var tags: PackedStringArray = [tr("TYPE_" + j.type.to_upper())]
 	if j.is_milestone() and j.precise:
 		tags.append(tr("TYPE_PRECISION"))
@@ -228,3 +234,20 @@ func _confirm_abort() -> void:
 func _do_abort() -> void:
 	GameManager.abort_job()
 	rebuild()
+
+
+## Teile des Meisterstücks mit Stand: ✔ fertig, ▶ jetzt, · noch offen.
+func _masterpiece_parts(j: JobInstance) -> String:
+	var gm := GameManager
+	var names: PackedStringArray = []
+	for k in j.parts:
+		var item_id: String = gm.milestones[j.milestone_id].item_id
+		var qty: int = gm.milestones[j.milestone_id].quantity
+		var pt: Array = Masterpieces.part(j.milestone_id, k)
+		if not pt.is_empty():
+			item_id = str(pt[0])
+			qty = int(pt[1])
+		var mark := "✔" if k + 1 < j.part else ("▶" if k + 1 == j.part else "·")
+		var name := gm.item_name(item_id, qty > 1)
+		names.append("%s %s%s" % [mark, ("%d× " % qty) if qty > 1 else "", name])
+	return "   ".join(names)

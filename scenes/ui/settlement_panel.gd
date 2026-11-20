@@ -6,6 +6,7 @@ const Assets = preload("res://scripts/assets.gd")
 const JobBook = preload("res://scenes/ui/job_book.gd")
 const Mastery = preload("res://scripts/mastery.gd")
 const Seal = preload("res://scenes/ui/mastery_seal.gd")
+const Masterpieces = preload("res://scripts/masterpieces.gd")
 
 var report: Dictionary = {}
 var _continue_btn: Button
@@ -39,6 +40,7 @@ func build(box: VBoxContainer) -> void:
 	var stars_row := CenterContainer.new()
 	stars_row.add_child(UIKit.stars_view(int(report["stars"]), 64.0))
 	box.add_child(stars_row)
+	_masterpiece_row(box, j)
 	_mastery_row(box, j)
 	var lines: Array = []
 	lines.append(["SET_HIT_QUOTE", "%d %%" % int(round(float(report["hit_quote"]) * 100.0))])
@@ -148,4 +150,28 @@ func _mastery_row(box: VBoxContainer, j: JobInstance) -> void:
 		else:
 			text = tr("SET_MASTERY_MAX").format({"item": item, "n": jobs})
 		row.add_child(UIKit.wrap_label(text, 20, UIKit.INK_LIGHT, 440))
+	box.add_child(row)
+
+
+## Meisterstück: Teil bestanden / Meisterbrief / Prüfung nicht bestanden.
+func _masterpiece_row(box: VBoxContainer, j: JobInstance) -> void:
+	if j.parts <= 0:
+		return
+	var passed := bool(report.get("masterpiece_passed", true))
+	var text := ""
+	var col := UIKit.GREEN
+	if not passed:
+		text = tr("MP_FAILED").format({"n": Masterpieces.MIN_STARS})
+		col = UIKit.RED
+	elif j.part >= j.parts:
+		text = tr("MP_DONE").format({"title": tr("MS_" + j.milestone_id.to_upper() + "_TITLE")})
+		GameManager.sim_event.emit("mastery_up", {"level": 3})
+	else:
+		text = tr("MP_PART_DONE").format({"k": j.part, "n": j.parts})
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 14)
+	if passed and j.part >= j.parts:
+		row.add_child(Seal.make(3, 72.0))
+	row.add_child(UIKit.wrap_label(text, 24 if passed else 22, col, 460))
 	box.add_child(row)

@@ -6,6 +6,7 @@ const Assets = preload("res://scripts/assets.gd")
 const Mastery = preload("res://scripts/mastery.gd")
 const ItemShapes = preload("res://scripts/item_shapes.gd")
 const Seal = preload("res://scenes/ui/mastery_seal.gd")
+const Masterpieces = preload("res://scripts/masterpieces.gd")
 
 const COLS := 4
 const CELL := Vector2(150, 196)
@@ -46,6 +47,15 @@ func build(box: VBoxContainer) -> void:
 		if hf != null:
 			head.add_theme_font_override("font", hf)
 		box.add_child(head)
+		var fm: MilestoneData = gm.final_milestone(e)
+		if fm != null and reached:
+			var mp_state := ""
+			if gm.completed_milestone_ids.has(fm.id):
+				mp_state = tr("MP_BOOK_DONE")
+			else:
+				mp_state = tr("MP_BOOK_OPEN").format({"k": int(gm.masterpiece_progress.get(fm.id, 0)), "n": Masterpieces.part_count(fm.id)})
+			box.add_child(UIKit.wrap_label(tr("MP_BOOK").format({"title": tr("MS_" + fm.id.to_upper() + "_TITLE"), "state": mp_state}), 18,
+				UIKit.GREEN if gm.completed_milestone_ids.has(fm.id) else UIKit.INK_LIGHT, 620))
 		var grid := GridContainer.new()
 		grid.columns = COLS
 		grid.add_theme_constant_override("h_separation", 8)

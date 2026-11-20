@@ -48,6 +48,13 @@ wenn alles fertig ist.
   Prompts U18–U20). Wird gespeichert (`progress.mastery`).
 - **Musterbuch** (Knopf in der Statistik): alle 80 Werkstücke nach Epochen, geschmiedete mit Bild, Anzahl, bester
   Bewertung und Siegel, noch nie geschmiedete als Schattenriss (`scenes/ui/pattern_book.gd`).
+- **Meisterstück je Epoche:** Der Abschluss-Meilenstein jeder Epoche ist ein mehrteiliges Meisterstück: 1–2 Vorarbeiten,
+  die die Mechaniken des Kapitels abfragen (z. B. Epoche 3: Kettenglieder und Ring geschweißt, dann der Ankerschaft),
+  danach das Hauptstück. Die Zunft prüft jeden Teil (mindestens 2 Sterne, sonst neu schmieden). Teile und Stand im
+  Auftragsbuch, Abrechnung mit „Teil bestanden“ bzw. Meisterbrief, Stand im Musterbuch, Hinweisfenster beim ersten
+  Meisterstück, Statistik. Daten `scripts/masterpieces.gd`, Fortschritt wird gespeichert (`progress.masterpiece_progress`).
+- **Kapitelübergang:** Das Epochenfenster zeigt beim Angebot „Was Euch erwartet“ und nach dem Umzug „Neu in diesem
+  Kapitel“ (neue Mechaniken, Ausrüstung, Personal; Texte `EPOCH_<n>_NEW`).
 - **Tests:** Unit-Tests grün (1841 Prüfungen, 0 Fehler, 20.11.); grafischer Spieltest bis Epoche 10 (mit Einrichtung).
 
 ## Bildstatus (Prompt-Heft)
@@ -111,7 +118,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 6. **Kernausbau (beschlossen 20.11., in dieser Reihenfolge):** (1) ✔ **Schlagserie** (Treffer in Folge im Zielfenster,
    kleiner Bonus) und ✔ **Stufensprung** je Arbeitsgang (Funken, Klang; später Zwischenbilder, erst Epoche 1 zur Probe);
    (2) ✔ **Meisterschaft je Werkstück** (Siegel, kleiner Vorteil) mit ✔ **Musterbuch** (Sammlung aller Werkstücke);
-   (3) **Meisterstück je Epoche** und **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
+   (3) ✔ **Meisterstück je Epoche** und ✔ **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
    Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
 7. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
@@ -235,6 +242,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Meisterschaft je Werkstück und Musterbuch** (Kernausbau Schritt 2), siehe „Fertig“. Prompt-Heft: Siegel
   U18–U20. Der Lohnbonus verkürzte die Spielzeit auf 13,0 h (`balance_sim.gd` rechnet die Meisterschaft mit) →
   nachgestimmt (3 Iterationen): **13,40 h**, alle Epochen ±3 %. Tests 2132/0, Spieltest 0 Probleme.
+- 20.11.: **Meisterstück und Kapitelübergang** (Kernausbau Schritt 3), siehe „Fertig“. `balance_sim.gd` rechnet die
+  Vorarbeiten jetzt mit: Spielzeit **13,9 h** (4 Seeds, Minuten 12.8/23.2/59.0/82.6/135.1/152.2/79.6/88.3/95.7/104.0),
+  also rund 30 Minuten mehr – bewusst nicht weggestimmt (Spielzeit darf länger werden). Tests 2148/0, Spieltest 0 Probleme.
+  **Kernausbau damit abgeschlossen – Kern eingefroren.** Weiter mit Bildern, Musik und Feinschliff.
 
 ## Prüfen
 

@@ -30,6 +30,7 @@ func build(box: VBoxContainer) -> void:
 		["STAT_RUINED", str(int(st.get("pieces_ruined", 0)))],
 		["STAT_HITS", str(int(st.get("hits", 0)))],
 		["STAT_BEST_STREAK", str(int(st.get("best_streak", 0)))],
+		["STAT_MASTERPIECES", str(int(st.get("masterpieces", 0)))],
 	]
 	var book := UIKit.button(tr("UI_PATTERN_BOOK"), _open_book, Vector2(0, 64), 24)
 	box.add_child(book)

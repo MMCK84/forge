@@ -12,6 +12,7 @@ const ReferencePlayer = preload("res://scripts/reference_player.gd")
 const JobGenerator = preload("res://scripts/job_generator.gd")
 const Furnishings = preload("res://scripts/furnishings.gd")
 const Mastery = preload("res://scripts/mastery.gd")
+const Masterpieces = preload("res://scripts/masterpieces.gd")
 
 ## Zielwerte aus 5.8: [Minuten, Einnahmen in Pence]
 const TARGETS := [[12, 900], [23, 7200], [56, 26160], [83, 67440], [131, 186960], [157, 453600],
@@ -96,6 +97,24 @@ func _init() -> void:
 			if n == ne - 1:
 				last = d
 			n += 1
+		# Vorarbeiten des Meisterstücks (zusätzliche Aufträge am Ende der Epoche; das Hauptstück
+		# selbst steckt wie die übrigen Meilensteine im Auftragsmix)
+		var mp_s := 0.0
+		var fm: MilestoneData = _final_milestone(e)
+		if mixed and fm != null:
+			var np := Masterpieces.part_count(fm.id)
+			for k in np - 1:
+				var pt: Array = Masterpieces.part(fm.id, k)
+				var it: ItemData = _item(str(pt[0]))
+				if it == null:
+					continue
+				var pj := gen.make_masterpiece_part(fm, it, int(pt[1]), bool(pt[2]), ne - 1, k + 1, np)
+				var pd := ReferencePlayer.estimate_job(cfg, pj, _setup(e), 0.05)
+				var pg := Economy.round_half_up(float(Economy.job_payout(cfg, pj.reward_base_pence, pj.is_precision(), 2, false)) * float(_fx(e)["payout_factor"]))
+				money += pg
+				ep_income += pg
+				mp_s += pd
+			ep_time += mp_s
 		if e < last_epoch:
 			money -= fee
 		total_s += ep_time
@@ -205,3 +224,18 @@ func _dump_stuck(job: JobInstance, setup: Dictionary) -> void:
 	for i in copy.pieces.size():
 		var p = copy.pieces[i]
 		print("  Stück %d: %s T=%.0f prog=%.0f/%.0f quench_wait=%s weld=%s step=%d window=%s" % [i, p.location, p.temp, p.progress, copy.piece_fp(), s.awaiting_quench(i), s.in_weld_phase(i), s.step_index(i), s.step_window(i)])
+
+
+func _final_milestone(e: int) -> MilestoneData:
+	var best: MilestoneData = null
+	for ms in Catalog.MILESTONES:
+		if ms.epoch == e and (best == null or ms.index > best.index):
+			best = ms
+	return best
+
+
+func _item(id: String) -> ItemData:
+	for it in Catalog.ITEMS:
+		if it.id == id:
+			return it
+	return null

@@ -256,6 +256,28 @@ func generate(epoch: int, n: int, free_play: bool, ctx: Dictionary) -> JobInstan
 	return j
 
 
+## Vorarbeit eines Meisterstücks: eigener Gegenstand und eigene Menge, sonst wie der Meilenstein.
+func make_masterpiece_part(ms: MilestoneData, item: ItemData, qty: int, precise: bool, n: int, part: int, parts: int) -> JobInstance:
+	var j := JobInstance.new()
+	j.epoch = ms.epoch
+	j.type = JobInstance.TYPE_MILESTONE
+	j.precise = precise
+	j.milestone_id = ms.id
+	j.template_id = item.id
+	j.category = item.category
+	j.steps = item.steps.duplicate(true)
+	j.material = item.material
+	j.quality = "solid"
+	j.customer_id = ms.customer_id
+	j.quantity = maxi(1, qty)
+	j.form_points = Economy.job_form_points(cfg, ms.epoch, n, item.factor, 1.0, true)
+	j.reward_base_pence = Economy.reward_base(cfg, ms.epoch, j.form_points, 1.0, j.type)
+	j.uid = "%s_p%d" % [ms.id, part]
+	j.part = part
+	j.parts = parts
+	return j
+
+
 ## Erzeugt den Auftrag zu einem Story-Meilenstein (3.5).
 func make_milestone(ms: MilestoneData, item: ItemData, n: int) -> JobInstance:
 	var j := JobInstance.new()

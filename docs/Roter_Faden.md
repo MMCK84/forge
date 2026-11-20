@@ -56,19 +56,32 @@ Erfolgserlebnisse auf jeder Zeitebene:
 |---|---|---|
 | Sekunden | **Schlagserie** (alle 5 Treffer +10 % Schlagkraft, max. +30 %), **Stufensprung** je Arbeitsgang | umgesetzt |
 | Minuten | **Meisterschaft je Werkstück** (Bronze/Silber/Gold nach 2/5/10 Aufträgen, je +5 % Lohn), **Musterbuch** | umgesetzt |
-| Stunden | **Meisterstück je Epoche**, **Kapitelübergang** | als Nächstes |
+| Stunden | **Meisterstück je Epoche** (Vorarbeiten + Hauptstück, Zunftprüfung ≥ 2 Sterne), **Kapitelübergang** („Was Euch erwartet“) | umgesetzt |
 
 Das erste Siegel gibt es meist schon in der Lehrzeit (Auftrag 3: zweiter Nagel) – ein frühes Erfolgserlebnis.
 
 Die Schlagserie gilt ab dem ersten Auftrag (keine neue Bedienung, sie erklärt sich durch die Anzeige).
 Danach wird der Kern eingefroren.
 
+### Meisterstücke (scripts/masterpieces.gd)
+
+| Ep. | Vorarbeiten | Hauptstück |
+|---|---|---|
+| 1 | 2 Türangeln | Torriegel für die Kirchentür (präzise) |
+| 2 | 3 Kutschbeschläge, Hemmschuh | 4 Radreifen für die Postkutsche |
+| 3 | 3 Kettenglieder, Festmacherring (geschweißt) | Ankerschaft (geschweißt) |
+| 4 | 2 Federn (gehärtet), 2 Ladeketten (geschweißt) | 6 Lafettenbeschläge für die Victory (präzise) |
+| 5 | 2 Ventilteile, Pumpengestänge | Kolbenstange (präzise) |
+| 6 | 4 Kesselnieten, Blattfeder (gehärtet) | Antriebswelle (großes Stück) |
+| 7 | 4 Blockrollen-Bolzen (präzise) | Brückenglied der Menai-Brücke |
+| 8 | 2 Kupplungshaken, 2 Pufferfedern | Kurbelachse (präzise) |
+| 9 | 4 Brückennieten, Admiralitätsanker | Schraubenwelle der SS Great Britain |
+| 10 | 2 Stahlachsen, 2 Geschützringe | Stahlwelle des Atlantik-Dampfers |
+
+Danach ist der Kern eingefroren (keine neuen Mechaniken mehr).
+
 ## Weitere Vorschläge (zur Entscheidung)
 
-- **Meisterstück je Epoche:** Der letzte Meilenstein jeder Epoche als großes, mehrteiliges Stück, das
-  alle Mechaniken des Kapitels zusammenfasst (z. B. Epoche 3: geschweißte Ankerkette mit Haken).
 - **Stammkunden mit kleinen Geschichten:** zwei, drei wiederkehrende Kunden je Epoche, deren Aufträge
   aufeinander aufbauen (die Meilensteine erzählen das schon teilweise).
-- **Epochenwechsel als Kapitelübergang:** kurzer Text „Was Euch erwartet“ mit den neuen Mechaniken
-  des nächsten Kapitels (das Angebotsfenster gibt es schon, es nennt aber nur Gebühr und Ort).
 - **Sichtbares Personal** (Konzept Aufbau, Teil 2): Lehrling, Zuschläger, Geselle und Heizer als Figuren.

@@ -68,6 +68,9 @@ var elapsed_s: float = 0.0
 var category: String = "normal"
 var epoch: int = 1
 var milestone_id: String = ""
+## Meisterstück: Teil (1-basiert) von parts; 0 = kein Meisterstück
+var part: int = 0
+var parts: int = 0
 ## Enges Zielfenster (Präzisionsaufträge und Präzisions-Meilensteine)
 var precise: bool = false
 ## Geschätzte Dauer laut Referenzmodell (Anzeige im Auftragsbuch)
@@ -84,6 +87,11 @@ var pieces: Array = []
 
 func is_milestone() -> bool:
 	return type == TYPE_MILESTONE
+
+
+## Teil eines Meisterstücks (Abschluss-Meilenstein der Epoche)?
+func is_masterpiece() -> bool:
+	return parts > 0
 
 
 func is_precision() -> bool:
@@ -175,6 +183,7 @@ func to_dict(include_pieces: bool = true) -> Dictionary:
 		"form_points": form_points, "reward_base_pence": reward_base_pence,
 		"time_limit_s": (time_limit_s if time_limit_s > 0.0 else null),
 		"category": category, "epoch": epoch, "milestone_id": milestone_id,
+		"part": part, "parts": parts,
 		"precise": precise, "estimate_s": estimate_s,
 		"steps": steps.duplicate(true), "material": material,
 	}
@@ -209,6 +218,8 @@ static func from_dict(d: Dictionary) -> JobInstance:
 	j.category = str(d.get("category", "normal"))
 	j.epoch = int(d.get("epoch", 1))
 	j.milestone_id = str(d.get("milestone_id", ""))
+	j.part = int(d.get("part", 0))
+	j.parts = int(d.get("parts", 0))
 	j.estimate_s = float(d.get("estimate_s", 0.0))
 	j.precise = bool(d.get("precise", j.type == TYPE_PRECISION))
 	var st = d.get("steps", [])

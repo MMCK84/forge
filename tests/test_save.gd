@@ -287,3 +287,59 @@ func test_mastery() -> void:
 	var expect := int(round(float(reports[0]["gross"]) * Mastery.payout_factor(cfg, 3) / Mastery.payout_factor(cfg, int(reports[0]["mastery_before"]))))
 	assert_true(absi(int(reports[1]["gross"]) - expect) <= 1, "Lohn mit Goldsiegel höher (%d vs. %d)" % [int(reports[1]["gross"]), expect])
 	gm.end_session()
+
+
+func test_masterpiece() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	var MP = load("res://scripts/masterpieces.gd")
+	gm.new_game()
+	gm.seen_hints.append("tutorial_done")
+	var fm: MilestoneData = gm.final_milestone(1)
+	for ms in gm.milestones_by_epoch[1]:
+		if ms.id != fm.id:
+			gm.completed_milestone_ids.append(ms.id)
+	gm.jobs_completed_in_epoch = gm.epoch_job_count(1)
+	gm.job_offers = []
+	gm.refresh_offers()
+	var o: JobInstance = gm.job_offers[0]
+	assert_true(o.is_masterpiece(), "Abschluss-Meilenstein ist ein Meisterstück")
+	assert_eq(o.part, 1)
+	assert_eq(o.parts, MP.part_count(fm.id))
+	assert_eq(o.template_id, str(MP.part(fm.id, 0)[0]), "erste Vorarbeit")
+	# Teil 1 mit zu wenigen Sternen: Zunft lehnt ab, Teil bleibt offen
+	gm.accept_offer(0)
+	var fp: float = gm.active_job.piece_fp()
+	for p in gm.active_job.pieces:
+		p.progress = fp
+		p.points_in_window = 0.0
+		p.damage = 0.9
+		p.location = JobInstance.LOC_DONE
+	var reports: Array = []
+	var cb := func(r: Dictionary) -> void: reports.append(r)
+	gm.settlement_ready.connect(cb)
+	gm.sim.load_job(gm.active_job)
+	gm._complete_active_job()
+	assert_true(int(reports[0]["stars"]) < MP.MIN_STARS, "schlecht geschmiedet")
+	assert_true(not bool(reports[0]["masterpiece_passed"]), "Prüfung nicht bestanden")
+	assert_eq(int(gm.masterpiece_progress.get(fm.id, 0)), 0)
+	assert_eq(gm.job_offers[0].part, 1, "derselbe Teil wird erneut angeboten")
+	# Alle Teile bestehen
+	for k in o.parts:
+		var off: JobInstance = gm.job_offers[0]
+		assert_eq(off.part, k + 1, "Teil %d" % (k + 1))
+		assert_true(not gm.epoch_finished(), "Epoche erst nach dem Hauptstück fertig")
+		gm.accept_offer(0)
+		gm.debug_finish_job()
+	assert_true(gm.epoch_finished(), "Hauptstück schließt die Epoche ab")
+	assert_true(bool(reports[reports.size() - 1]["epoch_done"]))
+	assert_eq(int(gm.stats.get("masterpieces", 0)), 1)
+	gm.settlement_ready.disconnect(cb)
+	# Speichern/Laden des Teil-Fortschritts
+	gm.masterpiece_progress = {fm.id: 1}
+	var d: Dictionary = gm.to_save_dict()
+	gm.new_game()
+	gm.load_from_dict(SaveManagerScript.migrate(JSON.parse_string(JSON.stringify(d))))
+	assert_eq(int(gm.masterpiece_progress.get(fm.id, 0)), 1, "Teil-Fortschritt gespeichert")
+	gm.end_session()
