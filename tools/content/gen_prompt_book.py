@@ -70,6 +70,8 @@ LESSONS = [
      "1:1-Bildaufbau beibehalten; Hinweis „Upscale 2×“ hervorgehoben: Midjourney liefert ohne Upscale nur 1024 × 1024 – zu wenig für das Hochformat (1080 breit) und das Querformat"),
     ("20.11.", "Hintergründe", "drei von vier 1:1-Bildern (Epoche 1 Variante 2, Epoche 2, Epoche 3) mit einfarbig schwarzem Streifen unten (10–18 % der Höhe); der Boden hört dort abrupt auf",
      "„the floor continues all the way to the bottom edge“, `--no black band at the bottom, dark strip below the floor`; der Import schneidet einen solchen Streifen automatisch ab (Bild bleibt brauchbar)"),
+    ("20.11.", "Hintergründe", "Epoche 1, Variante 3: eine große, leere, helle Wandfläche direkt hinter der Esse lässt Esse und Amboss im Spiel am besten wirken (bei Variante 1 stand ein Fachwerkpfosten genau dahinter)",
+     "„a large plain wall area without posts or beams directly behind the centre“ in allen Hintergrund-Prompts"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
@@ -218,7 +220,7 @@ BG_HEAD = ("Square 1:1 game background, composition: seen from a high viewpoint 
            "The room is wide and stretches across the full width of the image: the window and all important elements lie within the central three quarters of the width, "
            "the outer eighth on the left and on the right only continues the same wall and floor with a few shelves and hanging tools. "
            "Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. ")
-BG_TAIL = ("The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later. "
+BG_TAIL = ("The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later; directly behind the centre there is a large plain wall area without posts or beams. "
            "Warm orange firelight falls on the centre of the back wall from below, as if from an off-screen hearth; the corners are dim. "
            "The lower third is plain dark floor with little detail, getting darker towards the bottom edge. "
            "No forge, no hearth, no fire, no anvil, no machine, no tools in the centre, no people, no animals, no text, no watermark.")

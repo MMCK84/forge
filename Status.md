@@ -66,7 +66,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
   Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
   der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
-  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 939). Bildaufbau-Vorlage (1:1, Bild-Prompt):
+  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 911). Bildaufbau-Vorlage (1:1, Bild-Prompt):
   `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
   **Erst nach dem Upscale 2× (2048 × 2048) schicken** – ohne Upscale nur 1024 × 1024.
 - **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
@@ -101,6 +101,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: Epoche 1 Variante 2 im Spiel verglichen (fast gleichwertig) – Variante 1 bleibt. Schwarzer Streifen unten bei 3 von 4
   1:1-Bildern: Prompts nachgeschärft, Import schneidet ihn bei 1:1-Bildern automatisch ab. Epoche 2 und 3 (1:1) geprüft,
   aber nur als Vorschau angekommen – Dateien fehlen noch.
+- 20.11.: **Epoche 1 Variante 3** eingebaut (Kante 63 % → `USER_FLOOR_Y` 911): große helle Wandfläche hinter der Esse wirkt
+  im Spiel am besten – als Baustein in alle Hintergrund-Prompts übernommen. Nur Upscale 2× fehlt noch.
+  Unit-Tests grün, Spieltest 33 Screenshots, 0 Probleme.
 
 ## Prüfen
 
