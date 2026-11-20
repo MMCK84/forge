@@ -168,6 +168,32 @@ func _next_uid(epoch: int) -> String:
 	return "gen_e%d_%04d" % [epoch, uid_counter]
 
 
+## Höchstzahl der Arbeitsgänge: In der Lehrzeit (Epoche 1) kommen sie schrittweise dazu –
+## erst ein Arbeitsgang (ein Zielfenster), dann zwei, danach alle.
+static func step_limit(cfg_: BalanceConfig, epoch: int, n: int, free_play: bool = false) -> int:
+	if epoch != 1 or free_play:
+		return 99
+	if n < cfg_.tutorial_single_step_jobs:
+		return 1
+	if n < cfg_.tutorial_two_step_jobs:
+		return 2
+	return 99
+
+
+## Die ersten `limit` Arbeitsgänge; ihre Anteile werden auf 1 hochgerechnet.
+static func limit_steps(steps: Array, limit: int) -> Array:
+	var out: Array = steps.duplicate(true)
+	if out.size() <= limit:
+		return out
+	out = out.slice(0, limit)
+	var total := 0.0
+	for st in out:
+		total += float(st.get("share", 0.0))
+	for st in out:
+		st["share"] = float(st.get("share", 0.0)) / maxf(total, 0.0001)
+	return out
+
+
 ## Erzeugt einen generierten Auftrag. n = in der Epoche abgeschlossene Aufträge.
 func generate(epoch: int, n: int, free_play: bool, ctx: Dictionary) -> JobInstance:
 	var j := JobInstance.new()
@@ -179,7 +205,7 @@ func generate(epoch: int, n: int, free_play: bool, ctx: Dictionary) -> JobInstan
 	var item := _pick_item(epoch, category, c)
 	j.category = item.category
 	j.template_id = item.id
-	j.steps = item.steps.duplicate(true)
+	j.steps = limit_steps(item.steps, step_limit(cfg, epoch, n, free_play))
 	j.material = item.material
 	var q := _pick_quality(epoch, c)
 	j.quality = str(q.get("id", "solid"))

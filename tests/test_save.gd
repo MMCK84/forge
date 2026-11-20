@@ -216,3 +216,29 @@ func test_test_slots_roundtrip() -> void:
 	sm.delete_test_slot(5)
 	assert_true(sm.test_slot_info(5).is_empty(), "Test-Spielstand gelöscht")
 	gm.end_session()
+
+
+func test_repeat_job() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	gm.new_game()
+	var first: JobInstance = null
+	for o in gm.job_offers:
+		if not o.is_milestone():
+			first = o
+			break
+	gm.accept_offer(gm.job_offers.find(first))
+	var done: JobInstance = gm.active_job
+	assert_true(not gm.can_repeat_job(done), "nicht wiederholbar, solange er läuft")
+	gm.debug_finish_job()
+	assert_true(gm.can_repeat_job(done), "nach Abschluss wiederholbar")
+	assert_eq(gm.repeat_job(done), "", "Wiederholung angenommen")
+	var j: JobInstance = gm.active_job
+	assert_true(j != null and j.uid != done.uid, "neuer Auftrag mit eigener Kennung")
+	assert_eq(j.template_id, done.template_id, "gleiches Werkstück")
+	assert_eq(j.quantity, done.quantity, "gleiche Menge")
+	assert_eq(j.reward_base_pence, done.reward_base_pence, "gleicher Lohn")
+	assert_eq(j.pieces_done(), 0, "Stücke zurückgesetzt")
+	assert_eq(gm.job_offers.size(), gm.offers_count(), "Angebote wieder vollständig")
+	gm.end_session()

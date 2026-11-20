@@ -41,6 +41,10 @@ extends Resource
 @export var offers_count: int = 3
 @export var reroll_cooldown_s: int = 60
 @export var tutorial_standard_only_jobs: int = 4
+## Steigende Komplexität in der Lehrzeit (Epoche 1): bis zu diesem Auftrag nur ein Arbeitsgang …
+@export var tutorial_single_step_jobs: int = 2
+## … bis zu diesem höchstens zwei, danach alle Arbeitsgänge des Werkstücks
+@export var tutorial_two_step_jobs: int = 4
 ## Gewichte [Standard, Präzision, Eil] je Epoche 1..6
 @export var type_weights: Array = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20], [55, 25, 20], [60, 20, 20], [60, 20, 20], [55, 25, 20]]
 ## Wahrscheinlichkeit für Mengenaufträge je Epoche

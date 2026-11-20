@@ -831,6 +831,14 @@ func _on_settlement(report: Dictionary) -> void:
 	var p = load("res://scenes/ui/settlement_panel.gd").new()
 	p.report = report
 	p.continue_pressed.connect(_after_settlement)
+	p.menu_pressed.connect(func(r: Dictionary) -> void:
+		_after_settlement(r)
+		_open_pause())
+	p.repeat_pressed.connect(func(r: Dictionary) -> void:
+		var err: String = GameManager.repeat_job(r["job"])
+		if err != "":
+			GameManager.message.emit(err, {})
+		_after_settlement(r))
 	overlay_layer.add_child(p)
 
 

@@ -174,6 +174,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   vier Ladenbilder. Dazu Porträts P3-2–5, P1-1–6 (P1-4 Müller „ändern“: wirkte wie eine Frau) und P4-1–4.
   Aufgeräumt: BG3–6 (Doppel) und P1-* lagen im Hauptordner des Repositorys → gelöscht bzw. einsortiert.
 - 20.11.: `project.godot` trug noch die Kennung „4.3“ (Projektmanager zeigte 4.3, Umwandlungs-Rückfrage) → auf „4.7“ gesetzt.
+- 20.11.: Rückmeldungen aus dem Anspielen: **Abrechnung** mit „Menü“ (Pausemenü), „Auftrag wiederholen“ (gleicher Auftrag
+  noch einmal, nicht bei Meilensteinen) und „Weiter“ (vorausgewählt). **Steigende Komplexität in der Lehrzeit:** Aufträge 1–2
+  nur ein Arbeitsgang (ein Zielfenster), 3–4 höchstens zwei, danach alle (`tutorial_single_step_jobs`/`tutorial_two_step_jobs`).
+  **Kreide-Umrisse** der Einrichtung entfernt (nicht gekaufte Plätze unsichtbar). Unit-Tests 1850/0.
 
 ## Prüfen
 

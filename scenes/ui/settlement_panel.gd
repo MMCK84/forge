@@ -6,7 +6,10 @@ const Assets = preload("res://scripts/assets.gd")
 const JobBook = preload("res://scenes/ui/job_book.gd")
 
 var report: Dictionary = {}
+var _continue_btn: Button
 signal continue_pressed(report: Dictionary)
+signal menu_pressed(report: Dictionary)
+signal repeat_pressed(report: Dictionary)
 
 
 func _init() -> void:
@@ -64,7 +67,14 @@ func build(box: VBoxContainer) -> void:
 	box.add_child(net_row)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_END
-	row.add_child(UIKit.button(tr("UI_CONTINUE"), _continue, Vector2(240, 64)))
+	row.add_theme_constant_override("separation", 10)
+	row.add_child(UIKit.button(tr("UI_SETTLE_MENU"), _menu, Vector2(150, 64), 22))
+	if not j.is_milestone():
+		var rep := UIKit.button(tr("UI_REPEAT_JOB"), _repeat, Vector2(270, 64), 22)
+		rep.disabled = gm.job_requirement_issue(j) != ""
+		row.add_child(rep)
+	_continue_btn = UIKit.button(tr("UI_CONTINUE"), _continue, Vector2(180, 64))
+	row.add_child(_continue_btn)
 	box.add_child(row)
 
 
@@ -79,6 +89,24 @@ func _coins(pence: int) -> Control:
 		if bool(p[0]) and Assets.user(str(p[1])) != null:
 			row.add_child(UIKit.icon("ui/user/" + str(p[1]), 52.0))
 	return row
+
+
+## „Weiter“ ist vorausgewählt (Enter/Leertaste wie gewohnt).
+func _focus_first() -> void:
+	if _continue_btn != null:
+		_continue_btn.grab_focus()
+
+
+func _menu() -> void:
+	var r := report
+	close()
+	menu_pressed.emit(r)
+
+
+func _repeat() -> void:
+	var r := report
+	close()
+	repeat_pressed.emit(r)
 
 
 func _continue() -> void:

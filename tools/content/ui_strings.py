@@ -381,3 +381,5 @@ _src = open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", ".
 for _e, _body in _re.findall(r"^\t(\d+): \{(.*?)\},$", _src, _re.S | _re.M):
     for _slot, _de, _en in _re.findall(r'"(\w+)": \["([^"]*)", "([^"]*)"\]', _body):
         t(f"FURN_E{_e}_{_slot.upper()}", _de, _en)
+t("UI_SETTLE_MENU", "Menü", "Menu")
+t("UI_REPEAT_JOB", "Auftrag wiederholen", "Repeat order")

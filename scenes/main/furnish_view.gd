@@ -1,7 +1,7 @@
 extends Control
 ## Werkstatt-Einrichtung in der Werkstatt (Bühnen-Koordinaten 1080 × 1920). Gekaufte Stücke:
 ## Grafik des Auftraggebers (ui/user/furn_e<E>_<platz>.png), sonst eine einfache Platzhalter-
-## Zeichnung. Fehlende Stücke: Kreide-Umriss, damit man sieht, was noch kommt.
+## Zeichnung. Noch nicht gekaufte Stücke sind unsichtbar.
 ## Liegt hinter Esse, Maschine und Amboss.
 
 const Assets = preload("res://scripts/assets.gd")
@@ -79,8 +79,7 @@ func _draw() -> void:
 			else:
 				_draw_placeholder(slot, rr, false)
 			draw_set_transform(Vector2.ZERO)
-		else:
-			_draw_placeholder(slot, r, true)
+		# Noch nicht gekaufte Plätze bleiben unsichtbar (Wunsch des Auftraggebers)
 
 
 # ------------------------------------------------------------------ Platzhalter

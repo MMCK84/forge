@@ -536,6 +536,26 @@ func accept_offer(index: int) -> String:
 	return ""
 
 
+## Kann ein abgeschlossener Auftrag noch einmal angenommen werden? (nicht bei Meilensteinen)
+func can_repeat_job(j: JobInstance) -> bool:
+	return j != null and active_job == null and not j.is_milestone() and j.epoch == current_epoch \
+		and job_requirement_issue(j) == ""
+
+
+## Denselben Auftrag (Werkstück, Menge, Qualität, Kunde, Lohn) noch einmal annehmen.
+func repeat_job(j: JobInstance) -> String:
+	if not can_repeat_job(j):
+		return "ERR_INVALID"
+	var nj := j.duplicate_offer()
+	generator.uid_counter += 1
+	nj.uid = "gen_e%d_%04d" % [current_epoch, generator.uid_counter]
+	nj.elapsed_s = 0.0
+	nj.costs_pence = 0
+	_finalize_offer(nj)
+	job_offers.push_front(nj)
+	return accept_offer(0)
+
+
 func abort_job() -> void:
 	if active_job == null:
 		return

@@ -832,6 +832,7 @@ UI_QUANTITY,Menge ×{n},Quantity ×{n}
 UI_QUENCH_INFO,bereit zum Abschrecken,ready to quench
 UI_QUIT,Beenden,Quit
 UI_RAW_STACK,Rohlinge,Blanks
+UI_REPEAT_JOB,Auftrag wiederholen,Repeat order
 UI_REROLL,Neue Angebote,New offers
 UI_REROLL_WAIT,Neue Angebote in {s} s,New offers in {s} s
 UI_RESUME,Fortsetzen,Resume
@@ -847,6 +848,7 @@ UI_SECTION_MACHINES,Maschinen,Machines
 UI_SECTION_UPGRADE,Hammer verbessern,Improve hammer
 UI_SETTINGS,Einstellungen,Settings
 UI_SETTLEMENT,Abrechnung,Settlement
+UI_SETTLE_MENU,Menü,Menu
 UI_SFX_VOLUME,Effekte,Effects
 UI_SHOP,Laden,Shop
 UI_SHOW_CELSIUS,Temperatur in °C anzeigen,Show temperature in °C
