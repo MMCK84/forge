@@ -27,3 +27,4 @@
 - Prüfen: Unit-Tests `res://tests/run_tests.tscn`, grafischer Spieltest `res://tools/playtest.tscn`
   (Auflösung 1080×1920), Balancing `tools/tune_balance.py`.
 - Android-Export erst, wenn alles fertig ist.
+- Spiel-ZIP (`git archive`) nur liefern, wenn der Auftraggeber ausdrücklich darum bittet.
