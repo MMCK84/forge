@@ -121,8 +121,11 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    (3) ✔ **Meisterstück je Epoche** und ✔ **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
    Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
-7. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
-8. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
+7. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – gemeinsam festlegen; zu klären, was genau
+   gemeint ist: Wortwahl und Anrede der Texte (bisher historisches „Ihr“), angebotene Spielsprachen (bisher Deutsch/Englisch)
+   und/oder die gestalterische Sprache der Oberfläche (Pergament, Leder, Messing).
+8. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
+9. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
 ## Verlauf
 
