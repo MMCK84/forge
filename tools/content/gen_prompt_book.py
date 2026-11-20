@@ -23,6 +23,7 @@ SRC = os.path.join(ROOT, "assets", "source", "user_art")
 OUT = os.path.join(SRC, "PROMPTS_Hochformat.md")
 
 HAVE, NEED, REDO, OPT = "✅ vorhanden", "⬜ fehlt", "🔁 neu (Frontalansicht)", "➖ optional"
+GEMINI = "🟡 vorhanden (Gemini – später durch Midjourney ersetzen)"
 # Essen: die vorhandenen Schrägansichten werden durch Frontalansichten ersetzt.
 # Sobald die Frontalansichten da sind, hier True setzen.
 FORGES_FRONTAL_DONE = os.path.exists(os.path.join(SRC, "forges_frontal"))
@@ -43,11 +44,83 @@ def status(name, optional=False):
     return OPT if optional else NEED
 
 
+PROVENANCE = {}
+_pv = os.path.join(SRC, "provenance.json")
+if os.path.exists(_pv):
+    import json
+    PROVENANCE = json.load(open(_pv, encoding="utf-8")).get("bilder", {})
+
+
+def _split_top(text):
+    """Komma-Trennung, aber nicht innerhalb von Klammern."""
+    parts, depth, cur = [], 0, ""
+    for ch in text:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+        if ch == "," and depth == 0:
+            parts.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    if cur.strip():
+        parts.append(cur.strip())
+    return parts
+
+
+def midjourney(prompt):
+    """Wandelt einen Prompt in Midjourney-Schreibweise: Verbote („no …“) als --no,
+    Seitenverhältnis als --ar. Midjourney liest „no text“ im Text sonst als „text“."""
+    neg, keep, ar = [], [], None
+
+    def _paren(m):
+        inner = _split_top(m.group(1))
+        neg.extend(x[3:].strip() for x in inner if x.startswith("no "))
+        pos = [x for x in inner if not x.startswith("no ")]
+        return f"({', '.join(pos)})" if pos else ""
+    prompt = re.sub(r"\(([^()]*\bno [^()]*)\)", _paren, prompt)
+    prompt = re.sub(r"\s+([,.:])", r"\1", prompt)
+    sentences = re.split(r"(?<=\.)\s+", prompt.strip())
+    for sent in sentences:
+        body = sent.rstrip(".")
+        if re.match(r"^No\b", body):
+            neg += [re.sub(r"^no\s+", "", x.strip(), flags=re.I) for x in body.split(",")]
+            continue
+        out = []
+        for tok in _split_top(body):
+            m = re.fullmatch(r"(?:square|wide|wide landscape|landscape|portrait|portrait orientation)?\s*(\d+):(\d+)", tok.strip())
+            if m:
+                ar = f"{m.group(1)}:{m.group(2)}"
+                continue
+            if re.match(r"^no\s", tok):
+                neg.append(tok[3:].strip())
+                continue
+            # Klammern mit Verboten: „metal only (no wood, no leather)“
+            pm = re.match(r"^(.*?)\s*\((.*)\)$", tok)
+            if pm and re.search(r"\bno\s", pm.group(2)):
+                inner = _split_top(pm.group(2))
+                pos = [x for x in inner if not x.startswith("no ")]
+                neg += [x[3:].strip() for x in inner if x.startswith("no ")]
+                tok = pm.group(1) + (f" ({', '.join(pos)})" if pos else "")
+            out.append(tok)
+        if out:
+            keep.append(", ".join(out))
+    text = ". ".join(keep).strip()
+    if ar is None:
+        m = re.search(r"(\d+):(\d+)", prompt)
+        ar = f"{m.group(1)}:{m.group(2)}" if m else "1:1"
+    neg = [n for n in dict.fromkeys(x.strip(" .") for x in neg) if n]
+    return f"{text} --ar {ar} --no {', '.join(neg)}" if neg else f"{text} --ar {ar}"
+
+
 def block(title, prompt, st, fname, note=""):
+    if st == HAVE and PROVENANCE.get(fname) == "Gemini":
+        st = GEMINI
     s = f"**{fname}** – {title} · {st}"
     if note:
         s += f"  \n{note}"
-    return s + "\n```\n" + prompt.strip() + "\n```\n"
+    return s + "\n```\n" + midjourney(prompt) + "\n```\n"
 
 
 def parse_prompts(path):
@@ -135,7 +208,7 @@ UI = [
     ("seal_george_iii.png", "wax_seals", "Wachssiegel George III und Admiralität", False, "Set of red wax seals with royal stamp emblems: one with the royal cipher of King George III, one with the anchor of the Admiralty, game badge icons, isolated on white background"),
     ("seal_victoria.png", "seal_victoria", "Wachssiegel Victoria (Meilensteine ab Epoche 9)", False, "Red wax seal with the royal cipher of Queen Victoria (VR) and a crown, no date, no year, game badge icon, hand-painted 2D game art, isolated on pure flat white background, no watermark"),
     ("pyrometer_needle.png", "pointer_sheet", "Pyrometer-Zeiger", False, "2D game asset, antique brass indicator needle, fine clockwork pointer, ornate georgian style, isolated on white background"),
-    ("pyrometer_dial_empty.png", "pyrometer_dial", "Pyrometer-Zifferblatt ohne Zeiger", True, "2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks but no numbers, antique clockwork style, dark iron base, completely without needle or pointer, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
+    ("pyrometer_dial_empty.png", "pyrometer_dial", "Pyrometer-Zifferblatt ohne Zeiger", True, "2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks, antique clockwork style, dark iron base, no needle, no pointer, no numbers, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("star_full.png", "stars", "Sterne für die Bewertung (voll und leer)", True, "2D game UI icons, two five-pointed stars side by side: one polished gold star with a brass rim, one empty dark iron star outline, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("icon_hourglass.png", "hourglass", "Sanduhr (Eilaufträge)", True, "2D game UI icon, an 18th-century brass and wood hourglass with golden sand, front view, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("trough.png", "trough", "Löschtrog (ab Epoche 4)", False, "2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, filled with dark water whose surface is visible, standing on two short trestles, shown in a straight front view slightly from above, hand-painted 2D game art with dark ink outlines, no steam, no tools, no shadow, no text, no watermark, isolated on pure flat white background, landscape 2:1"),
@@ -291,30 +364,41 @@ def main():
     sections.append(("G · Oberfläche, Symbole, Store",
                      "Spieltitel und Schriften kommen aus Schriftarten (kein Bild nötig); Glühskala, Fortschritt und Partikel zeichnet das Spiel selbst.", g))
 
+    alltext = "\n".join("\n".join(p) for _, _, p in sections)
+    n_gemini = alltext.count(GEMINI)
+    count[HAVE] -= n_gemini
     lines = ["# Prompt-Heft: alle Bilder des Spiels", "",
              "Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python tools/content/gen_prompt_book.py` – "
              "nach jeder Lieferung neu erzeugt, damit der Status stimmt.", "",
-             "**Status:** ✅ vorhanden · ⬜ fehlt · 🔁 neu zu machen (Frontalansicht) · ➖ optional", "",
+             "**Status:** ✅ vorhanden (Midjourney) · 🟡 vorhanden, aber von Gemini – später durch Midjourney ersetzen · "
+             "⬜ fehlt · 🔁 neu zu machen (Frontalansicht) · ➖ optional", "",
+             "**Bildquelle:** Alle Bilder bis zum 20.11.2026 stammen von Gemini, alle neuen von **Midjourney**. "
+             "Die Prompts sind deshalb in Midjourney-Schreibweise: Verbote stehen hinter `--no`, das Seitenverhältnis hinter `--ar`. "
+             "Herkunft je Bild: `provenance.json`.", "",
              "## Übersicht", "",
              "| Status | Anzahl |", "|---|---|"]
-    for k in (HAVE, NEED, REDO, OPT):
+    lines.append(f"| {HAVE} (Midjourney) | {count[HAVE]} |")
+    lines.append(f"| 🟡 vorhanden, Gemini (später ersetzen) | {n_gemini} |")
+    for k in (NEED, REDO, OPT):
         lines.append(f"| {k} | {count[k]} |")
-    lines += ["", "| Bereich | vorhanden | fehlt / neu | optional |", "|---|---|---|---|"]
+    lines += ["", "| Bereich | vorhanden (MJ) | Gemini – ersetzen | fehlt / neu | optional |", "|---|---|---|---|---|"]
     for title, _, parts in sections:
         txt = "\n".join(parts)
-        lines.append(f"| {title.split(' (')[0]} | {txt.count(HAVE)} | {txt.count(NEED) + txt.count(REDO)} | {txt.count(OPT)} |")
+        lines.append(f"| {title.split(' (')[0]} | {txt.count(HAVE)} | {txt.count(GEMINI)} | {txt.count(NEED) + txt.count(REDO)} | {txt.count(OPT)} |")
     lines += ["", "## Regeln für alle Bilder", "",
               "- Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.",
               "- Objekt vollständig im Bild mit etwas Rand.",
               "- Dateiname = die fett gedruckte ID (z. B. `door_hinge.webp`); Format egal (webp, png, jpg).",
               "- Einheitlicher Stil: handgemalt, dünne dunkle Tuschekontur, warme Malstruktur.",
-              "- Midjourney: Seitenverhältnis über `--ar` (9:16, 2:1, 1:1 …).",
+              "- Midjourney: Prompt komplett kopieren (inkl. `--ar` und `--no`). Bei Bedarf `--v 7` bzw. `--style raw` anhängen.",
+              "- Für einheitlichen Stil: ein gelungenes Bild als Stil-Referenz verwenden (`--sref <Bild-URL>`).",
               "",
               "## Reihenfolge (was am meisten bringt)", "",
               "1. **Essen in Frontalansicht** (B) – sieht man ständig.",
               "2. **Hintergründe 7–10** (A) und **Dampfhammer-Teile** (D).",
               "3. **Werkstücke** epochenweise (E), dann **Löschtrog** (G).",
               "4. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.",
+              "5. Später: alle 🟡 Gemini-Bilder durch Midjourney-Bilder ersetzen (gleiche Prompts, gleiche Dateinamen).",
               ""]
     for title, intro, parts in sections:
         lines += [f"## {title}", "", intro, ""] + parts
