@@ -52,6 +52,9 @@ LESSONS = [
     ("20.11.", "alle", "der Seitenverhältnis-Regler überstimmt `--ar` im Prompt", "bei jedem Bild steht die Regler-Einstellung (z. B. „Portrait 9:16“) – vor dem Erzeugen einstellen"),
     ("20.11.", "Hintergründe", "trotz Textvorgabe Wand-Boden-Kante bei 62 % (Epoche 8, 3. Versuch); Fenster und Helligkeit passten",
      "Bildaufbau-Vorlage `vorlagen/bildaufbau_hintergrund.png` als **Bild-Prompt** vor den Text setzen"),
+    ("20.11.", "Hintergründe", "Midjourney setzt die Kante im Hochformat hartnäckig auf ~60 % (Epoche 8 und 9)",
+     "**Format 3:4** statt 9:16: dort landet die Kante bei 55–62 % genau richtig im Spiel; das Spiel verlängert den Boden nach unten"),
+    ("20.11.", "alle", "Zuordnung der Bilder in Midjourney schwierig", "jeder Prompt beginnt mit der ID (= Dateiname), z. B. `background_9 —`"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
@@ -173,7 +176,8 @@ def block(title, prompt, st, fname, note=""):
     st = final_status(st, fname)
     pv_note = _prov(fname).get("hinweis", "")
     note = " ".join(x for x in (pv_note, note) if x and st != NOT and st != NOT_OPT) or ("" if st in (NOT, NOT_OPT) else note)
-    mj = midjourney(prompt)
+    # ID vorn: Zuordnung in Midjourney (die Galerie zeigt den Prompt); --no text verhindert Schrift im Bild
+    mj = f"{fname} — " + midjourney(prompt)
     m = re.search(r"--ar (\d+):(\d+)", mj)
     w, h = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
     slider = ("Portrait" if w < h else "Landscape" if w > h else "Square") + f" {w}:{h}"
@@ -194,8 +198,8 @@ def parse_prompts(path):
 
 # ------------------------------------------------------------------ Bausteine der Prompts
 
-BG_HEAD = ("Vertical 9:16 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills only the top 40 percent "
-           "of the image and meets the floor at 40 percent of the image height, a large empty floor fills the lower 60 percent, the top 10 percent of the image shows only dark ceiling beams and the window sits just below them. "
+BG_HEAD = ("Vertical 3:4 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills the upper 55 percent "
+           "of the image and meets the floor at 55 percent of the image height, an empty floor fills the lower 45 percent, the top 15 percent of the image shows only dark ceiling beams and the window sits just below them. "
            "Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. ")
 BG_TAIL = ("The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later. "
            "Warm orange firelight falls on the centre of the back wall from below, as if from an off-screen hearth; the corners are dim. "
@@ -355,15 +359,14 @@ def main():
     for e in range(1, 11):
         st = add(status(f"background_{e}.jpg"))
         a.append(block(EPOCH_NAMES[e], BG_HEAD + BACKGROUNDS[e] + BG_TAIL, st, f"background_{e}"))
-    sections.append(("A · Werkstatt-Hintergründe (9:16 hochkant)",
-                     "Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 40 % der Höhe, "
+    sections.append(("A · Werkstatt-Hintergründe (3:4 hochkant)",
+                     "Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 55–60 % der Höhe, "
                      "unteres Drittel ruhig und dunkel (Bedienelemente).\n\n"
-                     "**Bildaufbau-Vorlage verwenden:** Midjourney setzt die Wand trotz Text zu tief an. Lösung: die Datei "
-                     "`assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (Wand oben 40 %, Deckenbalken, Fenster links unter den "
-                     "Balken, Boden unten 60 %) als **Bild-Prompt** in die Eingabezeile ziehen – nicht als Stil-Referenz – und den Text-Prompt "
-                     "dahinter setzen. Die Bildgewichtung mittel lassen; ist die Aufteilung noch falsch, höher stellen. "
-                     "Für den einheitlichen Look zusätzlich ein gelungenes Midjourney-Bild als Stil-Referenz (`--sref`). "
-                     "Die Wand-Boden-Kante messe ich bei jedem Bild aus (35–50 % geht).", a))
+                     "**Format 3:4 (Regler: Portrait 3:4).** Im Hochformat 9:16 setzt Midjourney die Wand hartnäckig zu tief. In 3:4 "
+                     "landet die Wand-Boden-Kante bei 55–62 % der Bildhöhe genau richtig; das Spiel verlängert den dunklen Boden nach unten "
+                     "(dort liegt das Bedienfeld). Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` als "
+                     "**Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. "
+                     "Ich messe die Kante bei jedem Bild aus (50–65 % geht).", a))
     # B Essen
     b = []
     for fid, title, desc in FORGES:

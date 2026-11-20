@@ -213,8 +213,18 @@ def main():
                 if h >= 1920:
                     im = im.crop((0, 0, 1080, 1920))
                 else:
-                    canvas = Image.new("RGB", (1080, 1920), im.getpixel((540, h - 1)))
+                    # Kürzere Bilder (z. B. 3:4): Boden nach unten verlängern – die untersten Zeilen
+                    # strecken und zum Rand hin abdunkeln (dort liegt im Spiel das Bedienfeld)
+                    canvas = Image.new("RGB", (1080, 1920))
                     canvas.paste(im, (0, 0))
+                    strip = im.crop((0, h - 24, 1080, h)).filter(ImageFilter.GaussianBlur(18)).resize((1080, 1920 - h), Image.BILINEAR)
+                    arr = np.asarray(strip).astype(np.float32)
+                    fade = np.linspace(1.0, 0.45, arr.shape[0])[:, None, None]
+                    canvas.paste(Image.fromarray((arr * fade).astype(np.uint8)), (0, h))
+                    # weicher Übergang an der Nahtstelle
+                    blend = 40
+                    top = np.asarray(canvas.crop((0, h - blend, 1080, h + blend)).filter(ImageFilter.GaussianBlur(6)))
+                    canvas.paste(Image.fromarray(top), (0, h - blend))
                     im = canvas
                 os.makedirs(OUT, exist_ok=True)
                 im.save(os.path.join(OUT, base + ".jpg"), quality=88, optimize=True)
