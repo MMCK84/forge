@@ -98,6 +98,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Hintergrund Epoche 1 neu in 1:1** (Midjourney) eingebaut: Kante 65 % → `USER_FLOOR_Y` 939, Fenster und Deko wie
   vorgesehen. Bewertung „ändern“ nur wegen der Auflösung (1024 × 1024): als Upscale 2× nachliefern. Erkenntnis im Heft.
   Unit-Tests grün (1658/0), Spieltest 33 Screenshots, 0 Probleme.
+- 20.11.: Epoche 1 Variante 2 im Spiel verglichen (fast gleichwertig) – Variante 1 bleibt. Schwarzer Streifen unten bei 3 von 4
+  1:1-Bildern: Prompts nachgeschärft, Import schneidet ihn bei 1:1-Bildern automatisch ab. Epoche 2 und 3 (1:1) geprüft,
+  aber nur als Vorschau angekommen – Dateien fehlen noch.
 
 ## Prüfen
 

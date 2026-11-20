@@ -210,10 +210,19 @@ def main():
                 im = Image.open(os.path.join(bg_dir, fn)).convert("RGB")
                 # Quadratische Originale (1:1, für Hoch- und Querformat): im Hochformat nur der mittlere
                 # 3:4-Ausschnitt – die äußeren Achtel sind fürs Querformat (Tablet) gedacht
-                if im.width > im.height * 0.78:
+                square = im.width > im.height * 0.78
+                if square:
                     cw = int(round(im.height * 3 / 4))
                     x0 = (im.width - cw) // 2
                     im = im.crop((x0, 0, x0 + cw, im.height))
+                # Einfarbigen Balken am unteren Rand (Midjourney malt manchmal einen) abschneiden –
+                # der Boden wird ohnehin nach unten verlängert
+                g = np.asarray(im.convert("L")).astype(np.float32)
+                cut = im.height
+                while square and cut > im.height * 0.7 and g[cut - 1].std() < 4.0:
+                    cut -= 1
+                if cut < im.height - 4:
+                    im = im.crop((0, 0, im.width, cut - 2))
                 h = int(round(im.height * 1080 / im.width))
                 im = im.resize((1080, h), Image.LANCZOS)
                 if h >= 1920:

@@ -68,10 +68,12 @@ LESSONS = [
      "Querformat die volle Breite; Fenster und alles Wichtige in den mittleren drei Vierteln, die äußeren Achtel nur Wand und Boden; Randdeko „near the left/right side“ statt „far edge“"),
     ("20.11.", "Hintergründe", "erstes 1:1-Bild (Epoche 1) auf Anhieb gelungen: Kante bei 65 %, Fenster in den mittleren drei Vierteln, Regal und Hufeisen in den äußeren Achteln – genau wie vorgesehen",
      "1:1-Bildaufbau beibehalten; Hinweis „Upscale 2×“ hervorgehoben: Midjourney liefert ohne Upscale nur 1024 × 1024 – zu wenig für das Hochformat (1080 breit) und das Querformat"),
+    ("20.11.", "Hintergründe", "drei von vier 1:1-Bildern (Epoche 1 Variante 2, Epoche 2, Epoche 3) mit einfarbig schwarzem Streifen unten (10–18 % der Höhe); der Boden hört dort abrupt auf",
+     "„the floor continues all the way to the bottom edge“, `--no black band at the bottom, dark strip below the floor`; der Import schneidet einen solchen Streifen automatisch ab (Bild bleibt brauchbar)"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
-BG_NEG = ["black bars", "letterbox", "border"]
+BG_NEG = ["black bars", "letterbox", "border", "black band at the bottom", "dark strip below the floor"]
 # Essen: die vorhandenen Schrägansichten werden durch Frontalansichten ersetzt.
 # Sobald die Frontalansichten da sind, hier True setzen.
 FORGES_FRONTAL_DONE = os.path.exists(os.path.join(SRC, "forges_frontal"))
@@ -212,7 +214,7 @@ def parse_prompts(path):
 # ------------------------------------------------------------------ Bausteine der Prompts
 
 BG_HEAD = ("Square 1:1 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills the upper 55 percent "
-           "of the image and meets the floor at 55 percent of the image height, an empty floor fills the lower 45 percent, the top 15 percent of the image shows only dark ceiling beams and the window sits just below them. "
+           "of the image and meets the floor at 55 percent of the image height, an empty floor fills the lower 45 percent and continues all the way to the bottom edge of the image, the top 15 percent of the image shows only dark ceiling beams and the window sits just below them. "
            "The room is wide and stretches across the full width of the image: the window and all important elements lie within the central three quarters of the width, "
            "the outer eighth on the left and on the right only continues the same wall and floor with a few shelves and hanging tools. "
            "Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. ")
