@@ -29,6 +29,7 @@ func build(box: VBoxContainer) -> void:
 		["STAT_FURNISHED", str(int(st.get("workshops_furnished", 0)))],
 		["STAT_RUINED", str(int(st.get("pieces_ruined", 0)))],
 		["STAT_HITS", str(int(st.get("hits", 0)))],
+		["STAT_BEST_STREAK", str(int(st.get("best_streak", 0)))],
 	]
 	var grid := GridContainer.new()
 	grid.columns = 2

@@ -181,6 +181,8 @@ FX_QUENCH_GOOD,Richtig gehärtet,Properly hardened
 FX_QUENCH_SOFT,Zu weich,Too soft
 FX_QUENCH_UNEVEN,Ungleichmäßig,Uneven
 FX_READY_TO_QUENCH,Bei ca. 800 °C abschrecken!,Quench at about 800 °C!
+FX_STREAK_BROKEN,Serie gerissen,Streak broken
+FX_STREAK_LEVEL,Serie {n}! Schlagkraft +{p} %,Streak {n}! Blow power +{p} %
 FX_TOO_COLD,Zu kalt!,Too cold!
 FX_TOO_HARD,Zu fest!,Too hard!
 FX_TOO_SOFT,Zu sanft!,Too soft!
@@ -688,6 +690,7 @@ REQ_PRECISION_FORGE,Benötigt eine Esse mit mindestens 1000 °C.,Requires a forg
 REQ_TROUGH,Benötigt einen Löschtrog (ab Epoche 4).,Requires a quench trough (from era 4).
 REQ_WELD_FORGE,Benötigt eine Esse mit mindestens 1250 °C (Ziegel-Esse).,Requires a forge reaching at least 1250 °C (brick forge).
 SET_ALREADY_PAID,(bereits bezahlt),(already paid)
+SET_BEST_STREAK,Längste Schlagserie,Longest blow streak
 SET_COSTS,Material & Betrieb,Materials & running costs
 SET_DAMAGE,Gefügeschaden (Ø),Structural damage (avg.)
 SET_HIT_QUOTE,Trefferquote im Zielfenster,Blows in the target window
@@ -707,6 +710,7 @@ STAFF_STOKER_DESC,Hält das Feuer in Gang und schürt nach: Die Esse heizt 25 % 
 STAFF_STRIKER,Zuschläger,Striker
 STAFF_STRIKER_DESC,"Schlägt mit dem Vorschlaghammer mit: Schlagkraft 20, ein Schlag alle 2 Sekunden.","Strikes along with the sledgehammer: striking power 20, one blow every 2 seconds."
 STAT_BEST,Bester Auftrag,Best order
+STAT_BEST_STREAK,Längste Schlagserie,Longest blow streak
 STAT_EARNED,Insgesamt verdient,Total earned
 STAT_EPOCH,Epoche,Era
 STAT_FURNISHED,Vollständig eingerichtete Werkstätten,Workshops fully fitted out
@@ -861,6 +865,8 @@ UI_STAFF_NOTE,"Lehrling und Zuschläger arbeiten nur, solange das Spiel läuft. 
 UI_STATS,Statistik,Statistics
 UI_STEAM_WAITS,Dampfhammer wartet – Schlagstärke zu hoch,Steam hammer waiting – blow too heavy
 UI_STEP_INFO,Arbeitsgang {k}/{n}: {step} ({lo}–{hi} °C),Step {k}/{n}: {step} ({lo}–{hi} °C)
+UI_STREAK,Serie {n},Streak {n}
+UI_STREAK_BONUS,Schlagkraft +{p} %,Blow power +{p} %
 UI_TIME_LIMIT,Zeitlimit {time},time limit {time}
 UI_TO_ANVIL_AT,Auf den Amboss ab,Onto the anvil from
 UI_TO_FORGE_BELOW,In die Esse unter,Into the fire below

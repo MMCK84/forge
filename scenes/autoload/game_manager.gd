@@ -153,6 +153,7 @@ func _connect_sim() -> void:
 	sim.machine_hit.connect(func(kind: String) -> void: sim_event.emit("machine", {"kind": kind}))
 	sim.striker_hit.connect(func(kind: String) -> void: sim_event.emit("striker", {"kind": kind}))
 	sim.cost_incurred.connect(_on_cost)
+	sim.streak_changed.connect(func(n: int, lv: int, broke: bool) -> void: sim_event.emit("streak", {"count": n, "level": lv, "broke": broke}))
 	sim.job_finished.connect(func() -> void: _pending_finish = true)
 
 
@@ -640,6 +641,7 @@ func _complete_active_job() -> void:
 	if stars == 3:
 		stats["three_star_jobs"] = int(stats.get("three_star_jobs", 0)) + 1
 	stats["best_payout"] = maxi(int(stats.get("best_payout", 0)), net)
+	stats["best_streak"] = maxi(int(stats.get("best_streak", 0)), int(ev.get("best_streak", 0)))
 	jobs_completed_in_epoch += 1
 	sim.force_enabled = force_counts()
 	# Lehrzeit-Drehbuch: Folgeangebote neu erzeugen, damit sie zum nächsten Auftrag passen
@@ -669,7 +671,7 @@ func _complete_active_job() -> void:
 				free_play = true
 	var report := {
 		"job": j, "stars": stars, "hit_quote": ev["hit_quote"], "damage": ev["damage"],
-		"quench_penalty": ev["quench_penalty"], "q": ev["q"],
+		"quench_penalty": ev["quench_penalty"], "q": ev["q"], "best_streak": int(ev.get("best_streak", 0)),
 		"gross": gross, "tip": maxi(0, gross - base2), "late": late,
 		"wages": wages, "costs": j.costs_pence, "net": net,
 		"epoch_done": epoch_done, "game_done": game_done,

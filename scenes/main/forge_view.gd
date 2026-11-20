@@ -198,11 +198,18 @@ func _draw_user(d: Dictionary) -> void:
 
 ## Platzmarkierungen und Rohling-Stapel (über Code- und Sprite-Grafik)
 func _draw_overlay(code_bellows: bool = true) -> void:
-	for i in slots:
-		var r := slot_rect(i)
-		var col := Color(1, 0.85, 0.5, 0.55) if i == selected_slot else Color(1, 0.8, 0.5, 0.18)
-		draw_rect(r, col, false, 3.0)
-		draw_string(Assets.ui_font(), r.position + Vector2(8, 30), str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 32, col)
+	# Keine Rahmen (Wunsch des Auftraggebers): bei mehreren Plätzen nur eine dezente Nummer,
+	# der gewählte Platz leuchtet mit einem weichen Schein
+	if slots > 1:
+		for i in slots:
+			var r := slot_rect(i)
+			var on := i == selected_slot
+			if on:
+				draw_circle(r.get_center() + Vector2(0, r.size.y * 0.15), r.size.x * 0.42, Color(1, 0.8, 0.45, 0.10))
+			var col := Color(1, 0.88, 0.6, 0.9) if on else Color(1, 0.85, 0.6, 0.35)
+			var fp := r.position + Vector2(8, 30)
+			draw_string_outline(Assets.ui_font(), fp, str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 32, 6, Color(0, 0, 0, 0.6 * col.a))
+			draw_string(Assets.ui_font(), fp, str(i + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 32, col)
 	# Blasebalg (bei Doppelblasebalg zwei, bei Koks-Esse Zylindergebläse)
 	var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
 	if not code_bellows:
@@ -220,8 +227,7 @@ func _draw_overlay(code_bellows: bool = true) -> void:
 		draw_circle(Vector2(-25, 400), 40, Color("5a5a60"))
 		draw_line(Vector2(30, 460), Vector2(110, 430), Color("4a4a4f"), 14.0)
 	# Rohling-Stapel
-	draw_rect(raw_rect, Color(0.18, 0.13, 0.09, 0.85))
-	draw_rect(raw_rect, Color("b08d57"), false, 3.0)
+	# Rohling-Stapel ohne Kasten: nur die Stäbe und die Anzahl
 	var blank := Assets.item_tex("blank")
 	for k in mini(raw_count, 6):
 		var y2 := raw_rect.position.y + raw_rect.size.y - 22 - (k % 3) * 14
@@ -231,4 +237,7 @@ func _draw_overlay(code_bellows: bool = true) -> void:
 		else:
 			draw_rect(Rect2(x2, y2, 110, 12), Color("6d6f73"))
 			draw_rect(Rect2(x2, y2, 110, 4), Color("9a9ca0"))
-	draw_string(Assets.ui_font(), raw_rect.position + Vector2(12, 38), tr("UI_RAW_STACK") + ": " + str(raw_count), HORIZONTAL_ALIGNMENT_LEFT, -1, 32, Color("e9dcc0"))
+	var rp := raw_rect.position + Vector2(12, 38)
+	var rt := tr("UI_RAW_STACK") + ": " + str(raw_count)
+	draw_string_outline(Assets.ui_font(), rp, rt, HORIZONTAL_ALIGNMENT_LEFT, -1, 32, 8, Color(0, 0, 0, 0.75))
+	draw_string(Assets.ui_font(), rp, rt, HORIZONTAL_ALIGNMENT_LEFT, -1, 32, Color("e9dcc0"))

@@ -133,6 +133,7 @@ func test_weld_phase() -> void:
 		assert_eq(_hit(s), "weld")
 	assert_true(not s.in_weld_phase(0))
 	p.temp = 900.0
+	s.streak = 0  # Schlagserie hier ausklammern
 	_hit(s)
 	assert_near(p.progress, 60.0, 0.001, "nach dem Schweißen geht es weiter")
 
@@ -509,3 +510,42 @@ func test_steam_hammer_on_command() -> void:
 	var h := _sim(_job(100000), 100.0, 1500.0)
 	h.machine = load("res://data/machines/machine_steam_helve.tres")
 	assert_true(h.machine_commanded(), "Schwanzhammer wird ebenso bedient")
+
+
+func test_streak() -> void:
+	var s := _sim(_job(100000), 25.0, 1100.0)
+	var p: JobInstance.Piece = s.job.pieces[0]
+	s.load_raw()
+	p.temp = 900.0
+	s.transit.clear()
+	s.move_slot_to_anvil(0)
+	s.transit.clear()
+	var events: Array = []
+	s.streak_changed.connect(func(n: int, lv: int, broke: bool) -> void: events.append([n, lv, broke]))
+	for k in 4:
+		p.temp = 900.0
+		_hit(s)
+	assert_eq(s.streak, 4)
+	assert_eq(s.streak_level(), 0)
+	var before := p.progress
+	p.temp = 900.0
+	_hit(s)  # 5. Treffer erreicht Stufe 1 – er selbst zählt noch ohne Bonus
+	assert_eq(s.streak_level(), 1, "Stufe 1 nach 5 Treffern")
+	assert_near(p.progress - before, 10.0, 0.001, "5. Treffer ohne Bonus")
+	before = p.progress
+	p.temp = 900.0
+	_hit(s)
+	assert_near(p.progress - before, 10.0 * (1.0 + cfg.streak_bonus_per_level), 0.001, "Bonus ab dem 6. Treffer")
+	for k in 20:
+		p.temp = 900.0
+		_hit(s)
+	assert_eq(s.streak_level(), cfg.streak_max_levels, "Stufe begrenzt")
+	assert_eq(s.best_streak, 26)
+	p.temp = 550.0
+	assert_eq(_hit(s), "weak")
+	assert_eq(s.streak, 0, "Fehlschlag beendet die Serie")
+	assert_true(bool(events[events.size() - 1][2]), "Signal: gerissen")
+	assert_eq(s.best_streak, 26, "Bestwert bleibt")
+	assert_eq(int(s.evaluate()["best_streak"]), 26)
+	s.load_job(_job(1000))
+	assert_eq(s.streak, 0, "neuer Auftrag: neue Serie")

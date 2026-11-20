@@ -155,7 +155,11 @@ func _play_force(id: String, volume_db: float) -> void:
 	var sim = GameManager.sim
 	if sim != null and sim.anvil >= 0:
 		f = sim.effective_force(sim.anvil)
-	play(id, volume_db + [-5.0, 0.0, 2.0][clampi(f, 0, 2)], true, [1.18, 1.0, 0.86][clampi(f, 0, 2)])
+	# Laufende Schlagserie: Klang wird mit jeder Stufe etwas heller
+	var lift := 1.0
+	if sim != null:
+		lift += 0.04 * sim.streak_level()
+	play(id, volume_db + [-5.0, 0.0, 2.0][clampi(f, 0, 2)], true, [1.18, 1.0, 0.86][clampi(f, 0, 2)] * lift)
 
 
 func play(id: String, volume_db: float = 0.0, vary: bool = true, pitch: float = 1.0) -> void:
@@ -173,7 +177,7 @@ func play(id: String, volume_db: float = 0.0, vary: bool = true, pitch: float = 
 	p.play()
 
 
-func _on_sim_event(kind: String, _data: Dictionary) -> void:
+func _on_sim_event(kind: String, data: Dictionary) -> void:
 	match kind:
 		"hit_good":
 			_play_force("hit_good", 0.0)
@@ -222,7 +226,16 @@ func _on_sim_event(kind: String, _data: Dictionary) -> void:
 		"page":
 			play("page", -4.0)
 		"piece_done":
-			play("done", -8.0)
+			play("done", -4.0)
+			play("coins", -10.0)
+		"step":
+			play("done", -7.0, false, 1.25)
+			play("sparks", -8.0)
+		"streak":
+			var lv := int(data.get("level", 0))
+			if not bool(data.get("broke", false)) and lv > 0 and int(data.get("count", 0)) == lv * GameManager.cfg.streak_level_hits:
+				play("done", -3.0, false, 1.0 + 0.12 * lv)
+				play("sparks", -6.0)
 		"click":
 			play("click", -6.0, false)
 

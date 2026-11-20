@@ -11,6 +11,11 @@ extends Resource
 ## Wärme ab – und das Schweißfenster (1200–1300 °C) bleibt auch mit schnellen Essen gut zwei Sekunden offen.
 @export var white_heat_rate: float = 60.0
 
+## Schlagserie: alle so viele Treffer in Folge (im Zielfenster) eine Stufe mehr Schlagwirkung
+@export var streak_level_hits: int = 5
+@export var streak_bonus_per_level: float = 0.10
+@export var streak_max_levels: int = 3
+
 @export_group("Schlagwirkung M(T) (2.4)")
 @export var cold_limit: float = 400.0
 @export var optimal_min: float = 700.0

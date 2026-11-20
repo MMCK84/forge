@@ -23,6 +23,8 @@ signal machine_hit(kind: String)
 signal striker_hit(kind: String)
 ## Kosten, die während der Arbeit entstehen (Ausschuss, Dampf-Betriebskosten)
 signal cost_incurred(pence: int, reason: String)
+## Schlagserie: Treffer in Folge im Zielfenster (Hand und Maschine). broke = Serie gerissen.
+signal streak_changed(count: int, level: int, broke: bool)
 
 const EPS := 0.0001
 
@@ -71,6 +73,9 @@ var water_timer: float = 240.0
 var apprentice_timer: float = 0.0
 ## Zähler für Statistik
 var pieces_ruined: int = 0
+## Schlagserie (je Auftrag)
+var streak: int = 0
+var best_streak: int = 0
 
 ## Schlagstärke: 0 = leicht, 1 = mittel, 2 = schwer
 const FORCE_LIGHT := 0
@@ -116,6 +121,8 @@ func set_forge(heat_rate: float, max_temp: float, slots: int) -> void:
 ## Neuen (oder geladenen) Auftrag übernehmen. Positionen werden aus den Stücken rekonstruiert.
 func load_job(j: JobInstance) -> void:
 	job = j
+	streak = 0
+	best_streak = 0
 	anvil = -1
 	transit.clear()
 	machine_timer = 0.0
@@ -467,10 +474,42 @@ func player_hit() -> String:
 	var power := hammer_power
 	if job.is_big():
 		power *= minf(1.0, cfg.big_manual_factor * big_factor_mult)
-	return _strike(anvil, power, true, effective_force(anvil))
+	return _strike(anvil, power, true, effective_force(anvil), true)
 
 
-func _strike(idx: int, power: float, is_player: bool, used_force: int = -1) -> String:
+## Stufe der Schlagserie (0 = kein Bonus).
+func streak_level() -> int:
+	if cfg.streak_level_hits <= 0:
+		return 0
+	return mini(cfg.streak_max_levels, streak / cfg.streak_level_hits)
+
+
+func streak_factor() -> float:
+	return 1.0 + cfg.streak_bonus_per_level * streak_level()
+
+
+## Wertet einen eigenen Schlag (Spieler oder Maschine auf Kommando) für die Serie aus.
+func _note_streak(kind: String) -> void:
+	if kind == "none":
+		return
+	if kind == "good" or kind == "weld":
+		streak += 1
+		best_streak = maxi(best_streak, streak)
+		streak_changed.emit(streak, streak_level(), false)
+	elif streak > 0:
+		streak = 0
+		streak_changed.emit(0, 0, true)
+
+
+## own: Schlag des Spielers (Hand oder Maschine auf Kommando) – zählt für die Schlagserie.
+func _strike(idx: int, power: float, is_player: bool, used_force: int = -1, own: bool = false) -> String:
+	var kind := _strike_inner(idx, power, is_player, used_force, own)
+	if own:
+		_note_streak(kind)
+	return kind
+
+
+func _strike_inner(idx: int, power: float, is_player: bool, used_force: int, own: bool) -> String:
 	var p: JobInstance.Piece = _piece(idx)
 	if p.location == JobInstance.LOC_DONE or is_complete(idx):
 		return "none"
@@ -509,6 +548,8 @@ func _strike(idx: int, power: float, is_player: bool, used_force: int = -1) -> S
 	if fdiff >= 2:
 		p.damage += cfg.force_too_hard_damage * damage_factor
 	var gain := power * HeatModel.multiplier(cfg, te) * force_factor(used, req)
+	if own:
+		gain *= streak_factor()
 	gain = clampf(gain, 0.0, maxf(0.0, cap - p.progress))
 	var step_before := step_index(idx)
 	var w := step_window(idx)
@@ -697,7 +738,7 @@ func command_machine_blow() -> String:
 		return "none"
 	last_machine_blow = sim_time
 	last_machine_tap = sim_time
-	var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force())
+	var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force(), true)
 	machine_hit.emit(kind)
 	if machine.cost_per_minute > 0:
 		steam_cost_accum += float(machine.cost_per_minute) / 60.0 / maxf(machine.hits_per_s, 0.01)
@@ -715,7 +756,7 @@ func _step_machine(dt: float) -> void:
 		if sim_time - last_machine_tap < interval - EPS:
 			continue
 		last_machine_blow = sim_time
-		var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force())
+		var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force(), true)
 		machine_hit.emit(kind)
 		if job == null:
 			return
@@ -857,5 +898,5 @@ func evaluate() -> Dictionary:
 	var q := Economy.quality_value(cfg, quote, avg_dmg, avg_pen)
 	return {
 		"hit_quote": quote, "damage": avg_dmg, "quench_penalty": avg_pen,
-		"q": q, "stars": Economy.star_count(cfg, q),
+		"q": q, "stars": Economy.star_count(cfg, q), "best_streak": best_streak,
 	}

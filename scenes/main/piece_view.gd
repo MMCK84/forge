@@ -21,6 +21,9 @@ var selected: bool = false
 ## "", "weld", "quench"
 var badge: String = ""
 var target_pos: Vector2 = Vector2.ZERO
+## Aktueller Arbeitsgang (für den Stufensprung)
+var step: int = -1
+var _jump: float = 0.0
 var _overlay: Node2D
 var _halo: Node2D
 
@@ -63,6 +66,23 @@ func update_state(t: float, prog: float, dmg: float, sel: bool, b: String) -> vo
 
 func _process(delta: float) -> void:
 	position = position.lerp(target_pos, 1.0 - exp(-delta * 14.0))
+	if _jump > 0.0:
+		_jump = maxf(0.0, _jump - delta)
+		var s := 1.0 + 0.3 * sin(_jump / JUMP_TIME * PI)
+		scale = Vector2(s, s)
+		_overlay.queue_redraw()
+	elif scale != Vector2.ONE:
+		scale = Vector2.ONE
+
+
+const JUMP_TIME := 0.45
+
+
+## Neuer Arbeitsgang erreicht: kurzer Sprung mit hellem Aufblitzen.
+func set_step(k: int) -> void:
+	if step >= 0 and k > step:
+		_jump = JUMP_TIME
+	step = k
 
 
 func _draw() -> void:
@@ -95,6 +115,9 @@ func _draw_halo() -> void:
 
 
 func _draw_overlay() -> void:
+	if _jump > 0.0:
+		var a := _jump / JUMP_TIME
+		_overlay.draw_arc(Vector2.ZERO, size_px * (0.45 + 0.5 * (1.0 - a)), 0, TAU, 48, Color(1.0, 0.9, 0.55, a), 6.0, true)
 	if selected:
 		_overlay.draw_arc(Vector2.ZERO, size_px * 0.62, 0, TAU, 40, Color(1, 0.85, 0.4, 0.8), 3.0, true)
 	if damage > 0.0:

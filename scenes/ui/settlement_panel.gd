@@ -39,6 +39,8 @@ func build(box: VBoxContainer) -> void:
 	box.add_child(stars_row)
 	var lines: Array = []
 	lines.append(["SET_HIT_QUOTE", "%d %%" % int(round(float(report["hit_quote"]) * 100.0))])
+	if int(report.get("best_streak", 0)) >= 3:
+		lines.append(["SET_BEST_STREAK", str(int(report["best_streak"]))])
 	lines.append(["SET_DAMAGE", "%d %%" % int(round(float(report["damage"]) * 100.0))])
 	if j.needs_harden():
 		lines.append(["SET_QUENCH", "-%.2f" % float(report["quench_penalty"])])

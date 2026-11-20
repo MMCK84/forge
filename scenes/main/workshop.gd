@@ -18,6 +18,8 @@ const GlowScale = preload("res://scenes/ui/glow_scale.gd")
 const Hud = preload("res://scenes/ui/hud.gd")
 const Tutorial = preload("res://scenes/ui/tutorial.gd")
 const StepMarks = preload("res://scenes/ui/step_marks.gd")
+const StreakView = preload("res://scenes/main/streak_view.gd")
+const ItemShapes = preload("res://scripts/item_shapes.gd")
 
 const STAGE_SIZE := Vector2(1080, 1920)
 ## Bühnen-Positionen (Hochformat)
@@ -40,6 +42,7 @@ var anvil_view: AnvilView
 var trough_view: TroughView
 var machine_view: MachineView
 var furnish_view: FurnishView
+var streak_view: StreakView
 var glow_scale: GlowScale
 var hud: Hud
 var tutorial: Tutorial
@@ -129,6 +132,10 @@ func _ready() -> void:
 	stage.add_child(pieces_layer)
 	fx_layer = Node2D.new()
 	stage.add_child(fx_layer)
+	# Schlagserie rechts neben dem Amboss
+	streak_view = StreakView.new()
+	stage.add_child(streak_view)
+	streak_view.position = Vector2(anvil_view.position.x + anvil_view.size.x - 20.0, anvil_point().y + 15.0)
 	_build_particles()
 
 	# Bedienfeld (Bildschirm-Koordinaten) unten über der Navigationsleiste
@@ -419,6 +426,8 @@ func _process(delta: float) -> void:
 	machine_view.running = m != null and sim.anvil >= 0 \
 		and (not sim.machine_commanded() or sim.machine_hold or sim.sim_time - sim.last_machine_blow < 0.8)
 	trough_view.visible = gm.has_trough()
+	if sim.job == null and streak_view.count > 0:
+		streak_view.reset()
 	_update_force_state()
 	_update_hand_hammer()
 	_sync_pieces()
@@ -465,7 +474,22 @@ func _sync_pieces() -> void:
 		elif sim.awaiting_quench(i):
 			badge = "quench"
 		var sel: bool = (not on_anvil) and p.slot == sim.selected_slot
-		v.update_state(p.temp, p.progress / maxf(fp, 0.001), p.damage, sel, badge)
+		v.update_state(p.temp, _form_ratio(j, p.progress / maxf(fp, 0.001)), p.damage, sel, badge)
+		v.set_step(sim.step_index(i))
+
+
+## Sichtbare Form des Werkstücks: springt mit jedem fertigen Arbeitsgang eine Stufe weiter;
+## innerhalb eines Arbeitsgangs verändert es sich nur leicht (Stufensprung).
+func _form_ratio(j: JobInstance, r: float) -> float:
+	if j.steps.is_empty():
+		return r
+	var k := j.step_index_at(r)
+	var a := j.step_start(k)
+	var b := j.step_start(k + 1) if k + 1 < j.steps.size() else 1.0
+	if b <= a + 0.0001:
+		return r
+	var within := clampf((r - a) / (b - a), 0.0, 1.0)
+	return a + (b - a) * 0.3 * within
 
 
 func _clear_piece_views() -> void:
@@ -672,6 +696,10 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 				_cold_msgs += 1
 				_float_text(tr("FX_TOO_COLD"), anvil_point() + Vector2(0, -80), Color("9fc5e8"))
 		"step":
+			# Stufensprung: Arbeitsgang geschafft – Funkenregen, das Stück springt in die nächste Form
+			sparks.position = anvil_point()
+			sparks.amount = 44 if flash else 10
+			sparks.restart()
 			var sid := str(data.get("id", ""))
 			if sid != "" and GameManager.active_job != null:
 				var w: Vector2 = GameManager.sim.window_for_step(sid)
@@ -713,8 +741,21 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 				_shake_screen()
 		"striker":
 			anvil_view.play_swing()
+		"streak":
+			var lv := int(data.get("level", 0))
+			var before := streak_view.level
+			streak_view.max_levels = GameManager.cfg.streak_max_levels
+			streak_view.bonus_per_level = GameManager.cfg.streak_bonus_per_level
+			streak_view.set_streak(int(data.get("count", 0)), lv, bool(data.get("broke", false)))
+			if lv > before:
+				var pct := int(round(GameManager.cfg.streak_bonus_per_level * lv * 100.0))
+				_float_text(tr("FX_STREAK_LEVEL").format({"n": int(data.get("count", 0)), "p": pct}), anvil_point() + Vector2(0, -190), Color(1.0, 0.88, 0.45))
+				weld_sparks.position = anvil_point()
+				weld_sparks.amount = 40 if flash else 10
+				weld_sparks.restart()
 		"piece_done":
 			_float_text(tr("FX_PIECE_DONE"), anvil_point() + Vector2(0, -120), Color(0.9, 0.95, 0.7))
+			_finished_pop()
 
 
 ## Handhammer nur zeigen, wenn keine Maschine gerade mitarbeitet (Schwanzhämmer pausieren
@@ -804,6 +845,32 @@ func _update_force_state() -> void:
 func _shake_screen() -> void:
 	if bool(GameManager.settings.get("screen_shake", true)):
 		_shake = 0.15
+
+
+## Fertiges Werkstück steigt kurz golden leuchtend über dem Amboss auf.
+func _finished_pop() -> void:
+	var j: JobInstance = GameManager.active_job
+	var tid: String = j.template_id if j != null else ""
+	var tex := Assets.item_tex(tid) if tid != "" else null
+	var n := Node2D.new()
+	n.position = anvil_point()
+	var item: ItemData = GameManager.items.get(tid, null) if tid != "" else null
+	var shape: String = item.shape if item != null else "bar"
+	n.draw.connect(func() -> void:
+		for k in 4:
+			n.draw_circle(Vector2.ZERO, 70.0 + 22.0 * k, Color(1.0, 0.8, 0.35, 0.10))
+		if tex != null:
+			n.draw_texture_rect(tex, Rect2(-120, -120, 240, 240), false)
+		else:
+			ItemShapes.draw(n, shape, 200.0, 1.0))
+	fx_layer.add_child(n)
+	n.scale = Vector2(0.6, 0.6)
+	var tw := n.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(n, "scale", Vector2(1.15, 1.15), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(n, "position:y", n.position.y - 170.0, 1.3).set_ease(Tween.EASE_OUT)
+	tw.tween_property(n, "modulate:a", 0.0, 0.6).set_delay(0.8)
+	tw.chain().tween_callback(n.queue_free)
 
 
 func _float_text(text: String, pos: Vector2, col: Color) -> void:
