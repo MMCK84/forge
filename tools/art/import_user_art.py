@@ -146,10 +146,17 @@ def main():
     seals = objects(to_rgba(a, bg.astype(np.float32)))
     by_pos = sorted(seals, key=lambda p: 0)
     # Reihenfolge der Objekte: (Zeile, x) – oben: Victoria, George III, Admiralty; unten: Louis XV, Russland
-    names = {1: "seal_george_iii.png", 2: "seal_admiralty.png"}
+    names = {0: "seal_victoria.png", 1: "seal_george_iii.png", 2: "seal_admiralty.png"}
     for k, piece in enumerate(seals):
         if k in names:
             save(piece, names[k], max_w=160)
+    # Einzeln nachgelieferte Siegel (z. B. Victoria ohne Jahreszahl) ersetzen die aus dem Sammelbild
+    for name in ("seal_victoria", "seal_george_iii", "seal_admiralty"):
+        for ext in (".webp", ".png", ".jpg"):
+            if os.path.exists(os.path.join(SRC, name + ext)):
+                a = load(name + ext)
+                bg = flood_bg(a.min(axis=2) > 238)
+                save(to_rgba(a, bg.astype(np.float32)), name + ".png", max_w=160)
     # 11 Amboss auf Holzklotz (weiß), auf Spielgröße vorskaliert (wird 1:1 gezeichnet)
     a = load("anvil.webp")
     sat = a.max(axis=2) - a.min(axis=2)

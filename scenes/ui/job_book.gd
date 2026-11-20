@@ -105,7 +105,8 @@ func _book_entry(i: int, j: JobInstance, width: float) -> Control:
 	row.add_child(title)
 	var seal_name := ""
 	if j.is_milestone():
-		seal_name = "seal_george_iii.png"
+		# Königliches Siegel der Zeit: George III bis 1820 (Epoche 7), Victoria ab 1837 (Epoche 9)
+		seal_name = "seal_victoria.png" if j.epoch >= 9 else "seal_george_iii.png"
 	elif NAVY.has(j.customer_id):
 		seal_name = "seal_admiralty.png"
 	if seal_name != "" and Assets.user(seal_name) != null:

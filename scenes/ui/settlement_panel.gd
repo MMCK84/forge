@@ -26,7 +26,7 @@ func build(box: VBoxContainer) -> void:
 	head.add_child(title)
 	var seal := ""
 	if j.is_milestone():
-		seal = "seal_george_iii.png"
+		seal = "seal_victoria.png" if j.epoch >= 9 else "seal_george_iii.png"
 	elif JobBook.NAVY.has(j.customer_id):
 		seal = "seal_admiralty.png"
 	if seal != "" and Assets.user(seal) != null:

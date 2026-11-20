@@ -245,6 +245,8 @@ Epochen 7–10 erzeuge ich wie bisher selbst.
 
 # Teil 2: Grafik-Prompts
 
+> Aktuell gültig ist das vollständige Heft `assets/source/user_art/PROMPTS_Hochformat.md` (alle Bilder, mit Status). Die Essen dort sind in Frontalansicht.
+
 Gleiche Regeln wie bisher: weißer Hintergrund, kein Schatten, kein Text, kein Wasserzeichen.
 Dateinamen = die fett gedruckten IDs.
 

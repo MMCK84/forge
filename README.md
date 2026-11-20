@@ -177,6 +177,9 @@ Siegel Ludwig XV. und Russland (kein Kunde), Karte 4 (Art déco), das aufgeschla
 (Doppelseite zu breit fürs Hochformat), die ersten Fassungen von Stein- und Koks-Esse (Feueröffnung
 zu schmal für 3 Plätze), Holzschlegel und Steinhammer (keine Schmiedewerkzeuge des 18. Jh.),
 Dampf-Fallhammer (erst ab 1839) und die glühenden Hufeisen (Glut kommt aus dem Shader).
+Alle Prompts mit Status je Bild: `assets/source/user_art/PROMPTS_Hochformat.md`
+(neu erzeugen mit `python tools/content/gen_prompt_book.py`). Siegel: George III bis
+Epoche 8, Victoria ab Epoche 9.
 Weitere Werkstücke: Bild als `assets/source/user_art/items/<item_id>.webp` ablegen und das
 Importskript starten. Kleine Unschärfe: George III regierte ab 1760 – Siegel und Münzen sind in
 den Epochen 1–3 streng genommen etwas zu früh. Vor einer Veröffentlichung die Nutzungsbedingungen

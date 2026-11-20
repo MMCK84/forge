@@ -1,5 +1,7 @@
 # Prompts für die Werkstück-Grafiken
 
+> Das vollständige Heft mit allen Bildern und ihrem Status ist `PROMPTS_Hochformat.md`.
+
 49 Werkstücke (48 Gegenstände + Rohling). Jedes Bild ersetzt im Spiel automatisch das
 gerenderte Sprite. Die Glut färbt das Spiel selbst ein (stufenlos nach Temperatur) –
 deshalb brauchen wir jedes Stück nur **einmal, kalt**.
