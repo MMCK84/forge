@@ -747,6 +747,18 @@
   "id": "store_banner",
   "dir": ""
  },
+ "U18": {
+  "id": "seal_mastery_1",
+  "dir": ""
+ },
+ "U19": {
+  "id": "seal_mastery_2",
+  "dir": ""
+ },
+ "U20": {
+  "id": "seal_mastery_3",
+  "dir": ""
+ },
  "E1-1": {
   "id": "furn_e1_fuel",
   "dir": "furnishings"

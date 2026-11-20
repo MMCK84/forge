@@ -169,6 +169,13 @@ def main():
                 a = load(name + ext)
                 bg = flood_bg(a.min(axis=2) > 238)
                 save(to_rgba(a, bg.astype(np.float32)), name + ".png", max_w=160)
+    # Meisterschafts-Siegel Bronze/Silber/Gold (weiß): seal_mastery_<stufe>
+    for k in (1, 2, 3):
+        name = "seal_mastery_%d" % k
+        if os.path.exists(find_src(name + ".png")):
+            a = load(name + ".png")
+            bg = flood_bg(a.min(axis=2) > 238)
+            save(to_rgba(a, bg.astype(np.float32)), name + ".png", max_w=160)
     # 11 Amboss und 14 Hämmer (Midjourney, weiß): assets/source/user_art/tools/ – vermessen nach scripts/user_tool_meta.gd
     tool_import()
 

@@ -20,7 +20,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | ✅ gut (Midjourney) | 64 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 18 |
-| ⬜ noch nicht vorhanden | 115 |
+| ⬜ noch nicht vorhanden | 118 |
 | ⬜ noch nicht vorhanden (optional) | 38 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -31,7 +31,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 11 | 1 | 5 | 64 | 0 |
 | F · Kundenporträts | 19 | 1 | 0 | 0 | 34 |
-| G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
+| G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 4 | 4 |
 | H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
@@ -1351,6 +1351,24 @@ U16 — Square 1:1 mobile game app icon, a heavy blacksmith's hammer striking a 
 Regler: **Landscape 2:1** · 69 Wörter · Datei `store_banner`
 ```
 U17 — Wide 2:1 banner illustration for a mobile game, interior of an 18th-century English smithy at night lit only by forge fire, on the right half a blacksmith's anvil with a glowing horseshoe and a raised hammer with sparks flying, a brick forge glowing in the background, the left half is calm, dark and empty for a title to be added later, hand-painted 2D game art, dark ink outlines, painterly --ar 2:1 --no people, text, letters, numbers, watermark
+```
+
+**U18** – Meisterschafts-Siegel Bronze · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 54 Wörter · Datei `seal_mastery_1`
+```
+U18 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of warm brown polished bronze, embossed crossed hammers above a small anvil, one small star below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**U19** – Meisterschafts-Siegel Silber · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 53 Wörter · Datei `seal_mastery_2`
+```
+U19 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of bright polished silver, embossed crossed hammers above a small anvil, two small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**U20** – Meisterschafts-Siegel Gold · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 60 Wörter · Datei `seal_mastery_3`
+```
+U20 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of shining gold with a small laurel wreath around the rim, embossed crossed hammers above a small anvil, three small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ## H · Werkstatt-Einrichtung (5 je Epoche)
