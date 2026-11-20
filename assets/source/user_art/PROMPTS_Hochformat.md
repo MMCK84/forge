@@ -17,11 +17,11 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 55 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
+| ✅ gut (Midjourney) | 64 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 18 |
 | ⬜ noch nicht vorhanden | 115 |
-| ⬜ noch nicht vorhanden (optional) | 48 |
+| ⬜ noch nicht vorhanden (optional) | 38 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 11 | 1 | 5 | 64 | 0 |
-| F · Kundenporträts | 10 | 0 | 0 | 0 | 44 |
+| F · Kundenporträts | 19 | 1 | 0 | 0 | 34 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
 | H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
 
@@ -74,6 +74,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | alle Frontal-/Seitenansichten | Midjourney malt freigestellte Objekte häufig perspektivisch, obwohl „front view“ im Prompt steht | Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten |
 | 20.11. | Maschinenteile | neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock | historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt |
 | 20.11. | Werkstücke | Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten | Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst) |
+| 20.11. | Porträts | Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller | bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -901,38 +902,44 @@ W10-8 — 2D game asset, a single forged steel intermediate shaft for an ocean l
 
 Die aktuellen Porträts sind noch meine gerenderten (im Spiel vorhanden, aber im alten Stil). Für einen einheitlichen Stil empfehlenswert, aber nicht zwingend.
 
-**P1-1** – the squire (Epoche 1–2) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_squire`
+**P1-1** – the squire (Epoche 1–2) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_squire`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Allongeperücke und braunem Samtrock.*
 ```
 P1-1 — 2D game asset, a head-and-shoulders portrait of a stout English country squire of about 1710, full-bottomed powdered wig, brown velvet coat, ruddy cheeks, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P1-2** – the vicar (Epoche 1–2) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_vicar`
+**P1-2** – the vicar (Epoche 1–2) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_vicar`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit schwarzem Talar und Beffchen.*
 ```
 P1-2 — 2D game asset, a head-and-shoulders portrait of an elderly Anglican village vicar of about 1710, black cassock, white preaching bands, small grey wig, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P1-3** – Farmer Hollow (Epoche 1–2) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_farmer_hollow`
+**P1-3** – Farmer Hollow (Epoche 1–2) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_farmer_hollow`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Strohhut und Leinenkittel.*
 ```
-P1-3 — 2D game asset, a head-and-shoulders portrait of a weathered English farmer of about 1710, grey hair tied back, linen smock, broad-brimmed straw hat, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
-```
-
-**P1-4** – the miller of Upton (Epoche 1–2) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 53 Wörter · Datei `portrait_miller_upton`
-```
-P1-4 — 2D game asset, a head-and-shoulders portrait of a cheerful village miller of about 1710, flour-dusted face and clothes, white linen cap, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
+P1-3 — 2D game asset, a head-and-shoulders portrait of a weathered English farmer (a man) of about 1710, grey hair tied back, linen smock, broad-brimmed straw hat, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P1-5** – the landlady of the Red Lion (Epoche 1–2) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_landlady_red_lion`
+**P1-4** – the miller of Upton (Epoche 1–2) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Portrait 4:5** · 58 Wörter · Datei `portrait_miller_upton`  
+*20.11.: wirkt wie eine Frau mit Haube, nicht fröhlich, kaum Mehl – neu mit „(a man)“, breitem Lächeln und Mehlstaub.*
+```
+P1-4 — 2D game asset, a head-and-shoulders portrait of a cheerful, plump village miller (a man) of about 1710, broad smile, flour-dusted face and clothes, white linen cap, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**P1-5** – the landlady of the Red Lion (Epoche 1–2) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_landlady_red_lion`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Haube, Schultertuch und Mieder.*
 ```
 P1-5 — 2D game asset, a head-and-shoulders portrait of a sturdy English innkeeper's wife of about 1710, white linen cap, shawl over a laced bodice, warm smile, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P1-6** – the carpenter (Epoche 1–2) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_carpenter`
+**P1-6** – the carpenter (Epoche 1–2) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_carpenter`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Lederschurz und hochgekrempelten Ärmeln.*
 ```
 P1-6 — 2D game asset, a head-and-shoulders portrait of an English village carpenter of about 1710, leather apron, rolled sleeves, a pencil behind the ear, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1007,26 +1014,30 @@ Regler: **Portrait 4:5** · 61 Wörter · Datei `portrait_ropewalk_chatham`
 P3-5 — 2D game asset, a head-and-shoulders portrait of the foreman of the Chatham ropewalk around 1740, strong man with tarred hands, knitted cap, a coil of rope over his shoulder, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P4-1** – a Leeds clothier (Epoche 4–5) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 56 Wörter · Datei `portrait_clothier_leeds`
+**P4-1** – a Leeds clothier (Epoche 4–5) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 56 Wörter · Datei `portrait_clothier_leeds`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Ballen gefärbter Wolle.*
 ```
 P4-1 — 2D game asset, a head-and-shoulders portrait of a prosperous Leeds clothier around 1755, brown wig, plain cloth coat, holding a bolt of dyed wool, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P4-2** – the Sheffield cutlers (Epoche 4–5) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_cutlers_sheffield`
+**P4-2** – the Sheffield cutlers (Epoche 4–5) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_cutlers_sheffield`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Amtskette.*
 ```
 P4-2 — 2D game asset, a head-and-shoulders portrait of the Master Cutler of Sheffield around 1755, dignified man with a chain of office over a dark coat, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P4-3** – the spinning master (Epoche 4–5) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 56 Wörter · Datei `portrait_spinning_master`
+**P4-3** – the spinning master (Epoche 4–5) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 56 Wörter · Datei `portrait_spinning_master`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Weste und Fasern auf den Schultern.*
 ```
 P4-3 — 2D game asset, a head-and-shoulders portrait of a spinning master around 1760, middle-aged man in shirtsleeves and waistcoat, wisps of cotton on his clothes, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P4-4** – toolmaker Holt (Epoche 4–5) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_toolmaker_holt`
+**P4-4** – toolmaker Holt (Epoche 4–5) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_toolmaker_holt`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Brille, Schurz und Feile.*
 ```
 P4-4 — 2D game asset, a head-and-shoulders portrait of a wiry toolmaker around 1760, spectacles on the nose, leather apron, a file in his hand, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```

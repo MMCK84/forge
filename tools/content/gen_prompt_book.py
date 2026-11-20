@@ -92,6 +92,8 @@ LESSONS = [
      "historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt"),
     ("20.11.", "Werkstücke", "Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten",
      "Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst)"),
+    ("20.11.", "Porträts", "Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller",
+     "bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -435,8 +437,8 @@ PORTRAIT_TAIL = ("in an oval gilt wooden frame, hand-painted 2D game art with da
 PORTRAITS = {
     "squire": "a stout English country squire of about 1710, full-bottomed powdered wig, brown velvet coat, ruddy cheeks",
     "vicar": "an elderly Anglican village vicar of about 1710, black cassock, white preaching bands, small grey wig",
-    "farmer_hollow": "a weathered English farmer of about 1710, grey hair tied back, linen smock, broad-brimmed straw hat",
-    "miller_upton": "a cheerful village miller of about 1710, flour-dusted face and clothes, white linen cap",
+    "farmer_hollow": "a weathered English farmer (a man) of about 1710, grey hair tied back, linen smock, broad-brimmed straw hat",
+    "miller_upton": "a cheerful, plump village miller (a man) of about 1710, broad smile, flour-dusted face and clothes, white linen cap",
     "landlady_red_lion": "a sturdy English innkeeper's wife of about 1710, white linen cap, shawl over a laced bodice, warm smile",
     "carpenter": "an English village carpenter of about 1710, leather apron, rolled sleeves, a pencil behind the ear",
     "postmaster_bath": "a fashionable postmaster of Bath around 1725, neat tie wig, blue coat with brass buttons",

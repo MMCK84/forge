@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv4ln0eh4jeaf"
-path="res://.godot/imported/P1-2.png-83371323c376a1fb95ff1b8aa5536216.ctex"
+uid="uid://b3bwyah1ype5n"
+path="res://.godot/imported/portrait_cutlers_sheffield.png-97cb6da66beec7ee3a2480ca556e01b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://P1-2.png"
-dest_files=["res://.godot/imported/P1-2.png-83371323c376a1fb95ff1b8aa5536216.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_cutlers_sheffield.png"
+dest_files=["res://.godot/imported/portrait_cutlers_sheffield.png-97cb6da66beec7ee3a2480ca556e01b5.ctex"]
 
 [params]
 

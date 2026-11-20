@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcryc6hk5r5om"
-path="res://.godot/imported/P1-3.png-a82fd532673c65cb318d6b31bf0c0328.ctex"
+uid="uid://ch16oq35j6b50"
+path="res://.godot/imported/portrait_miller_upton.png-14e6b1cb584ac4c5934e6a0d74223d68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://P1-3.png"
-dest_files=["res://.godot/imported/P1-3.png-a82fd532673c65cb318d6b31bf0c0328.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_miller_upton.png"
+dest_files=["res://.godot/imported/portrait_miller_upton.png-14e6b1cb584ac4c5934e6a0d74223d68.ctex"]
 
 [params]
 

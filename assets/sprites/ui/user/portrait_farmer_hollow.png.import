@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1ksfx8wlkltv"
-path="res://.godot/imported/BG6.png-9bede7232576db634cb7b542f44f810c.ctex"
+uid="uid://y5otsmx32f1n"
+path="res://.godot/imported/portrait_farmer_hollow.png-9fd2f0bc61c44ee0b2e1a4f1e561151d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BG6.png"
-dest_files=["res://.godot/imported/BG6.png-9bede7232576db634cb7b542f44f810c.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_farmer_hollow.png"
+dest_files=["res://.godot/imported/portrait_farmer_hollow.png-9fd2f0bc61c44ee0b2e1a4f1e561151d.ctex"]
 
 [params]
 

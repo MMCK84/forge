@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g13u6shtdnpf"
-path="res://.godot/imported/BG3.png-9b2a1de4d390b7ac41d26c722c8b2e45.ctex"
+uid="uid://bpfl52ppbawnd"
+path="res://.godot/imported/portrait_spinning_master.png-4f43ab819912fdff191c3f888de0e4f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BG3.png"
-dest_files=["res://.godot/imported/BG3.png-9b2a1de4d390b7ac41d26c722c8b2e45.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_spinning_master.png"
+dest_files=["res://.godot/imported/portrait_spinning_master.png-4f43ab819912fdff191c3f888de0e4f1.ctex"]
 
 [params]
 

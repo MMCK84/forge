@@ -171,7 +171,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: Lieferung mit Kürzeln (erste Nutzung von `sort_inbox.py`): großer Dampfhammer (M10), Ladenbilder Dampf-Schwanzhammer,
   Nasmyth, großer Dampfhammer (ML2–4), Rohling und Werkstücke W1-1–3 (Nagel, Hufeisen, Haken), erste sechs Kundenporträts
   (P2-1–5, P3-1). Neu: Import für Porträts (ovaler Rahmen freigestellt, `ui/user/portrait_<kunde>.png` hat Vorrang) und alle
-  vier Ladenbilder. Dazu Porträts P3-2–5. Stand Heft: 55 ✅, 1 🟠, 18 Gemini, 115 fehlen, 48 optional.
+  vier Ladenbilder. Dazu Porträts P3-2–5, P1-1–6 (P1-4 Müller „ändern“: wirkte wie eine Frau) und P4-1–4.
+  Aufgeräumt: BG3–6 (Doppel) und P1-* lagen im Hauptordner des Repositorys → gelöscht bzw. einsortiert.
 
 ## Prüfen
 

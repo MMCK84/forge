@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2loo72c1chk"
-path="res://.godot/imported/P1-4.png-7dac124d94f4f33095518c258e46af09.ctex"
+uid="uid://cujanmygbokl4"
+path="res://.godot/imported/portrait_landlady_red_lion.png-a9185b6a1a66eff381f23e3654981862.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://P1-4.png"
-dest_files=["res://.godot/imported/P1-4.png-7dac124d94f4f33095518c258e46af09.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_landlady_red_lion.png"
+dest_files=["res://.godot/imported/portrait_landlady_red_lion.png-a9185b6a1a66eff381f23e3654981862.ctex"]
 
 [params]
 

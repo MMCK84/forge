@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4wndylvi2g2q"
-path="res://.godot/imported/P1-1.png-30c9a7d39d15dead8e72288fddf8a5a5.ctex"
+uid="uid://ckyjsv31f2nmo"
+path="res://.godot/imported/portrait_toolmaker_holt.png-b68eb9549c57ea2c5000ec5ceb99bdba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://P1-1.png"
-dest_files=["res://.godot/imported/P1-1.png-30c9a7d39d15dead8e72288fddf8a5a5.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_toolmaker_holt.png"
+dest_files=["res://.godot/imported/portrait_toolmaker_holt.png-b68eb9549c57ea2c5000ec5ceb99bdba.ctex"]
 
 [params]
 

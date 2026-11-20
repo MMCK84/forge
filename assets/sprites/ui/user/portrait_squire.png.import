@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8yo01jinwvkg"
-path="res://.godot/imported/BG5.png-35b11c2f970f983beace66dc831c577c.ctex"
+uid="uid://dvlw1p83dhj6d"
+path="res://.godot/imported/portrait_squire.png-ee02ee2d441c5ddd418e5b26522f8eac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BG5.png"
-dest_files=["res://.godot/imported/BG5.png-35b11c2f970f983beace66dc831c577c.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_squire.png"
+dest_files=["res://.godot/imported/portrait_squire.png-ee02ee2d441c5ddd418e5b26522f8eac.ctex"]
 
 [params]
 

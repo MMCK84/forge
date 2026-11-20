@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw3p4pt4se45c"
-path="res://.godot/imported/P1-6.png-45746c13a5f9885095e993d349b195dc.ctex"
+uid="uid://2rwvq6hwv8u8"
+path="res://.godot/imported/portrait_vicar.png-9c32ff2fec9ac767fed54a97e8e163ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://P1-6.png"
-dest_files=["res://.godot/imported/P1-6.png-45746c13a5f9885095e993d349b195dc.ctex"]
+source_file="res://assets/sprites/ui/user/portrait_vicar.png"
+dest_files=["res://.godot/imported/portrait_vicar.png-9c32ff2fec9ac767fed54a97e8e163ca.ctex"]
 
 [params]
 
