@@ -17,11 +17,11 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 51 |
+| ✅ gut (Midjourney) | 55 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 18 |
 | ⬜ noch nicht vorhanden | 115 |
-| ⬜ noch nicht vorhanden (optional) | 52 |
+| ⬜ noch nicht vorhanden (optional) | 48 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 11 | 1 | 5 | 64 | 0 |
-| F · Kundenporträts | 6 | 0 | 0 | 0 | 48 |
+| F · Kundenporträts | 10 | 0 | 0 | 0 | 44 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
 | H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
 
@@ -979,26 +979,30 @@ Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_navy_board`
 P3-1 — 2D game asset, a head-and-shoulders portrait of a Navy Board commissioner around 1740, white powdered wig, dark blue coat with gold lace, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P3-2** – the master shipwright of Portsmouth (Epoche 3–4) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_shipwright_portsmouth`
+**P3-2** – the master shipwright of Portsmouth (Epoche 3–4) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_shipwright_portsmouth`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Messingzirkel.*
 ```
 P3-2 — 2D game asset, a head-and-shoulders portrait of a master shipwright of Portsmouth around 1740, grey hair, plain brown coat, holding a pair of brass dividers, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P3-3** – a Bristol merchant (Epoche 3–4) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 53 Wörter · Datei `portrait_merchant_bristol`
+**P3-3** – a Bristol merchant (Epoche 3–4) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 53 Wörter · Datei `portrait_merchant_bristol`  
+*20.11.: Brustbild im ovalen Goldrahmen, im grünen Seidenrock mit Spitzenhalstuch.*
 ```
 P3-3 — 2D game asset, a head-and-shoulders portrait of a wealthy Bristol merchant around 1740, powdered wig, rich green silk coat, lace cravat, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P3-4** – the harbourmaster (Epoche 3–4) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 52 Wörter · Datei `portrait_harbourmaster`
+**P3-4** – the harbourmaster (Epoche 3–4) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 52 Wörter · Datei `portrait_harbourmaster`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Dreispitz und blauem Seerock.*
 ```
 P3-4 — 2D game asset, a head-and-shoulders portrait of a harbourmaster around 1740, weathered sailor's face, tricorn hat, dark blue sea coat, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P3-5** – the Chatham ropewalk (Epoche 3–4) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 61 Wörter · Datei `portrait_ropewalk_chatham`
+**P3-5** – the Chatham ropewalk (Epoche 3–4) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 61 Wörter · Datei `portrait_ropewalk_chatham`  
+*20.11.: Brustbild im ovalen Goldrahmen, mit Tau über der Schulter und Strickmütze.*
 ```
 P3-5 — 2D game asset, a head-and-shoulders portrait of the foreman of the Chatham ropewalk around 1740, strong man with tarred hands, knitted cap, a coil of rope over his shoulder, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
