@@ -261,6 +261,21 @@ alle Zahlen liegen in `balance_config.tres`:
 | Ruf | Titelstufen nach gesammelten Sternen; kosmetisch: Zunftschild in der Werkstatt |
 | Geselle online | Einnahmen laufend, Gutschrift alle 10 s |
 
+## Balancing mit 10 Epochen und Schlagstärke
+
+Nach Einführung der Schlagstärke und der Epochen 7–10 neu abgestimmt (`tools/tune_balance.py`,
+echter Auftragsmix, Mittel über 4 Seeds, Referenzspieler wählt immer die passende Stärke):
+
+| Epoche | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | Gesamt |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Ziel (min) | 12 | 23 | 56 | 83 | 131 | 157 | 78 | 84 | 90 | 96 | 13,5 h |
+| Simulation (min) | 12,8 | 25,1 | 56,9 | 83,3 | 130,9 | 157,5 | 77,2 | 85,2 | 90,2 | 96,3 | **13,6 h** |
+
+Epoche 2 reagiert kaum noch auf die Auftragsgröße (Aufheizen und Umlegen bestimmen die Zeit)
+und bleibt 2 Minuten über dem Ziel. Weil Zuschläger und Schwanzhammer nur noch in schweren
+Arbeitsgängen mitschlagen, sind die Form-Punkte je Auftrag ab Epoche 6 kleiner geworden; die
+Löhne sind unverändert (Satz je Form-Punkt entsprechend höher).
+
 ## Balancing (abgestimmt auf 5.8)
 
 Mit den Startwerten des Lastenhefts ergab die Simulation **12,3 h statt 7,7 h**: Jeder
