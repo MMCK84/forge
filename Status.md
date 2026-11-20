@@ -182,7 +182,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Roter Faden geprüft** (`docs/Roter_Faden.md`: Zeitleiste aller Mechaniken, Drehbuch der Lehrzeit). Nachgesteuert:
   Lehrzeit nach festem Drehbuch (Haken biegen → Nagel anspitzen → Nagel strecken+anspitzen → Hufeisen strecken+biegen →
   Hufeisen vollständig; erst 1, dann 2 Angebote), Sichel aus Eisen (Stahl erst Epoche 4), Eilaufträge in Epoche 2 erst ab
-  der Mitte, Hinweis auf die Einrichtung am Ende der Lehrzeit. Unit-Tests 2088/0. Balancing danach 13,1 h → Nachstimmen läuft.
+  der Mitte, Hinweis auf die Einrichtung am Ende der Lehrzeit. Unit-Tests 2088/0. Balancing danach 13,1 h → nachgestimmt: **13,49 h**, Minuten je Epoche
+  12.2/23.2/54.9/83.1/131.1/156.9/78.0/84.0/90.0/96.1.
 
 ## Prüfen
 
