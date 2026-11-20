@@ -15,15 +15,15 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 0 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
+| ✅ gut (Midjourney) | 1 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 42 |
 | ⬜ noch nicht vorhanden | 81 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
-| A · Werkstatt-Hintergründe | 0 | 2 | 5 | 3 | 0 |
+| A · Werkstatt-Hintergründe | 1 | 1 | 5 | 3 | 0 |
 | B · Essen | 0 | 0 | 4 | 2 | 0 |
 | C · Amboss und Hämmer | 0 | 0 | 5 | 0 | 0 |
 | D · Maschinen | 0 | 0 | 7 | 3 | 4 |
@@ -62,6 +62,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Hintergründe | drei von vier 1:1-Bildern (Epoche 1 Variante 2, Epoche 2, Epoche 3) mit einfarbig schwarzem Streifen unten (10–18 % der Höhe); der Boden hört dort abrupt auf | „the floor continues all the way to the bottom edge“, `--no black band at the bottom, dark strip below the floor`; der Import schneidet einen solchen Streifen automatisch ab (Bild bleibt brauchbar) |
 | 20.11. | Hintergründe | Epoche 1, Variante 3: eine große, leere, helle Wandfläche direkt hinter der Esse lässt Esse und Amboss im Spiel am besten wirken (bei Variante 1 stand ein Fachwerkpfosten genau dahinter) | „a large plain wall area without posts or beams directly behind the centre“ in allen Hintergrund-Prompts |
 | 20.11. | alle | Midjourney meldet „Long prompt – Prompts of this length will be adjusted … may increase variability“ (Hintergründe hatten ~320 Wörter) | alle Prompts gekürzt: Bausteine in Stichworten, Verbote knapp (`--no text, numbers, watermark`, freigestellt zusätzlich `border, shadow`); Wortzahl steht jetzt bei jedem Prompt |
+| 20.11. | Hintergründe | gekürzter Prompt (Epoche 1 V4, Epoche 2): kein schwarzer Streifen mehr, Upscale 2000 × 2000 – aber Kante tiefer (72 % bzw. ~80 %), Tageslicht statt Feuerschein, Epoche 2 mit zweitem Fenster außerhalb des Hochformats und verwischter grauer Fläche („plain wall“) | „high viewpoint, the floor fills the lower half“, „Evening, warm orange firelight on the centre of the back wall“, „only one small window“, „centre free of posts and windows“ statt „plain wall“; `--no daylight beam, second window` |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -103,66 +104,66 @@ Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand
 
 Vorhandene gute 3:4-Bilder (Epoche 1) nicht neu erzeugen, sondern im Midjourney-Editor links und rechts um je ein Sechstel der Breite auf 1:1 erweitern.
 
-**background_1** – Die Dorfschmiede (1700–1715) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
-Regler: **Square 1:1** · 90 Wörter  
-*20.11.: Variante 3 (1:1) – Inhalt gut: Kante 63 % (Bühne y 911), große helle Putzfläche hinter der Esse, Fenster in den mittleren drei Vierteln, Regal und Hufeisen in den äußeren Achteln; schwarzer Streifen unten wird beim Import abgeschnitten. Nur die Auflösung fehlt: dasselbe Bild als Upscale 2× (2048 × 2048) nachliefern.*
+**background_1** – Die Dorfschmiede (1700–1715) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 108 Wörter  
+*20.11.: Variante 4 (1:1, 2000 × 2000, gekürzter Prompt): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (72 %, Bühne y 1044), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch, die Esse leuchtet selbst.*
 ```
-background_1 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_1 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_2** – Kutschen & Handelswege (1715–1735) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 93 Wörter
+Regler: **Square 1:1** · 111 Wörter
 ```
-background_2 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_2 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_3** – Hafen & Royal Navy (1735–1750) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 97 Wörter
+Regler: **Square 1:1** · 115 Wörter
 ```
-background_3 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Window view: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_3 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Window view: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_4** – Stahl & Tuch (1750–1765) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 90 Wörter
+Regler: **Square 1:1** · 108 Wörter
 ```
-background_4 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Window view: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_4 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Window view: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_5** – Das Zeitalter des Dampfes (1765–1785) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 97 Wörter
+Regler: **Square 1:1** · 115 Wörter
 ```
-background_5 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Window view: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_5 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Window view: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_6** – Das Zeitalter der Eisenwerke (1785–1800) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 94 Wörter
+Regler: **Square 1:1** · 112 Wörter
 ```
-background_6 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Window view: glowing blast furnaces at dusk. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_6 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Window view: glowing blast furnaces at dusk. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_7** – Krieg & Erfindergeist (1800–1820) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
-Regler: **Square 1:1** · 91 Wörter  
+Regler: **Square 1:1** · 109 Wörter  
 *Fenster sitzt ganz oben und wird zur Hälfte von der Statusleiste verdeckt; Wand-Boden-Kante bei 49 % (Ziel 40 %). Im Spiel nutzbar.*
 ```
-background_7 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Window view: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_7 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Window view: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_8** – Eisenbahnfieber (1820–1839) · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 92 Wörter
+Regler: **Square 1:1** · 110 Wörter
 ```
-background_8 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Window view: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_8 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Window view: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_9** – Der Dampfhammer (1839–1860) · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 93 Wörter
+Regler: **Square 1:1** · 111 Wörter
 ```
-background_9 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Window view: canal with a narrowboat, foundry chimneys. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_9 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Window view: canal with a narrowboat, foundry chimneys. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 **background_10** – Das Stahlzeitalter (1860–1880) · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 94 Wörter
+Regler: **Square 1:1** · 112 Wörter
 ```
-background_10 — Square 2D game background, hand-painted, dark ink outlines, moderately bright. Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, empty floor to the bottom edge. Small window just below the beams, left of centre. Plain wall behind the centre, warm firelight from below. Props only at the far edges. Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Window view: Bessemer converters blowing sparks at night. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, text, numbers, watermark, black band, border
+background_10 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Window view: Bessemer converters blowing sparks at night. Right third of the floor empty --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
 ## B · Essen (Frontalansicht, alle sechs Stufen)

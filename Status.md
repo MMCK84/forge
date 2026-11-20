@@ -36,7 +36,7 @@ wenn alles fertig ist.
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (1:1) | – | 2 (Ep. 1: nur Upscale fehlt; Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
+| A Hintergründe (1:1) | 1 (Ep. 1) | 1 (Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
 | B Essen (frontal) | – | – | 4 (Schrägansicht) | 2 (Stufe 5, 6) |
 | C Amboss, Hämmer | – | – | 5 | – |
 | D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
@@ -66,7 +66,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
   Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
   der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
-  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 911). Bildaufbau-Vorlage (1:1, Bild-Prompt):
+  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 1044). Bildaufbau-Vorlage (1:1, Bild-Prompt):
   `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
   **Erst nach dem Upscale 2× (2048 × 2048) schicken** – ohne Upscale nur 1024 × 1024.
 - **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
@@ -77,7 +77,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 ## Offen / nächste Schritte
 
 1. Midjourney-Bilder einbinden, sobald sie kommen: Hintergründe 8–10 (1:1), Hintergrund 7 neu
-   (Fenster zu hoch), Hintergrund 1 als Upscale 2× nachliefern, Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
+   (Fenster zu hoch), Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
    optional Kundenporträts.
 2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
@@ -107,6 +107,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: Midjourney warnte „Long prompt“: **alle Prompts gekürzt** (Hintergründe 320 → ~90 Wörter, Essen 220 → ~100,
   Werkstücke ~110 → ~80, Mittel 88 → 64). Bausteine in Stichworten, gemeinsame Langformeln über `SHORTEN`, Verbote knapp;
   Wortzahl steht bei jedem Prompt im Heft. Ob die Warnung noch kommt, testet der Auftraggeber.
+- 20.11.: **Epoche 1 fertig (✅)**: Variante 4, 2000 × 2000, gekürzter Prompt, kein Streifen; Kante 72 % → `USER_FLOOR_Y` 1044,
+  im Spiel gut. Epoche 2 (1:1) nur als Vorschau, abgelehnt (Kante ~80 %, zweites Fenster außerhalb, kalt, kein Feuerschein).
+  Hintergrund-Prompts nachgeschärft (hoher Blickpunkt, Boden untere Hälfte, Abendlicht/Feuerschein, nur ein Fenster).
 
 ## Prüfen
 

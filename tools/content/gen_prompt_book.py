@@ -74,6 +74,8 @@ LESSONS = [
      "„a large plain wall area without posts or beams directly behind the centre“ in allen Hintergrund-Prompts"),
     ("20.11.", "alle", "Midjourney meldet „Long prompt – Prompts of this length will be adjusted … may increase variability“ (Hintergründe hatten ~320 Wörter)",
      "alle Prompts gekürzt: Bausteine in Stichworten, Verbote knapp (`--no text, numbers, watermark`, freigestellt zusätzlich `border, shadow`); Wortzahl steht jetzt bei jedem Prompt"),
+    ("20.11.", "Hintergründe", "gekürzter Prompt (Epoche 1 V4, Epoche 2): kein schwarzer Streifen mehr, Upscale 2000 × 2000 – aber Kante tiefer (72 % bzw. ~80 %), Tageslicht statt Feuerschein, Epoche 2 mit zweitem Fenster außerhalb des Hochformats und verwischter grauer Fläche („plain wall“)",
+     "„high viewpoint, the floor fills the lower half“, „Evening, warm orange firelight on the centre of the back wall“, „only one small window“, „centre free of posts and windows“ statt „plain wall“; `--no daylight beam, second window`"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow"]
@@ -243,11 +245,11 @@ def parse_prompts(path):
 
 # ------------------------------------------------------------------ Bausteine der Prompts
 
-BG_HEAD = ("Square 2D game background, hand-painted, dark ink outlines, moderately bright. "
-           "Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, "
-           "empty floor to the bottom edge. Small window just below the beams, left of centre. "
-           "Plain wall behind the centre, warm firelight from below. Props only at the far edges. ")
-BG_TAIL = "No forge, no fire, no anvil, no machine, no people."
+BG_HEAD = ("Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. "
+           "Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. "
+           "Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. "
+           "Props only at the far left and right edges. ")
+BG_TAIL = "No forge, no fire, no anvil, no machine, no people, no daylight beam, no second window."
 BACKGROUNDS = {
     1: "English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam. ",
     2: "Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs. ",

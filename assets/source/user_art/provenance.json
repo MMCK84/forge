@@ -3,8 +3,8 @@
  "bilder": {
   "background_1": {
    "quelle": "Midjourney",
-   "bewertung": "ändern",
-   "hinweis": "20.11.: Variante 3 (1:1) – Inhalt gut: Kante 63 % (Bühne y 911), große helle Putzfläche hinter der Esse, Fenster in den mittleren drei Vierteln, Regal und Hufeisen in den äußeren Achteln; schwarzer Streifen unten wird beim Import abgeschnitten. Nur die Auflösung fehlt: dasselbe Bild als Upscale 2× (2048 × 2048) nachliefern."
+   "bewertung": "gut",
+   "hinweis": "20.11.: Variante 4 (1:1, 2000 × 2000, gekürzter Prompt): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (72 %, Bühne y 1044), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch, die Esse leuchtet selbst."
   },
   "background_2": {
    "quelle": "Gemini"
@@ -166,7 +166,11 @@
   "background_1": [
    "20.11.: Fassung 3:4 (928 × 1232) durch die 1:1-Fassung ersetzt (Hoch- und Querformat aus einem Bild)",
    "20.11.: Variante 2 (1:1, 1024²): schwarzer Streifen unten (18 %), Kante 65 %; im Spiel fast gleichwertig – Variante 1 behalten (natürlicherer Boden, mehr Raumtiefe)",
-   "20.11.: Variante 1 (1:1, Kante 65 %, Fensterpfosten hinter der Esse) durch Variante 3 ersetzt"
+   "20.11.: Variante 1 (1:1, Kante 65 %, Fensterpfosten hinter der Esse) durch Variante 3 ersetzt",
+   "20.11.: Variante 3 (1024², schwarzer Streifen) durch Variante 4 (2000², gekürzter Prompt) ersetzt"
+  ],
+  "background_2": [
+   "20.11.: 1:1 (gekürzter Prompt): Kante ~80 %, zweites Fenster rechts außerhalb des Hochformat-Ausschnitts, kalte graue Wand mit verwischter Fläche in der Mitte, kein Feuerschein – neu erzeugen"
   ]
  }
 }
