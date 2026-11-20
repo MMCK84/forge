@@ -201,13 +201,19 @@ def main():
             base, ext = os.path.splitext(fn)
             if ext.lower() in (".webp", ".png", ".jpg", ".jpeg"):
                 item_sprite(os.path.join(items_dir, fn), base)
-    # 18 Werkstatt-Hintergründe im Hochformat → 1080×1920 (unten beschneiden, dort ist nur dunkler Boden)
+    # 18 Werkstatt-Hintergründe → 1080×1920 (1:1 und breiter: mittlerer 3:4-Ausschnitt; Boden nach unten verlängern)
     bg_dir = os.path.join(SRC, "backgrounds")
     if os.path.isdir(bg_dir):
         for fn in sorted(os.listdir(bg_dir)):
             base, ext = os.path.splitext(fn)
             if ext.lower() in (".webp", ".png", ".jpg", ".jpeg") and base.startswith("background_"):
                 im = Image.open(os.path.join(bg_dir, fn)).convert("RGB")
+                # Quadratische Originale (1:1, für Hoch- und Querformat): im Hochformat nur der mittlere
+                # 3:4-Ausschnitt – die äußeren Achtel sind fürs Querformat (Tablet) gedacht
+                if im.width > im.height * 0.78:
+                    cw = int(round(im.height * 3 / 4))
+                    x0 = (im.width - cw) // 2
+                    im = im.crop((x0, 0, x0 + cw, im.height))
                 h = int(round(im.height * 1080 / im.width))
                 im = im.resize((1080, h), Image.LANCZOS)
                 if h >= 1920:

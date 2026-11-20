@@ -14,6 +14,7 @@
   mit hinweis. Stufen im Heft: noch nicht vorhanden · Gemini · Midjourney (ändern) · gut.
 - Gelieferte Bilder: Originale nach `assets/source/user_art/` (Werkstücke in `items/`, Maschinenteile in
   `machines/`, Hintergründe in `backgrounds/`), dann `python tools/art/import_user_art.py`.
+- Hintergründe im Format **1:1** (Hochformat: mittlerer 3:4-Ausschnitt, Querformat/Tablet später: volle Breite).
 - Inhalte: Epochen 1–6 direkt in `data/`, Epochen 7–10 in `tools/content/epochs_7_10.py`
   (`gen_epochs_7_10.py`); Übersetzungen mit `python tools/content/gen_csv.py localization/translations.csv`.
 - Prüfen: Unit-Tests `res://tests/run_tests.tscn`, grafischer Spieltest `res://tools/playtest.tscn`

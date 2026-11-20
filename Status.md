@@ -7,7 +7,8 @@ Stand: 20.11.2026 · Branch `claude/sharp-rubin-jfnibw` · Godot 4.7.2
 ## Kurzüberblick
 
 Inkrementelles Schmiede-Spiel (England, 1700–1880) in Godot 4 / GDScript, **Hochformat (Mobile)**,
-Entwicklung am PC. Ziel: kommerzielle Veröffentlichung (Android). Der Android-Export kommt erst,
+Entwicklung am PC. **Fokus derzeit Hochformat**; später soll das Spiel am **Tablet auch im Querformat** laufen
+(eigene Anordnung der Bedienelemente, aber dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android). Der Android-Export kommt erst,
 wenn alles fertig ist.
 
 ## Fertig
@@ -34,7 +35,7 @@ wenn alles fertig ist.
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (3:4) | 1 (Ep. 1) | 1 (Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
+| A Hintergründe (1:1) | 1 (Ep. 1) | 1 (Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
 | B Essen (frontal) | – | – | 4 (Schrägansicht) | 2 (Stufe 5, 6) |
 | C Amboss, Hämmer | – | – | 5 | – |
 | D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
@@ -49,10 +50,13 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - Jede Lieferung: Original nach `assets/source/user_art/` (`items/`, `machines/`, `backgrounds/`),
   `python tools/art/import_user_art.py`, Herkunft/Bewertung in `provenance.json`, Heft neu erzeugen.
 - Erkenntnisse sofort in **alle** betroffenen Prompts (gemeinsame Bausteine und `LESSONS` im Generator).
-- **Hintergründe im Format 3:4** (Regler „Portrait 3:4“, er überstimmt `--ar`). Wand-Boden-Kante bei 50–65 %
-  ist in Ordnung; der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in
-  `scenes/main/workshop_background.gd` → `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 915).
-  Bildaufbau-Vorlage: `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png`.
+- **Hintergründe im Format 1:1** (Regler „Square 1:1“, danach Upscale 2×, mind. 1440 px): ein Bild für Hoch- und Querformat.
+  Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
+  Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
+  der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
+  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 915). Bildaufbau-Vorlage (1:1, Bild-Prompt):
+  `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
+  Vorhandene gute 3:4-Bilder (Ep. 1) im Midjourney-Editor seitlich auf 1:1 erweitern statt neu erzeugen.
 - **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
   Blasebalg links als tropfenförmiger Leder-Blasebalg. Ein erster Midjourney-Test (Backofen mit Kuppel)
   wurde abgelehnt; die Prompts sind entsprechend nachgeschärft.
@@ -60,18 +64,23 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 ## Offen / nächste Schritte
 
-1. Midjourney-Bilder einbinden, sobald sie kommen: Hintergründe 8–10 (3:4), Hintergrund 7 neu
-   (Fenster zu hoch), Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
+1. Midjourney-Bilder einbinden, sobald sie kommen: Hintergründe 8–10 (1:1), Hintergrund 7 neu
+   (Fenster zu hoch), Hintergrund 1 seitlich auf 1:1 erweitern, Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
    optional Kundenporträts.
 2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
-4. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen des Bildgenerators prüfen.
+4. Später: Querformat für Tablets (Anordnung der Bedienelemente, Querformat-Ausschnitt der 1:1-Hintergründe;
+   der Boden ist dort nur ~20 % hoch – ggf. ebenfalls verlängern).
+5. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen des Bildgenerators prüfen.
 
 ## Verlauf
 
 - 20.11.: Neue Sitzung; Godot 4.7.2 neu installiert, Unit-Tests grün (1658/0). `.import`-Dateien auf
   4.7.2-Standardfelder aktualisiert. Prompt-Heft neu erzeugt (unverändert).
   Status.md wird ab jetzt nach jedem Arbeitsschritt gepflegt.
+- 20.11.: Hintergründe auf **1:1** umgestellt (Hoch- und Querformat aus demselben Bild): Prompts (Bildaufbau,
+  Fenster/Randdeko in die mittleren drei Viertel), Erkenntnis in `LESSONS`, Import schneidet 1:1 auf den mittleren
+  3:4-Ausschnitt, neue quadratische Bildaufbau-Vorlage. Vorhandene Hintergründe unverändert.
 
 ## Prüfen
 
