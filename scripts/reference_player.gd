@@ -28,6 +28,9 @@ func take_temp() -> float:
 func act(dt: float) -> void:
 	if sim.job == null:
 		return
+	# Den Dampfhammer hält der Referenzspieler durchgehend in Betrieb, solange ein Stück auf dem Amboss liegt
+	if sim.machine_commanded():
+		sim.machine_hold = sim.anvil >= 0
 	if wait > 0.0:
 		wait -= dt
 		return

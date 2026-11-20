@@ -225,6 +225,8 @@ HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet.
 HINT_QUANTITY_TITLE,Mengenauftrag,Quantity order
 HINT_RUSH_TEXT,Die Sanduhr läuft ab Annahme. Pünktlich gibt es 50 % mehr Lohn; verspätet nur die Hälfte und kein Trinkgeld.,The hourglass runs from acceptance. On time pays 50 % more; late pays only half and no tip.
 HINT_RUSH_TITLE,Eilauftrag,Rush order
+HINT_STEAM_HAMMER_TEXT,"Den Dampfhammer bedient Ihr selbst – wie der Hammerführer am Steuerhebel: Tippt auf HAMMERN (oder die Leertaste) für einen Schlag, haltet gedrückt, damit er fortlaufend schlägt. Loslassen hält ihn an. Die Wucht wählt Ihr wie gewohnt mit Leicht, Mittel und Schwer.","You work the steam hammer yourself – like the hammer driver at the control lever: tap HAMMER (or the space bar) for one blow, hold it for continuous blows. Let go to stop it. Choose the force as usual with Light, Medium and Heavy."
+HINT_STEAM_HAMMER_TITLE,Am Steuerhebel,At the control lever
 HINT_STEEL_TEXT,"Stahl wird kühler geschmiedet als Schmiedeeisen: Alle Zielfenster liegen 50 °C tiefer, und Stahl verbrennt schon ab 1250 °C. Lasst ihn nicht zu lange im Feuer!","Steel is forged cooler than wrought iron: every target window lies 50 °C lower, and steel burns from 1250 °C. Don't leave it in the fire too long!"
 HINT_STEEL_TITLE,Stahl,Steel
 HINT_STEPS_TEXT,"Jedes Stück entsteht in mehreren Arbeitsgängen, jeder mit eigener Hitze: Strecken bei Gelbglut, Biegen und Lochen bei Kirschrot, Schlichten bei dunkler Glut. Das helle Zielfenster auf der Glutfarben-Skala zeigt die richtige Hitze für den aktuellen Arbeitsgang, die Abschnitte über dem Fortschrittsbalken zeigen, was noch kommt.\n\nTipp: Oft lässt sich ein Stück im Abkühlen vom einen in den nächsten Arbeitsgang schmieden.","Every piece is made in several steps, each with its own heat: drawing out at yellow heat, bending and punching at cherry red, planishing at a dull glow. The bright target window on the glow scale shows the right heat for the current step; the sections above the progress bar show what comes next.\n\nTip: a piece can often be worked from one step into the next as it cools."
@@ -746,7 +748,7 @@ TEST_START,Anfang,Start
 TEST_TITLE,Testmenü,Test menu
 TUT_BUY_HAMMER,Gut verdient! Kauft im Laden [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
 TUT_COLD,Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!,Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!
-TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste.,Forge! Click the anvil or press the space bar.
+TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste – gedrückt halten schlägt fortlaufend.,Forge! Click the anvil or press the space bar – hold it down for continuous blows.
 TUT_LOAD,Legt den Rohling in die Esse: Klickt auf den Rohling-Stapel oder drückt [R].,Put the blank into the fire: click the stack of blanks or press [R].
 TUT_OPEN_BOOK,Öffnet das Auftragsbuch [J] und nehmt einen Auftrag an.,Open the order book [J] and accept an order.
 TUT_SKIP,Überspringen,Skip
@@ -813,7 +815,7 @@ UI_MACHINE_COST,Betriebskosten {c} je Minute,running cost {c} per minute
 UI_MACHINE_FORCE,schlägt mit der gewählten Schlagstärke,strikes with the chosen blow strength
 UI_MACHINE_HEAVY,schlägt nur schwer,strikes heavy blows only
 UI_MACHINE_INFO,Schlagkraft {p} · {h} Schläge/s,Striking power {p} · {h} blows/s
-UI_MACHINE_NOTE,"Maschinen schlagen automatisch zusätzlich zu Euren Schlägen, solange ein Werkstück (ab 400 °C) auf dem Amboss liegt. Es ist immer nur eine Maschine aktiv.",Machines strike automatically in addition to your blows while a piece (400 °C or hotter) lies on the anvil. Only one machine is active at a time.
+UI_MACHINE_NOTE,"Schwanzhämmer schlagen automatisch mit, solange ein Werkstück (ab 400 °C) auf dem Amboss liegt. Dampfhämmer bedient Ihr selbst: Tippen = ein Schlag, Halten = fortlaufend. Es ist immer nur eine Maschine aktiv.","Helve hammers strike automatically while a piece (400 °C or hotter) lies on the anvil. Steam hammers you work yourself: tap = one blow, hold = continuous. Only one machine is active at a time."
 UI_MACHINE_WATER,Leistung schwankt mit dem Wasserstand (60–100 %),output varies with the water level (60–100 %)
 UI_MAXED,Höchststufe,Maximum
 UI_MENU,Menü [Esc],Menu [Esc]

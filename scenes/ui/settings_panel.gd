@@ -30,7 +30,6 @@ func build(box: VBoxContainer) -> void:
 	lang_row.add_child(opt)
 	box.add_child(lang_row)
 	box.add_child(_check("UI_SHOW_CELSIUS", "show_celsius"))
-	box.add_child(_check("UI_HOLD_TO_HAMMER", "hold_to_hammer"))
 	box.add_child(_check("UI_SCREEN_SHAKE", "screen_shake"))
 	box.add_child(_check("UI_FLASH_EFFECTS", "flash_effects"))
 	if not OS.has_feature("web") and not OS.has_feature("mobile"):

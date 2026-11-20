@@ -416,7 +416,8 @@ func _process(delta: float) -> void:
 			forge_view.heating = true
 	var m := gm.current_machine()
 	machine_view.water_level = sim.water_level
-	machine_view.running = m != null and sim.anvil >= 0
+	machine_view.running = m != null and sim.anvil >= 0 \
+		and (not sim.machine_commanded() or sim.machine_hold or sim.sim_time - sim.last_machine_blow < 0.8)
 	trough_view.visible = gm.has_trough()
 	_update_force_state()
 	_update_hand_hammer()
@@ -594,17 +595,23 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
+## Tippen = ein Schlag, Halten = fortlaufende Schläge. Den Dampfhammer bedient der Spieler damit
+## selbst: Tippen ein Dampfschlag, Halten fortlaufend, Loslassen hält ihn an.
 func _hammer_press() -> void:
 	if Overlay.open_count > 0:
 		return
 	_do_hit()
-	if bool(GameManager.settings.get("hold_to_hammer", false)):
-		_hold_active = true
-		_hold_timer = 0.0
+	var sim = GameManager.sim
+	if sim.machine_commanded():
+		sim.command_machine_blow()
+		sim.machine_hold = true
+	_hold_active = true
+	_hold_timer = 0.0
 
 
 func _hammer_release() -> void:
 	_hold_active = false
+	GameManager.sim.machine_hold = false
 
 
 func _do_hit() -> void:

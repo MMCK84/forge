@@ -782,7 +782,7 @@ func buy_machine(id: String) -> bool:
 	_pay(m.price, id)
 	owned_machine_ids.append(id)
 	active_machine_id = id
-	request_hint("machine")
+	request_hint("steam_hammer" if m.force_mode == "adjustable" else "machine")
 	_after_purchase()
 	return true
 
@@ -790,6 +790,8 @@ func buy_machine(id: String) -> bool:
 func activate_machine(id: String) -> void:
 	if owned_machine_ids.has(id):
 		active_machine_id = id
+		if machines[id].force_mode == "adjustable":
+			request_hint("steam_hammer")
 		_after_purchase(false)
 
 

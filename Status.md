@@ -197,6 +197,11 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Schweißstücke immer bis zur Schweißhitze kommen; Referenzspieler wartet nur noch auf erreichbare Hitze.
   Balancing ohne Hänger: **13,48 h**, Minuten 12.2/22.6/54.8/82.3/129.8/159.0/77.4/81.9/90.7/98.0 (alle ±3 %, kein Nachstimmen
   nötig). Spieltest 0 Probleme, Schätzungen in allen Epochen plausibel.
+- 20.11.: **Steuerung:** Tippen = ein Schlag, Halten = fortlaufende Schläge (bisher nur als Option; Einstellung entfällt).
+  **Dampfhämmer** (Nasmyth, großer Dampfhammer) schlagen nur noch auf Kommando wie am Steuerhebel: Tippen = ein Dampfschlag,
+  Halten = fortlaufend, Loslassen = Stopp (vorher liefen sie automatisch und ließen sich nicht anhalten). Schwanzhämmer laufen
+  wie bisher am Antrieb mit. Hinweis „Am Steuerhebel“ beim Kauf/Aktivieren. Referenzspieler hält den Hebel → Balancing
+  unverändert. Tests 2106/0, Spieltest 0 Probleme.
 
 ## Prüfen
 

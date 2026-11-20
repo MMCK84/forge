@@ -421,6 +421,7 @@ func test_machines_follow_force() -> void:
 	s.force = WorkshopSim.FORCE_LIGHT
 	var kinds := []
 	s.machine_hit.connect(func(k: String) -> void: kinds.append(k))
+	s.machine_hold = true  # Dampfhammer schlägt nur, solange der Spieler den Hebel hält
 	_run(s, 1.05)
 	assert_eq(kinds, ["good"], "Dampfhammer schlägt mit der gewählten (leichten) Stärke")
 	var striker := StaffData.new()
@@ -474,3 +475,34 @@ func test_white_heat_rate() -> void:
 	p.temp = 1050.0
 	_run(s, 1.0)
 	assert_near(p.temp, 1100.0 + 60.0 * 0.8, 2.0, "Übergang an der Gelbglut-Grenze")
+
+
+func test_steam_hammer_on_command() -> void:
+	# Dampfhammer (wählbare Stärke) schlägt nur auf Kommando: Tippen = ein Schlag, Halten = fortlaufend
+	var s := _sim(_job(100000), 100.0, 1500.0)
+	s.machine = load("res://data/machines/machine_nasmyth.tres")
+	var hits := []
+	s.machine_hit.connect(func(k: String) -> void: hits.append(k))
+	s.load_raw()
+	s.transit.clear()
+	s.job.pieces[0].temp = 1000.0
+	s.move_slot_to_anvil(0)
+	s.transit.clear()
+	s.force = s.required_force(0) if s.required_force(0) >= 0 else 2
+	assert_true(s.machine_commanded(), "Nasmyth-Hammer wird bedient")
+	_run(s, 2.0)
+	assert_eq(hits.size(), 0, "ohne Kommando kein Dampfschlag")
+	assert_true(s.command_machine_blow() != "none", "Tippen: ein Schlag")
+	assert_eq(s.command_machine_blow(), "none", "nicht schneller als die Maschine")
+	assert_eq(hits.size(), 1)
+	s.machine_hold = true
+	_run(s, 2.0)
+	assert_true(hits.size() >= 2, "Halten: fortlaufende Schläge")
+	var n := hits.size()
+	s.machine_hold = false
+	_run(s, 2.0)
+	assert_eq(hits.size(), n, "Loslassen hält den Hammer an")
+	# Schwanzhammer läuft am Antrieb automatisch
+	var h := _sim(_job(100000), 100.0, 1500.0)
+	h.machine = load("res://data/machines/machine_steam_helve.tres")
+	assert_true(not h.machine_commanded(), "Schwanzhammer läuft automatisch")

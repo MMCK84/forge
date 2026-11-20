@@ -77,6 +77,9 @@ func run_until(cond: Callable, timeout_s: float) -> bool:
 ## Schlag mit der verlangten Schlagstärke (wie ein aufmerksamer Spieler).
 func _hit_right() -> void:
 	var sim = GameManager.sim
+	# Dampfhammer: der Spieler hält den Hammer-Knopf (fortlaufende Dampfschläge)
+	if sim.machine_commanded():
+		sim.machine_hold = sim.anvil >= 0
 	if sim.anvil >= 0:
 		var rf: int = sim.required_force(sim.anvil)
 		if rf >= 0 and sim.force_enabled:
