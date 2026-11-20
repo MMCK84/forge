@@ -91,10 +91,11 @@ func _fill_bands(tex: Texture2D) -> void:
 		draw_texture_rect_region(tex, Rect2(img.position.x, 0, img.size.x, o.y), Rect2(0, 0, tw, th * 0.01), Color(0.6, 0.6, 0.6))
 		var bottom := o.y + STAGE.y * s
 		draw_texture_rect_region(tex, Rect2(img.position.x, bottom, img.size.x, size.y - bottom), Rect2(0, th * 0.99, tw, th * 0.01))
-	var dim := Color(0.42, 0.4, 0.38)
+	# Spiegelung beginnt in voller Helligkeit (nahtlos an der Spiegelachse) und wird nach außen dunkler
+	var dim := Color.WHITE
 	var shade := Color(0, 0, 0, 0.0)
-	var dark := Color(0, 0, 0, 0.55)
-	var fade_w := minf(img.size.x * 0.25, 160.0)
+	var dark := Color(0, 0, 0, 0.62)
+	var fade_w := img.size.x * 0.45
 	if img.position.x > 0.5:
 		# links: gespiegelte Kopie direkt links neben dem Bild
 		draw_set_transform(Vector2(img.position.x, 0), 0.0, Vector2(-1, 1))

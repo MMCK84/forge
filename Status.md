@@ -167,7 +167,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   des Hintergrunds in die Breite gezogen (verzerrte Streifen). Jetzt erzeugt der Import `background_N_wide.jpg` (volles
   1:1-Bild, 1440×1920) und das Spiel zeigt daneben eine gespiegelte, abgedunkelte Fortsetzung mit weichem Übergang.
   Fenster (z. B. Personal) ragten im Standardfenster unter die Navigationsleiste → Höhe begrenzt. Werkbank-Platzhalter
-  innerhalb der Bühne.
+  innerhalb der Bühne. Spiegelung beginnt in voller Helligkeit (nahtlos) und wird nach außen dunkler.
 - 20.11.: Lieferung mit Kürzeln (erste Nutzung von `sort_inbox.py`): großer Dampfhammer (M10), Ladenbilder Dampf-Schwanzhammer,
   Nasmyth, großer Dampfhammer (ML2–4), Rohling und Werkstücke W1-1–3 (Nagel, Hufeisen, Haken), erste sechs Kundenporträts
   (P2-1–5, P3-1). Neu: Import für Porträts (ovaler Rahmen freigestellt, `ui/user/portrait_<kunde>.png` hat Vorrang) und alle
