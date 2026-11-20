@@ -7,6 +7,9 @@ extends Resource
 @export var room_temp: float = 20.0
 @export var k_cool: float = 15.0
 @export var transfer_time: float = 0.5
+## Oberhalb von Gelbglut (optimal_max) heizt jede Esse höchstens so schnell (°C/s): Weißglut strahlt viel
+## Wärme ab – und das Schweißfenster (1200–1300 °C) bleibt auch mit schnellen Essen gut zwei Sekunden offen.
+@export var white_heat_rate: float = 60.0
 
 @export_group("Schlagwirkung M(T) (2.4)")
 @export var cold_limit: float = 400.0

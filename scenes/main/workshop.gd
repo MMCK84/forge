@@ -722,6 +722,9 @@ func _update_hand_hammer() -> void:
 
 ## Schlagstärke wählen (0 leicht, 1 mittel, 2 schwer).
 func _set_force(level: int) -> void:
+	# Epoche 1 ohne „mittel“: Pfeiltasten springen direkt zwischen leicht und schwer
+	if _medium_hidden() and level == 1:
+		level = 2 if GameManager.sim.force < 1 else 0
 	GameManager.sim.force = clampi(level, 0, 2)
 	GameManager.settings["force"] = GameManager.sim.force
 	_sync_force_buttons()
@@ -743,12 +746,21 @@ func _pulse_force(delta: float) -> void:
 			b.modulate = Color.WHITE if on else Color(0.62, 0.6, 0.58)
 
 
+## In Epoche 1 gibt es nur leichte und schwere Schläge (mittlere zählen dort als schwer).
+func _medium_hidden() -> bool:
+	return GameManager.current_epoch <= GameManager.cfg.force_simple_until_epoch
+
+
 func _sync_force_buttons() -> void:
+	if _medium_hidden() and GameManager.sim.force == 1:
+		GameManager.sim.force = 2
 	var sim = GameManager.sim
 	for k in force_buttons.size():
 		var b: Button = force_buttons[k]
 		var on: bool = k == (sim.force if sim.force_enabled else 1)
 		b.disabled = not sim.force_enabled
+		if k == 1:
+			b.visible = not _medium_hidden()
 		# In der Lehrzeit (Stärke zählt noch nicht) sind die Knöpfe ausgeblendet
 		if force_row != null:
 			force_row.visible = sim.force_enabled
@@ -760,12 +772,16 @@ func _sync_force_buttons() -> void:
 		b.add_theme_color_override("font_hover_pressed_color", UIKit.GOLD)
 
 
-## Im Tutorial (erste Aufträge) spielt die Schlagstärke noch keine Rolle.
+## In der Lehrzeit (erste Aufträge der Epoche 1) spielt die Schlagstärke noch keine Rolle –
+## unabhängig davon, ob die Lehrzeit-Hilfe eingeschaltet oder übersprungen ist.
 func _update_force_state() -> void:
 	var sim = GameManager.sim
-	var enabled: bool = not tutorial.force_locked()
+	var enabled: bool = GameManager.force_counts()
 	if enabled != sim.force_enabled:
 		sim.force_enabled = enabled
+		# In Epoche 1 wird „mittel“ nie verlangt (dort zählt nur leicht/schwer): schwer voreinstellen
+		if enabled and _medium_hidden() and sim.force == 1:
+			sim.force = 2
 		_sync_force_buttons()
 	if enabled and not _force_hint_checked:
 		_force_hint_checked = true

@@ -278,6 +278,7 @@ func _apply_equipment() -> void:
 	sim.striker = staff["staff_striker"] if hired_ids.has("staff_striker") else null
 	sim.apprentice_to_forge_below = apprentice_to_forge_below
 	sim.apprentice_to_anvil_at = apprentice_to_anvil_at
+	sim.force_enabled = force_counts()
 	var fx := furnish_effects()
 	sim.window_bonus = fx["window_bonus"]
 	sim.damage_factor = fx["damage_factor"]
@@ -484,6 +485,12 @@ func offers_count() -> int:
 	return n if n > 0 else cfg.offers_count
 
 
+## Zählt die Schlagstärke? Nicht in den Lehrzeit-Aufträgen (Epoche 1, erste Aufträge) – auch nicht,
+## wenn die Lehrzeit-Hilfe übersprungen wurde (dann wäre die Voreinstellung sonst oft falsch).
+func force_counts() -> bool:
+	return not (current_epoch == 1 and not free_play and jobs_completed_in_epoch < cfg.tutorial_standard_only_jobs)
+
+
 ## Lehrzeit aktiv? (Epoche 1, erste Aufträge, Tutorial eingeschaltet und nicht übersprungen)
 func in_tutorial() -> bool:
 	return current_epoch == 1 and not free_play and jobs_completed_in_epoch < cfg.tutorial_standard_only_jobs \
@@ -634,6 +641,15 @@ func _complete_active_job() -> void:
 		stats["three_star_jobs"] = int(stats.get("three_star_jobs", 0)) + 1
 	stats["best_payout"] = maxi(int(stats.get("best_payout", 0)), net)
 	jobs_completed_in_epoch += 1
+	sim.force_enabled = force_counts()
+	# Lehrzeit-Drehbuch: Folgeangebote neu erzeugen, damit sie zum nächsten Auftrag passen
+	# (beim Annehmen wurden sie noch mit dem alten Stand erzeugt)
+	if current_epoch == 1 and not free_play and jobs_completed_in_epoch <= cfg.tutorial_standard_only_jobs:
+		var keep: Array = []
+		for o in job_offers:
+			if o.is_milestone():
+				keep.append(o)
+		job_offers = keep
 	# Ende der Lehrzeit: auf die Einrichtung der Werkstatt hinweisen
 	if current_epoch == 1 and jobs_completed_in_epoch == cfg.tutorial_standard_only_jobs:
 		request_hint("furnish_intro")

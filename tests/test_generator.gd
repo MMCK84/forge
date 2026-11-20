@@ -185,11 +185,20 @@ func test_tutorial_offers() -> void:
 		return
 	gm.new_game()
 	assert_eq(gm.job_offers.size(), 1, "erster Auftrag: ein Angebot")
-	assert_eq(gm.job_offers[0].template_id, "hook", "erster Auftrag: Haken")
-	gm.accept_offer(0)
-	gm.debug_finish_job()
-	assert_eq(gm.job_offers.size(), 2, "danach zwei Angebote")
+	assert_true(not gm.force_counts() and not gm.sim.force_enabled, "Lehrzeit: Schlagstärke zählt nicht")
+	var script := ["hook", "nail", "nail", "horseshoe", "horseshoe"]
+	for n in script.size():
+		assert_eq(gm.job_offers[0].template_id, script[n], "Lehrzeit Auftrag %d nach Drehbuch" % (n + 1))
+		gm.accept_offer(0)
+		gm.debug_finish_job()
+		if n == 0:
+			assert_eq(gm.job_offers.size(), 2, "danach zwei Angebote")
+	assert_true(gm.force_counts() and gm.sim.force_enabled, "nach der Lehrzeit zählt die Schlagstärke")
+	assert_eq(gm.job_offers.size(), 3, "nach der Lehrzeit drei Angebote")
+	# Lehrzeit-Hilfe übersprungen: Schlagstärke zählt in den ersten Aufträgen trotzdem nicht
+	gm.new_game()
 	gm.mark_hint_seen("tutorial_done")
 	gm.refresh_offers()
-	assert_eq(gm.job_offers.size(), 3, "ohne Lehrzeit drei Angebote")
+	assert_eq(gm.job_offers.size(), 3, "ohne Lehrzeit-Hilfe drei Angebote")
+	assert_true(not gm.sim.force_enabled, "ohne Lehrzeit-Hilfe: Schlagstärke zählt in den ersten Aufträgen nicht")
 	gm.end_session()

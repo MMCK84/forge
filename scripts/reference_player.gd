@@ -32,6 +32,18 @@ func act(dt: float) -> void:
 		wait -= dt
 		return
 	var moved := false
+	# 0) Ein Schweißstück wartet in der Esse: Solange der Amboss belegt ist, hält es der Lehrling bei
+	#    1100 °C fest – es käme nie an die Reihe. Dann den Amboss freimachen, damit es Schweißhitze erreicht.
+	if sim.has_apprentice and sim.anvil >= 0 and not sim.in_transit(sim.anvil) and not sim.in_weld_phase(sim.anvil) \
+			and not sim.awaiting_quench(sim.anvil) and sim.free_slot() >= 0:
+		for idx in sim.forge_slots:
+			if idx >= 0 and not sim.in_transit(idx) and sim.in_weld_phase(idx) \
+					and sim.job.pieces[idx].temp >= sim.apprentice_hold_temp(idx) - 1.0:
+				moved = sim.move_anvil_to_forge(-1)
+				break
+	if moved:
+		wait = maxf(0.0, cfg.ref_move_loss_s - cfg.transfer_time)
+		return
 	# 1) Amboss-Stück auswerten
 	if sim.anvil >= 0 and not sim.in_transit(sim.anvil):
 		var i := sim.anvil
@@ -62,11 +74,18 @@ func act(dt: float) -> void:
 			var heat_time := (take_temp() - cfg.room_temp) / sim.k_heat
 			if work_left <= heat_time:
 				sim.load_raw()
-	# 3) Amboss frei: heißestes fertig aufgeheiztes Stück holen
+	# 3) Amboss frei: heißestes fertig aufgeheiztes Stück holen – wartet ein Schweißstück auf
+	#    Schweißhitze, kommt es als Nächstes dran (sonst käme es nie an die Reihe)
 	if sim.anvil < 0:
 		var best := -1
+		var weld_waiting := false
+		for idx in sim.forge_slots:
+			if idx >= 0 and not sim.in_transit(idx) and sim.in_weld_phase(idx):
+				weld_waiting = true
 		for idx in sim.forge_slots:
 			if idx < 0 or sim.in_transit(idx):
+				continue
+			if weld_waiting and not sim.in_weld_phase(idx):
 				continue
 			if sim.job.pieces[idx].temp >= _target_temp(idx) - 0.01:
 				if best < 0 or sim.job.pieces[idx].temp > sim.job.pieces[best].temp:

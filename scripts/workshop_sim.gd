@@ -605,7 +605,13 @@ func step(dt: float) -> void:
 			if has_apprentice and anvil >= 0 and anvil != i and i != release:
 				cap = minf(cap, apprentice_hold_temp(i))
 			if p.temp < cap:
-				p.temp = minf(p.temp + k_heat * dt, cap)
+				var rate := k_heat if p.temp < cfg.optimal_max else minf(k_heat, cfg.white_heat_rate)
+				var t_new := p.temp + rate * dt
+				# Übergang in die Weißglut innerhalb eines Zeitschritts: ab optimal_max langsamer weiter
+				if p.temp < cfg.optimal_max and t_new > cfg.optimal_max:
+					var rest := dt - (cfg.optimal_max - p.temp) / k_heat
+					t_new = cfg.optimal_max + minf(k_heat, cfg.white_heat_rate) * rest
+				p.temp = minf(t_new, cap)
 		elif p.location == JobInstance.LOC_ANVIL:
 			p.temp = maxf(p.temp - cfg.k_cool * dt, cfg.room_temp)
 		var te := p.temp + temp_offset()

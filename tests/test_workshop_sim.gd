@@ -110,7 +110,8 @@ func test_burn() -> void:
 	var reasons := []
 	s.piece_ruined.connect(func(_i: int, r: String) -> void: reasons.append(r))
 	s.load_raw()
-	_run(s, 14.0)
+	# bis 1100 °C mit 100 °C/s, darüber höchstens white_heat_rate (60 °C/s): gut 14 s bis 1300 °C
+	_run(s, 18.0)
 	assert_eq(reasons, ["burned"], "über 1300 °C verbrennt das Werkstück")
 
 
@@ -324,7 +325,7 @@ func test_steel_offset_and_burn() -> void:
 	var reasons := []
 	s.piece_ruined.connect(func(_i: int, r: String) -> void: reasons.append(r))
 	s.load_raw()
-	_run(s, 13.0)
+	_run(s, 16.0)
 	assert_eq(reasons, ["burned"], "verbrennt vor 1300 °C")
 
 
@@ -459,3 +460,17 @@ func test_steam_hammer_stops_instead_of_damaging() -> void:
 	assert_near(s.job.pieces[0].damage, 0.0, 0.0001, "kein Schaden durch den Dampfhammer")
 	s.force = WorkshopSim.FORCE_MEDIUM
 	assert_true(s.machine_engaged(), "eine Stufe daneben: arbeitet (vermindert) weiter")
+
+
+func test_white_heat_rate() -> void:
+	# Oberhalb von Gelbglut heizt auch eine schnelle Esse nur langsam: das Schweißfenster bleibt offen
+	var s := _sim(_job(1000), 250.0, 1500.0)
+	s.load_raw()
+	s.transit.clear()
+	var p: JobInstance.Piece = s.job.pieces[0]
+	p.temp = 1200.0
+	_run(s, 1.0)
+	assert_near(p.temp, 1260.0, 1.0, "über 1100 °C höchstens 60 °C/s")
+	p.temp = 1050.0
+	_run(s, 1.0)
+	assert_near(p.temp, 1100.0 + 60.0 * 0.8, 2.0, "Übergang an der Gelbglut-Grenze")

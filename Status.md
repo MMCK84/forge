@@ -184,6 +184,14 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hufeisen vollständig; erst 1, dann 2 Angebote), Sichel aus Eisen (Stahl erst Epoche 4), Eilaufträge in Epoche 2 erst ab
   der Mitte, Hinweis auf die Einrichtung am Ende der Lehrzeit. Unit-Tests 2088/0. Balancing danach 13,1 h → nachgestimmt: **13,49 h**, Minuten je Epoche
   12.2/23.2/54.9/83.1/131.1/156.9/78.0/84.0/90.0/96.1.
+- 20.11.: Fehler „keine Punkte in den ersten Aufträgen“: Die Schlagstärke zählte, sobald die Lehrzeit-Hilfe übersprungen
+  bzw. abgeschaltet war – Voreinstellung „mittel“, der Haken verlangt „leicht“ → kein Schlag im Zielfenster, 0 Sterne.
+  Jetzt hängt die Schlagstärke am Fortschritt (`force_counts()`: erste 5 Aufträge der Epoche 1 zählen nie), in Epoche 1
+  ist „mittel“ ausgeblendet (dort nur leicht/schwer), Voreinstellung schwer. Drehbuch-Versatz behoben (Folgeangebote
+  werden nach jedem Lehrzeit-Auftrag neu erzeugt).
+- 20.11.: Älterer Fehler gefunden: Schweißaufträge mit schnellen Essen (bis 250 °C/s) verbrannten in 0,4 s im Schweißfenster;
+  Schätzungen hingen bei 1:00:00. Neu: oberhalb Gelbglut (1100 °C) heizt jede Esse höchstens 60 °C/s (`white_heat_rate`),
+  Referenzspieler macht für wartende Schweißstücke den Amboss frei. 0 von 200 Schweißaufträgen hängen. Tests 2098/0.
 
 ## Prüfen
 
