@@ -249,6 +249,19 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Vorarbeiten jetzt mit: Spielzeit **13,9 h** (4 Seeds, Minuten 12.8/23.2/59.0/82.6/135.1/152.2/79.6/88.3/95.7/104.0),
   also rund 30 Minuten mehr – bewusst nicht weggestimmt (Spielzeit darf länger werden). Tests 2148/0, Spieltest 0 Probleme.
   **Kernausbau damit abgeschlossen – Kern eingefroren.** Weiter mit Bildern, Musik und Feinschliff.
+- 20.11.: **Durchspiel-Test Epoche für Epoche** (neu: `tools/full_playthrough.tscn`): Der Referenzspieler spielt das echte Spiel
+  über den GameManager (Lehrzeit, Angebote, Meilensteine, Meisterstücke, Laden, Personal, Einrichtung, Umzug, Speichern/
+  Laden je Epoche) bis zum Finale und ins Freie Spiel. **Gefunden und behoben:**
+  1. **Sackgasse in Epoche 10:** Der geschweißte Geschützring (Meisterstück) bekam beim Abkühlen aus der Weißglut auf dem
+     Amboss stets so viel Gefügeschaden, dass die Zunft ihn nie annahm – das Finale kam nie. Überhitzung schadet jetzt nur
+     noch im Feuer (betraf alle Schweißaufträge: Sterne in Epoche 3–8 jetzt meist 3 statt 2,6–2,8). Zusätzlich genügt nach
+     zwei Fehlversuchen an einem Meisterstück-Teil ein Stern (keine Sackgasse mehr möglich).
+  2. Meisterstück Epoche 1 verlangte zwei Türangeln – Mengenaufträge kommen laut rotem Faden erst in Epoche 2 → eine Türangel.
+  3. Speicherwachstum nur im Test ohne Tonausgabe (Klang-Wiedergaben stauten sich im Zeitraffer) – kein Fehler im Spiel.
+  Ergebnis (Seeds 3, 7, 11): alle 10 Epochen mit allen Meilensteinen und Meisterstücken, Umzüge, Speichern/Laden und Freies
+  Spiel ohne Probleme; 543 Aufträge, Spielzeit 13,9–14,4 h. Auffällig, aber kein Fehler: In Epoche 9–10 erreicht der
+  Referenzspieler im Schnitt nur 2,2–2,4 Sterne (er hält den Dampfhammer auch außerhalb des Zielfensters). Grafischer
+  Spieltest 0 Probleme, Tests 2151/0.
 
 ## Prüfen
 
@@ -256,5 +269,6 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 - Unit-Tests: `godot --headless --path . res://tests/run_tests.tscn`
 - Spieltest: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn`
+- Durchspiel-Test (ganzes Spiel, Epoche für Epoche): `godot --headless --path . res://tools/full_playthrough.tscn -- --seed=7`
 - Balancing: `python tools/tune_balance.py`
 - Übersetzungen: `python tools/content/gen_csv.py localization/translations.csv`

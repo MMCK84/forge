@@ -67,7 +67,7 @@ Danach wird der Kern eingefroren.
 
 | Ep. | Vorarbeiten | Hauptstück |
 |---|---|---|
-| 1 | 2 Türangeln | Torriegel für die Kirchentür (präzise) |
+| 1 | Türangel | Torriegel für die Kirchentür (präzise) |
 | 2 | 3 Kutschbeschläge, Hemmschuh | 4 Radreifen für die Postkutsche |
 | 3 | 3 Kettenglieder, Festmacherring (geschweißt) | Ankerschaft (geschweißt) |
 | 4 | 2 Federn (gehärtet), 2 Ladeketten (geschweißt) | 6 Lafettenbeschläge für die Victory (präzise) |

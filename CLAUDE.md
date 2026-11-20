@@ -25,6 +25,7 @@
 - Inhalte: Epochen 1–6 direkt in `data/`, Epochen 7–10 in `tools/content/epochs_7_10.py`
   (`gen_epochs_7_10.py`); Übersetzungen mit `python tools/content/gen_csv.py localization/translations.csv`.
 - Prüfen: Unit-Tests `res://tests/run_tests.tscn`, grafischer Spieltest `res://tools/playtest.tscn`
-  (Auflösung 1080×1920), Balancing `tools/tune_balance.py`.
+  (Auflösung 1080×1920), Durchspiel-Test `res://tools/full_playthrough.tscn` (ganzes Spiel bis zum Finale),
+  Balancing `tools/tune_balance.py`.
 - Android-Export erst, wenn alles fertig ist.
 - Spiel-ZIP (`git archive`) nur liefern, wenn der Auftraggeber ausdrücklich darum bittet.

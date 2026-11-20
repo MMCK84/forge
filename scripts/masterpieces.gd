@@ -15,8 +15,8 @@ static func required_stars(fails: int) -> int:
 
 ## Abschluss-Meilenstein -> Vorarbeiten [item_id, Menge, präzise]
 const PARTS := {
-	# Epoche 1: Hitze, Arbeitsgänge, Präzision – Beschläge für die Kirchentür
-	"ms_e1_05_church": [["door_hinge", 2, false]],
+	# Epoche 1: Hitze, Arbeitsgänge, Präzision – Beschläge für die Kirchentür (ein Stück: Mengen erst ab Epoche 2)
+	"ms_e1_05_church": [["door_hinge", 1, false]],
 	# Epoche 2: Mengen – Beschläge und Hemmschuh für die Postkutsche, dann die Radreifen
 	"ms_e2_07_tyres": [["coach_fitting", 3, false], ["drag_shoe", 1, false]],
 	# Epoche 3: Feuerschweißen – Kette und Ring für den Anker
