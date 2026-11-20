@@ -636,15 +636,19 @@ func _auto_target_ok() -> bool:
 func machine_engaged() -> bool:
 	if machine == null or not _auto_target_ok():
 		return false
-	if machine.force_mode == "adjustable":
+	if machine.force_mode == "adjustable" or job.is_big():
 		return true
 	var req := required_force(anvil)
 	return req < 0 or req == FORCE_HEAVY
 
 
+## Schlagstärke der Maschine: Dampfhämmer nach Wahl; Schwanzhämmer schwer – bei
+## Großschmiedestücken dosiert der Hammerschmied den Schlag über den Antrieb (passend).
 func _machine_force() -> int:
 	if machine.force_mode == "adjustable":
 		return effective_force(anvil)
+	if job.is_big():
+		return required_force(anvil)
 	return FORCE_HEAVY
 
 

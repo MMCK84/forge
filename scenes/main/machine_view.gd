@@ -8,6 +8,13 @@ var water_powered: bool = false
 var water_level: float = 1.0
 var drop: float = 0.0
 var running: bool = false
+## Dampfhammer (Nasmyth): Bär fällt senkrecht auf den Amboss, Hubhöhe nach Schlagstärke
+var steam_hammer: bool = false
+## Großer Dampfhammer (größer gezeichnet)
+var large: bool = false
+## Schlagstärke (0 leicht … 2 schwer) für die Hubhöhe
+var force_level: int = 1
+const RAM_LIFT := [55.0, 95.0, 150.0]
 var _wheel: float = 0.0
 ## Position des Hammerkopfs über dem Amboss (lokal)
 var head_x: float = 300.0
@@ -41,6 +48,9 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	if machine_id == "":
+		return
+	if steam_hammer:
+		_draw_steam_hammer()
 		return
 	if _draw_user():
 		return
@@ -198,3 +208,80 @@ func _draw_user() -> bool:
 
 func has_user_parts() -> bool:
 	return Assets.user("machine_helve_beam.png") != null and Assets.user("machine_helve_frame.png") != null
+
+
+# ------------------------------------------------------------------ Dampfhammer
+
+## Dampfhammer über dem Amboss: Grafikteile des Auftraggebers (machine_steam_hammer_*.png), sonst im Code
+## gezeichnet. Gestell mit zwei Ständern und Zylinder, Bär an der Kolbenstange fällt auf die Bahn.
+func _draw_steam_hammer() -> void:
+	# k: Breite (großer Hammer breiter); die Höhe bleibt, damit der Zylinder die Esse nicht verdeckt
+	var k := 1.25 if large else 1.0
+	var cx := head_x
+	var base := strike_y + 276.0
+	var top := strike_y - 200.0
+	var lift: float = RAM_LIFT[clampi(force_level, 0, 2)]
+	var ram_bottom := strike_y - lift * (1.0 - drop)
+	var frame_t := Assets.user("machine_steam_hammer_large_frame.png" if large else "machine_steam_hammer_frame.png")
+	if frame_t == null:
+		frame_t = Assets.user("machine_steam_hammer_frame.png")
+	var ram_t := Assets.user("machine_steam_hammer_ram.png")
+	if frame_t != null and ram_t != null:
+		# Gestell: Unterkante auf dem Boden, Mitte über dem Amboss
+		var fh := base - (top - 130.0)
+		var fw := fh * frame_t.get_width() / frame_t.get_height()
+		draw_texture_rect(frame_t, Rect2(cx - fw * 0.5, base - fh, fw, fh), false)
+		var rw := 150.0 * k
+		var rh := rw * ram_t.get_height() / ram_t.get_width()
+		draw_texture_rect(ram_t, Rect2(cx - rw * 0.5, ram_bottom - rh, rw, rh), false)
+		_draw_steam_puffs(Vector2(cx + 70.0 * k, top - 120.0 * k))
+		return
+	var iron := Color("34363b")
+	var iron_hi := Color("5b5f66")
+	var line := Color("15161a")
+	# Ständer (A-förmig) links und rechts
+	for side_i in 2:
+		var side: float = -1.0 if side_i == 0 else 1.0
+		var outer: float = cx + side * 300.0 * k
+		var inner: float = cx + side * 190.0 * k
+		var pts := PackedVector2Array([
+			Vector2(outer, base), Vector2(outer - side * 70.0 * k, base), Vector2(inner + side * 10.0 * k, top), Vector2(inner + side * 55.0 * k, top)])
+		draw_colored_polygon(pts, iron)
+		pts.append(pts[0])
+		draw_polyline(pts, line, 3.0, true)
+		draw_line(Vector2(outer - side * 35.0 * k, base - 10.0), Vector2(inner + side * 32.0 * k, top + 10.0), iron_hi, 4.0)
+		# Fußplatte
+		draw_rect(Rect2(outer - (60.0 if side > 0 else 30.0) * k, base - 14.0, 100.0 * k, 14.0), Color("26272b"))
+	# Querhaupt und Zylinder
+	draw_rect(Rect2(cx - 250.0 * k, top - 36.0 * k, 500.0 * k, 40.0 * k), iron)
+	draw_rect(Rect2(cx - 250.0 * k, top - 36.0 * k, 500.0 * k, 40.0 * k), line, false, 3.0)
+	var cyl := Rect2(cx - 62.0 * k, top - 130.0, 124.0 * k, 96.0)
+	draw_rect(cyl, Color("3d4046"))
+	draw_rect(Rect2(cyl.position.x + 12.0 * k, cyl.position.y, 22.0 * k, cyl.size.y), Color("5d6168"))
+	for fy: float in [cyl.position.y, cyl.position.y + cyl.size.y * 0.5, cyl.end.y - 10.0 * k]:
+		draw_rect(Rect2(cyl.position.x - 8.0 * k, fy, cyl.size.x + 16.0 * k, 10.0 * k), Color("2a2c30"))
+	draw_rect(cyl, line, false, 3.0)
+	# Ventilkasten mit Steuerhebel
+	draw_rect(Rect2(cyl.end.x + 6.0 * k, cyl.position.y + 30.0 * k, 34.0 * k, 50.0 * k), Color("4a3a2a"))
+	draw_line(Vector2(cyl.end.x + 40.0 * k, cyl.position.y + 40.0 * k), Vector2(cyl.end.x + 120.0 * k, top + 80.0 * k), Color("6b5a3a"), 6.0)
+	draw_circle(Vector2(cyl.end.x + 120.0 * k, top + 80.0 * k), 9.0 * k, Color("b08d57"))
+	# Führungen
+	for gx: float in [cx - 92.0 * k, cx + 92.0 * k]:
+		draw_rect(Rect2(gx - 7.0 * k, top + 4.0, 14.0 * k, strike_y - top + 10.0), Color("2c2e33"))
+	# Kolbenstange und Bär
+	var ram_h := 112.0
+	draw_rect(Rect2(cx - 11.0 * k, top - 34.0 * k, 22.0 * k, ram_bottom - ram_h - top + 34.0 * k), Color("8a8f97"))
+	var ram := Rect2(cx - 80.0 * k, ram_bottom - ram_h, 160.0 * k, ram_h)
+	draw_rect(ram, iron)
+	draw_rect(Rect2(ram.position.x + 8.0, ram.position.y + 6.0, 18.0 * k, ram.size.y - 12.0), iron_hi)
+	draw_rect(Rect2(ram.position.x - 6.0 * k, ram.end.y - 22.0 * k, ram.size.x + 12.0 * k, 22.0 * k), Color("4a4d54"))
+	draw_rect(ram, line, false, 3.0)
+	_draw_steam_puffs(Vector2(cyl.position.x + 20.0 * k, cyl.position.y))
+
+
+func _draw_steam_puffs(origin: Vector2) -> void:
+	if not running:
+		return
+	for k in 3:
+		var sp := origin + Vector2(-10.0 * k, -20.0 - k * 26.0 - fmod(_wheel * 40.0, 26.0))
+		draw_circle(sp, 14.0 + k * 7.0, Color(0.92, 0.92, 0.94, 0.28))

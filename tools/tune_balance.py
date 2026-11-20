@@ -45,7 +45,7 @@ def measure_one(mixed=False, seed=12345):
     args = [GODOT, "--headless", "--path", ROOT, "-s", "res://tools/balance_sim.gd"]
     if mixed:
         args += ["--", "--mixed", f"--seed={seed}"]
-    out = subprocess.run(args, capture_output=True, text=True, timeout=900).stdout
+    out = subprocess.run(args, capture_output=True, text=True, timeout=3000).stdout
     rows = re.findall(r"^\s+(\d+)\s+\|\s+([\d.]+) min", out, re.M)
     total = re.search(r"Gesamt: ([\d.]+) h", out).group(1)
     if "WARNUNG" in out:
@@ -57,7 +57,10 @@ def measure(mixed=False):
     """Mittelwert über mehrere Seeds (Auftragsmix ist zufällig)."""
     if not mixed:
         return measure_one(False)
-    runs = [measure_one(True, s) for s in SEEDS]
+    # Seeds parallel messen (je ein Godot-Prozess)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=len(SEEDS)) as ex:
+        runs = list(ex.map(lambda sd: measure_one(True, sd), SEEDS))
     mins = [sum(r[0][i] for r in runs) / len(runs) for i in range(N)]
     total = sum(r[1] for r in runs) / len(runs)
     return mins, round(total, 2), runs[0][2]
@@ -72,7 +75,7 @@ def main():
         if all(abs(m / t - 1) < 0.025 for m, t in zip(mins, TARGET_MIN)):
             break
         # Annahme: Zeit ≈ a + b·f; ein Teil der Zeit (Aufheizen) hängt nicht von f ab
-        f = [max(0.25, x * (0.35 + 0.65 * t / m)) for x, m, t in zip(f, mins, TARGET_MIN)]
+        f = [max(0.02, x * (0.35 + 0.65 * t / m)) for x, m, t in zip(f, mins, TARGET_MIN)]
     print("f =", [round(x, 3) for x in f])
 
 

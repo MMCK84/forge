@@ -178,7 +178,7 @@ func _run() -> void:
 	check(SaveManager.load_game() and gm.total_pence == before, "Spielstand geladen (Geld wiederhergestellt)")
 
 	# --- Spätere Epochen (Zustand direkt gesetzt)
-	for e in [2, 3, 4, 5, 6]:
+	for e in [2, 3, 4, 5, 6, 7, 8, 9, 10]:
 		await _epoch_scene(e)
 
 	Engine.time_scale = 1.0
@@ -197,7 +197,7 @@ func _epoch_scene(e: int) -> void:
 	for ms in gm.milestones_by_epoch.get(gm.current_epoch, []):
 		if not gm.completed_milestone_ids.has(ms.id):
 			gm.completed_milestone_ids.append(ms.id)
-	gm.total_pence += 500000
+	gm.total_pence += 5000000
 	if e == 2:
 		workshop().call("_open_epoch_offer")
 		await wait(0.4)
@@ -208,7 +208,8 @@ func _epoch_scene(e: int) -> void:
 	if e == 2:
 		await shot("epoche2_ankunft")
 	await close_overlays()
-	var forge_id: String = {2: "forge_brick", 3: "forge_double_bellows", 4: "forge_double_bellows", 5: "forge_coke", 6: "forge_coke"}[e]
+	var forge_id: String = {2: "forge_brick", 3: "forge_double_bellows", 4: "forge_double_bellows", 5: "forge_coke", 6: "forge_coke",
+		7: "forge_coke", 8: "forge_welding_furnace", 9: "forge_welding_furnace", 10: "forge_siemens"}[e]
 	gm.buy_forge(forge_id)
 	gm.buy_hammer("hammer_steel_faced")
 	gm.buy_hammer("hammer_crucible")
@@ -220,10 +221,16 @@ func _epoch_scene(e: int) -> void:
 		gm.buy_machine("machine_water_helve")
 	if e == 6:
 		gm.buy_machine("machine_steam_helve")
+	if e >= 7:
+		gm.hire("staff_stoker")
+	if e == 9:
+		gm.buy_machine("machine_nasmyth")
+	if e == 10:
+		gm.buy_machine("machine_great_steam_hammer")
 	await wait(0.2)
 	await close_overlays()
 	# Passenden Auftrag suchen (Mengen-, Schweiß-, Härte-, Großauftrag)
-	var want: String = {2: "quantity", 3: "weld", 4: "harden", 5: "machine", 6: "big"}[e]
+	var want: String = {2: "quantity", 3: "weld", 4: "harden", 5: "machine", 6: "big", 7: "harden", 8: "weld", 9: "big", 10: "big"}[e]
 	var idx := -1
 	for attempt in 40:
 		for i in gm.job_offers.size():
@@ -292,7 +299,7 @@ func _epoch_scene(e: int) -> void:
 			elif p.temp >= sim.step_window(i).x and p.temp <= sim.step_window(i).y:
 				sim.last_player_hit = -10.0
 				_hit_right()
-				if not shot_taken and (e == 2 or e >= 5) and k > 20:
+				if not shot_taken and (e == 2 or e >= 5) and k > 20 and (e < 9 or sim.machine_engaged()):
 					Engine.time_scale = 1.0
 					await wait(0.1)
 					await shot("epoche%d_werkstatt" % e)
@@ -321,7 +328,7 @@ func _panels() -> void:
 	# Finale (Abschluss-Meilenstein Epoche 6)
 	var ep = load("res://scenes/ui/epoch_panel.gd").new()
 	ep.mode = "finale"
-	ep.epoch = 6
+	ep.epoch = gm.EPOCH_COUNT
 	workshop().get("overlay_layer").add_child(ep)
 	await wait(0.4)
 	await shot("finale")

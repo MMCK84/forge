@@ -46,7 +46,9 @@ ein Hinweis die drei Stufen. Bis zum Ende von Epoche 1 verlangen die Aufträge n
 **Maschinen und Personal**
 - **Zuschläger** (Vorschlaghammer) und **Schwanzhammer** (Wasser/Dampf, Epoche 5–6) schlagen nur
   **schwer** – sie arbeiten daher nur in den schweren Arbeitsgängen mit und pausieren sonst. Das ist
-  historisch richtig: Feinarbeit machte der Schmied von Hand.
+  historisch richtig: Feinarbeit machte der Schmied von Hand. Ausnahme **Großschmiedestücke**:
+  Dort arbeitet der Schwanzhammer in allen Arbeitsgängen passend mit (der Hammerschmied
+  dosierte den Schlag über den Antrieb) – sonst wären sie von Hand kaum zu schaffen.
 - **Nasmyth-Dampfhammer** (ab Epoche 9) schlägt mit **der von Euch gewählten Stärke** – sein großer
   Vorteil: Er arbeitet in jedem Arbeitsgang mit.
 - Das Balancing (Spielzeit je Epoche) stimme ich danach neu ab.

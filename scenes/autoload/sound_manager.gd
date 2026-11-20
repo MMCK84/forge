@@ -10,7 +10,7 @@ const SFX_FILES := {
 	"hit_good": ["hammer_good_1.ogg", "hammer_good_2.ogg", "hammer_good_3.ogg"],
 	"hit_weak": ["hammer_weak.ogg"], "hit_cold": ["hammer_cold.ogg"], "hit_overheat": ["hammer_overheat.ogg"],
 	"hit_weld": ["hammer_weld.ogg"], "hit_weld_miss": ["hammer_weld_miss.ogg"], "striker": ["striker.ogg"],
-	"machine": ["machine_water.ogg"], "machine_steam": ["machine_steam.ogg"], "sizzle": ["sizzle.ogg"],
+	"machine": ["machine_water.ogg"], "machine_steam": ["machine_steam.ogg"], "steam_hammer": ["steam_hammer.ogg"], "sizzle": ["sizzle.ogg"],
 	"sparks": ["sparks.ogg"], "quench": ["quench.ogg"], "ruin": ["ruin.ogg"], "coins": ["coins.ogg"],
 	"page": ["page.ogg"], "move": ["move.ogg"], "bellows": ["bellows.ogg"], "click": ["click.ogg"], "done": ["done.ogg"],
 }
@@ -198,7 +198,10 @@ func _on_sim_event(kind: String, _data: Dictionary) -> void:
 			play("striker", -4.0)
 		"machine":
 			var m := GameManager.current_machine()
-			play("machine_steam" if (m != null and not m.water_powered) else "machine", -2.0)
+			if m != null and m.force_mode == "adjustable":
+				_play_force("steam_hammer", -1.0)
+			else:
+				play("machine_steam" if (m != null and not m.water_powered) else "machine", -2.0)
 		"move":
 			play("move", -10.0)
 		"weld_done":

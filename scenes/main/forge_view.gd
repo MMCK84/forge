@@ -36,11 +36,13 @@ func _process(delta: float) -> void:
 
 
 ## Essen-Grafik des Auftraggebers für die aktuelle Stufe (leer, wenn keine vorhanden).
+## Fehlt die Grafik einer höheren Stufe (z. B. Schweißofen), gilt die nächstniedrigere vorhandene.
 func user_forge() -> Dictionary:
-	var d: Dictionary = USER_FORGES.get(tier, {})
-	if d.is_empty() or Assets.user(str(d["file"])) == null:
-		return {}
-	return d
+	for t in range(tier, 0, -1):
+		var d: Dictionary = USER_FORGES.get(t, {})
+		if not d.is_empty() and Assets.user(str(d["file"])) != null:
+			return d
+	return {}
 
 
 ## Unterkante der Essen-Grafik (lokal) – steht auf der Wand-Boden-Kante.

@@ -1,7 +1,7 @@
 # Forge Workshop (Arbeitstitel)
 
 2D-Schmiede-Simulation mit Incremental-/Tycoon-Elementen im Großbritannien des
-18. Jahrhunderts. Umsetzung des Lastenhefts v1.1 (Stand 19.11.2026) in **Godot 4.3+ (GDScript)**.
+18. und 19. Jahrhunderts (10 Epochen, 1700–1880). Umsetzung des Lastenhefts v1.1 (Stand 19.11.2026) in **Godot 4.3+ (GDScript)**.
 
 > **Status:** In Godot 4.3 getestet. 935 Unit-Prüfungen sind grün, und ein automatischer
 > grafischer Spieltest (`tools/playtest.gd`) spielt alle sechs Epochen mit Mengenaufträgen,
@@ -60,6 +60,7 @@ der Knopf „Testmenü“ im Pausen- und Hauptmenü. Es ist nur in Testversionen
 | Hammerschlag | Klick auf Amboss / Knopf „HAMMERN“ | Tippen | Leertaste |
 | Rohling einlegen | Klick auf Rohling-Stapel oder leeren Esse-Platz | Tippen | R |
 | Umlegen | Klick auf Werkstück in der Esse bzw. auf einen Esse-Platz | Tippen | E |
+| Schlagstärke | Knöpfe Leicht / Mittel / Schwer | Tippen | ↑ / ↓ |
 | Werkstück wählen | Klick | Tippen | 1 / 2 / 3 |
 | Abschrecken (ab Ep. 4) | Klick auf Löschtrog | Tippen | Q |
 | Auftragsbuch / Laden / Personal | Schaltflächen | Schaltflächen | J / S / P |
@@ -212,6 +213,24 @@ wie hoch die Qualitätsstufen sind (am Anfang 55 % „Einfach“, am Ende 20 % �
 und wie oft Präzisions-, Eil-, Spezial- und Mengenaufträge auftreten (×0,3 am Anfang,
 ×1,7 am Ende; Mengen anfangs nur ×2, später bis ×12). Präzisionsaufträge gibt es in
 Epoche 1 schon ab dem 5. Auftrag.
+
+**Schlagstärke.** Leicht, Mittel oder Schwer – gewählt über drei Knöpfe über dem
+HAMMERN-Knopf (Pfeiltasten ↑/↓). Jeder Arbeitsgang verlangt eine Stärke (`step_force`):
+Strecken, Stauchen, Lochen schwer; Breiten, Anspitzen, Spalten mittel; Biegen, Verdrehen,
+Schlichten leicht. Eine Stufe daneben bringt 55 % der Form-Punkte, leicht statt schwer
+25 %, schwer statt leicht 30 % und Gefügeschaden. Nur passende Schläge zählen für die
+Qualität. Die fünf Tutorial-Aufträge laufen ohne Stärke, in Epoche 1 wird „mittel“ noch als
+„schwer“ verlangt. Zuschläger und Schwanzhämmer schlagen nur schwer und arbeiten daher nur in
+schweren Arbeitsgängen mit; Dampfhämmer (ab Epoche 9) schlagen mit der gewählten Stärke.
+Der Hammer holt je nach Stärke kürzer oder weiter aus, der Klang wird heller oder dumpfer.
+
+**Epochen 7–10 (1800–1880).** Krieg & Erfindergeist (Lambeth, Maudslay, Telford),
+Eisenbahnfieber (Newcastle, Stephenson), Der Dampfhammer (Patricroft, Nasmyth, Brunel)
+und Das Stahlzeitalter (Sheffield, Bessemer, Siemens): 32 Werkstücke, 22 Kunden,
+36 Meilensteine, Heizer (Esse +25 %), Schweißofen und Siemens-Gasofen, Nasmyth- und großer
+Dampfhammer. Inhalte in `tools/content/epochs_7_10.py`, Ressourcen erzeugt
+`python tools/content/gen_epochs_7_10.py`, Übersetzungen `python tools/content/gen_csv.py
+localization/translations.csv`. Entwurf und Grafik-Prompts: `docs/Erweiterung_Epochen_7-10.md`.
 
 ## Umsetzungsentscheidungen
 

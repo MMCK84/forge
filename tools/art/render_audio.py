@@ -195,6 +195,17 @@ def machine_hit(steam=False, seed=21):
     return fade(norm(x, 0.9))
 
 
+def steam_hammer_hit(seed=41):
+    """Dampfhammer: dumpfer, schwerer Aufschlag mit Dampfstoß."""
+    sec = 1.6
+    t = t_axis(sec)
+    thud = lp(noise(sec, seed), 260) * np.exp(-t / 0.08) * 5 + np.sin(2 * np.pi * 52 * t) * np.exp(-t / 0.25) * 1.2
+    x = thud + strike(420, 0.5, 1.0, 0.25, sec, seed) * 0.7
+    p = steam_puff(seed + 1)
+    x[:len(p)] += p * 0.9
+    return fade(norm(x, 0.9))
+
+
 def ambience_fire(sec=8.0, seed=23):
     t = t_axis(sec)
     roar = lp(noise(sec, seed), 300) * (0.6 + 0.4 * lp(np.abs(noise(sec, seed + 1)), 3) * 20)
@@ -346,6 +357,11 @@ STYLES = {
     4: dict(name="epoch4", tonic=60, mode="major", meter=3, beat=60 / 120, sub=2, prog=(PROG_A, PROG_B), parts=["lute", "cello", "flute", "violin"], drum=False, seed=14),
     5: dict(name="epoch5", tonic=64, mode="minor", meter=2, beat=60 / 88, sub=4, prog=(PROG_MIN, [2, 5, 3, 4, 0, 3, 4, 0]), parts=["harpsichord", "lute", "cello", "flute", "violin"], drum=False, seed=15),
     6: dict(name="epoch6", tonic=62, mode="major", meter=4, beat=60 / 100, sub=2, prog=(PROG_A, PROG_B), parts=["harpsichord", "lute", "cello", "flute", "violin"], drum=True, seed=16),
+    # 19. Jahrhundert: Marsch (Napoleonische Kriege), Galopp (Eisenbahn), schwerer Moll-Marsch (Dampfhammer), Hymne (Stahl)
+    7: dict(name="epoch7", tonic=67, mode="major", meter=2, beat=60 / 116, sub=2, prog=(PROG_A, PROG_B), parts=["flute", "violin", "cello"], drum=True, seed=17),
+    8: dict(name="epoch8", tonic=64, mode="major", meter=2, beat=60 / 132, sub=2, prog=(PROG_A, PROG_B), parts=["violin", "flute", "cello", "lute"], drum=True, seed=18),
+    9: dict(name="epoch9", tonic=57, mode="minor", meter=4, beat=60 / 92, sub=2, prog=(PROG_MIN, [2, 5, 3, 4, 0, 3, 4, 0]), parts=["cello", "violin", "harpsichord"], drum=True, seed=19),
+    10: dict(name="epoch10", tonic=60, mode="major", meter=4, beat=60 / 96, sub=2, prog=(PROG_A, PROG_B), parts=["harpsichord", "cello", "flute", "violin"], drum=True, seed=20),
 }
 
 
@@ -362,6 +378,7 @@ def make_phrase(st, prog, rng, motif=None):
         (2, 3): [[2, 1, 2, 1], [3, 3], [1, 1, 1, 2, 1], [2, 1, 3]],
         (4, 2): [[1, 1, 1, 1, 2, 2], [2, 2, 2, 2], [3, 1, 2, 2], [1, 1, 2, 1, 1, 2]],
         (2, 4): [[2, 2, 2, 2], [3, 1, 4], [1, 1, 2, 2, 2], [4, 4]],
+        (2, 2): [[1, 1, 2], [2, 2], [1, 1, 1, 1], [3, 1]],
     }[(meter, sub)]
     notes = []
     prev = 7 + 2
@@ -517,12 +534,26 @@ def render_all():
     write(ambience_fire(), *A, "fire.ogg")
     write(ambience_water(), *A, "water_wheel.ogg")
     write(ambience_steam(), *A, "steam_engine.ogg")
-    for e in range(0, 7):
+    write(steam_hammer_hit(), *S, "steam_hammer.ogg")
+    for e in range(0, 11):
         y, dur = render_track(e)
         name = "menu.ogg" if e == 0 else f"epoch_{e}.ogg"
         write(y, "assets", "audio", "music", name, stereo=True, quality=3)
         print(name, round(dur, 1), "s")
 
 
+def render_new():
+    """Nur die Erweiterung (Epochen 7–10, Dampfhammer) erzeugen."""
+    write(steam_hammer_hit(), "assets", "audio", "sfx", "steam_hammer.ogg")
+    for e in range(7, 11):
+        y, dur = render_track(e)
+        write(y, "assets", "audio", "music", f"epoch_{e}.ogg", stereo=True, quality=3)
+        print(f"epoch_{e}.ogg", round(dur, 1), "s")
+
+
 if __name__ == "__main__":
-    render_all()
+    import sys
+    if "--new" in sys.argv:
+        render_new()
+    else:
+        render_all()

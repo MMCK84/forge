@@ -97,6 +97,8 @@ func _ready() -> void:
 	forge_view.slot_clicked.connect(_on_slot_clicked)
 	forge_view.raw_clicked.connect(_on_raw_clicked)
 	stage.add_child(forge_view)
+	# Maschinen stehen vor der Esse (sonst verdeckt die große Esse Zylinder und Antrieb)
+	stage.move_child(machine_view, forge_view.get_index())
 
 	anvil_view = AnvilView.new()
 	anvil_view.position = ANVIL_POS
@@ -693,8 +695,11 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 ## Handhammer nur zeigen, wenn keine Maschine gerade mitarbeitet (Schwanzhämmer pausieren
 ## in leichten Arbeitsgängen – dann arbeitet der Schmied von Hand).
 func _update_hand_hammer() -> void:
-	var busy: bool = machine_view.machine_id != "" and machine_view.has_user_parts() and GameManager.sim.machine_engaged()
+	var sim = GameManager.sim
+	var busy: bool = machine_view.machine_id != "" and sim.machine_engaged() and (machine_view.steam_hammer or machine_view.has_user_parts())
 	anvil_view.hand_hammer_visible = not busy
+	if sim.anvil >= 0:
+		machine_view.force_level = sim.effective_force(sim.anvil)
 
 
 ## Schlagstärke wählen (0 leicht, 1 mittel, 2 schwer).
@@ -847,6 +852,9 @@ func _on_state_changed() -> void:
 	var m := gm.current_machine()
 	machine_view.machine_id = m.id if m != null else ""
 	machine_view.water_powered = m != null and m.water_powered
+	machine_view.steam_hammer = m != null and m.force_mode == "adjustable"
+	machine_view.large = m != null and m.tier >= 4
+	anvil_view.schabotte = machine_view.steam_hammer
 	_update_hand_hammer()
 	hud.refresh()
 	SoundManager.update_ambience()

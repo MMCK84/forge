@@ -427,3 +427,19 @@ func test_machines_follow_force() -> void:
 	striker.hit_interval_s = 2.0
 	s.striker = striker
 	assert_true(not s.striker_engaged(), "Zuschläger nur in schweren Arbeitsgängen")
+
+
+func test_helve_works_all_steps_on_big_forgings() -> void:
+	var helve := MachineData.new()
+	helve.p_base = 100.0
+	helve.hits_per_s = 1.0
+	helve.force_mode = "heavy"
+	var s := _force_sim([{"id": "planish", "share": 1.0}])
+	s.job.category = "big"
+	s.machine = helve
+	s.job.pieces[0].temp = 800.0
+	assert_true(s.machine_engaged(), "bei Großschmiedestücken arbeitet der Schwanzhammer auch beim Schlichten")
+	var kinds := []
+	s.machine_hit.connect(func(k: String) -> void: kinds.append(k))
+	_run(s, 1.05)
+	assert_eq(kinds, ["good"], "und schlägt dabei passend (kein Schaden)")

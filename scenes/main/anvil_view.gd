@@ -13,6 +13,8 @@ var big: bool = false
 var hammer_id: String = ""
 ## Handhammer ausblenden, wenn ein Schwanzhammer auf den Amboss schlägt
 var hand_hammer_visible: bool = true
+## Unter dem Dampfhammer steht statt des Ambosses die Schabotte (wenn die Grafik vorhanden ist)
+var schabotte: bool = false
 ## Schlagstärke des letzten Schlags (0 leicht … 2 schwer): bestimmt die Ausholweite
 var force_level: int = 1
 const FORCE_SWING := [0.55, 1.0, 1.6]
@@ -64,7 +66,13 @@ func _draw() -> void:
 	var hammer_t := Assets.tex("tools/hand_hammer.png")
 	if anvil_t != null and hammer_t != null:
 		var user_t := Assets.user("anvil.png")
-		if user_t != null:
+		var block_t := Assets.user("machine_steam_hammer_anvil.png") if schabotte else null
+		if block_t != null:
+			# Schabotte: Oberkante (Gesenk) auf Höhe der Ambossbahn, Unterkante auf dem Boden
+			var bh := 276.0
+			var bw := bh * block_t.get_width() / block_t.get_height()
+			draw_texture_rect(block_t, Rect2(rest_point().x - bw * 0.5, 137.0, bw, bh), false)
+		elif user_t != null:
 			# Amboss des Auftraggebers: Bahnmitte über der Ablage, Bahnoberkante bei y ≈ 137 (Werkstück liegt bei 138)
 			draw_texture(user_t, Vector2(rest_point().x - 153.0, 134.0))
 		else:
