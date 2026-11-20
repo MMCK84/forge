@@ -173,6 +173,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   (P2-1–5, P3-1). Neu: Import für Porträts (ovaler Rahmen freigestellt, `ui/user/portrait_<kunde>.png` hat Vorrang) und alle
   vier Ladenbilder. Dazu Porträts P3-2–5, P1-1–6 (P1-4 Müller „ändern“: wirkte wie eine Frau) und P4-1–4.
   Aufgeräumt: BG3–6 (Doppel) und P1-* lagen im Hauptordner des Repositorys → gelöscht bzw. einsortiert.
+- 20.11.: `project.godot` trug noch die Kennung „4.3“ (Projektmanager zeigte 4.3, Umwandlungs-Rückfrage) → auf „4.7“ gesetzt.
 
 ## Prüfen
 
