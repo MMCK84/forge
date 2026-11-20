@@ -192,6 +192,11 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: Älterer Fehler gefunden: Schweißaufträge mit schnellen Essen (bis 250 °C/s) verbrannten in 0,4 s im Schweißfenster;
   Schätzungen hingen bei 1:00:00. Neu: oberhalb Gelbglut (1100 °C) heizt jede Esse höchstens 60 °C/s (`white_heat_rate`),
   Referenzspieler macht für wartende Schweißstücke den Amboss frei. 0 von 200 Schweißaufträgen hängen. Tests 2098/0.
+- 20.11.: Nachstimmen danach scheiterte an verbliebenen Hängern (Schweißaufträge mit 3–6 Stücken) → Werte zurückgesetzt.
+  Ursache im Lehrling: Er hält jetzt normale Stücke **immer** auf Arbeitshitze (nichts überhitzt mehr unbemerkt) und lässt
+  Schweißstücke immer bis zur Schweißhitze kommen; Referenzspieler wartet nur noch auf erreichbare Hitze.
+  Balancing ohne Hänger: **13,48 h**, Minuten 12.2/22.6/54.8/82.3/129.8/159.0/77.4/81.9/90.7/98.0 (alle ±3 %, kein Nachstimmen
+  nötig). Spieltest 0 Probleme, Schätzungen in allen Epochen plausibel.
 
 ## Prüfen
 

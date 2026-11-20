@@ -602,8 +602,14 @@ func step(dt: float) -> void:
 			continue
 		if p.location == JobInstance.LOC_FORGE:
 			var cap := t_max
-			if has_apprentice and anvil >= 0 and anvil != i and i != release:
-				cap = minf(cap, apprentice_hold_temp(i))
+			# Der Lehrling passt auf die Esse auf: Schweißstücke lässt er bis zur Schweißhitze kommen
+			# (auch wenn der Amboss belegt ist – sonst kämen sie nie an die Reihe), alle anderen Stücke
+			# hält er auf Arbeitshitze, damit nichts unbemerkt überhitzt.
+			if has_apprentice and i != release:
+				if in_weld_phase(i):
+					cap = minf(cap, apprentice_take_temp(i))
+				elif anvil != i:
+					cap = minf(cap, apprentice_hold_temp(i))
 			if p.temp < cap:
 				var rate := k_heat if p.temp < cfg.optimal_max else minf(k_heat, cfg.white_heat_rate)
 				var t_new := p.temp + rate * dt

@@ -32,13 +32,13 @@ func act(dt: float) -> void:
 		wait -= dt
 		return
 	var moved := false
-	# 0) Ein Schweißstück wartet in der Esse: Solange der Amboss belegt ist, hält es der Lehrling bei
-	#    1100 °C fest – es käme nie an die Reihe. Dann den Amboss freimachen, damit es Schweißhitze erreicht.
+	# 0) Ein Schweißstück wartet in der Esse: Der Lehrling bringt es auf
+	#    Schweißhitze, kommt aber nur dran, wenn der Amboss frei wird: dann den Amboss freimachen.
 	if sim.has_apprentice and sim.anvil >= 0 and not sim.in_transit(sim.anvil) and not sim.in_weld_phase(sim.anvil) \
 			and not sim.awaiting_quench(sim.anvil) and sim.free_slot() >= 0:
 		for idx in sim.forge_slots:
 			if idx >= 0 and not sim.in_transit(idx) and sim.in_weld_phase(idx) \
-					and sim.job.pieces[idx].temp >= sim.apprentice_hold_temp(idx) - 1.0:
+					and sim.job.pieces[idx].temp >= cfg.weld_min + 5.0:
 				moved = sim.move_anvil_to_forge(-1)
 				break
 	if moved:
@@ -120,7 +120,11 @@ func _target_temp(idx: int) -> float:
 		return (cfg.quench_good_min + cfg.quench_good_max) * 0.5 + 10.0
 	if sim.in_weld_phase(idx):
 		return minf(sim.t_max, cfg.weld_max) - 15.0
-	return minf(sim.step_window(idx).y, sim.t_max - 1.0)
+	var t := minf(sim.step_window(idx).y, sim.t_max - 1.0)
+	# Mit Lehrling wird das Stück in der Esse auf seiner Abholhitze gehalten – nicht darauf warten, was nie kommt
+	if sim.has_apprentice:
+		t = minf(t, sim.apprentice_take_temp(idx))
+	return t
 
 
 ## Amboss-Stück zurück ins Feuer; bei voller Esse nur gegen ein Stück tauschen, das schon heiß genug ist.
