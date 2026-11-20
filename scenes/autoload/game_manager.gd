@@ -12,7 +12,9 @@ const Catalog = preload("res://scripts/catalog.gd")
 const Localization = preload("res://scripts/localization.gd")
 
 const GAME_VERSION := "0.1.0"
-const EPOCH_YEARS := ["1700–1715", "1715–1735", "1735–1750", "1750–1765", "1765–1785", "1785–1800"]
+const EPOCH_YEARS := ["1700–1715", "1715–1735", "1735–1750", "1750–1765", "1765–1785", "1785–1800", "1800–1820", "1820–1839", "1839–1860", "1860–1880"]
+## Anzahl der Epochen
+const EPOCH_COUNT := 10
 
 # --- Signale (8.3) ---
 signal pence_changed(new_total: int, delta: int)
@@ -264,7 +266,7 @@ func end_session() -> void:
 
 func _apply_equipment() -> void:
 	var f: ForgeData = forges.get(equipped_forge_id, forges["forge_clay"])
-	sim.set_forge(f.k_heat, f.t_max, f.slots)
+	sim.set_forge(f.k_heat * heat_factor(), f.t_max, f.slots)
 	sim.hammer_power = current_hammer_power()
 	sim.machine = machines.get(active_machine_id, null)
 	sim.has_trough = has_trough()
@@ -274,10 +276,15 @@ func _apply_equipment() -> void:
 	sim.apprentice_to_anvil_at = apprentice_to_anvil_at
 
 
+## Der Heizer (Personal ab Epoche 7) lässt die Esse schneller heizen.
+func heat_factor() -> float:
+	return cfg.stoker_heat_factor if hired_ids.has("staff_stoker") else 1.0
+
+
 func current_setup() -> Dictionary:
 	var f: ForgeData = forges.get(equipped_forge_id, forges["forge_clay"])
 	return {
-		"k_heat": f.k_heat, "t_max": f.t_max, "slots": f.slots,
+		"k_heat": f.k_heat * heat_factor(), "t_max": f.t_max, "slots": f.slots,
 		"hammer_power": current_hammer_power(),
 		"machine": machines.get(active_machine_id, null),
 		"striker": staff["staff_striker"] if hired_ids.has("staff_striker") else null,
@@ -330,7 +337,7 @@ func format_money(pence: int) -> String:
 func epoch_job_count(epoch: int = -1) -> int:
 	if epoch < 0:
 		epoch = current_epoch
-	return cfg.epoch_job_counts[clampi(epoch, 1, 6) - 1]
+	return cfg.epoch_job_counts[clampi(epoch, 1, EPOCH_COUNT) - 1]
 
 
 func final_milestone(epoch: int) -> MilestoneData:
@@ -344,7 +351,7 @@ func epoch_finished() -> bool:
 
 
 func can_advance_epoch() -> bool:
-	return current_epoch < 6 and epoch_finished()
+	return current_epoch < EPOCH_COUNT and epoch_finished()
 
 
 func next_epoch_fee() -> int:
@@ -576,7 +583,7 @@ func _complete_active_job() -> void:
 			cosmetics.append("pyrometer")
 		var fm := final_milestone(current_epoch)
 		if fm != null and fm.id == j.milestone_id:
-			if current_epoch < 6:
+			if current_epoch < EPOCH_COUNT:
 				epoch_done = true
 			else:
 				game_done = true
@@ -767,7 +774,7 @@ func journeyman_rate() -> float:
 		return 0.0
 	var s: StaffData = staff["staff_journeyman"]
 	var power := ReferencePlayer.reference_power(cfg, current_setup()) * s.performance_share
-	var gross := power * cfg.rate_per_fp[clampi(current_epoch, 1, 6) - 1]
+	var gross := power * cfg.rate_per_fp[clampi(current_epoch, 1, EPOCH_COUNT) - 1]
 	return gross * (1.0 - s.wage_share)
 
 
@@ -890,7 +897,7 @@ func load_from_dict(d: Dictionary) -> void:
 	apprentice_to_anvil_at = float(th.get("to_anvil_at", cfg.apprentice_to_anvil_at))
 
 	var pr: Dictionary = d.get("progress", {})
-	current_epoch = clampi(int(pr.get("current_epoch", 1)), 1, 6)
+	current_epoch = clampi(int(pr.get("current_epoch", 1)), 1, EPOCH_COUNT)
 	jobs_completed_in_epoch = maxi(0, int(pr.get("jobs_completed_in_epoch", 0)))
 	completed_milestone_ids = _known_ids(pr.get("completed_milestone_ids", []), milestones, "milestone")
 	generator_seed = int(pr.get("generator_seed", 1))
@@ -1006,7 +1013,7 @@ func current_complexity() -> float:
 ## Springt in eine Epoche. progress: 0 = Anfang, 0.5 = Mitte, 1 = Ende (letzter Auftrag).
 ## Mit equip = true gibt es die typische Ausrüstung und das Personal der Epoche.
 func debug_set_epoch(epoch: int, progress: float, equip: bool = true) -> void:
-	epoch = clampi(epoch, 1, 6)
+	epoch = clampi(epoch, 1, EPOCH_COUNT)
 	if active_job != null:
 		active_job = null
 		sim.clear_job()

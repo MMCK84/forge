@@ -149,7 +149,16 @@ func _set_bus_volume(bus_name: String, linear: float) -> void:
 
 
 ## Spielt einen Klang mit ±5 % Pitch-Variation.
-func play(id: String, volume_db: float = 0.0, vary: bool = true) -> void:
+## Amboss-Schlag mit Tonhöhe und Lautstärke nach Schlagstärke (leicht hell, schwer dumpf).
+func _play_force(id: String, volume_db: float) -> void:
+	var f := 1
+	var sim = GameManager.sim
+	if sim != null and sim.anvil >= 0:
+		f = sim.effective_force(sim.anvil)
+	play(id, volume_db + [-5.0, 0.0, 2.0][clampi(f, 0, 2)], true, [1.18, 1.0, 0.86][clampi(f, 0, 2)])
+
+
+func play(id: String, volume_db: float = 0.0, vary: bool = true, pitch: float = 1.0) -> void:
 	var stream: AudioStream = _sounds.get(id, null)
 	if _variants.has(id):
 		var v: Array = _variants[id]
@@ -160,16 +169,21 @@ func play(id: String, volume_db: float = 0.0, vary: bool = true) -> void:
 	_pool_idx = (_pool_idx + 1) % _pool.size()
 	p.stream = stream
 	p.volume_db = volume_db
-	p.pitch_scale = _rng.randf_range(0.95, 1.05) if vary else 1.0
+	p.pitch_scale = (_rng.randf_range(0.95, 1.05) if vary else 1.0) * pitch
 	p.play()
 
 
 func _on_sim_event(kind: String, _data: Dictionary) -> void:
 	match kind:
 		"hit_good":
-			play("hit_good")
+			_play_force("hit_good", 0.0)
 		"hit_weak", "hit_off":
 			play("hit_weak", -3.0)
+		"hit_too_soft":
+			_play_force("hit_weak", -4.0)
+		"hit_too_hard":
+			_play_force("hit_good", 2.0)
+			play("hit_cold", -6.0)
 		"hit_overheat":
 			play("hit_overheat")
 			play("sizzle", -6.0)

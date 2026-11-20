@@ -27,6 +27,13 @@ func _ready() -> void:
 	visible = false
 
 
+## Während der ersten Tutorial-Aufträge zählt die Schlagstärke noch nicht.
+func force_locked() -> bool:
+	if not is_active():
+		return false
+	return int(GameManager.stats.get("jobs_completed", 0)) < TUTORIAL_JOBS
+
+
 func is_active() -> bool:
 	var gm := GameManager
 	if not bool(gm.settings.get("tutorial", true)) or gm.seen_hints.has("tutorial_done"):

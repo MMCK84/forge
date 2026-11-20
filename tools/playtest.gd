@@ -74,6 +74,16 @@ func run_until(cond: Callable, timeout_s: float) -> bool:
 	return false
 
 
+## Schlag mit der verlangten Schlagstärke (wie ein aufmerksamer Spieler).
+func _hit_right() -> void:
+	var sim = GameManager.sim
+	if sim.anvil >= 0:
+		var rf: int = sim.required_force(sim.anvil)
+		if rf >= 0 and sim.force_enabled:
+			workshop().call("_set_force", rf)
+	workshop().call("_do_hit")
+
+
 func _run() -> void:
 	var gm := GameManager
 	SaveManager.save_blocked = false
@@ -141,7 +151,7 @@ func _run() -> void:
 		if p.temp > w.y:
 			await wait(0.1)
 			continue
-		workshop().call("_do_hit")
+		_hit_right()
 		hits += 1
 		if hits == 4:
 			await shot("amboss_schmieden")
@@ -273,15 +283,15 @@ func _epoch_scene(e: int) -> void:
 				if p.temp >= 1200.0 and p.temp <= 1300.0:
 					if not shot_taken:
 						Engine.time_scale = 1.0
-						workshop().call("_do_hit")
+						_hit_right()
 						await shot("epoche%d_feuerschweissen" % e)
 						shot_taken = true
 						Engine.time_scale = 4.0
 					sim.last_player_hit = -10.0
-					workshop().call("_do_hit")
+					_hit_right()
 			elif p.temp >= sim.step_window(i).x and p.temp <= sim.step_window(i).y:
 				sim.last_player_hit = -10.0
-				workshop().call("_do_hit")
+				_hit_right()
 				if not shot_taken and (e == 2 or e >= 5) and k > 20:
 					Engine.time_scale = 1.0
 					await wait(0.1)

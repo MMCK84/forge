@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "bridge_rivet"
+epoch = 9
+factor = 0.8
+category = "normal"
+shape = "rivet"
+allow_quantity = true
+material = "iron"
+steps = [{
+"id": "upset",
+"share": 0.6
+}, {
+"id": "planish",
+"share": 0.4
+}]

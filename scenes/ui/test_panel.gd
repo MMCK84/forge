@@ -29,7 +29,7 @@ func build(box: VBoxContainer) -> void:
 	grid.columns = 4
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 6)
-	for e in range(1, 7):
+	for e in range(1, GameManager.EPOCH_COUNT + 1):
 		grid.add_child(UIKit.label("%d" % e, 24, UIKit.INK))
 		for pos in [[0.0, "TEST_START"], [0.5, "TEST_MIDDLE"], [1.0, "TEST_END"]]:
 			grid.add_child(UIKit.button(tr(pos[1]), _jump.bind(e, float(pos[0])), Vector2(170, 52), 20))

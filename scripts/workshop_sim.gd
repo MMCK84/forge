@@ -58,6 +58,17 @@ var apprentice_timer: float = 0.0
 ## Zähler für Statistik
 var pieces_ruined: int = 0
 
+## Schlagstärke: 0 = leicht, 1 = mittel, 2 = schwer
+const FORCE_LIGHT := 0
+const FORCE_MEDIUM := 1
+const FORCE_HEAVY := 2
+## Vom Spieler gewählte Stärke
+var force: int = FORCE_MEDIUM
+## false: Stärke spielt keine Rolle (Tutorial) – jeder Schlag gilt als passend
+var force_enabled: bool = true
+## true: immer die verlangte Stärke (Referenzspieler, Schätzungen)
+var auto_force: bool = false
+
 var rng := RandomNumberGenerator.new()
 
 
@@ -201,6 +212,40 @@ func temp_offset() -> float:
 ## Temperatur, ab der das Werkstück verbrennt (Werkstoff berücksichtigt).
 func burn_temp() -> float:
 	return cfg.burn_limit - temp_offset()
+
+
+## Verlangte Schlagstärke für den aktuellen Arbeitsgang eines Stücks (-1 = beliebig,
+## z. B. Aufträge ohne Arbeitsgänge).
+func required_force(i: int) -> int:
+	if job == null:
+		return -1
+	var sid := job.step_id(step_index(i))
+	if sid == "" or not cfg.step_force.has(sid):
+		return -1
+	var f := int(cfg.step_force[sid])
+	if f == FORCE_MEDIUM and job.epoch <= cfg.force_simple_until_epoch:
+		f = FORCE_HEAVY
+	return f
+
+
+## Stärke, mit der tatsächlich geschlagen wird (Spieler-Wahl oder automatisch passend).
+func effective_force(i: int) -> int:
+	var req := required_force(i)
+	if req >= 0 and (auto_force or not force_enabled):
+		return req
+	return clampi(force, FORCE_LIGHT, FORCE_HEAVY)
+
+
+## Anteil der Form-Punkte bei gewählter vs. verlangter Stärke.
+func force_factor(used: int, req: int) -> float:
+	if req < 0:
+		return 1.0
+	var d := used - req
+	if d == 0:
+		return 1.0
+	if absi(d) == 1:
+		return cfg.force_gain_off_one
+	return cfg.force_gain_too_hard if d > 0 else cfg.force_gain_too_soft
 
 
 func step_index(i: int) -> int:
@@ -408,10 +453,10 @@ func player_hit() -> String:
 	var power := hammer_power
 	if job.is_big():
 		power *= cfg.big_manual_factor
-	return _strike(anvil, power, true)
+	return _strike(anvil, power, true, effective_force(anvil))
 
 
-func _strike(idx: int, power: float, is_player: bool) -> String:
+func _strike(idx: int, power: float, is_player: bool, used_force: int = -1) -> String:
 	var p: JobInstance.Piece = _piece(idx)
 	if p.location == JobInstance.LOC_DONE or is_complete(idx):
 		return "none"
@@ -444,17 +489,26 @@ func _strike(idx: int, power: float, is_player: bool) -> String:
 	var weld_pending := job.needs_weld() and p.weld_hits < cfg.weld_hits_required
 	if weld_pending:
 		cap = fp * cfg.weld_at_progress
-	var gain := power * HeatModel.multiplier(cfg, te)
+	var req := required_force(idx)
+	var used := req if used_force < 0 else used_force
+	var fdiff := 0 if req < 0 else used - req
+	if fdiff >= 2:
+		p.damage += cfg.force_too_hard_damage
+	var gain := power * HeatModel.multiplier(cfg, te) * force_factor(used, req)
 	gain = clampf(gain, 0.0, maxf(0.0, cap - p.progress))
 	var step_before := step_index(idx)
 	var w := step_window(idx)
 	p.progress += gain
-	var in_win := t >= w.x and t <= w.y
+	var in_win := t >= w.x and t <= w.y and fdiff == 0
 	if in_win:
 		p.points_in_window += gain
 	var z := HeatModel.zone(cfg, te)
 	if z == HeatModel.ZONE_OVERHEAT:
 		kind = "overheat"
+	elif fdiff > 0:
+		kind = "too_hard"
+	elif fdiff < 0:
+		kind = "too_soft"
 	elif in_win:
 		kind = "good"
 	elif z == HeatModel.ZONE_OPTIMAL:
@@ -475,6 +529,9 @@ func _strike(idx: int, power: float, is_player: bool) -> String:
 			ready_to_quench.emit(idx)
 		else:
 			_finish_piece(idx)
+			return kind
+	if fdiff >= 2:
+		_check_damage(idx)
 	return kind
 
 
@@ -574,15 +631,32 @@ func _auto_target_ok() -> bool:
 	return _piece(anvil).temp + temp_offset() >= cfg.auto_hit_min_temp
 
 
-func _step_machine(dt: float) -> void:
+## Schlägt die Maschine im aktuellen Arbeitsgang mit? Schwanzhämmer nur bei schweren
+## Arbeitsgängen, Dampfhämmer (einstellbare Stärke) immer.
+func machine_engaged() -> bool:
 	if machine == null or not _auto_target_ok():
+		return false
+	if machine.force_mode == "adjustable":
+		return true
+	var req := required_force(anvil)
+	return req < 0 or req == FORCE_HEAVY
+
+
+func _machine_force() -> int:
+	if machine.force_mode == "adjustable":
+		return effective_force(anvil)
+	return FORCE_HEAVY
+
+
+func _step_machine(dt: float) -> void:
+	if not machine_engaged():
 		machine_timer = 0.0
 		return
 	machine_timer += dt
 	var interval := 1.0 / maxf(machine.hits_per_s, 0.01)
-	while machine_timer >= interval and _auto_target_ok():
+	while machine_timer >= interval and machine_engaged():
 		machine_timer -= interval
-		var kind := _strike(anvil, machine.p_base * water_factor(), false)
+		var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force())
 		machine_hit.emit(kind)
 		if job == null:
 			return
@@ -594,17 +668,25 @@ func _step_machine(dt: float) -> void:
 			cost_incurred.emit(whole, "steam")
 
 
-func _step_striker(dt: float) -> void:
+## Der Zuschläger schlägt mit dem Vorschlaghammer nur in schweren Arbeitsgängen mit.
+func striker_engaged() -> bool:
 	if striker == null or striker.hit_interval_s <= 0.0 or not _auto_target_ok():
+		return false
+	var req := required_force(anvil)
+	return req < 0 or req == FORCE_HEAVY
+
+
+func _step_striker(dt: float) -> void:
+	if not striker_engaged():
 		striker_timer = 0.0
 		return
 	striker_timer += dt
-	while striker_timer >= striker.hit_interval_s and _auto_target_ok():
+	while striker_timer >= striker.hit_interval_s and striker_engaged():
 		striker_timer -= striker.hit_interval_s
 		var power := striker.p_base
 		if job.is_big():
 			power *= cfg.big_manual_factor
-		var kind := _strike(anvil, power, false)
+		var kind := _strike(anvil, power, false, FORCE_HEAVY)
 		striker_hit.emit(kind)
 		if job == null:
 			return

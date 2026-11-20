@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MilestoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/milestone_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ms_e8_09_express"
+epoch = 8
+index = 9
+item_id = "crank_axle"
+customer_id = "stephenson_works"
+quantity = 1
+precision = true
+fp_factor = 1.5

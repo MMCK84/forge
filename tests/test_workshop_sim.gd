@@ -25,6 +25,8 @@ func _sim(job: JobInstance, k_heat: float = 25.0, t_max: float = 1100.0, slots: 
 	s.set_forge(k_heat, t_max, slots)
 	s.hammer_power = 10.0
 	s.water_timer = 1.0e9
+	# Bestehende Tests prüfen Temperatur und Fortschritt: Schlagstärke passt immer
+	s.auto_force = true
 	s.load_job(job)
 	return s
 
@@ -337,3 +339,91 @@ func test_reference_player_handles_steps() -> void:
 	var j := _step_job(600, [{"id": "draw", "share": 0.4}, {"id": "bend", "share": 0.35}, {"id": "planish", "share": 0.25}])
 	var d := ReferencePlayer.estimate_job(cfg, j, {"k_heat": 60.0, "t_max": 1200.0, "slots": 1, "hammer_power": 10.0})
 	assert_true(d < 600.0, "Referenzspieler schließt Aufträge mit Arbeitsgängen ab (%.0f s)" % d)
+
+
+# ------------------------------------------------------------------ Schlagstärke
+
+func _force_sim(steps: Array, epoch: int = 2) -> WorkshopSim:
+	var j := _step_job(1000, steps)
+	j.epoch = epoch
+	var s := _sim(j)
+	s.auto_force = false
+	s.load_raw()
+	s.transit.clear()
+	s.move_slot_to_anvil(0)
+	s.transit.clear()
+	return s
+
+
+func test_force_required_per_step() -> void:
+	var s := _force_sim([{"id": "draw", "share": 0.5}, {"id": "planish", "share": 0.5}])
+	assert_eq(s.required_force(0), WorkshopSim.FORCE_HEAVY, "Strecken verlangt schwer")
+	s.job.pieces[0].progress = 600.0
+	assert_eq(s.required_force(0), WorkshopSim.FORCE_LIGHT, "Schlichten verlangt leicht")
+	var m := _force_sim([{"id": "cut", "share": 1.0}], 2)
+	assert_eq(m.required_force(0), WorkshopSim.FORCE_MEDIUM, "Abschroten verlangt mittel")
+	var e1 := _force_sim([{"id": "cut", "share": 1.0}], 1)
+	assert_eq(e1.required_force(0), WorkshopSim.FORCE_HEAVY, "Epoche 1: mittel wird als schwer verlangt")
+
+
+func test_force_effects() -> void:
+	var s := _force_sim([{"id": "draw", "share": 1.0}])
+	var p: JobInstance.Piece = s.job.pieces[0]
+	p.temp = 1000.0
+	s.force = WorkshopSim.FORCE_HEAVY
+	assert_eq(_hit(s), "good", "richtige Stärke")
+	assert_near(p.progress, 10.0, 0.001, "volle Wirkung")
+	s.force = WorkshopSim.FORCE_MEDIUM
+	assert_eq(_hit(s), "too_soft", "eine Stufe zu leicht")
+	assert_near(p.progress, 10.0 + 10.0 * cfg.force_gain_off_one, 0.001, "verminderte Wirkung")
+	assert_near(p.points_in_window, 10.0, 0.001, "falsche Stärke zählt nicht für die Qualität")
+	var before := p.progress
+	s.force = WorkshopSim.FORCE_LIGHT
+	assert_eq(_hit(s), "too_soft")
+	assert_near(p.progress - before, 10.0 * cfg.force_gain_too_soft, 0.001, "leicht statt schwer")
+	assert_near(p.damage, 0.0, 0.0001, "zu sanft schadet nicht")
+
+
+func test_force_too_hard_damages() -> void:
+	var s := _force_sim([{"id": "planish", "share": 1.0}])
+	var p: JobInstance.Piece = s.job.pieces[0]
+	p.temp = 800.0
+	s.force = WorkshopSim.FORCE_HEAVY
+	assert_eq(_hit(s), "too_hard")
+	assert_near(p.damage, cfg.force_too_hard_damage, 0.0001, "schwer statt leicht verursacht Gefügeschaden")
+	assert_near(p.progress, 10.0 * cfg.force_gain_too_hard, 0.001)
+	s.force_enabled = false
+	var d := p.damage
+	assert_eq(_hit(s), "good", "ohne Schlagstärke (Tutorial) passt jeder Schlag")
+	assert_near(p.damage, d, 0.0001)
+
+
+func test_machines_follow_force() -> void:
+	var helve := MachineData.new()
+	helve.p_base = 100.0
+	helve.hits_per_s = 1.0
+	helve.force_mode = "heavy"
+	var s := _force_sim([{"id": "bend", "share": 1.0}])
+	s.machine = helve
+	s.job.pieces[0].temp = 850.0
+	assert_true(not s.machine_engaged(), "Schwanzhammer pausiert beim Biegen (leicht)")
+	var s2 := _force_sim([{"id": "draw", "share": 1.0}])
+	s2.machine = helve
+	s2.job.pieces[0].temp = 1050.0
+	assert_true(s2.machine_engaged(), "Schwanzhammer arbeitet beim Strecken (schwer)")
+	var steam := MachineData.new()
+	steam.p_base = 100.0
+	steam.hits_per_s = 1.0
+	steam.force_mode = "adjustable"
+	s.machine = steam
+	assert_true(s.machine_engaged(), "Dampfhammer arbeitet in jedem Arbeitsgang")
+	s.force = WorkshopSim.FORCE_LIGHT
+	var kinds := []
+	s.machine_hit.connect(func(k: String) -> void: kinds.append(k))
+	_run(s, 1.05)
+	assert_eq(kinds, ["good"], "Dampfhammer schlägt mit der gewählten (leichten) Stärke")
+	var striker := StaffData.new()
+	striker.p_base = 20.0
+	striker.hit_interval_s = 2.0
+	s.striker = striker
+	assert_true(not s.striker_engaged(), "Zuschläger nur in schweren Arbeitsgängen")

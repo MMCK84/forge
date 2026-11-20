@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MilestoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/milestone_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ms_e7_05_precision"
+epoch = 7
+index = 5
+item_id = "block_pin"
+customer_id = "maudslay"
+quantity = 6
+precision = true
+fp_factor = 1.2

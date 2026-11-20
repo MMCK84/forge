@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StaffData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/staff_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "staff_stoker"
+name_key = "STAFF_STOKER"
+desc_key = "STAFF_STOKER_DESC"
+price = 48000
+wage_share = 0.05
+min_epoch = 7
+p_base = 0.0
+hit_interval_s = 0.0
+performance_share = 0.0

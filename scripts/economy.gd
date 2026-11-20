@@ -53,7 +53,7 @@ static func group_thousands(value: int, sep: String) -> String:
 ## Exponent der Skalierung innerhalb einer Epoche: n / (N_e − 1),
 ## gedeckelt bei 1 (bzw. im Freien Spiel nach Epoche 6 bei free_play_exponent_cap).
 static func scale_exponent(cfg: BalanceConfig, epoch: int, n: int, free_play: bool = false) -> float:
-	var ne: int = cfg.epoch_job_counts[clampi(epoch, 1, 6) - 1]
+	var ne: int = cfg.epoch_job_counts[clampi(epoch, 1, cfg.epoch_job_counts.size()) - 1]
 	var x := float(n) / float(maxi(1, ne - 1))
 	var cap := cfg.free_play_exponent_cap if free_play else 1.0
 	return clampf(x, 0.0, cap)
@@ -61,7 +61,7 @@ static func scale_exponent(cfg: BalanceConfig, epoch: int, n: int, free_play: bo
 
 ## Form-Punkte = FP_Start(e) × Gegenstands-Faktor × Q_FP × 5^(n/(N_e−1)) [× 1,5 bei Meilensteinen]
 static func job_form_points(cfg: BalanceConfig, epoch: int, n: int, item_factor: float, q_fp: float, milestone: bool, free_play: bool = false) -> int:
-	var e := clampi(epoch, 1, 6)
+	var e := clampi(epoch, 1, cfg.epoch_job_counts.size())
 	var fp := cfg.fp_start[e - 1] * item_factor * q_fp * pow(cfg.scale_per_epoch, scale_exponent(cfg, e, n, free_play))
 	if milestone:
 		fp *= cfg.milestone_fp_factor
@@ -81,7 +81,7 @@ static func type_factor(cfg: BalanceConfig, job_type: String) -> float:
 
 ## Lohn (d) bei 2 Sternen (Sternefaktor 1,0) und rechtzeitiger Lieferung.
 static func reward_base(cfg: BalanceConfig, epoch: int, form_points: int, q_l: float, job_type: String) -> int:
-	var e := clampi(epoch, 1, 6)
+	var e := clampi(epoch, 1, cfg.epoch_job_counts.size())
 	return round_half_up(float(form_points) * cfg.rate_per_fp[e - 1] * q_l * type_factor(cfg, job_type))
 
 
@@ -121,7 +121,7 @@ static func hammer_power(cfg: BalanceConfig, p_base: float, level: int) -> float
 
 ## Kosten der nächsten Verbesserungsstufe: Basis(e) × 1,4^L
 static func upgrade_cost(cfg: BalanceConfig, epoch: int, level: int) -> int:
-	var e := clampi(epoch, 1, 6)
+	var e := clampi(epoch, 1, cfg.epoch_job_counts.size())
 	return round_half_up(float(cfg.upgrade_base[e - 1]) * pow(cfg.upgrade_growth, level))
 
 

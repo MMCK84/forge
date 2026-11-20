@@ -14,3 +14,6 @@ extends Resource
 ## Leistung schwankt mit dem Wasserstand
 @export var water_powered: bool = false
 @export var min_epoch: int = 5
+## "heavy": schlägt nur schwer (arbeitet nur in schweren Arbeitsgängen mit);
+## "adjustable": schlägt mit der gewählten Schlagstärke (Dampfhammer nach Nasmyth)
+@export var force_mode: String = "heavy"

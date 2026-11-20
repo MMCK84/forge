@@ -8,12 +8,12 @@ const Assets = preload("res://scripts/assets.gd")
 
 const STAGE := Vector2(1080, 1920)
 ## Höhe der Wand-Boden-Kante (Bühnen-Koordinaten) in den Hochformat-Bildern je Epoche
-const USER_FLOOR_Y := [721.0, 844.0, 905.0, 889.0, 780.0, 865.0]
+const USER_FLOOR_Y := [721.0, 844.0, 905.0, 889.0, 780.0, 865.0, 800.0, 800.0, 800.0, 800.0]
 ## Wand-Boden-Kante, wenn nur das Querformat-Bild oder der Code-Hintergrund vorhanden ist
 const DEFAULT_FLOOR_Y := 800.0
 
-const WALLS := [Color("4a3a2c"), Color("54402e"), Color("3e4448"), Color("4e3f3a"), Color("3f3a33"), Color("5a3a30")]
-const FLOORS := [Color("2e2218"), Color("33261b"), Color("2a2a28"), Color("2f2620"), Color("29251f"), Color("2b211c")]
+const WALLS := [Color("4a3a2c"), Color("54402e"), Color("3e4448"), Color("4e3f3a"), Color("3f3a33"), Color("5a3a30"), Color("5a5040"), Color("5a3028"), Color("3a3330"), Color("2e2a2a")]
+const FLOORS := [Color("2e2218"), Color("33261b"), Color("2a2a28"), Color("2f2620"), Color("29251f"), Color("2b211c"), Color("2c2a24"), Color("26201c"), Color("24221f"), Color("201e1d")]
 
 var epoch: int = 1
 var reputation_level: int = 1
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 
 func set_epoch(e: int, rep: int) -> void:
-	epoch = clampi(e, 1, 6)
+	epoch = clampi(e, 1, USER_FLOOR_Y.size())
 	reputation_level = rep
 	queue_redraw()
 
@@ -44,8 +44,8 @@ static func fit(area: Vector2) -> Array:
 
 ## Wand-Boden-Kante der aktuellen Epoche in Bühnen-Koordinaten.
 static func floor_y_for(e: int) -> float:
-	if Assets.user("background_%d.jpg" % clampi(e, 1, 6)) != null:
-		return USER_FLOOR_Y[clampi(e, 1, 6) - 1]
+	if Assets.user("background_%d.jpg" % clampi(e, 1, USER_FLOOR_Y.size())) != null:
+		return USER_FLOOR_Y[clampi(e, 1, USER_FLOOR_Y.size()) - 1]
 	return DEFAULT_FLOOR_Y
 
 

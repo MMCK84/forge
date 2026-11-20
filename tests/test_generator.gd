@@ -68,8 +68,8 @@ func test_milestones_count_and_unlock() -> void:
 	var per_epoch := {}
 	for ms in Catalog.MILESTONES:
 		per_epoch[ms.epoch] = int(per_epoch.get(ms.epoch, 0)) + 1
-	assert_eq(Catalog.MILESTONES.size(), 50, "50 Meilensteine")
-	assert_eq(per_epoch, {1: 5, 2: 7, 3: 8, 4: 9, 5: 10, 6: 11})
+	assert_eq(Catalog.MILESTONES.size(), 86, "86 Meilensteine")
+	assert_eq(per_epoch, {1: 5, 2: 7, 3: 8, 4: 9, 5: 10, 6: 11, 7: 9, 8: 9, 9: 9, 10: 9})
 	assert_eq(JobGenerator.milestone_unlock_n(cfg, 1, 5, 5), 29, "Abschluss-Meilenstein beim letzten Auftrag")
 	assert_eq(JobGenerator.milestone_unlock_n(cfg, 1, 1, 5), 6)
 	var g := _gen()

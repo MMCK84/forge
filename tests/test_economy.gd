@@ -97,7 +97,9 @@ func test_upgrades() -> void:
 func test_fees() -> void:
 	assert_eq(Economy.epoch_fee(cfg, 1), 480)
 	assert_eq(Economy.epoch_fee(cfg, 5), 96000)
-	assert_eq(Economy.epoch_fee(cfg, 6), -1)
+	assert_eq(Economy.epoch_fee(cfg, 6), 240000, "Wechsel 6 → 7")
+	assert_eq(Economy.epoch_fee(cfg, 9), 960000, "Wechsel 9 → 10")
+	assert_eq(Economy.epoch_fee(cfg, 10), -1, "nach der letzten Epoche keine Gebühr")
 
 
 func test_items_have_valid_steps() -> void:

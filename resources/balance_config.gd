@@ -42,15 +42,15 @@ extends Resource
 @export var reroll_cooldown_s: int = 60
 @export var tutorial_standard_only_jobs: int = 4
 ## Gewichte [Standard, Präzision, Eil] je Epoche 1..6
-@export var type_weights: Array = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20]]
+@export var type_weights: Array = [[80, 20, 0], [60, 20, 20], [60, 20, 20], [45, 35, 20], [60, 20, 20], [60, 20, 20], [55, 25, 20], [60, 20, 20], [60, 20, 20], [55, 25, 20]]
 ## Wahrscheinlichkeit für Mengenaufträge je Epoche
-@export var quantity_chance: PackedFloat32Array = PackedFloat32Array([0.0, 0.35, 0.35, 0.35, 0.35, 0.30])
+@export var quantity_chance: PackedFloat32Array = PackedFloat32Array([0.0, 0.35, 0.35, 0.35, 0.35, 0.30, 0.35, 0.40, 0.30, 0.30])
 @export var quantity_values: PackedInt32Array = PackedInt32Array([2, 3, 4, 6, 8, 12])
 @export var quantity_weights: PackedFloat32Array = PackedFloat32Array([30, 25, 20, 12, 8, 5])
 ## Anteil Schweiß-/Härte-/Großschmiedeaufträge je Epoche
-@export var weld_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.40, 0.30, 0.30, 0.25])
-@export var harden_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.35, 0.30, 0.20])
-@export var big_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.30])
+@export var weld_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.40, 0.30, 0.30, 0.25, 0.20, 0.25, 0.20, 0.15])
+@export var harden_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.35, 0.30, 0.20, 0.20, 0.15, 0.15, 0.30])
+@export var big_share: PackedFloat32Array = PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.30, 0.15, 0.25, 0.35, 0.35])
 
 @export_group("Steigende Komplexität")
 ## Innerhalb einer Epoche wächst der Komplexitätsgrad c = n / (N_e − 1) von 0 auf 1.
@@ -74,9 +74,9 @@ extends Resource
 ]
 
 @export_group("Skalierung (3.3)")
-@export var epoch_job_counts: PackedInt32Array = PackedInt32Array([30, 40, 50, 50, 60, 70])
-@export var fp_start: PackedFloat32Array = PackedFloat32Array([300, 1800, 6000, 12000, 25000, 40000])
-@export var rate_per_fp: PackedFloat32Array = PackedFloat32Array([0.040, 0.040, 0.035, 0.045, 0.050, 0.065])
+@export var epoch_job_counts: PackedInt32Array = PackedInt32Array([30, 40, 50, 50, 60, 70, 50, 55, 60, 60])
+@export var fp_start: PackedFloat32Array = PackedFloat32Array([300, 1800, 6000, 12000, 25000, 40000, 60000, 100000, 180000, 300000])
+@export var rate_per_fp: PackedFloat32Array = PackedFloat32Array([0.040, 0.040, 0.035, 0.045, 0.050, 0.065, 0.096, 0.0873, 0.0711, 0.064])
 @export var scale_per_epoch: float = 5.0
 @export var free_play_exponent_cap: float = 1.5
 
@@ -101,6 +101,25 @@ extends Resource
 @export var steel_temp_offset: float = 50.0
 ## Präzisionsaufträge nutzen nur den mittleren Teil des Zielfensters
 @export var precision_window_keep: float = 0.6
+
+@export_group("Schlagstärke")
+## Verlangte Schlagstärke je Arbeitsgang: 0 = leicht, 1 = mittel, 2 = schwer
+@export var step_force: Dictionary = {
+	"draw": 2, "upset": 2, "punch": 2, "flatten": 1, "point": 1, "cut": 1,
+	"bend": 0, "twist": 0, "planish": 0,
+}
+## Wirkung (Anteil der Form-Punkte) bei falscher Stärke
+@export var force_gain_off_one: float = 0.55
+@export var force_gain_too_soft: float = 0.25
+@export var force_gain_too_hard: float = 0.30
+## Gefügeschaden je Schlag, wenn schwer statt leicht geschlagen wird
+@export var force_too_hard_damage: float = 0.06
+## Bis einschließlich dieser Epoche verlangen „mittlere“ Arbeitsgänge „schwer“ (leichter Einstieg)
+@export var force_simple_until_epoch: int = 1
+## Geschätzter Anteil schwerer Arbeitsgänge (Gesellen-Leistung mit Schwanzhammer/Zuschläger)
+@export var heavy_work_share: float = 0.5
+## Heizer: Faktor auf die Aufheizrate der Esse
+@export var stoker_heat_factor: float = 1.25
 
 @export_group("Feuerschweißen (4.4.1)")
 @export var weld_at_progress: float = 0.5
@@ -128,12 +147,12 @@ extends Resource
 @export var auto_hit_min_temp: float = 400.0
 
 @export_group("Wirtschaft (5.2/5.6/5.7)")
-@export var upgrade_base: PackedInt32Array = PackedInt32Array([30, 120, 400, 1500, 5000, 15000])
+@export var upgrade_base: PackedInt32Array = PackedInt32Array([30, 120, 400, 1500, 5000, 15000, 30000, 60000, 120000, 240000])
 @export var upgrade_growth: float = 1.4
 @export var upgrade_step: float = 0.1
 @export var upgrade_max_level: int = 10
-## Meistergebühr für den Wechsel in Epoche 2..6 (Index 0 = 1→2)
-@export var epoch_fees: PackedInt32Array = PackedInt32Array([480, 2400, 9600, 36000, 96000])
+## Meistergebühr für den Wechsel in Epoche 2..10 (Index 0 = 1→2)
+@export var epoch_fees: PackedInt32Array = PackedInt32Array([480, 2400, 9600, 36000, 96000, 240000, 360000, 600000, 960000])
 @export var offline_max_s: float = 28800.0
 @export var journeyman_payout_interval_s: float = 10.0
 

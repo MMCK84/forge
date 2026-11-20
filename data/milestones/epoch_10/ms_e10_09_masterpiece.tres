@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MilestoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/milestone_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ms_e10_09_masterpiece"
+epoch = 10
+index = 9
+item_id = "steel_shaft"
+customer_id = "white_star"
+quantity = 1
+precision = true
+fp_factor = 1.6

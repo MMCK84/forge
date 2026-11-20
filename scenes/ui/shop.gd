@@ -73,6 +73,7 @@ func build(box: VBoxContainer) -> void:
 			m_info += " · " + tr("UI_MACHINE_COST").format({"c": Economy.format_lsd(m.cost_per_minute)})
 		if m.water_powered:
 			m_info += " · " + tr("UI_MACHINE_WATER")
+		m_info += " · " + tr("UI_MACHINE_FORCE" if m.force_mode == "adjustable" else "UI_MACHINE_HEAVY")
 		var m_row := _row(tr(m.name_key), m_info, m.price, m.min_epoch, _machine_icon(m.id, m.water_powered))
 		if m_owned:
 			if gm.active_machine_id == m.id:

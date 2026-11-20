@@ -16,6 +16,8 @@ var wait: float = 0.0
 func _init(config: BalanceConfig, workshop_sim: WorkshopSim) -> void:
 	cfg = config
 	sim = workshop_sim
+	# Der Referenzspieler wählt immer die verlangte Schlagstärke
+	sim.auto_force = true
 
 
 func take_temp() -> float:
@@ -169,8 +171,10 @@ static func reference_power(cfg: BalanceConfig, setup: Dictionary) -> float:
 	var m: MachineData = setup.get("machine", null)
 	if m != null:
 		var wf := (cfg.water_level_min + cfg.water_level_max) * 0.5 if m.water_powered else 1.0
-		rate += m.p_base * m.hits_per_s * wf
+		# Schwanzhämmer arbeiten nur in schweren Arbeitsgängen mit (etwa die Hälfte der Arbeit)
+		var engaged := 1.0 if m.force_mode == "adjustable" else cfg.heavy_work_share
+		rate += m.p_base * m.hits_per_s * wf * engaged
 	var st: StaffData = setup.get("striker", null)
 	if st != null and st.hit_interval_s > 0.0:
-		rate += st.p_base / st.hit_interval_s
+		rate += st.p_base / st.hit_interval_s * cfg.heavy_work_share
 	return rate * share

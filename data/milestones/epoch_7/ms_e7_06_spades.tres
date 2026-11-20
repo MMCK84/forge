@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MilestoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/milestone_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ms_e7_06_spades"
+epoch = 7
+index = 6
+item_id = "navvy_spade"
+customer_id = "telford"
+quantity = 12
+precision = false
+fp_factor = 1.0

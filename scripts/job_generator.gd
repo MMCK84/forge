@@ -49,7 +49,7 @@ func ramp(c: float) -> float:
 static func complexity_grade(cfg_: BalanceConfig, epoch: int, n: int, free_play: bool) -> float:
 	if free_play:
 		return 1.0
-	var ne: int = cfg_.epoch_job_counts[clampi(epoch, 1, 6) - 1]
+	var ne: int = cfg_.epoch_job_counts[clampi(epoch, 1, cfg_.epoch_job_counts.size()) - 1]
 	return clampf(float(n) / float(maxi(1, ne - 1)), 0.0, 1.0)
 
 
@@ -78,7 +78,7 @@ func _pick_type(epoch: int, n: int, c: float = 0.5) -> String:
 
 ## ctx: {"can_weld": bool, "can_harden": bool, "can_big": bool}
 func _pick_category(epoch: int, ctx: Dictionary, c: float = 0.5) -> String:
-	var e := clampi(epoch, 1, 6) - 1
+	var e := clampi(epoch, 1, cfg.epoch_job_counts.size()) - 1
 	var r := rng.randf()
 	var k := ramp(c)
 	var weld: float = cfg.weld_share[e] * k if ctx.get("can_weld", true) else 0.0
@@ -152,7 +152,7 @@ func _pick_customer(epoch: int) -> CustomerData:
 func _pick_quantity(epoch: int, item: ItemData, category: String, c: float = 0.5) -> int:
 	if category == "big" or not item.allow_quantity:
 		return 1
-	var chance: float = cfg.quantity_chance[clampi(epoch, 1, 6) - 1] * ramp(c)
+	var chance: float = cfg.quantity_chance[clampi(epoch, 1, cfg.epoch_job_counts.size()) - 1] * ramp(c)
 	if rng.randf() >= chance:
 		return 1
 	# Am Epochenanfang nur kleine Mengen, später bis zur größten
@@ -215,5 +215,5 @@ func make_milestone(ms: MilestoneData, item: ItemData, n: int) -> JobInstance:
 
 ## Ab welchem n (abgeschlossene Aufträge der Epoche) der Meilenstein mit `index` von `count` angeboten wird.
 static func milestone_unlock_n(cfg: BalanceConfig, epoch: int, index: int, count: int) -> int:
-	var ne: int = cfg.epoch_job_counts[clampi(epoch, 1, 6) - 1]
+	var ne: int = cfg.epoch_job_counts[clampi(epoch, 1, cfg.epoch_job_counts.size()) - 1]
 	return int(round(float(index) * float(ne - 1) / float(maxi(1, count))))

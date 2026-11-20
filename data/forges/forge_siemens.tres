@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ForgeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/forge_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "forge_siemens"
+tier = 6
+name_key = "FORGE_SIEMENS"
+k_heat = 210.0
+t_max = 1550.0
+slots = 3
+price = 600000
+min_epoch = 10

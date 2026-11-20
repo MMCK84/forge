@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "gas_lamp_bracket"
+epoch = 7
+factor = 1.1
+category = "normal"
+shape = "lantern"
+allow_quantity = true
+material = "iron"
+steps = [{
+"id": "draw",
+"share": 0.4
+}, {
+"id": "bend",
+"share": 0.35
+}, {
+"id": "twist",
+"share": 0.25
+}]

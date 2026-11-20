@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MilestoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/milestone_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ms_e8_03_hooks"
+epoch = 8
+index = 3
+item_id = "coupling_hook"
+customer_id = "liverpool_manchester"
+quantity = 8
+precision = false
+fp_factor = 1.0

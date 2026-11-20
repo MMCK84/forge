@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MilestoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/milestone_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ms_e10_06_hoops"
+epoch = 10
+index = 6
+item_id = "gun_hoop"
+customer_id = "armstrong_elswick"
+quantity = 4
+precision = false
+fp_factor = 1.0

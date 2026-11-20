@@ -27,7 +27,7 @@ const TROUGH_POS := Vector2(20, 1110)
 ## Rohling-Stapel links vor dem Amboss (Bühnen-Koordinaten)
 const RAW_STACK := Rect2(130, 975, 260, 90)
 ## Bedienfeld unten (Bildschirm-Koordinaten)
-const CONTROLS_SIZE := Vector2(720, 340)
+const CONTROLS_SIZE := Vector2(720, 380)
 
 signal quit_to_menu()
 
@@ -54,6 +54,9 @@ var btn_hammer: Button
 ## Beschriftung unter dem großen Glut-Knopf (nur wenn dessen Grafik vorhanden ist)
 var hammer_label: Label
 var btn_quench: Button
+## Schlagstärke-Wahl (leicht, mittel, schwer)
+var force_buttons: Array = []
+var _force_hint_checked: bool = false
 var sparks: CPUParticles2D
 var weld_sparks: CPUParticles2D
 var smoke: CPUParticles2D
@@ -66,6 +69,7 @@ var _hint_queue: Array = []
 var _hint_open: bool = false
 var _cold_msgs: int = 0
 var _off_msgs: int = 0
+var _force_msgs: int = 0
 var _locale: String = ""
 
 
@@ -159,10 +163,27 @@ func _ready() -> void:
 	buttons.add_child(btn_move)
 	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(330, 52), 22)
 	buttons.add_child(btn_quench)
+	# Schlagstärke: drei Knöpfe über dem Hammer
+	var force_row := HBoxContainer.new()
+	force_row.position = Vector2(385, 166)
+	force_row.size = Vector2(300, 46)
+	force_row.add_theme_constant_override("separation", 4)
+	force_row.tooltip_text = tr("UI_FORCE_TIP")
+	controls.add_child(force_row)
+	var group := ButtonGroup.new()
+	for lvl in 3:
+		var fb := UIKit.button(tr("FORCE_%d" % lvl), _set_force.bind(lvl), Vector2(97, 46), 19)
+		fb.toggle_mode = true
+		fb.button_group = group
+		fb.focus_mode = Control.FOCUS_NONE
+		fb.tooltip_text = tr("UI_FORCE_TIP")
+		force_row.add_child(fb)
+		force_buttons.append(fb)
 	btn_hammer = UIKit.button(_hammer_text(), Callable(), Vector2(330, 168), 30)
 	btn_hammer.button_down.connect(_hammer_press)
 	btn_hammer.button_up.connect(_hammer_release)
-	btn_hammer.position = Vector2(370, 166)
+	btn_hammer.position = Vector2(370, 218)
+	btn_hammer.custom_minimum_size = Vector2(330, 130)
 	btn_hammer.size = btn_hammer.custom_minimum_size
 	controls.add_child(btn_hammer)
 	_make_ember_hammer()
@@ -175,6 +196,8 @@ func _ready() -> void:
 
 	tutorial = Tutorial.new()
 	add_child(tutorial)
+	GameManager.sim.force = clampi(int(GameManager.settings.get("force", 2)), 0, 2)
+	_sync_force_buttons()
 
 	overlay_layer = Control.new()
 	overlay_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -239,11 +262,11 @@ func _make_ember_hammer() -> bool:
 	btn_hammer.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	btn_hammer.text = ""
 	btn_hammer.tooltip_text = tr("UI_BTN_HAMMER")
-	btn_hammer.custom_minimum_size = Vector2(300, 155)
-	btn_hammer.position = Vector2(385, 160)
+	btn_hammer.custom_minimum_size = Vector2(262, 136)
+	btn_hammer.position = Vector2(404, 218)
 	btn_hammer.size = btn_hammer.custom_minimum_size
 	hammer_label = UIKit.label(_hammer_text(), 20, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
-	hammer_label.position = Vector2(385, 312)
+	hammer_label.position = Vector2(385, 352)
 	hammer_label.size = Vector2(300, 26)
 	hammer_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
 	hammer_label.add_theme_constant_override("outline_size", 6)
@@ -382,6 +405,8 @@ func _process(delta: float) -> void:
 	machine_view.water_level = sim.water_level
 	machine_view.running = m != null and sim.anvil >= 0
 	trough_view.visible = gm.has_trough()
+	_update_force_state()
+	_update_hand_hammer()
 	_sync_pieces()
 	_update_scale_and_progress(j)
 	_update_buttons(j)
@@ -463,6 +488,9 @@ func _update_scale_and_progress(j: JobInstance) -> void:
 		var k: int = sim.step_index(f)
 		if j.steps.size() > 0 and not sim.in_weld_phase(f) and not sim.awaiting_quench(f):
 			glow_scale.window_label = tr("STEP_" + j.step_id(k).to_upper())
+			var rf: int = sim.required_force(f)
+			if rf >= 0 and sim.force_enabled:
+				glow_scale.window_label += " · " + tr("FORCE_%d_LC" % rf)
 		glow_scale.temp = p.temp
 		glow_scale.label_text = tr(HeatModel.glow_name_key(p.temp))
 		glow_scale.weld_window = Vector2(gm.cfg.weld_min, gm.cfg.weld_max) if sim.in_weld_phase(f) else Vector2(-1, -1)
@@ -521,6 +549,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_on_raw_clicked()
 	elif event.is_action_pressed("quench"):
 		_on_quench()
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_UP:
+		_set_force(sim.force + 1)
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_DOWN:
+		_set_force(sim.force - 1)
 	elif event.is_action_pressed("select_1"):
 		sim.selected_slot = 0
 	elif event.is_action_pressed("select_2"):
@@ -556,11 +588,14 @@ func _hammer_release() -> void:
 
 
 func _do_hit() -> void:
-	var kind: String = GameManager.sim.player_hit()
+	var sim = GameManager.sim
+	var used: int = sim.effective_force(sim.anvil) if sim.anvil >= 0 else 1
+	var kind: String = sim.player_hit()
 	if kind != "none":
+		anvil_view.force_level = used
 		anvil_view.play_swing()
-		# Mit Maschine führt der Schwanzhammer auch die eigenen Schläge sichtbar aus
-		if machine_view.machine_id != "":
+		# Arbeitet die Maschine gerade mit, führt sie auch die eigenen Schläge sichtbar aus
+		if machine_view.machine_id != "" and sim.machine_engaged():
 			machine_view.strike()
 
 
@@ -614,6 +649,16 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 			if sid != "" and GameManager.active_job != null:
 				var w: Vector2 = GameManager.sim.window_for_step(sid)
 				_float_text(tr("FX_NEXT_STEP").format({"step": tr("STEP_" + sid.to_upper()), "lo": int(w.x), "hi": int(w.y)}), anvil_point() + Vector2(0, -140), Color(1, 0.92, 0.7))
+		"hit_too_hard", "hit_too_soft":
+			if kind == "hit_too_hard":
+				sparks.position = anvil_point()
+				sparks.amount = 18 if flash else 6
+				sparks.restart()
+				_shake_screen()
+			if _force_msgs < 4 or randf() < 0.12:
+				_force_msgs += 1
+				var hard := kind == "hit_too_hard"
+				_float_text(tr("FX_TOO_HARD" if hard else "FX_TOO_SOFT"), anvil_point() + Vector2(0, -80), Color(1, 0.55, 0.4) if hard else Color(0.8, 0.85, 1.0))
 		"hit_off":
 			if _off_msgs < 3 or randf() < 0.1:
 				_off_msgs += 1
@@ -643,6 +688,52 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 			anvil_view.play_swing()
 		"piece_done":
 			_float_text(tr("FX_PIECE_DONE"), anvil_point() + Vector2(0, -120), Color(0.9, 0.95, 0.7))
+
+
+## Handhammer nur zeigen, wenn keine Maschine gerade mitarbeitet (Schwanzhämmer pausieren
+## in leichten Arbeitsgängen – dann arbeitet der Schmied von Hand).
+func _update_hand_hammer() -> void:
+	var busy: bool = machine_view.machine_id != "" and machine_view.has_user_parts() and GameManager.sim.machine_engaged()
+	anvil_view.hand_hammer_visible = not busy
+
+
+## Schlagstärke wählen (0 leicht, 1 mittel, 2 schwer).
+func _set_force(level: int) -> void:
+	GameManager.sim.force = clampi(level, 0, 2)
+	GameManager.settings["force"] = GameManager.sim.force
+	_sync_force_buttons()
+
+
+func _sync_force_buttons() -> void:
+	var sim = GameManager.sim
+	for k in force_buttons.size():
+		var b: Button = force_buttons[k]
+		var on: bool = k == (sim.force if sim.force_enabled else 1)
+		b.disabled = not sim.force_enabled
+		b.set_pressed_no_signal(on)
+		# Gewählte Stärke deutlich hervorheben: hell mit Goldschrift, die anderen gedämpft
+		b.modulate = Color.WHITE if on else Color(0.62, 0.6, 0.58)
+		b.add_theme_color_override("font_color", UIKit.GOLD if on else UIKit.TEXT_LIGHT)
+		b.add_theme_color_override("font_pressed_color", UIKit.GOLD)
+		b.add_theme_color_override("font_hover_pressed_color", UIKit.GOLD)
+
+
+## Im Tutorial (erste Aufträge) spielt die Schlagstärke noch keine Rolle.
+func _update_force_state() -> void:
+	var sim = GameManager.sim
+	var enabled: bool = not tutorial.force_locked()
+	if enabled != sim.force_enabled:
+		sim.force_enabled = enabled
+		_sync_force_buttons()
+	if enabled and not _force_hint_checked:
+		_force_hint_checked = true
+		_queue_hint("force")
+	var j: JobInstance = GameManager.active_job
+	if enabled and j != null and not GameManager.seen_hints.has("force_medium") and j.epoch > GameManager.cfg.force_simple_until_epoch and j.steps.size() > 0:
+		for st in j.steps:
+			if int(GameManager.cfg.step_force.get(str(st.get("id", "")), 2)) == 1:
+				_queue_hint("force_medium")
+				break
 
 
 func _shake_screen() -> void:
@@ -704,7 +795,7 @@ func _after_settlement(report: Dictionary) -> void:
 	if bool(report.get("game_done", false)):
 		var p = load("res://scenes/ui/epoch_panel.gd").new()
 		p.mode = "finale"
-		p.epoch = 6
+		p.epoch = GameManager.EPOCH_COUNT
 		overlay_layer.add_child(p)
 	elif bool(report.get("epoch_done", false)):
 		_open_epoch_offer()
@@ -756,7 +847,7 @@ func _on_state_changed() -> void:
 	var m := gm.current_machine()
 	machine_view.machine_id = m.id if m != null else ""
 	machine_view.water_powered = m != null and m.water_powered
-	anvil_view.hand_hammer_visible = machine_view.machine_id == "" or not machine_view.has_user_parts()
+	_update_hand_hammer()
 	hud.refresh()
 	SoundManager.update_ambience()
 	SoundManager.play_music_for_epoch(gm.current_epoch)

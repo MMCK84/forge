@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MachineData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/machine_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "machine_great_steam_hammer"
+tier = 4
+name_key = "MACHINE_GREAT_STEAM_HAMMER"
+p_base = 1100.0
+hits_per_s = 2.0
+price = 960000
+cost_per_minute = 144
+water_powered = false
+min_epoch = 10
+force_mode = "adjustable"

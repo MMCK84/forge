@@ -13,6 +13,9 @@ var big: bool = false
 var hammer_id: String = ""
 ## Handhammer ausblenden, wenn ein Schwanzhammer auf den Amboss schlägt
 var hand_hammer_visible: bool = true
+## Schlagstärke des letzten Schlags (0 leicht … 2 schwer): bestimmt die Ausholweite
+var force_level: int = 1
+const FORCE_SWING := [0.55, 1.0, 1.6]
 ## Hammergrafiken des Auftraggebers in reiner Seitenansicht (Kopf links senkrecht, Bahn unten,
 ## Stiel waagerecht nach rechts): Griffpunkt am Stielende, Mitte der Bahn, Richtung der
 ## Kopfachse zur Bahn (90° = nach unten). Beim Schlag sitzt die Bahn flach auf dem Werkstück.
@@ -80,7 +83,7 @@ func _draw() -> void:
 			var k := USER_HAMMER_SCALE
 			# Drehpunkt (Hand) so, dass die Bahn beim Schlag genau auf dem Werkstück sitzt
 			var hand := Vector2(cx, 126.0) - (face - grip).rotated(base) * k
-			draw_set_transform(hand, base + USER_HAMMER_RAISE * (1.0 - swing), Vector2(k, k))
+			draw_set_transform(hand, base + USER_HAMMER_RAISE * FORCE_SWING[clampi(force_level, 0, 2)] * (1.0 - swing), Vector2(k, k))
 			draw_texture(user_h, -grip)
 		else:
 			draw_set_transform(pivot, ang, Vector2.ONE)
