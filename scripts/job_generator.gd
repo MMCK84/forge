@@ -68,6 +68,10 @@ func _pick_type(epoch: int, n: int, c: float = 0.5) -> String:
 		return JobInstance.TYPE_STANDARD
 	var base: Array = cfg.type_weights[clampi(epoch, 1, cfg.type_weights.size()) - 1]
 	var w := [float(base[0]), float(base[1]) * ramp(c), float(base[2]) * ramp(c)]
+	# Epoche 2 bringt schon Zweiplatz-Esse, Mengenaufträge, mittlere Schläge und den Lehrling:
+	# Eilaufträge kommen erst in der zweiten Hälfte dazu
+	if epoch == cfg.rush_from_epoch and c < cfg.rush_from_grade:
+		w[2] = 0.0
 	match _weighted_index(w):
 		1:
 			return JobInstance.TYPE_PRECISION
@@ -168,24 +172,37 @@ func _next_uid(epoch: int) -> String:
 	return "gen_e%d_%04d" % [epoch, uid_counter]
 
 
-## Höchstzahl der Arbeitsgänge: In der Lehrzeit (Epoche 1) kommen sie schrittweise dazu –
-## erst ein Arbeitsgang (ein Zielfenster), dann zwei, danach alle.
-static func step_limit(cfg_: BalanceConfig, epoch: int, n: int, free_play: bool = false) -> int:
-	if epoch != 1 or free_play:
-		return 99
-	if n < cfg_.tutorial_single_step_jobs:
-		return 1
-	if n < cfg_.tutorial_two_step_jobs:
-		return 2
-	return 99
+## Drehbuch der Lehrzeit (Epoche 1, Aufträge 1–5): vom Einfachsten zum Vollständigen.
+## Jeder Eintrag: Werkstück und die Arbeitsgänge, die verlangt werden.
+##   1. Haken biegen – ein Arbeitsgang, niedrige Hitze (Kirschrot)
+##   2. Nagel anspitzen – ein Arbeitsgang, etwas heißer
+##   3. Nagel strecken und anspitzen – zwei Zielfenster nacheinander
+##   4. Hufeisen strecken und biegen – zwei Arbeitsgänge mit großem Hitzeunterschied
+##   5. Hufeisen vollständig (strecken, biegen, lochen) – alle Arbeitsgänge
+const TUTORIAL_SCRIPT := [
+	["hook", ["bend"]],
+	["nail", ["point"]],
+	["nail", ["draw", "point"]],
+	["horseshoe", ["draw", "bend"]],
+	["horseshoe", ["draw", "bend", "punch"]],
+]
 
 
-## Die ersten `limit` Arbeitsgänge; ihre Anteile werden auf 1 hochgerechnet.
-static func limit_steps(steps: Array, limit: int) -> Array:
-	var out: Array = steps.duplicate(true)
-	if out.size() <= limit:
-		return out
-	out = out.slice(0, limit)
+## Lehrzeit-Auftrag nach Drehbuch? (nur Epoche 1, nicht im Freien Spiel)
+static func tutorial_entry(epoch: int, n: int, free_play: bool) -> Array:
+	if epoch != 1 or free_play or n < 0 or n >= TUTORIAL_SCRIPT.size():
+		return []
+	return TUTORIAL_SCRIPT[n]
+
+
+## Nur die genannten Arbeitsgänge (Reihenfolge des Werkstücks); ihre Anteile werden auf 1 hochgerechnet.
+static func select_steps(steps: Array, ids: Array) -> Array:
+	var out: Array = []
+	for st in steps:
+		if ids.has(str(st.get("id", ""))):
+			out.append(st.duplicate(true))
+	if out.is_empty():
+		return steps.duplicate(true)
 	var total := 0.0
 	for st in out:
 		total += float(st.get("share", 0.0))
@@ -199,13 +216,35 @@ func generate(epoch: int, n: int, free_play: bool, ctx: Dictionary) -> JobInstan
 	var j := JobInstance.new()
 	var c := complexity_grade(cfg, epoch, n, free_play)
 	j.epoch = epoch
+	var script := tutorial_entry(epoch, n, free_play)
+	var item: ItemData = null
+	if not script.is_empty():
+		for it in items:
+			if it.id == str(script[0]):
+				item = it
+	if item != null:
+		# Lehrzeit nach Drehbuch: Standardauftrag, ein Stück, einfache Qualität
+		j.type = JobInstance.TYPE_STANDARD
+		j.precise = false
+		j.category = item.category
+		j.template_id = item.id
+		j.steps = select_steps(item.steps, script[1])
+		j.material = item.material
+		var q0: Dictionary = cfg.quality_tiers[0]
+		j.quality = str(q0.get("id", "simple"))
+		j.customer_id = _pick_customer(epoch).id
+		j.quantity = 1
+		j.form_points = Economy.job_form_points(cfg, epoch, n, item.factor, float(q0.get("fp", 1.0)), false, free_play)
+		j.reward_base_pence = Economy.reward_base(cfg, epoch, j.form_points, float(q0.get("wage", 1.0)), j.type)
+		j.uid = _next_uid(epoch)
+		return j
 	j.type = _pick_type(epoch, n, c)
 	j.precise = j.type == JobInstance.TYPE_PRECISION
 	var category := _pick_category(epoch, ctx, c)
-	var item := _pick_item(epoch, category, c)
+	item = _pick_item(epoch, category, c)
 	j.category = item.category
 	j.template_id = item.id
-	j.steps = limit_steps(item.steps, step_limit(cfg, epoch, n, free_play))
+	j.steps = item.steps.duplicate(true)
 	j.material = item.material
 	var q := _pick_quality(epoch, c)
 	j.quality = str(q.get("id", "solid"))

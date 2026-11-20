@@ -90,3 +90,5 @@ func update_step() -> void:
 func _skip() -> void:
 	GameManager.mark_hint_seen("tutorial_done")
 	visible = false
+	# ohne Lehrzeit gleich das volle Auftragsbuch
+	GameManager.refresh_offers()

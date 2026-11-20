@@ -149,3 +149,47 @@ func test_jobs_carry_steps() -> void:
 		var back := JobInstance.from_dict(j.to_dict())
 		assert_eq(back.steps, j.steps, "Arbeitsgänge werden gespeichert")
 		assert_eq(back.material, j.material)
+
+
+func test_tutorial_script() -> void:
+	var gen := JobGenerator.new(Catalog.BALANCE, Catalog.ITEMS, Catalog.CUSTOMERS)
+	gen.set_seed(7)
+	var ctx := {"can_weld": false, "can_harden": false, "can_big": false}
+	var expect := [["hook", 1], ["nail", 1], ["nail", 2], ["horseshoe", 2], ["horseshoe", 3]]
+	for n in expect.size():
+		var j: JobInstance = gen.generate(1, n, false, ctx)
+		assert_eq(j.template_id, str(expect[n][0]), "Lehrzeit Auftrag %d: Werkstück" % (n + 1))
+		assert_eq(j.steps.size(), int(expect[n][1]), "Lehrzeit Auftrag %d: Arbeitsgänge" % (n + 1))
+		assert_eq(j.quantity, 1, "Lehrzeit: ein Stück")
+		assert_eq(j.type, JobInstance.TYPE_STANDARD, "Lehrzeit: Standardauftrag")
+		var total := 0.0
+		for st in j.steps:
+			total += float(st["share"])
+		assert_near(total, 1.0, 0.0001, "Anteile ergeben 1")
+	assert_eq(gen.generate(1, 0, false, ctx).step_id(0), "bend", "erster Auftrag: nur Biegen")
+	# danach frei gewürfelt mit allen Arbeitsgängen
+	var later: JobInstance = gen.generate(1, 10, false, ctx)
+	var item: ItemData = null
+	for it in Catalog.ITEMS:
+		if it.id == later.template_id:
+			item = it
+	assert_eq(later.steps.size(), item.steps.size(), "nach der Lehrzeit alle Arbeitsgänge")
+	# Epoche 2: Eilaufträge erst in der zweiten Hälfte
+	for k in 200:
+		assert_true(not gen.generate(2, 3, false, ctx).is_rush(), "Epoche 2 Anfang ohne Eilauftrag")
+
+
+func test_tutorial_offers() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	gm.new_game()
+	assert_eq(gm.job_offers.size(), 1, "erster Auftrag: ein Angebot")
+	assert_eq(gm.job_offers[0].template_id, "hook", "erster Auftrag: Haken")
+	gm.accept_offer(0)
+	gm.debug_finish_job()
+	assert_eq(gm.job_offers.size(), 2, "danach zwei Angebote")
+	gm.mark_hint_seen("tutorial_done")
+	gm.refresh_offers()
+	assert_eq(gm.job_offers.size(), 3, "ohne Lehrzeit drei Angebote")
+	gm.end_session()

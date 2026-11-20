@@ -383,3 +383,5 @@ for _e, _body in _re.findall(r"^\t(\d+): \{(.*?)\},$", _src, _re.S | _re.M):
         t(f"FURN_E{_e}_{_slot.upper()}", _de, _en)
 t("UI_SETTLE_MENU", "Menü", "Menu")
 t("UI_REPEAT_JOB", "Auftrag wiederholen", "Repeat order")
+t("HINT_FURNISH_INTRO_TITLE", "Eure eigene Werkstatt", "Your own workshop")
+t("HINT_FURNISH_INTRO_TEXT", "Die Lehrzeit ist vorbei – jetzt seid Ihr Meister in Eurer eigenen Schmiede. Im Laden [S] findet Ihr ganz oben die Einrichtung: fünf Stücke, die Euch die Arbeit erleichtern, vom Holzkohlekorb bis zur Talglaterne. Ist alles eingerichtet, zahlt die Zunft eine Prämie.", "Your apprenticeship is over – now you are master of your own smithy. At the top of the shop [S] you will find the fittings: five pieces that make your work easier, from the charcoal basket to the tallow lantern. Once everything is fitted out, the guild pays a bonus.")

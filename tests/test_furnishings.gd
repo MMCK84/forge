@@ -61,6 +61,8 @@ func test_buy_and_bonus() -> void:
 	if gm == null:
 		return
 	gm.new_game()
+	gm.mark_hint_seen("tutorial_done")
+	gm.refresh_offers()
 	assert_true(not gm.buy_furnishing("fuel"), "ohne Geld kein Kauf")
 	var k0: float = gm.sim.k_heat
 	var p0: float = gm.current_hammer_power()

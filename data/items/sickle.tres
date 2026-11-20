@@ -10,7 +10,7 @@ factor = 1.2
 category = "normal"
 shape = "sickle"
 allow_quantity = true
-material = "steel"
+material = "iron"
 steps = [{
 "id": "draw",
 "share": 0.4

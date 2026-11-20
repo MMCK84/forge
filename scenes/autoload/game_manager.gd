@@ -476,9 +476,18 @@ func refresh_offers() -> void:
 
 
 ## Anzahl der Angebote im Auftragsbuch (Kundschafts-Platz der Einrichtung: eines mehr).
+## In der Lehrzeit: beim allerersten Auftrag genau eines, danach zwei.
 func offers_count() -> int:
+	if in_tutorial():
+		return 1 if jobs_completed_in_epoch == 0 else 2
 	var n: int = furnish_effects()["offers_count"]
 	return n if n > 0 else cfg.offers_count
+
+
+## Lehrzeit aktiv? (Epoche 1, erste Aufträge, Tutorial eingeschaltet und nicht übersprungen)
+func in_tutorial() -> bool:
+	return current_epoch == 1 and not free_play and jobs_completed_in_epoch < cfg.tutorial_standard_only_jobs \
+		and bool(settings.get("tutorial", true)) and not seen_hints.has("tutorial_done")
 
 
 func reroll_cooldown_s() -> int:
@@ -625,6 +634,9 @@ func _complete_active_job() -> void:
 		stats["three_star_jobs"] = int(stats.get("three_star_jobs", 0)) + 1
 	stats["best_payout"] = maxi(int(stats.get("best_payout", 0)), net)
 	jobs_completed_in_epoch += 1
+	# Ende der Lehrzeit: auf die Einrichtung der Werkstatt hinweisen
+	if current_epoch == 1 and jobs_completed_in_epoch == cfg.tutorial_standard_only_jobs:
+		request_hint("furnish_intro")
 	var epoch_done := false
 	var game_done := false
 	if j.is_milestone():

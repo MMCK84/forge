@@ -92,7 +92,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 5. **Aufbau der Werkstatt** (Konzept `docs/Konzept_Aufbau.md`): Teil 1 Einrichtung **umgesetzt** (Platzhalterbilder;
    Bilder kommen über Prompt-Heft Bereich H). Offen: Lage von Kohle und Werkbank (ab Epoche 5 hinter der Maschine) mit den
    echten Bildern abstimmen; Teil 2 sichtbares Personal; weitere Ideen (Stammkunden, Ereignisse, Meisterstück).
-   Spielzeit darf länger werden, darf aber nicht langweilig sein.
+   Spielzeit darf länger werden, darf aber nicht langweilig sein. Weitere Vorschläge zum roten Faden (Meisterstück je Epoche,
+   Stammkunden, Kapitelübergang beim Epochenwechsel) in `docs/Roter_Faden.md`.
 6. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
 7. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
@@ -178,6 +179,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   noch einmal, nicht bei Meilensteinen) und „Weiter“ (vorausgewählt). **Steigende Komplexität in der Lehrzeit:** Aufträge 1–2
   nur ein Arbeitsgang (ein Zielfenster), 3–4 höchstens zwei, danach alle (`tutorial_single_step_jobs`/`tutorial_two_step_jobs`).
   **Kreide-Umrisse** der Einrichtung entfernt (nicht gekaufte Plätze unsichtbar). Unit-Tests 1850/0.
+- 20.11.: **Roter Faden geprüft** (`docs/Roter_Faden.md`: Zeitleiste aller Mechaniken, Drehbuch der Lehrzeit). Nachgesteuert:
+  Lehrzeit nach festem Drehbuch (Haken biegen → Nagel anspitzen → Nagel strecken+anspitzen → Hufeisen strecken+biegen →
+  Hufeisen vollständig; erst 1, dann 2 Angebote), Sichel aus Eisen (Stahl erst Epoche 4), Eilaufträge in Epoche 2 erst ab
+  der Mitte, Hinweis auf die Einrichtung am Ende der Lehrzeit. Unit-Tests 2088/0. Balancing danach 13,1 h → Nachstimmen läuft.
 
 ## Prüfen
 
