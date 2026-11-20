@@ -214,6 +214,8 @@ t("MP_RULE", "Die Zunft prüft jeden Teil: mindestens {n} Sterne, sonst wird er 
 t("MP_PART_DONE", "Teil {k} von {n} des Meisterstücks hat die Prüfung der Zunft bestanden!", "Part {k} of {n} of the masterpiece has passed the guild's inspection!")
 t("MP_DONE", "Meisterstück vollbracht: {title}! Die Zunft verleiht Euch den Meisterbrief.", "Masterpiece completed: {title}! The guild awards you the master's certificate.")
 t("MP_FAILED", "Die Zunft verlangt mindestens {n} Sterne – dieser Teil muss neu geschmiedet werden.", "The guild demands at least {n} stars – this part must be forged again.")
+t("MP_RULE_LENIENT", "Die Zunft erkennt Euren Fleiß an: Für diesen Teil genügt jetzt ein Stern.", "The guild acknowledges your diligence: one star now suffices for this part.")
+t("MP_LENIENT_NEXT", "Beim nächsten Versuch genügt der Zunft ein Stern.", "On the next attempt the guild will accept one star.")
 t("MP_BOOK", "Meisterstück: {title} – {state}", "Masterpiece: {title} – {state}")
 t("MP_BOOK_DONE", "vollbracht", "completed")
 t("MP_BOOK_OPEN", "{k} von {n} Teilen", "{k} of {n} parts")

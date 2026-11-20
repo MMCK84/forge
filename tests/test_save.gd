@@ -325,6 +325,9 @@ func test_masterpiece() -> void:
 	assert_true(not bool(reports[0]["masterpiece_passed"]), "Prüfung nicht bestanden")
 	assert_eq(int(gm.masterpiece_progress.get(fm.id, 0)), 0)
 	assert_eq(gm.job_offers[0].part, 1, "derselbe Teil wird erneut angeboten")
+	assert_eq(gm.masterpiece_required_stars(fm.id), MP.MIN_STARS, "nach einem Fehlversuch noch streng")
+	gm.masterpiece_fails[fm.id] = MP.LENIENT_AFTER
+	assert_eq(gm.masterpiece_required_stars(fm.id), 1, "nach mehreren Fehlversuchen genügt ein Stern (keine Sackgasse)")
 	# Alle Teile bestehen
 	for k in o.parts:
 		var off: JobInstance = gm.job_offers[0]

@@ -161,7 +161,9 @@ func _masterpiece_row(box: VBoxContainer, j: JobInstance) -> void:
 	var text := ""
 	var col := UIKit.GREEN
 	if not passed:
-		text = tr("MP_FAILED").format({"n": Masterpieces.MIN_STARS})
+		text = tr("MP_FAILED").format({"n": int(report.get("masterpiece_next_required", Masterpieces.MIN_STARS)) if int(report.get("masterpiece_next_required", 2)) > 1 else Masterpieces.MIN_STARS})
+		if int(report.get("masterpiece_next_required", 2)) <= 1:
+			text += " " + tr("MP_LENIENT_NEXT")
 		col = UIKit.RED
 	elif j.part >= j.parts:
 		text = tr("MP_DONE").format({"title": tr("MS_" + j.milestone_id.to_upper() + "_TITLE")})

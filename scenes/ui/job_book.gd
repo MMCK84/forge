@@ -126,7 +126,7 @@ func _book_entry(i: int, j: JobInstance, width: float) -> Control:
 		box.add_child(UIKit.wrap_label(tr("MS_" + j.milestone_id.to_upper() + "_TEXT"), 18, UIKit.INK_LIGHT, width))
 	if j.is_masterpiece():
 		box.add_child(UIKit.wrap_label(_masterpiece_parts(j), 18, UIKit.INK, width))
-		box.add_child(UIKit.wrap_label(tr("MP_RULE").format({"n": Masterpieces.MIN_STARS}), 18, UIKit.RED, width))
+		box.add_child(UIKit.wrap_label(tr("MP_RULE" if gm.masterpiece_required_stars(j.milestone_id) > 1 else "MP_RULE_LENIENT").format({"n": gm.masterpiece_required_stars(j.milestone_id)}), 18, UIKit.RED, width))
 	var tags: PackedStringArray = [tr("TYPE_" + j.type.to_upper())]
 	if j.is_milestone() and j.precise:
 		tags.append(tr("TYPE_PRECISION"))

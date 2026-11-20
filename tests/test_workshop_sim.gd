@@ -549,3 +549,15 @@ func test_streak() -> void:
 	assert_eq(int(s.evaluate()["best_streak"]), 26)
 	s.load_job(_job(1000))
 	assert_eq(s.streak, 0, "neuer Auftrag: neue Serie")
+
+
+func test_no_overheat_damage_on_anvil() -> void:
+	var s := _sim(_job(1000))
+	var p: JobInstance.Piece = s.job.pieces[0]
+	s.load_raw()
+	s.transit.clear()
+	s.move_slot_to_anvil(0)
+	s.transit.clear()
+	p.temp = 1280.0
+	_run(s, 5.0)
+	assert_near(p.damage, 0.0, 0.0001, "Abkühlen aus der Weißglut auf dem Amboss schadet nicht")

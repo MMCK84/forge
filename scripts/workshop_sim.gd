@@ -667,7 +667,9 @@ func step(dt: float) -> void:
 		elif p.location == JobInstance.LOC_ANVIL:
 			p.temp = maxf(p.temp - cfg.k_cool * dt, cfg.room_temp)
 		var te := p.temp + temp_offset()
-		if te > cfg.optimal_max:
+		# Überhitzung schadet dem Gefüge nur im Feuer: Auf dem Amboss kühlt das Stück ab
+		# (sonst wäre jedes frisch geschweißte Stück beim Abkühlen aus der Weißglut beschädigt)
+		if te > cfg.optimal_max and p.location == JobInstance.LOC_FORGE:
 			p.damage += HeatModel.overheat_damage_rate(cfg, te) * dt * damage_factor
 		if te > cfg.burn_limit:
 			_ruin(i, "burned")

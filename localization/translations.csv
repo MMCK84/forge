@@ -509,8 +509,10 @@ MP_BOOK_OPEN,{k} von {n} Teilen,{k} of {n} parts
 MP_DONE,Meisterstück vollbracht: {title}! Die Zunft verleiht Euch den Meisterbrief.,Masterpiece completed: {title}! The guild awards you the master's certificate.
 MP_FAILED,Die Zunft verlangt mindestens {n} Sterne – dieser Teil muss neu geschmiedet werden.,The guild demands at least {n} stars – this part must be forged again.
 MP_HEAD,Meisterstück der Epoche: {title},Masterpiece of the era: {title}
+MP_LENIENT_NEXT,Beim nächsten Versuch genügt der Zunft ein Stern.,On the next attempt the guild will accept one star.
 MP_PART_DONE,Teil {k} von {n} des Meisterstücks hat die Prüfung der Zunft bestanden!,Part {k} of {n} of the masterpiece has passed the guild's inspection!
 MP_RULE,"Die Zunft prüft jeden Teil: mindestens {n} Sterne, sonst wird er neu geschmiedet.","The guild inspects every part: at least {n} stars, otherwise it must be forged again."
+MP_RULE_LENIENT,Die Zunft erkennt Euren Fleiß an: Für diesen Teil genügt jetzt ein Stern.,The guild acknowledges your diligence: one star now suffices for this part.
 MP_TITLE,Meisterstück {k}/{n}: {item},Masterpiece {k}/{n}: {item}
 MSG_FURNISHED,Werkstatt vollständig eingerichtet! Prämie der Zunft: {bonus},Workshop fully fitted out! Guild bonus: {bonus}
 MSG_RUIN_COST,Neuer Rohling: -{cost},New blank: -{cost}

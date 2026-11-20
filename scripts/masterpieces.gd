@@ -5,6 +5,13 @@ extends RefCounted
 ## prüft jeden Teil und verlangt mindestens MIN_STARS Sterne, sonst muss er neu geschmiedet werden.
 
 const MIN_STARS := 2
+## Nach so vielen nicht bestandenen Versuchen am selben Teil genügt ein Stern (keine Sackgasse)
+const LENIENT_AFTER := 2
+
+
+## Verlangte Sterne für einen Teil nach `fails` nicht bestandenen Versuchen.
+static func required_stars(fails: int) -> int:
+	return MIN_STARS if fails < LENIENT_AFTER else 1
 
 ## Abschluss-Meilenstein -> Vorarbeiten [item_id, Menge, präzise]
 const PARTS := {
