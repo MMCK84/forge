@@ -449,12 +449,24 @@ def main():
               "| Datum | gilt für | Beobachtung | Umsetzung |", "|---|---|---|---|"]
     for d, scope, obs, fix in LESSONS:
         lines.append(f"| {d} | {scope} | {obs} | {fix} |")
+    lines += ["", "## Midjourney-Einstellungen (Version 8.2)", "",
+              "Seitenverhältnis steht im Prompt (`--ar`) und hat Vorrang vor dem Regler. Version immer gleich lassen (8.2). "
+              "Weirdness immer 0. Video-Einstellungen spielen keine Rolle.", "",
+              "| Gruppe | Model | Raw | Stylization | Variety | Speed |", "|---|---|---|---|---|---|",
+              "| Werkstücke (E), Hämmer (C), Maschinenteile (D), Symbole (G) | Standard | **Raw** | niedrig (ca. 10 %) | 0 | Relax, wenn möglich |",
+              "| Essen (B), Amboss, Schabotte | Standard | **Raw** | niedrig (ca. 10 %) | 0 | Fast |",
+              "| Hintergründe (A) | **HD** (für das ausgewählte Bild) | Standard | mittel (ca. 30–40 %) | 0 | Fast |",
+              "| Porträts (F) | Standard | Standard | mittel (ca. 30 %) | 0 | Relax, wenn möglich |",
+              "| App-Icon, Store-Banner | **HD** | Standard | mittel | 0 | Fast |", "",
+              "Raw hält sich genauer an Vorgaben wie „genau von der Seite“ oder „Kopf links“. HD lohnt sich nur, wo das Bild "
+              "groß zu sehen ist (Hintergründe 1080 × 1920, Icon, Banner); Gegenstände verkleinert das Spiel ohnehin auf 256–1000 px. "
+              "Für eine Serie (z. B. alle Werkstücke) das beste Bild als Stil-Referenz `--sref <URL>` an alle weiteren Prompts der Gruppe hängen.", ""]
     lines += ["", "## Regeln für alle Bilder", "",
               "- Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.",
               "- Objekt vollständig im Bild mit etwas Rand.",
               "- Dateiname = die fett gedruckte ID (z. B. `door_hinge.webp`); Format egal (webp, png, jpg).",
               "- Einheitlicher Stil: handgemalt, dünne dunkle Tuschekontur, warme Malstruktur.",
-              "- Midjourney: Prompt komplett kopieren (inkl. `--ar` und `--no`). Bei Bedarf `--v 7` bzw. `--style raw` anhängen.",
+              "- Midjourney: Prompt komplett kopieren (inkl. `--ar` und `--no`); Einstellungen je Gruppe siehe oben.",
               "- Für einheitlichen Stil: ein gelungenes Bild als Stil-Referenz verwenden (`--sref <Bild-URL>`).",
               "",
               "## Reihenfolge (was am meisten bringt)", "",
