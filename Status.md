@@ -36,7 +36,7 @@ wenn alles fertig ist.
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (1:1) | 1 (Ep. 1) | 1 (Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
+| A Hintergründe (1:1) | – | 2 (Ep. 1: nur Upscale fehlt; Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
 | B Essen (frontal) | – | – | 4 (Schrägansicht) | 2 (Stufe 5, 6) |
 | C Amboss, Hämmer | – | – | 5 | – |
 | D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
@@ -66,9 +66,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
   Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
   der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
-  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 915). Bildaufbau-Vorlage (1:1, Bild-Prompt):
+  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 939). Bildaufbau-Vorlage (1:1, Bild-Prompt):
   `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
-  Vorhandene gute 3:4-Bilder (Ep. 1) im Midjourney-Editor seitlich auf 1:1 erweitern statt neu erzeugen.
+  **Erst nach dem Upscale 2× (2048 × 2048) schicken** – ohne Upscale nur 1024 × 1024.
 - **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
   Blasebalg links als tropfenförmiger Leder-Blasebalg. Ein erster Midjourney-Test (Backofen mit Kuppel)
   wurde abgelehnt; die Prompts sind entsprechend nachgeschärft.
@@ -77,7 +77,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 ## Offen / nächste Schritte
 
 1. Midjourney-Bilder einbinden, sobald sie kommen: Hintergründe 8–10 (1:1), Hintergrund 7 neu
-   (Fenster zu hoch), Hintergrund 1 seitlich auf 1:1 erweitern, Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
+   (Fenster zu hoch), Hintergrund 1 als Upscale 2× nachliefern, Essen frontal 1–6, Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
    optional Kundenporträts.
 2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
@@ -95,6 +95,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Fenster/Randdeko in die mittleren drei Viertel), Erkenntnis in `LESSONS`, Import schneidet 1:1 auf den mittleren
   3:4-Ausschnitt, neue quadratische Bildaufbau-Vorlage. Vorhandene Hintergründe unverändert.
 - 20.11.: Musik-Prompt-Heft für Suno angelegt (`gen_music_book.py`, `PROMPTS_Musik.md`, `user_audio/provenance.json`).
+- 20.11.: **Hintergrund Epoche 1 neu in 1:1** (Midjourney) eingebaut: Kante 65 % → `USER_FLOOR_Y` 939, Fenster und Deko wie
+  vorgesehen. Bewertung „ändern“ nur wegen der Auflösung (1024 × 1024): als Upscale 2× nachliefern. Erkenntnis im Heft.
+  Unit-Tests grün (1658/0), Spieltest 33 Screenshots, 0 Probleme.
 
 ## Prüfen
 

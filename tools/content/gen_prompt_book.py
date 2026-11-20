@@ -66,6 +66,8 @@ LESSONS = [
     ("20.11.", "Hintergründe", "Das Spiel soll später auf dem Tablet auch im Querformat laufen – mit denselben Hintergründen, damit es gleich aussieht",
      "**Format 1:1** (Regler: Square 1:1, danach Upscale 2×): Hochformat nutzt den mittleren 3:4-Ausschnitt (Kante unverändert bei ~55–60 %), "
      "Querformat die volle Breite; Fenster und alles Wichtige in den mittleren drei Vierteln, die äußeren Achtel nur Wand und Boden; Randdeko „near the left/right side“ statt „far edge“"),
+    ("20.11.", "Hintergründe", "erstes 1:1-Bild (Epoche 1) auf Anhieb gelungen: Kante bei 65 %, Fenster in den mittleren drei Vierteln, Regal und Hufeisen in den äußeren Achteln – genau wie vorgesehen",
+     "1:1-Bildaufbau beibehalten; Hinweis „Upscale 2×“ hervorgehoben: Midjourney liefert ohne Upscale nur 1024 × 1024 – zu wenig für das Hochformat (1080 breit) und das Querformat"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
@@ -382,7 +384,7 @@ def main():
     sections.append(("A · Werkstatt-Hintergründe (1:1 – für Hoch- und Querformat)",
                      "Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 55–60 % der Höhe, "
                      "unteres Drittel ruhig und dunkel (Bedienelemente).\n\n"
-                     "**Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle).** Ein Bild für beide Ausrichtungen: Im Hochformat "
+                     "**Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle) und erst das vergrößerte Bild (2048 × 2048) schicken** – ohne Upscale sind es nur 1024 × 1024. Ein Bild für beide Ausrichtungen: Im Hochformat "
                      "nimmt das Spiel den mittleren 3:4-Ausschnitt (die äußeren Achtel links und rechts fallen weg) und verlängert den dunklen "
                      "Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die "
                      "mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage "

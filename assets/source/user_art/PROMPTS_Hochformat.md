@@ -15,15 +15,15 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 1 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
+| ✅ gut (Midjourney) | 0 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 42 |
 | ⬜ noch nicht vorhanden | 81 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
-| A · Werkstatt-Hintergründe | 1 | 1 | 5 | 3 | 0 |
+| A · Werkstatt-Hintergründe | 0 | 2 | 5 | 3 | 0 |
 | B · Essen | 0 | 0 | 4 | 2 | 0 |
 | C · Amboss und Hämmer | 0 | 0 | 5 | 0 | 0 |
 | D · Maschinen | 0 | 0 | 7 | 3 | 4 |
@@ -58,6 +58,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Essen | Bodenfleck trotz `--no ground patch`; Hintergrund cremeweiß statt reinweiß | unkritisch – der Import schneidet beides weg |
 | 20.11. | Hintergründe | Epoche 1 in 3:4 auf Anhieb brauchbar: Kante bei 64 %, Fenster direkt unter den Deckenbalken, Wand hell | Format 3:4 und Bildaufbau-Text beibehalten; 50–65 % Kantenhöhe sind in Ordnung |
 | 20.11. | Hintergründe | Das Spiel soll später auf dem Tablet auch im Querformat laufen – mit denselben Hintergründen, damit es gleich aussieht | **Format 1:1** (Regler: Square 1:1, danach Upscale 2×): Hochformat nutzt den mittleren 3:4-Ausschnitt (Kante unverändert bei ~55–60 %), Querformat die volle Breite; Fenster und alles Wichtige in den mittleren drei Vierteln, die äußeren Achtel nur Wand und Boden; Randdeko „near the left/right side“ statt „far edge“ |
+| 20.11. | Hintergründe | erstes 1:1-Bild (Epoche 1) auf Anhieb gelungen: Kante bei 65 %, Fenster in den mittleren drei Vierteln, Regal und Hufeisen in den äußeren Achteln – genau wie vorgesehen | 1:1-Bildaufbau beibehalten; Hinweis „Upscale 2×“ hervorgehoben: Midjourney liefert ohne Upscale nur 1024 × 1024 – zu wenig für das Hochformat (1080 breit) und das Querformat |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -95,13 +96,13 @@ Raw hält sich genauer an Vorgaben wie „genau von der Seite“ oder „Kopf li
 
 Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 55–60 % der Höhe, unteres Drittel ruhig und dunkel (Bedienelemente).
 
-**Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle).** Ein Bild für beide Ausrichtungen: Im Hochformat nimmt das Spiel den mittleren 3:4-Ausschnitt (die äußeren Achtel links und rechts fallen weg) und verlängert den dunklen Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (1:1) als **Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–65 % geht).
+**Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle) und erst das vergrößerte Bild (2048 × 2048) schicken** – ohne Upscale sind es nur 1024 × 1024. Ein Bild für beide Ausrichtungen: Im Hochformat nimmt das Spiel den mittleren 3:4-Ausschnitt (die äußeren Achtel links und rechts fallen weg) und verlängert den dunklen Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (1:1) als **Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–65 % geht).
 
 Vorhandene gute 3:4-Bilder (Epoche 1) nicht neu erzeugen, sondern im Midjourney-Editor links und rechts um je ein Sechstel der Breite auf 1:1 erweitern.
 
-**background_1** – Die Dorfschmiede (1700–1715) · ✅ gut (Midjourney)  
+**background_1** – Die Dorfschmiede (1700–1715) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
 Regler: **Square 1:1**  
-*20.11.: erstes Bild im Format 3:4 – Kante bei 64 % (Bühne y 915), Fenster knapp unter der Statusleiste, hell genug. Für das spätere Querformat im Midjourney-Editor links und rechts auf 1:1 erweitern (Hochformat bleibt unverändert).*
+*20.11.: neu im Format 1:1 – Inhalt gut (Kante 65 %, Bühne y 939; Fenster in den mittleren drei Vierteln; Regal und Hufeisen in den äußeren Achteln). Nur die Auflösung fehlt: dasselbe Bild als Upscale 2× (2048 × 2048) nachliefern.*
 ```
 background_1 — Square 1:1 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills the upper 55 percent of the image and meets the floor at 55 percent of the image height, an empty floor fills the lower 45 percent, the top 15 percent of the image shows only dark ceiling beams and the window sits just below them. The room is wide and stretches across the full width of the image: the window and all important elements lie within the central three quarters of the width, the outer eighth on the left and on the right only continues the same wall and floor with a few shelves and hanging tools. Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. Interior of a small half-timbered English village smithy around 1700, seen from a high viewpoint. The back wall: timber frame with whitewashed wattle-and-daub panels, rough oak beams along the top. The floor comes towards the viewer: packed earth with straw and soot. A small window high on the back wall about a quarter of the width from the left edge shows green English countryside with a hedge and a distant church tower. Near the right side a wooden rack with tongs, and a few horseshoes nailed to a beam. The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later. Warm orange firelight falls on the centre of the back wall from below, as if from an off-screen hearth; the corners are dim. The lower third is plain dark floor with little detail, getting darker towards the bottom edge --ar 1:1 --no forge, hearth, fire, anvil, machine, tools in the centre, people, animals, text, watermark, letters, numbers, date, signature, black bars, letterbox, border
 ```
