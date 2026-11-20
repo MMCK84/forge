@@ -35,14 +35,14 @@ func act(dt: float) -> void:
 		wait -= dt
 		return
 	var moved := false
-	# 0) Ein Schweißstück wartet in der Esse: Der Lehrling bringt es auf
-	#    Schweißhitze, kommt aber nur dran, wenn der Amboss frei wird: dann den Amboss freimachen.
+	# 0) Ein Schweißstück hat in der Esse Schweißhitze erreicht (der Lehrling bringt es dorthin):
+	#    sofort an den Amboss holen – das Amboss-Stück tauscht den Platz (in der Weißglut nimmt es Schaden).
 	if sim.has_apprentice and sim.anvil >= 0 and not sim.in_transit(sim.anvil) and not sim.in_weld_phase(sim.anvil) \
-			and not sim.awaiting_quench(sim.anvil) and sim.free_slot() >= 0:
+			and not sim.awaiting_quench(sim.anvil):
 		for idx in sim.forge_slots:
 			if idx >= 0 and not sim.in_transit(idx) and sim.in_weld_phase(idx) \
-					and sim.job.pieces[idx].temp >= cfg.weld_min + 5.0:
-				moved = sim.move_anvil_to_forge(-1)
+					and sim.job.pieces[idx].temp >= _target_temp(idx) - 0.01:
+				moved = sim.move_slot_to_anvil(sim.job.pieces[idx].slot)
 				break
 	if moved:
 		wait = maxf(0.0, cfg.ref_move_loss_s - cfg.transfer_time)
