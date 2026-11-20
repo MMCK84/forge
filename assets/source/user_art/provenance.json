@@ -149,5 +149,11 @@
    "bewertung": "ändern",
    "hinweis": "Fenster sitzt ganz oben und wird zur Hälfte von der Statusleiste verdeckt; Wand-Boden-Kante bei 49 % (Ziel 40 %). Im Spiel nutzbar."
   }
+ },
+ "abgelehnt": {
+  "background_8": [
+   "20.11.: Wand-Boden-Kante 71 % (1. Versuch)",
+   "20.11.: Wand-Boden-Kante 62 %, Fenster und Helligkeit gut (3. Versuch)"
+  ]
  }
 }

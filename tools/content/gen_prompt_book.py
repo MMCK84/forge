@@ -49,6 +49,9 @@ LESSONS = [
     ("20.11.", "Hintergründe", "Fenster am oberen Rand, zur Hälfte von der Statusleiste verdeckt", "„the top 10 percent shows only dark ceiling beams and the window sits just below them“"),
     ("20.11.", "Hintergründe", "schwarzer Balken am unteren Rand", "`--no black bars, letterbox, border`"),
     ("20.11.", "alle", "Midjourney liefert immer vier Varianten", "eine auswählen (Website: anklicken; Discord: U1–U4) und nur diese schicken"),
+    ("20.11.", "alle", "der Seitenverhältnis-Regler überstimmt `--ar` im Prompt", "bei jedem Bild steht die Regler-Einstellung (z. B. „Portrait 9:16“) – vor dem Erzeugen einstellen"),
+    ("20.11.", "Hintergründe", "trotz Textvorgabe Wand-Boden-Kante bei 62 % (Epoche 8, 3. Versuch); Fenster und Helligkeit passten",
+     "Bildaufbau-Vorlage `vorlagen/bildaufbau_hintergrund.png` als **Bild-Prompt** vor den Text setzen"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
@@ -170,10 +173,14 @@ def block(title, prompt, st, fname, note=""):
     st = final_status(st, fname)
     pv_note = _prov(fname).get("hinweis", "")
     note = " ".join(x for x in (pv_note, note) if x and st != NOT and st != NOT_OPT) or ("" if st in (NOT, NOT_OPT) else note)
-    s = f"**{fname}** – {title} · {st}"
+    mj = midjourney(prompt)
+    m = re.search(r"--ar (\d+):(\d+)", mj)
+    w, h = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
+    slider = ("Portrait" if w < h else "Landscape" if w > h else "Square") + f" {w}:{h}"
+    s = f"**{fname}** – {title} · {st}  \nRegler: **{slider}**"
     if note:
         s += f"  \n*{note}*"
-    return s + "\n```\n" + midjourney(prompt) + "\n```\n"
+    return s + "\n```\n" + mj + "\n```\n"
 
 
 def parse_prompts(path):
@@ -351,10 +358,12 @@ def main():
     sections.append(("A · Werkstatt-Hintergründe (9:16 hochkant)",
                      "Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 40 % der Höhe, "
                      "unteres Drittel ruhig und dunkel (Bedienelemente).\n\n"
-                     "**Midjourney-Tipps:** Midjourney setzt die Wand gern zu tief an. Am zuverlässigsten hilft ein **Bild-Prompt "
-                     "für den Bildaufbau**: einen vorhandenen Hintergrund (z. B. `background_5`) als Bild vor den Prompt setzen und "
-                     "`--iw 0.5` anhängen – dann übernimmt Midjourney die Aufteilung Wand/Boden. Für den einheitlichen Look ein "
-                     "gelungenes Midjourney-Bild als `--sref` verwenden. Die Wand-Boden-Kante messe ich bei jedem Bild aus.", a))
+                     "**Bildaufbau-Vorlage verwenden:** Midjourney setzt die Wand trotz Text zu tief an. Lösung: die Datei "
+                     "`assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (Wand oben 40 %, Deckenbalken, Fenster links unter den "
+                     "Balken, Boden unten 60 %) als **Bild-Prompt** in die Eingabezeile ziehen – nicht als Stil-Referenz – und den Text-Prompt "
+                     "dahinter setzen. Die Bildgewichtung mittel lassen; ist die Aufteilung noch falsch, höher stellen. "
+                     "Für den einheitlichen Look zusätzlich ein gelungenes Midjourney-Bild als Stil-Referenz (`--sref`). "
+                     "Die Wand-Boden-Kante messe ich bei jedem Bild aus (35–50 % geht).", a))
     # B Essen
     b = []
     for fid, title, desc in FORGES:
@@ -450,7 +459,8 @@ def main():
     for d, scope, obs, fix in LESSONS:
         lines.append(f"| {d} | {scope} | {obs} | {fix} |")
     lines += ["", "## Midjourney-Einstellungen (Version 8.2)", "",
-              "Seitenverhältnis steht im Prompt (`--ar`) und hat Vorrang vor dem Regler. Version immer gleich lassen (8.2). "
+              "**Seitenverhältnis immer am Regler einstellen** – er überstimmt `--ar` im Prompt; die nötige Einstellung steht bei jedem Bild. "
+              "Version immer gleich lassen (8.2). "
               "Weirdness immer 0. Video-Einstellungen spielen keine Rolle.", "",
               "| Gruppe | Model | Raw | Stylization | Variety | Speed |", "|---|---|---|---|---|---|",
               "| Werkstücke (E), Hämmer (C), Maschinenteile (D), Symbole (G) | Standard | **Raw** | niedrig (ca. 10 %) | 0 | Relax, wenn möglich |",
