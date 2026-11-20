@@ -22,8 +22,37 @@ USER = os.path.join(ROOT, "assets", "sprites", "ui", "user")
 SRC = os.path.join(ROOT, "assets", "source", "user_art")
 OUT = os.path.join(SRC, "PROMPTS_Hochformat.md")
 
-HAVE, NEED, REDO, OPT = "✅ vorhanden", "⬜ fehlt", "🔁 neu (Frontalansicht)", "➖ optional"
-GEMINI = "🟡 vorhanden (Gemini – später durch Midjourney ersetzen)"
+# Interne Zwischenwerte (vom Dateisystem) …
+HAVE, NEED, REDO, OPT = "_vorhanden_", "_fehlt_", "_neu_", "_optional_"
+# … und die vier Stufen im Heft
+NOT = "⬜ noch nicht vorhanden"
+NOT_OPT = "⬜ noch nicht vorhanden (optional)"
+GEMINI = "🟡 von Gemini vorhanden – durch Midjourney ersetzen"
+MJ_CHANGE = "🟠 von Midjourney vorhanden – sollte noch verändert werden"
+GOOD = "✅ gut (Midjourney)"
+
+# Erkenntnisse aus gelieferten Bildern: (Datum, gilt für, Beobachtung, Umsetzung in den Prompts).
+# Jede Erkenntnis steckt in einem gemeinsamen Baustein, damit ALLE betroffenen Prompts aktuell sind.
+LESSONS = [
+    ("19.11.", "alle", "Jahreszahlen und Schrift im Bild („1772“ auf dem Hammer, „1775“ auf dem Victoria-Siegel)",
+     "`--no text, letters, numbers, date, signature, watermark` bei jedem Prompt"),
+    ("19.11.", "alle Bilder auf weißem Grund", "weißer Sticker-Rand mit Kontur um den Nagel",
+     "`--no sticker border, outline frame, drop shadow, ground shadow` bei allen freigestellten Bildern"),
+    ("19.11.", "Werkstücke", "Holzstiele würden im Spiel mitglühen", "„metal only“, `--no wood, leather, rope`"),
+    ("19.11.", "Werkstücke", "eingemalte Glut wäre auch kalt sichtbar", "„cold and unheated“, `--no glow, sparks, fire`"),
+    ("20.11.", "Hämmer", "Schrägansicht trifft nicht flach auf das Werkstück", "reine Seitenansicht, Kopf links senkrecht, Stiel waagerecht"),
+    ("20.11.", "Essen", "Schrägansicht passt nicht in die frontalen Räume", "Frontalansicht leicht von oben, Glutbett als waagerechter Streifen"),
+    ("20.11.", "Essen", "Kohlehaufen und Zangen lagen vor dem Glutbett", "„nothing in front of the hearth“"),
+    ("20.11.", "Hintergründe", "Midjourney setzte die Wand-Boden-Kante bei 54–71 % statt 40 %",
+     "Bildaufbau ganz vorn im Prompt, Tipp: vorhandenen Hintergrund als Bild-Prompt mit `--iw 0.5`"),
+    ("20.11.", "Hintergründe", "zu dunkel, obere Hälfte fast schwarz", "„moderately bright evening light, the upper wall clearly visible“"),
+    ("20.11.", "Hintergründe", "Fenster am oberen Rand, zur Hälfte von der Statusleiste verdeckt", "„the top 10 percent shows only dark ceiling beams and the window sits just below them“"),
+    ("20.11.", "Hintergründe", "schwarzer Balken am unteren Rand", "`--no black bars, letterbox, border`"),
+    ("20.11.", "alle", "Midjourney liefert immer vier Varianten", "eine auswählen (Website: anklicken; Discord: U1–U4) und nur diese schicken"),
+]
+GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
+ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
+BG_NEG = ["black bars", "letterbox", "border"]
 # Essen: die vorhandenen Schrägansichten werden durch Frontalansichten ersetzt.
 # Sobald die Frontalansichten da sind, hier True setzen.
 FORGES_FRONTAL_DONE = os.path.exists(os.path.join(SRC, "forges_frontal"))
@@ -110,16 +139,40 @@ def midjourney(prompt):
     if ar is None:
         m = re.search(r"(\d+):(\d+)", prompt)
         ar = f"{m.group(1)}:{m.group(2)}" if m else "1:1"
+    # Erkenntnisse, die für ganze Gruppen gelten (siehe LESSONS)
+    neg += GLOBAL_NEG
+    if "white background" in prompt:
+        neg += ISOLATED_NEG
+    if "game background" in prompt:
+        neg += BG_NEG
     neg = [n for n in dict.fromkeys(x.strip(" .") for x in neg) if n]
     return f"{text} --ar {ar} --no {', '.join(neg)}" if neg else f"{text} --ar {ar}"
 
 
+def _prov(fname):
+    v = PROVENANCE.get(fname, {})
+    return {"quelle": v} if isinstance(v, str) else dict(v)
+
+
+def final_status(st, fname):
+    """Vier Stufen: noch nicht vorhanden · Gemini · Midjourney (ändern) · gut."""
+    if st in (NEED, ):
+        return NOT
+    if st == OPT:
+        return NOT_OPT
+    pv = _prov(fname)
+    if pv.get("quelle") == "Midjourney":
+        return GOOD if pv.get("bewertung") == "gut" else MJ_CHANGE
+    return GEMINI
+
+
 def block(title, prompt, st, fname, note=""):
-    if st == HAVE and PROVENANCE.get(fname) == "Gemini":
-        st = GEMINI
+    st = final_status(st, fname)
+    pv_note = _prov(fname).get("hinweis", "")
+    note = " ".join(x for x in (pv_note, note) if x and st != NOT and st != NOT_OPT) or ("" if st in (NOT, NOT_OPT) else note)
     s = f"**{fname}** – {title} · {st}"
     if note:
-        s += f"  \n{note}"
+        s += f"  \n*{note}*"
     return s + "\n```\n" + midjourney(prompt) + "\n```\n"
 
 
@@ -305,7 +358,7 @@ def main():
     # B Essen
     b = []
     for fid, title, desc in FORGES:
-        st = add(HAVE if FORGES_FRONTAL_DONE and have(fid + ".png") else REDO if have(fid + ".png") else NEED)
+        st = add(HAVE if have(fid + ".png") else NEED)
         b.append(block(title, f"2D game asset, {desc}, {FORGE_TAIL}", st, fid))
     sections.append(("B · Essen (Frontalansicht, alle sechs Stufen)",
                      "Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, "
@@ -363,34 +416,39 @@ def main():
             st = HAVE if have("trough.png") else NEED
         else:
             st = status(out_name, optional)
-        note = ""
-        if out_name == "seal_victoria.png" and st == HAVE:
-            note = "Wird verwendet, trägt aber die falsche Jahreszahl „1775“ (Victoria regierte ab 1837) – eine Fassung ohne Jahreszahl wäre besser."
-        g.append(block(title, prompt, add(st), fname, note))
+        g.append(block(title, prompt, add(st), fname))
     sections.append(("G · Oberfläche, Symbole, Store",
                      "Spieltitel und Schriften kommen aus Schriftarten (kein Bild nötig); Glühskala, Fortschritt und Partikel zeichnet das Spiel selbst.", g))
 
+    def counts(txt):
+        n_opt = txt.count(NOT_OPT)
+        return {GOOD: txt.count(GOOD), MJ_CHANGE: txt.count(MJ_CHANGE), GEMINI: txt.count(GEMINI),
+                NOT: txt.count(NOT) - n_opt, NOT_OPT: n_opt}
     alltext = "\n".join("\n".join(p) for _, _, p in sections)
-    n_gemini = alltext.count(GEMINI)
-    count[HAVE] -= n_gemini
+    total = counts(alltext)
     lines = ["# Prompt-Heft: alle Bilder des Spiels", "",
              "Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python tools/content/gen_prompt_book.py` – "
-             "nach jeder Lieferung neu erzeugt, damit der Status stimmt.", "",
-             "**Status:** ✅ vorhanden (Midjourney) · 🟡 vorhanden, aber von Gemini – später durch Midjourney ersetzen · "
-             "⬜ fehlt · 🔁 neu zu machen (Frontalansicht) · ➖ optional", "",
-             "**Bildquelle:** Alle Bilder bis zum 20.11.2026 stammen von Gemini, alle neuen von **Midjourney**. "
-             "Die Prompts sind deshalb in Midjourney-Schreibweise: Verbote stehen hinter `--no`, das Seitenverhältnis hinter `--ar`. "
-             "Herkunft je Bild: `provenance.json`.", "",
+             "nach jeder Lieferung und jeder neuen Erkenntnis neu erzeugt, damit Status und Prompts aktuell sind.", "",
+             "**Status je Bild:**", "",
+             f"- {NOT} – Prompt verwenden und liefern",
+             f"- {GEMINI} – ist im Spiel, soll später ersetzt werden",
+             f"- {MJ_CHANGE} – der Hinweis darunter sagt, was",
+             f"- {GOOD} – fertig", "",
+             "**Bildquelle:** Bis zum 20.11.2026 Gemini, seitdem **Midjourney**. Prompts in Midjourney-Schreibweise: "
+             "Verbote hinter `--no`, Seitenverhältnis hinter `--ar`. Herkunft und Bewertung je Bild: `provenance.json`.", "",
              "## Übersicht", "",
              "| Status | Anzahl |", "|---|---|"]
-    lines.append(f"| {HAVE} (Midjourney) | {count[HAVE]} |")
-    lines.append(f"| 🟡 vorhanden, Gemini (später ersetzen) | {n_gemini} |")
-    for k in (NEED, REDO, OPT):
-        lines.append(f"| {k} | {count[k]} |")
-    lines += ["", "| Bereich | vorhanden (MJ) | Gemini – ersetzen | fehlt / neu | optional |", "|---|---|---|---|---|"]
+    for k in (GOOD, MJ_CHANGE, GEMINI, NOT, NOT_OPT):
+        lines.append(f"| {k} | {total[k]} |")
+    lines += ["", "| Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |", "|---|---|---|---|---|---|"]
     for title, _, parts in sections:
-        txt = "\n".join(parts)
-        lines.append(f"| {title.split(' (')[0]} | {txt.count(HAVE)} | {txt.count(GEMINI)} | {txt.count(NEED) + txt.count(REDO)} | {txt.count(OPT)} |")
+        c = counts("\n".join(parts))
+        lines.append(f"| {title.split(' (')[0]} | {c[GOOD]} | {c[MJ_CHANGE]} | {c[GEMINI]} | {c[NOT]} | {c[NOT_OPT]} |")
+    lines += ["", "## Erkenntnisse aus den bisherigen Bildern", "",
+              "Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bausteine im Generator).", "",
+              "| Datum | gilt für | Beobachtung | Umsetzung |", "|---|---|---|---|"]
+    for d, scope, obs, fix in LESSONS:
+        lines.append(f"| {d} | {scope} | {obs} | {fix} |")
     lines += ["", "## Regeln für alle Bilder", "",
               "- Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.",
               "- Objekt vollständig im Bild mit etwas Rand.",
@@ -404,12 +462,12 @@ def main():
               "2. **Hintergründe 7–10** (A) und **Dampfhammer-Teile** (D).",
               "3. **Werkstücke** epochenweise (E), dann **Löschtrog** (G).",
               "4. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.",
-              "5. Später: alle 🟡 Gemini-Bilder durch Midjourney-Bilder ersetzen (gleiche Prompts, gleiche Dateinamen).",
+              "5. Dann: alle 🟠 Midjourney-Bilder mit Hinweis nachbessern, später alle 🟡 Gemini-Bilder ersetzen (gleiche Dateinamen).",
               ""]
     for title, intro, parts in sections:
         lines += [f"## {title}", "", intro, ""] + parts
     open(OUT, "w", encoding="utf-8").write("\n".join(lines) + "\n")
-    print(OUT, count)
+    print(OUT, total)
 
 
 if __name__ == "__main__":
