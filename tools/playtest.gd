@@ -271,6 +271,10 @@ func _epoch_scene(e: int) -> void:
 			break
 		if workshop().get("overlay_layer").get_child_count() > 0:
 			await close_overlays()
+		# Aufmerksamer Spieler: stellt die Schlagstärke beim Wechsel des Arbeitsgangs um
+		if sim.anvil >= 0 and sim.force_enabled and sim.required_force(sim.anvil) >= 0:
+			if sim.force != sim.required_force(sim.anvil):
+				workshop().call("_set_force", sim.required_force(sim.anvil))
 		if sim.anvil >= 0 and not sim.in_transit(sim.anvil):
 			var i: int = sim.anvil
 			var p = j2.pieces[i]

@@ -636,7 +636,12 @@ func _auto_target_ok() -> bool:
 func machine_engaged() -> bool:
 	if machine == null or not _auto_target_ok():
 		return false
-	if machine.force_mode == "adjustable" or job.is_big():
+	if machine.force_mode == "adjustable":
+		# Dampfhammer: bei viel zu harter Wahl (schwer statt leicht) hält der Hammerführer an,
+		# statt das Werkstück zu beschädigen – der Spieler muss umstellen
+		var r := required_force(anvil)
+		return r < 0 or effective_force(anvil) - r < 2
+	if job.is_big():
 		return true
 	var req := required_force(anvil)
 	return req < 0 or req == FORCE_HEAVY

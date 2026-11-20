@@ -50,7 +50,8 @@ ein Hinweis die drei Stufen. Bis zum Ende von Epoche 1 verlangen die Aufträge n
   Dort arbeitet der Schwanzhammer in allen Arbeitsgängen passend mit (der Hammerschmied
   dosierte den Schlag über den Antrieb) – sonst wären sie von Hand kaum zu schaffen.
 - **Nasmyth-Dampfhammer** (ab Epoche 9) schlägt mit **der von Euch gewählten Stärke** – sein großer
-  Vorteil: Er arbeitet in jedem Arbeitsgang mit.
+  Vorteil: Er arbeitet in jedem Arbeitsgang mit. Ist die Wahl viel zu hart (schwer statt
+  leicht), hält er an, statt das Werkstück zu zerschlagen – bis Ihr umstellt.
 - Das Balancing (Spielzeit je Epoche) stimme ich danach neu ab.
 
 

@@ -508,6 +508,10 @@ func _update_scale_and_progress(j: JobInstance) -> void:
 			txt += "  ·  " + tr("UI_QUENCH_INFO")
 		if p.damage > 0.0:
 			txt += "  ·  " + tr("UI_DAMAGE_INFO").format({"d": int(round(p.damage * 100.0))})
+		var mach: MachineData = gm.current_machine()
+		if f == sim.anvil and mach != null and mach.force_mode == "adjustable" and sim.force_enabled \
+				and sim.required_force(f) >= 0 and sim.effective_force(f) - sim.required_force(f) >= 2:
+			txt = tr("UI_STEAM_WAITS") + "  ·  " + txt
 		info_label.text = txt
 	else:
 		glow_scale.temp = -1.0

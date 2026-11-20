@@ -221,7 +221,8 @@ Schlichten leicht. Eine Stufe daneben bringt 55 % der Form-Punkte, leicht statt 
 25 %, schwer statt leicht 30 % und Gefügeschaden. Nur passende Schläge zählen für die
 Qualität. Die fünf Tutorial-Aufträge laufen ohne Stärke, in Epoche 1 wird „mittel“ noch als
 „schwer“ verlangt. Zuschläger und Schwanzhämmer schlagen nur schwer und arbeiten daher nur in
-schweren Arbeitsgängen mit; Dampfhämmer (ab Epoche 9) schlagen mit der gewählten Stärke.
+schweren Arbeitsgängen mit (bei Großschmiedestücken in allen); Dampfhämmer (ab Epoche 9)
+schlagen mit der gewählten Stärke und halten an, wenn sie schwer statt leicht schlagen würden.
 Der Hammer holt je nach Stärke kürzer oder weiter aus, der Klang wird heller oder dumpfer.
 
 **Epochen 7–10 (1800–1880).** Krieg & Erfindergeist (Lambeth, Maudslay, Telford),

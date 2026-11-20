@@ -443,3 +443,19 @@ func test_helve_works_all_steps_on_big_forgings() -> void:
 	s.machine_hit.connect(func(k: String) -> void: kinds.append(k))
 	_run(s, 1.05)
 	assert_eq(kinds, ["good"], "und schlägt dabei passend (kein Schaden)")
+
+
+func test_steam_hammer_stops_instead_of_damaging() -> void:
+	var steam := MachineData.new()
+	steam.p_base = 100.0
+	steam.hits_per_s = 1.0
+	steam.force_mode = "adjustable"
+	var s := _force_sim([{"id": "planish", "share": 1.0}])
+	s.machine = steam
+	s.job.pieces[0].temp = 800.0
+	s.force = WorkshopSim.FORCE_HEAVY
+	assert_true(not s.machine_engaged(), "schwer statt leicht: Dampfhammer hält an")
+	_run(s, 2.0)
+	assert_near(s.job.pieces[0].damage, 0.0, 0.0001, "kein Schaden durch den Dampfhammer")
+	s.force = WorkshopSim.FORCE_MEDIUM
+	assert_true(s.machine_engaged(), "eine Stufe daneben: arbeitet (vermindert) weiter")

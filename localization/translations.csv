@@ -785,6 +785,7 @@ UI_SHOW_CELSIUS,Temperatur in °C anzeigen,Show temperature in °C
 UI_STAFF,Personal,Staff
 UI_STAFF_NOTE,"Lehrling und Zuschläger arbeiten nur, solange das Spiel läuft. Ihre Löhne werden bei Auftragsabschluss abgezogen.",Apprentice and striker only work while the game is running. Their wages are deducted when an order is completed.
 UI_STATS,Statistik,Statistics
+UI_STEAM_WAITS,Dampfhammer wartet – Schlagstärke zu hoch,Steam hammer waiting – blow too heavy
 UI_STEP_INFO,Arbeitsgang {k}/{n}: {step} ({lo}–{hi} °C),Step {k}/{n}: {step} ({lo}–{hi} °C)
 UI_TIME_LIMIT,Zeitlimit {time},time limit {time}
 UI_TO_ANVIL_AT,Auf den Amboss ab,Onto the anvil from
