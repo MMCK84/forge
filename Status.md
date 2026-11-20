@@ -59,6 +59,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 ## Arbeitsweise mit Bildern (Midjourney v8.2)
 
+- **Originale über GitHub** in `assets/source/user_art/eingang/` hochladen (Chat-Bilder werden verkleinert/komprimiert und
+  kommen während einer laufenden Antwort gar nicht als Datei an). Der Chat bleibt für die schnelle Ansicht.
 - Jede Lieferung: Original nach `assets/source/user_art/` (`items/`, `machines/`, `backgrounds/`),
   `python tools/art/import_user_art.py`, Herkunft/Bewertung in `provenance.json`, Heft neu erzeugen.
 - Erkenntnisse sofort in **alle** betroffenen Prompts (gemeinsame Bausteine und `LESSONS` im Generator).
@@ -110,6 +112,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Epoche 1 fertig (✅)**: Variante 4, 2000 × 2000, gekürzter Prompt, kein Streifen; Kante 72 % → `USER_FLOOR_Y` 1044,
   im Spiel gut. Epoche 2 (1:1) nur als Vorschau, abgelehnt (Kante ~80 %, zweites Fenster außerhalb, kalt, kein Feuerschein).
   Hintergrund-Prompts nachgeschärft (hoher Blickpunkt, Boden untere Hälfte, Abendlicht/Feuerschein, nur ein Fenster).
+- 20.11.: Bild-Upload im Chat ist verlustbehaftet (5 MB → 0,5 MB WebP, max. 2000 px). Eingangsordner
+  `assets/source/user_art/eingang/` für Originale über GitHub angelegt. Epoche 1 als Original nachliefern.
 
 ## Prüfen
 

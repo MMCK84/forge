@@ -12,6 +12,8 @@
   und `LESSONS` in `gen_prompt_book.py`), dann das Heft neu erzeugen.
 - Status je Bild in `provenance.json`: quelle Gemini/Midjourney, bei Midjourney bewertung gut/ändern
   mit hinweis. Stufen im Heft: noch nicht vorhanden · Gemini · Midjourney (ändern) · gut.
+- Originale lädt der Auftraggeber über GitHub in `assets/source/user_art/eingang/` hoch (Chat-Bilder sind verkleinert);
+  vor jeder Lieferung `git pull`, Eingang einsortieren und leeren.
 - Gelieferte Bilder: Originale nach `assets/source/user_art/` (Werkstücke in `items/`, Maschinenteile in
   `machines/`, Hintergründe in `backgrounds/`), dann `python tools/art/import_user_art.py`.
 - Hintergründe im Format **1:1** (Hochformat: mittlerer 3:4-Ausschnitt, Querformat/Tablet später: volle Breite).
