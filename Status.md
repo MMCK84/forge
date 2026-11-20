@@ -43,7 +43,7 @@ wenn alles fertig ist.
 | A Hintergründe (1:1) | **10 (alle)** | – | – | – |
 | B Essen (frontal) | **6 (alle)** | – | – | – |
 | C Amboss, Hämmer | 5 (fotorealistisch) | – | – | – |
-| D Maschinenteile | 4 (Wasserrad, Balken, Gestell, Schwungrad) | – | 3 | 3 + 4 optional (u. a. Dampfhammer) |
+| D Maschinenteile | 9 (Schwanzhammer, Dampfmaschine, Dampfhammer) | – | 1 (Ladenbild) | 4 optional |
 | E Werkstücke | – | – | 9 | 72 (Epochen 2–10) |
 | F Kundenporträts (optional) | – | – | – | 54 |
 | G Oberfläche, Store | – | – | 12 | 5 |
@@ -134,7 +134,6 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   `scripts/user_forge_meta.gd` (ersetzt die Handwerte in `forge_view.gd`). Stufe 3 „ändern“ (nur ein Blasebalg).
   Ep. 10: Kante 84 % → Import schneidet oben 300 px ab. Erkenntnisse (gemaltes Feuer, zweites Fenster rechts, dunkel,
   Doppelbalg) in alle Prompts übernommen. Unit-Tests grün, Spieltest 0 Probleme.
-  Offen: In Epoche 9/10 verdeckt das Dampfhammer-Gestell die Anzeige „Rohlinge“ (Zeichenreihenfolge).
 - 20.11.: **Amboss und vier Hämmer** (Midjourney) eingebaut; Originale in `assets/source/user_art/tools/`. Der Import spiegelt
   den Amboss (Horn rechts) und misst Ambossbahn, Griffpunkt und Hammerbahn → `scripts/user_tool_meta.gd`. Stil fotorealistisch
   (Raw-Modus) – im Spiel unauffällig; Prompt-Heft empfiehlt künftig Standard + Stil-Referenz und `--no photo, 3d render`.
@@ -149,6 +148,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   (Midjourney) eingebaut. Gemalten Rauch schneidet der Import weg (`FORGE_SMOKE`). Schwanzhammer: Lager, Kopf und Gestell-
   Lager misst der Import (`scripts/user_machine_meta.gd`), die Maschinenansicht skaliert passend. Tests grün (1841/0),
   Spieltest 0 Probleme.
+- 20.11.: **Dampfmaschine, Balancier und Dampfhammer** (Gestell, Bär, Schabotte; Midjourney) eingebaut. Der Import misst
+  Kolbenstange, Säulenkopf und Balancier; der Bär wird bis zum Zylinder gezeigt. Die Anzeige „Rohlinge“ ist in Ep. 9/10 nicht
+  mehr verdeckt. Gegen perspektivische Bilder: Ansicht an den Prompt-Anfang („Flat orthographic … elevation“), Verbote gegen
+  Perspektive, Tipp Bild-Prompt mit `--iw 1` und Raw + `--sref` – im Heft unter Einstellungen und in `LESSONS`.
 
 ## Prüfen
 

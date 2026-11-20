@@ -258,9 +258,6 @@ def main():
             if ext.lower() not in (".webp", ".png", ".jpg", ".jpeg"):
                 continue
             a = np.asarray(Image.open(os.path.join(mdir, fn)).convert("RGB")).astype(np.float32).copy()
-            if base == "engine_body":
-                # eingemalten Balancier entfernen (das Spiel lässt einen eigenen wippen)
-                a[:115, 680:965] = 255.0
             sat = a.max(axis=2) - a.min(axis=2)
             white = (a.min(axis=2) > 222) & (sat < 22)
             bg = flood_bg(white) | enclosed(white, 150)
@@ -278,7 +275,7 @@ def main():
                 img = img.crop((cx - r, cy - r, cx + r, cy + r))
                 save(img.resize((400, 400), Image.LANCZOS), "machine_" + base + ".png")
                 continue
-            img = save(img, "machine_" + base + ".png", max_w=700)
+            img = save(img, "machine_" + base + ".png", max_w=700, max_h=1400)
             al = np.asarray(img)[..., 3] > 128
             if base == "helve_beam":
                 cols = np.where(al.any(axis=0))[0]
@@ -295,6 +292,23 @@ def main():
                 px = int(np.mean(boss)) if boss else int(cols[0] + img.width * 0.06)
                 mmeta["BEAM_PIVOT"] = (px, axis_y)
                 mmeta["BEAM_HEAD"] = (hx, hy)
+            elif base == "engine_body":
+                # Kolbenstange (höchster Punkt links) und Säulenkopf (höchster Punkt rechts) – dort sitzt der Balancier
+                top = np.array([np.argmax(al[:, x]) if al[:, x].any() else img.height for x in range(img.width)])
+                half = img.width // 2
+                rx = int(np.argmin(top[:half]))
+                cols = np.where(top[half:] == top[half:].min())[0] + half
+                mmeta["ENGINE_ROD"] = (rx, int(top[rx]))
+                mmeta["ENGINE_PIVOT"] = (int(np.median(cols)), int(top[half:].min()) + 4)
+                mmeta["ENGINE_SIZE"] = (img.width, img.height)
+            elif base == "engine_beam":
+                cols = np.where(al.any(axis=0))[0]
+                rows = np.where(al.any(axis=1))[0]
+                cx = int((cols[0] + cols[-1]) / 2)
+                cy = int(np.mean(np.where(al[:, cx - 3:cx + 3].any(axis=1))[0]))
+                end_h = int(al[:, cols[-1] - 4:cols[-1] + 1].any(axis=1).sum())
+                mmeta["ENGINE_BEAM_PIVOT"] = (cx, cy)
+                mmeta["ENGINE_BEAM_HALF"] = (float(cols[-1] - cx - end_h * 0.5), 0.0)
             elif base == "helve_frame":
                 ys = np.where(al.any(axis=1))[0]
                 ty = int(ys[0])

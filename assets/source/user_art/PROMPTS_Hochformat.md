@@ -15,10 +15,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 25 |
+| ✅ gut (Midjourney) | 30 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 0 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 24 |
-| ⬜ noch nicht vorhanden | 126 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 22 |
+| ⬜ noch nicht vorhanden | 123 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -26,7 +26,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | A · Werkstatt-Hintergründe | 10 | 0 | 0 | 0 | 0 |
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
-| D · Maschinen | 4 | 0 | 3 | 3 | 4 |
+| D · Maschinen | 9 | 0 | 1 | 0 | 4 |
 | E · Werkstücke | 0 | 0 | 9 | 72 | 0 |
 | F · Kundenporträts | 0 | 0 | 0 | 0 | 54 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
@@ -69,6 +69,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Essen | erste Frontalansichten (Stufe 1–5): Aufbau, Blasebalg links und offenes Glutbett gelungen; Stufe 3 zeigt nur einen Blasebalg und einen Sack statt zwei übereinanderliegender Bälge; Stufe 1 hat ein schmales Glutbett (~25 % der Breite) | Doppelblasebalg ausdrücklich: „two identical teardrop bellows stacked one above the other, one lever“; Glutbett „wide, about two thirds of the width“; Glutbett, Schornstein und Ursprung misst jetzt der Import selbst |
 | 20.11. | Hämmer, Amboss (Raw) | Formen und Ansicht genau richtig, aber fotorealistische 3D-Renderings statt handgemalt mit Tuschekontur – der Raw-Modus überstimmt die Stilangabe; Amboss mit Horn nach links | Raw nur noch, wenn die Form nicht stimmt; sonst Standard mit Stil-Referenz (ein Hintergrund oder eine Esse); `--no photo, 3d render`; Horn-Richtung gleicht der Import aus (spiegeln); Griff, Bahn und Ambossbahn misst der Import selbst |
 | 20.11. | Essen | Esse Stufe 3 (neu) und Siemens-Ofen: Inhalt gelungen (zwei Bälge mit Hebel bzw. genieteter Gasofen), aber trotz `--no smoke` Rauch über dem Schornstein | „the chimney top is clean (no smoke)“; den Rest schneidet der Import weg (`FORGE_SMOKE`), das Spiel erzeugt eigenen Rauch |
+| 20.11. | alle Frontal-/Seitenansichten | Midjourney malt freigestellte Objekte häufig perspektivisch, obwohl „front view“ im Prompt steht | Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten |
 | 20.11. | Maschinenteile | neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock | historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt |
 
 ## Midjourney-Einstellungen (Version 8.2)
@@ -84,6 +85,8 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | App-Icon, Store-Banner | **HD** | Standard | mittel | 0 | Fast |
 
 Raw hält sich genauer an Vorgaben wie „genau von der Seite“, malt aber fotorealistisch statt im gezeichneten Stil des Spiels – deshalb nur im Notfall. Für den Stil immer ein gelungenes Bild (Hintergrund oder Esse) als Stil-Referenz `--sref` anhängen. HD lohnt sich nur, wo das Bild groß zu sehen ist (Hintergründe 1080 × 1920, Icon, Banner); Gegenstände verkleinert das Spiel ohnehin auf 256–1000 px. Für eine Serie (z. B. alle Werkstücke) das beste Bild als Stil-Referenz `--sref <URL>` an alle weiteren Prompts der Gruppe hängen.
+
+**Gegen perspektivische Bilder** (Midjourney ignoriert „front view“ oft): (1) ein Bild mit der richtigen Blickrichtung als **Bild-Prompt** vor den Text setzen und `--iw 1` anhängen – am besten das bisherige Bild desselben Objekts (auch Gemini) oder ein gelungenes Bild derselben Gruppe; (2) Stylization niedrig lassen (ca. 10 %, notfalls `--s 50`); (3) wenn es dann noch kippt: Raw einschalten **und** ein gezeichnetes Bild als Stil-Referenz `--sref` anhängen, damit es nicht fotorealistisch wird. Leicht perspektivische Bilder lieber trotzdem schicken – oft reicht es im Spiel (z. B. die Schabotte).
 
 
 ## Regeln für alle Bilder
@@ -186,45 +189,45 @@ background_10 — Square 2D game background, hand-painted, dark ink outlines. Ev
 Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.
 
 **forge_clay** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 104 Wörter  
+Regler: **Landscape 2:1** · 112 Wörter  
 *20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend.*
 ```
-forge_clay — 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_clay — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, cannon, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_brick** – Ziegel-Esse (Stufe 2, Epoche 2) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 106 Wörter  
+Regler: **Landscape 2:1** · 114 Wörter  
 *20.11.: Frontalansicht, Ziegelherd mit Eisenbändern, Schieferdach-Haube, Schornstein rechts; Blasebalg links steht senkrecht statt waagerecht – unkritisch.*
 ```
-forge_brick — 2D game asset, a smith's forge of the 1720s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, bright orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_brick — Flat orthographic front elevation, like a technical drawing. 2D game asset, a smith's forge of the 1720s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left a teardrop-shaped leather bellows with wooden boards on a stand, bright orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, cannon, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_double_bellows** – Esse mit Doppelblasebalg (Stufe 3, Epoche 3) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 108 Wörter  
+Regler: **Landscape 2:1** · 116 Wörter  
 *20.11.: neu: zwei tropfenförmige Bälge mit Hebel links, Ziegel/Stein mit Eisenbändern, hohes Rohr und Ziegelschornstein. Gemalten Rauch schneidet der Import weg.*
 ```
-forge_double_bellows — 2D game asset, a large smith's forge of the 1740s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever, hot yellow-orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, cannon, sack, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_double_bellows — Flat orthographic front elevation, like a technical drawing. 2D game asset, a large smith's forge of the 1740s, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever, hot yellow-orange coal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, cannon, sack, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_coke** – Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 107 Wörter  
+Regler: **Landscape 2:1** · 115 Wörter  
 *20.11.: Frontalansicht, genietete Eisenhaube, Gebläsezylinder links mit Luftrohr, Rohrschornstein rechts; Flammen etwas hoch – im Spiel unauffällig.*
 ```
-forge_coke — 2D game asset, a long late-18th-century coke-fired smith's forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no oven, dome, arch over the fire, perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_coke — Flat orthographic front elevation, like a technical drawing. 2D game asset, a long late-18th-century coke-fired smith's forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_welding_furnace** – Schweißofen (Stufe 5, Epoche 8) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 86 Wörter  
+Regler: **Landscape 2:1** · 94 Wörter  
 *20.11.: niedriger Ziegelbogen über langem Glutbett, Schornstein rechts – genau wie gewünscht.*
 ```
-forge_welding_furnace — 2D game asset, a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_welding_furnace — Flat orthographic front elevation, like a technical drawing. 2D game asset, a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **forge_siemens** – Siemens-Gasofen (Stufe 6, Epoche 10) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 94 Wörter  
+Regler: **Landscape 2:1** · 102 Wörter  
 *20.11.: genieteter Eisenkörper mit Ankerstäben, weißglühende Arbeitsöffnung, Gasleitungen mit Ventilen beidseitig, Schornsteinstutzen. Gemalten Rauch schneidet der Import weg.*
 ```
-forge_siemens — 2D game asset, a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+forge_siemens — Flat orthographic front elevation, like a technical drawing. 2D game asset, a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ## C · Amboss und Hämmer
@@ -239,31 +242,31 @@ anvil — 2D game sprite asset, heavy 18th-century cast iron anvil mounted on a 
 ```
 
 **hammer_hand** – Handhammer (Stufe 1) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 79 Wörter  
+Regler: **Landscape 2:1** · 87 Wörter  
 *20.11.: Handhammer, reine Seitenansicht, Bahn unten – genau wie gewünscht. Fotorealistisch statt gezeichnet; im Spiel klein, fällt kaum auf.*
 ```
-hammer_hand — 2D game asset, a simple 18th-century blacksmith's hand hammer in flat side view (orthographic), the plain forged iron head stands upright on the left: flat striking face pointing straight down, short rounded back pointing straight up, the straight ash-wood handle goes through the middle of the head and points horizontally to the right, matte dark iron with hammer marks, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, engraving, text, numbers, watermark, border, shadow, photo, 3d render
+hammer_hand — Flat orthographic side elevation, like a technical drawing. 2D game asset, a simple 18th-century blacksmith's hand hammer in flat side view (orthographic), the plain forged iron head stands upright on the left: flat striking face pointing straight down, short rounded back pointing straight up, the straight ash-wood handle goes through the middle of the head and points horizontally to the right, matte dark iron with hammer marks, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, engraving, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **hammer_cross_peen** – Kreuzschlaghammer (Stufe 2) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 86 Wörter  
+Regler: **Landscape 2:1** · 94 Wörter  
 *20.11.: Kreuzschlaghammer (Finne oben), reine Seitenansicht, Bahn unten – genau wie gewünscht. Fotorealistisch statt gezeichnet; im Spiel klein, fällt kaum auf.*
 ```
-hammer_cross_peen — 2D game asset, an 18th-century cast iron cross-peen blacksmith's hammer in flat side view (orthographic), the head stands upright on the left: square flat striking face pointing straight down, the back of the head tapers to a wedge-shaped cross peen pointing straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, dark cast iron with slight rust, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, engraving, text, numbers, watermark, border, shadow, photo, 3d render
+hammer_cross_peen — Flat orthographic side elevation, like a technical drawing. 2D game asset, an 18th-century cast iron cross-peen blacksmith's hammer in flat side view (orthographic), the head stands upright on the left: square flat striking face pointing straight down, the back of the head tapers to a wedge-shaped cross peen pointing straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, dark cast iron with slight rust, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, engraving, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **hammer_steel_faced** – Hammer mit verstählter Bahn (Stufe 3) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 95 Wörter  
+Regler: **Landscape 2:1** · 103 Wörter  
 *20.11.: verstählte Bahn mit sichtbarer Schweißnaht, reine Seitenansicht, Bahn unten – genau wie gewünscht. Fotorealistisch statt gezeichnet; im Spiel klein, fällt kaum auf.*
 ```
-hammer_steel_faced — 2D game asset, an 18th-century blacksmith's hammer with a steel-faced head in flat side view (orthographic), the head stands upright on the left: dark wrought iron body with a bright polished steel striking face forge-welded onto the bottom, a visible weld line between iron and steel, the striking face points straight down, a wedge-shaped peen points straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, engraving, text, numbers, watermark, border, shadow, photo, 3d render
+hammer_steel_faced — Flat orthographic side elevation, like a technical drawing. 2D game asset, an 18th-century blacksmith's hammer with a steel-faced head in flat side view (orthographic), the head stands upright on the left: dark wrought iron body with a bright polished steel striking face forge-welded onto the bottom, a visible weld line between iron and steel, the striking face points straight down, a wedge-shaped peen points straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, engraving, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **hammer_crucible** – Gussstahl-Hammer / Tiegelstahl (Stufe 4) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 85 Wörter  
+Regler: **Landscape 2:1** · 93 Wörter  
 *20.11.: Gussstahl mit Messingzwinge und Endkappe, reine Seitenansicht, Bahn unten – genau wie gewünscht. Fotorealistisch statt gezeichnet; im Spiel klein, fällt kaum auf.*
 ```
-hammer_crucible — 2D game asset, a high-quality late-18th-century crucible steel blacksmith's hammer in flat side view (orthographic), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, engraving, text, numbers, watermark, border, shadow, photo, 3d render
+hammer_crucible — Flat orthographic side elevation, like a technical drawing. 2D game asset, a high-quality late-18th-century crucible steel blacksmith's hammer in flat side view (orthographic), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, engraving, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ## D · Maschinen (Einzelteile für die Animation)
@@ -271,93 +274,98 @@ hammer_crucible — 2D game asset, a high-quality late-18th-century crucible ste
 Drehteile genau von vorn und kreisrund, Mittelpunkt = Bildmitte; bewegliche Teile einzeln.
 
 **water_wheel** – Wasserrad (Wasser-Schwanzhammer, Epoche 5) · ✅ gut (Midjourney)  
-Regler: **Square 1:1** · 56 Wörter  
+Regler: **Square 1:1** · 64 Wörter  
 *20.11.: unterschlächtiges Wasserrad, acht Speichen, Nabe mittig – dreht sauber.*
 ```
-water_wheel — 2D game asset, a single wooden undershot water wheel seen exactly from the side so that it is a perfect circle, eight straight spokes, wooden paddles all around the rim, iron bands and an iron axle hub exactly in the centre of the image, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no water, frame, stand, text, numbers, watermark, border, shadow, photo, 3d render
+water_wheel — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single wooden undershot water wheel seen exactly from the side so that it is a perfect circle, eight straight spokes, wooden paddles all around the rim, iron bands and an iron axle hub exactly in the centre of the image, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, water, frame, stand, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **helve_beam** – Hammerbalken mit Hammerkopf (Epoche 5–8) · ✅ gut (Midjourney)  
-Regler: **Square 1:1** · 64 Wörter  
+Regler: **Square 1:1** · 72 Wörter  
 *20.11.: Lager am Balkenende statt bei einem Drittel – entspricht dem englischen Brust-Schwanzhammer (belly helve); Lager und Kopf misst der Import.*
 ```
-helve_beam — 2D game asset, a single helve-hammer beam seen exactly from the side: a long heavy oak beam lying horizontally, bound with iron hoops, a round iron pivot boss with a hole at one third from the left end, a heavy forged iron hammer head fixed at the right end pointing straight down, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no frame, posts, anvil, text, numbers, watermark, border, shadow, photo, 3d render
+helve_beam — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single helve-hammer beam seen exactly from the side: a long heavy oak beam lying horizontally, bound with iron hoops, a round iron pivot boss with a hole at one third from the left end, a heavy forged iron hammer head fixed at the right end pointing straight down, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, frame, posts, anvil, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **helve_frame** – Gestell mit Daumenwelle · ✅ gut (Midjourney)  
-Regler: **Square 1:1** · 61 Wörter  
+Regler: **Square 1:1** · 69 Wörter  
 *20.11.: Eichengestell mit mittigem Lagerbock und Daumenwelle unten; Lager oben misst der Import.*
 ```
-helve_frame — 2D game asset, the wooden support frame of an 18th-century helve hammer seen exactly from the side: two heavy upright oak posts joined by cross beams, an iron bearing on top of the posts for a pivot, and a horizontal cam shaft with four iron cams at the bottom, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no hammer beam, water wheel, anvil, text, numbers, watermark, border, shadow, photo, 3d render
+helve_frame — Flat orthographic side elevation, like a technical drawing. 2D game asset, the wooden support frame of an 18th-century helve hammer seen exactly from the side: two heavy upright oak posts joined by cross beams, an iron bearing on top of the posts for a pivot, and a horizontal cam shaft with four iron cams at the bottom, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, hammer beam, water wheel, anvil, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **flywheel** – Schwungrad (Dampf-Schwanzhammer, Epoche 6–8) · ✅ gut (Midjourney)  
-Regler: **Square 1:1** · 54 Wörter  
+Regler: **Square 1:1** · 62 Wörter  
 *20.11.: gusseisernes Schwungrad mit acht geraden Speichen (statt sechs gebogenen) – unkritisch.*
 ```
-flywheel — 2D game asset, a single cast-iron flywheel of an 18th-century beam engine seen exactly from the front so that it is a perfect circle, six gently curved spokes, a heavy rim, the hub exactly in the centre of the image, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 1:1 --no frame, shaft stand, text, numbers, watermark, border, shadow, photo, 3d render
+flywheel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a single cast-iron flywheel of an 18th-century beam engine seen exactly from the front so that it is a perfect circle, six gently curved spokes, a heavy rim, the hub exactly in the centre of the image, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, frame, shaft stand, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**engine_body** – Dampfmaschine ohne Balancier und Schwungrad · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 68 Wörter
+**engine_body** – Dampfmaschine ohne Balancier und Schwungrad · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 76 Wörter  
+*20.11.: Zylinder mit Kolbenstange, Säule und Ziegelsockel, ohne eingemalten Balancier; Kolbenstange und Säulenkopf misst der Import.*
 ```
-engine_body — 2D game asset, the body of a Boulton and Watt style beam engine around 1785 seen from the side: a tall vertical cast-iron steam cylinder with a piston rod sticking out of the top, a brick and timber engine bed, a tall cast-iron column on the right that would carry a beam, pipes and valve gear, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no rocking beam, flywheel, smoke, text, numbers, watermark, border, shadow, photo, 3d render
-```
-
-**engine_beam** – Balancier · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 61 Wörter
-```
-engine_beam — 2D game asset, a single cast-iron rocking beam of an 18th-century beam engine seen from the side: long horizontal beam, thicker in the middle and tapering to both ends, an open lattice pattern, a round pivot hole exactly in the centre and connection eyes at both ends, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 1:1 --no column, engine, text, numbers, watermark, border, shadow, photo, 3d render
+engine_body — Flat orthographic side elevation, like a technical drawing. 2D game asset, the body of a Boulton and Watt style beam engine around 1785 seen from the side: a tall vertical cast-iron steam cylinder with a piston rod sticking out of the top, a brick and timber engine bed, a tall cast-iron column on the right that would carry a beam, pipes and valve gear, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, rocking beam, flywheel, smoke, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**steam_hammer_frame** – Dampfhammer: Gestell (Epoche 9) · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 91 Wörter
+**engine_beam** – Balancier · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 69 Wörter  
+*20.11.: gusseiserner Gitter-Balancier mit Mittellager und Augen an den Enden, flache Seitenansicht.*
 ```
-steam_hammer_frame — 2D game asset, the frame of an 1840s Nasmyth steam hammer exact front view (orthographic): two tall cast-iron standards shaped like an inverted V on each side, joined at the top by a heavy cross beam that carries a vertical steam cylinder with flanges and a valve chest, a control lever with a handle on the right standard, a tall empty open gap in the middle between the standards where the hammer moves, hand-painted 2D game art, dark ink outlines, dark iron with rivets and bolts, on pure flat white background --ar 3:4 --no perspective, hammer head, piston rod, anvil, text, numbers, watermark, border, shadow, photo, 3d render
-```
-
-**steam_hammer_ram** – Dampfhammer: Bär mit Kolbenstange · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 64 Wörter
-```
-steam_hammer_ram — 2D game asset, the moving ram (tup) of an 1840s steam hammer exact front view (orthographic): a long vertical polished piston rod at the top fixed into a heavy rectangular cast-iron hammer block with guide grooves on both sides and a flat steel die at the very bottom, upright and perfectly vertical, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:2 --no perspective, frame, cylinder, anvil, text, numbers, watermark, border, shadow, photo, 3d render
+engine_beam — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single cast-iron rocking beam of an 18th-century beam engine seen from the side: long horizontal beam, thicker in the middle and tapering to both ends, an open lattice pattern, a round pivot hole exactly in the centre and connection eyes at both ends, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, column, engine, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**steam_hammer_anvil** – Dampfhammer: Schabotte (Ambossblock) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 57 Wörter
+**steam_hammer_frame** – Dampfhammer: Gestell (Epoche 9) · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4** · 99 Wörter  
+*20.11.: zwei A-Ständer, Querhaupt mit Zylinder, Steuerhebel rechts – frontal. Schmaler als das bisher gezeichnete Gestell, wirkt im Spiel aber gut.*
 ```
-steam_hammer_anvil — 2D game asset, the anvil block (schabotte) of an 1840s steam hammer exact front view (orthographic): a massive squat cast-iron block, wider at the base, with a flat steel die on top held by a dovetail and wedges, set on heavy oak timbers, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 3:2 --no perspective, hammer, frame, text, numbers, watermark, border, shadow, photo, 3d render
+steam_hammer_frame — Flat orthographic front elevation, like a technical drawing. 2D game asset, the frame of an 1840s Nasmyth steam hammer exact front view (orthographic): two tall cast-iron standards shaped like an inverted V on each side, joined at the top by a heavy cross beam that carries a vertical steam cylinder with flanges and a valve chest, a control lever with a handle on the right standard, a tall empty open gap in the middle between the standards where the hammer moves, hand-painted 2D game art, dark ink outlines, dark iron with rivets and bolts, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, hammer head, piston rod, anvil, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**steam_hammer_ram** – Dampfhammer: Bär mit Kolbenstange · ✅ gut (Midjourney)  
+Regler: **Portrait 1:2** · 72 Wörter  
+*20.11.: Hammerblock eher klein, die Kolbenstange läuft bis zur Bahn durch; das Spiel zeigt nur den unteren Teil – im Spiel stimmig.*
+```
+steam_hammer_ram — Flat orthographic front elevation, like a technical drawing. 2D game asset, the moving ram (tup) of an 1840s steam hammer exact front view (orthographic): a long vertical polished piston rod at the top fixed into a heavy rectangular cast-iron hammer block with guide grooves on both sides and a flat steel die at the very bottom, upright and perfectly vertical, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, frame, cylinder, anvil, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**steam_hammer_anvil** – Dampfhammer: Schabotte (Ambossblock) · ✅ gut (Midjourney)  
+Regler: **Landscape 3:2** · 65 Wörter  
+*20.11.: massive Schabotte mit Gesenk, Keilen und Eichenbalken; leicht von oben – im Spiel unauffällig.*
+```
+steam_hammer_anvil — Flat orthographic front elevation, like a technical drawing. 2D game asset, the anvil block (schabotte) of an 1840s steam hammer exact front view (orthographic): a massive squat cast-iron block, wider at the base, with a flat steel die on top held by a dovetail and wedges, set on heavy oak timbers, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, hammer, frame, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **steam_hammer_large_frame** – Gestell des großen Dampfhammers (Epoche 10) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 3:4** · 71 Wörter
+Regler: **Portrait 3:4** · 79 Wörter
 ```
-steam_hammer_large_frame — 2D game asset, the frame of a huge 1870s double-standard steam hammer exact front view (orthographic): two massive riveted wrought-iron standards forming an arch, a large steam cylinder on top with pipes and valve gear, a platform with railing for the hammer driver, a tall empty open gap in the middle where the hammer moves, hand-painted 2D game art, dark ink outlines, dark iron with rivets, on pure flat white background --ar 3:4 --no perspective, hammer head, piston rod, anvil, text, numbers, watermark, border, shadow, photo, 3d render
+steam_hammer_large_frame — Flat orthographic front elevation, like a technical drawing. 2D game asset, the frame of a huge 1870s double-standard steam hammer exact front view (orthographic): two massive riveted wrought-iron standards forming an arch, a large steam cylinder on top with pipes and valve gear, a platform with railing for the hammer driver, a tall empty open gap in the middle where the hammer moves, hand-painted 2D game art, dark ink outlines, dark iron with rivets, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, hammer head, piston rod, anvil, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **Ladenbilder der Maschinen** (ganze Maschine als ein Bild, nur für den Laden)
 
 **machine_water_helve** – Wasser-Schwanzhammer (Ladenbild) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 53 Wörter
+Regler: **Square 1:1** · 61 Wörter
 ```
-machine_water_helve — 2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+machine_water_helve — Flat orthographic side elevation, like a technical drawing. 2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **machine_steam_helve** – Dampf-Schwanzhammer (Ladenbild) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 51 Wörter
+Regler: **Square 1:1** · 59 Wörter
 ```
-machine_steam_helve — 2D game asset, a 1790s steam-powered helve hammer: a small beam engine with a flywheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+machine_steam_helve — Flat orthographic side elevation, like a technical drawing. 2D game asset, a 1790s steam-powered helve hammer: a small beam engine with a flywheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **machine_nasmyth** – Nasmyth-Dampfhammer (Ladenbild) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 42 Wörter
+Regler: **Square 1:1** · 50 Wörter
 ```
-machine_nasmyth — 2D game asset, an 1840s Nasmyth steam hammer: two cast-iron standards, a steam cylinder on top, the hammer block hanging above a massive anvil block, a control lever, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+machine_nasmyth — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 1840s Nasmyth steam hammer: two cast-iron standards, a steam cylinder on top, the hammer block hanging above a massive anvil block, a control lever, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **machine_great_steam_hammer** – Großer Dampfhammer (Ladenbild) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 40 Wörter
+Regler: **Square 1:1** · 48 Wörter
 ```
-machine_great_steam_hammer — 2D game asset, a huge 1870s steam hammer with riveted wrought-iron arch standards, a large cylinder, a platform for the driver and a massive anvil block, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+machine_great_steam_hammer — Flat orthographic front elevation, like a technical drawing. 2D game asset, a huge 1870s steam hammer with riveted wrought-iron arch standards, a large cylinder, a platform for the driver and a massive anvil block, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ## E · Werkstücke (Rohling + 80)
@@ -503,9 +511,9 @@ carriage_fitting — 2D game asset, a single forged gun-carriage fitting (cap sq
 ```
 
 **rudder_pintle** – Ruderfingerling · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 93 Wörter
+Regler: **Square 1:1** · 101 Wörter
 ```
-rudder_pintle — 2D game asset, a single forged rudder pintle for a sailing ship: long flat iron strap with four bolt holes, at the left end bent into a thick round pin pointing downwards at a right angle, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+rudder_pintle — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged rudder pintle for a sailing ship: long flat iron strap with four bolt holes, at the left end bent into a thick round pin pointing downwards at a right angle, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 4 – Stahl & Tuch (1750–1765)
@@ -529,9 +537,9 @@ knife — 2D game asset, a single forged knife blade without handle: straight sp
 ```
 
 **spring** – Feder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 77 Wörter
+Regler: **Square 1:1** · 85 Wörter
 ```
-spring — 2D game asset, a single hand-forged coil spring: steel wire wound into eight even coils with open straight ends, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+spring — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single hand-forged coil spring: steel wire wound into eight even coils with open straight ends, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **chisel** – Meißel · ⬜ noch nicht vorhanden  
@@ -567,9 +575,9 @@ piston_rod — 2D game asset, a single forged piston rod for a steam engine: lon
 ```
 
 **valve_part** – Ventilteil · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 86 Wörter
+Regler: **Square 1:1** · 94 Wörter
 ```
-valve_part — 2D game asset, a single forged steam-engine valve: round flat valve disc with a bevelled rim on the left and a straight round valve stem pointing to the right, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+valve_part — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-engine valve: round flat valve disc with a bevelled rim on the left and a straight round valve stem pointing to the right, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **beam_strap** – Balancierbeschlag · ⬜ noch nicht vorhanden  
@@ -611,9 +619,9 @@ pump_rod — 2D game asset, a single section of forged pump rod for a Cornish mi
 ### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
 
 **boiler_rivet** – Kesselniete · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 78 Wörter
+Regler: **Square 1:1** · 86 Wörter
 ```
-boiler_rivet — 2D game asset, a single large forged boiler rivet: short thick round shank with a domed snap head on the left, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+boiler_rivet — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single large forged boiler rivet: short thick round shank with a domed snap head on the left, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **boiler_plate** – Kesselblech · ⬜ noch nicht vorhanden  
@@ -647,9 +655,9 @@ lathe_tool — 2D game asset, a single forged lathe cutting tool: short square s
 ```
 
 **leaf_spring** – Blattfeder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 94 Wörter
+Regler: **Square 1:1** · 102 Wörter
 ```
-leaf_spring — 2D game asset, a single forged carriage leaf spring: a stack of five gently curved steel leaves of decreasing length held by a central iron clamp band, rolled eyes at both ends of the longest leaf, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+leaf_spring — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged carriage leaf spring: a stack of five gently curved steel leaves of decreasing length held by a central iron clamp band, rolled eyes at both ends of the longest leaf, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **wagon_axle** – Wagenachse · ⬜ noch nicht vorhanden  
@@ -665,9 +673,9 @@ large_shaft — 2D game asset, a single forged mill drive shaft: very long thick
 ```
 
 **crankshaft** – Kurbelwelle · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 89 Wörter
+Regler: **Square 1:1** · 97 Wörter
 ```
-crankshaft — 2D game asset, a single forged crankshaft: straight round iron shaft with one single crank throw in the middle, made of two rectangular webs and a round crankpin offset to one side, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+crankshaft — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged crankshaft: straight round iron shaft with one single crank throw in the middle, made of two rectangular webs and a round crankpin offset to one side, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 7 – Krieg & Erfindergeist (1800–1820)
@@ -1215,9 +1223,9 @@ buttons_leather_brass — Set of 4 game UI buttons, 18th-century georgian style,
 ```
 
 **frame_wood_iron** – Holzrahmen mit Eisenplatte (Status- und Navigationsleiste) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 31 Wörter
+Regler: **Square 1:1** · 39 Wörter
 ```
-frame_wood_iron — 2D UI window frame, 18th-century forge workshop style, dark oak wood frame with brass rivets and iron fittings, game interface panel, front view, orthographic projection, clean edges, isolated on white background --ar 1:1 --no 3d perspective, text, numbers, watermark, border, shadow, photo, 3d render
+frame_wood_iron — Flat orthographic front elevation, like a technical drawing. 2D UI window frame, 18th-century forge workshop style, dark oak wood frame with brass rivets and iron fittings, game interface panel, front view, orthographic projection, clean edges, isolated on white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, 3d perspective, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **button_ember** – Glut-Knopf HAMMERN · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
@@ -1270,9 +1278,9 @@ pointer_sheet — 2D game asset, antique brass indicator needle, fine clockwork 
 ```
 
 **pyrometer_dial** – Pyrometer-Zifferblatt ohne Zeiger · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 40 Wörter
+Regler: **Square 1:1** · 48 Wörter
 ```
-pyrometer_dial — 2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks, antique clockwork style, dark iron base, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no needle, pointer, numbers, text, watermark, border, shadow, photo, 3d render
+pyrometer_dial — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks, antique clockwork style, dark iron base, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, needle, pointer, numbers, text, watermark, border, shadow, photo, 3d render
 ```
 
 **stars** – Sterne für die Bewertung (voll und leer) · ⬜ noch nicht vorhanden (optional)  
@@ -1282,15 +1290,15 @@ stars — 2D game UI icons, two five-pointed stars side by side: one polished go
 ```
 
 **hourglass** – Sanduhr (Eilaufträge) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 27 Wörter
+Regler: **Square 1:1** · 35 Wörter
 ```
-hourglass — 2D game UI icon, an 18th-century brass and wood hourglass with golden sand, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+hourglass — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, an 18th-century brass and wood hourglass with golden sand, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **trough** – Löschtrog (ab Epoche 4) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 2:1** · 53 Wörter
+Regler: **Landscape 2:1** · 61 Wörter
 ```
-trough — 2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, filled with dark water whose surface is visible, standing on two short trestles, shown in a straight front view slightly from above, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 2:1 --no steam, tools, text, numbers, watermark, border, shadow, photo, 3d render
+trough — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, filled with dark water whose surface is visible, standing on two short trestles, shown in a straight front view slightly from above, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, steam, tools, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **app_icon** – App-Icon · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
@@ -1312,320 +1320,320 @@ Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeug
 ### Epoche 1 – Die Dorfschmiede (1700–1715)
 
 **furn_e1_fuel** – Brennstoff: Holzkohlekorb · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 42 Wörter
+Regler: **Square 1:1** · 50 Wörter
 ```
-furn_e1_fuel — 2D game asset, a woven wicker basket full of charcoal, early 18th-century English village smithy, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e1_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a woven wicker basket full of charcoal, early 18th-century English village smithy, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e1_tools** – Werkzeugwand: Zangenbrett · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 48 Wörter
+Regler: **Portrait 3:4** · 56 Wörter
 ```
-furn_e1_tools — 2D game asset, a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e1_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e1_bench** – Werkbank: Schleifstein mit Kurbel · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 45 Wörter
+Regler: **Landscape 3:2** · 53 Wörter
 ```
-furn_e1_bench — 2D game asset, a hand-cranked sandstone grindstone in a simple oak frame with a water trough, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e1_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a hand-cranked sandstone grindstone in a simple oak frame with a water trough, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e1_trade** – Kundschaft: Bemaltes Brett mit Hufeisen über dem Tor · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 49 Wörter
+Regler: **Landscape 3:2** · 57 Wörter
 ```
-furn_e1_trade — 2D game asset, a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e1_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e1_light** – Licht und Lager: Talglaterne · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 43 Wörter
+Regler: **Portrait 1:2** · 51 Wörter
 ```
-furn_e1_light — 2D game asset, a small tin tallow lantern with horn panes, hanging from an iron hook, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e1_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small tin tallow lantern with horn panes, hanging from an iron hook, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 2 – Kutschen & Handelswege (1715–1735)
 
 **furn_e2_fuel** – Brennstoff: Kohlenkiste · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 43 Wörter
+Regler: **Square 1:1** · 51 Wörter
 ```
-furn_e2_fuel — 2D game asset, an iron-bound wooden coal chest full of coal, with a shovel, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e2_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, an iron-bound wooden coal chest full of coal, with a shovel, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e2_tools** – Werkzeugwand: Werkzeugwand mit Gesenken · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 43 Wörter
+Regler: **Portrait 3:4** · 51 Wörter
 ```
-furn_e2_tools — 2D game asset, a wooden tool wall with tongs, swages and fullers on pegs, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e2_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden tool wall with tongs, swages and fullers on pegs, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e2_bench** – Werkbank: Werkbank mit Schraubstock · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 41 Wörter
+Regler: **Landscape 3:2** · 49 Wörter
 ```
-furn_e2_bench — 2D game asset, a heavy oak workbench with a blacksmith's leg vice, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e2_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a heavy oak workbench with a blacksmith's leg vice, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e2_trade** – Kundschaft: Schild „Smith & Farrier“ an der Straße · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 46 Wörter
+Regler: **Landscape 3:2** · 54 Wörter
 ```
-furn_e2_trade — 2D game asset, a painted hanging inn-style sign board showing a horseshoe and a hammer, wrought-iron bracket, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e2_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a painted hanging inn-style sign board showing a horseshoe and a hammer, wrought-iron bracket, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e2_light** – Licht und Lager: Stabeisenregal · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 40 Wörter
+Regler: **Portrait 1:2** · 48 Wörter
 ```
-furn_e2_light — 2D game asset, a wooden rack holding long iron bars of different sections, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e2_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden rack holding long iron bars of different sections, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 3 – Hafen & Royal Navy (1735–1750)
 
 **furn_e3_fuel** – Brennstoff: Kohlenschütte · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 46 Wörter
+Regler: **Square 1:1** · 54 Wörter
 ```
-furn_e3_fuel — 2D game asset, a wooden coal chute with a heap of coal at its foot, naval dockyard around 1740, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e3_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden coal chute with a heap of coal at its foot, naval dockyard around 1740, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e3_tools** – Werkzeugwand: Gesenkblock · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 46 Wörter
+Regler: **Portrait 3:4** · 54 Wörter
 ```
-furn_e3_tools — 2D game asset, a square cast-iron swage block with many holes and shaped grooves standing on a wooden stand, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e3_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a square cast-iron swage block with many holes and shaped grooves standing on a wooden stand, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e3_bench** – Werkbank: Werkbank mit Feilen · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 44 Wörter
+Regler: **Landscape 3:2** · 52 Wörter
 ```
-furn_e3_bench — 2D game asset, a tarred oak workbench with a vice and a row of files, around 1740, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e3_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a tarred oak workbench with a vice and a row of files, around 1740, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e3_trade** – Kundschaft: Anschlagtafel der Admiralität · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 46 Wörter
+Regler: **Landscape 3:2** · 54 Wörter
 ```
-furn_e3_trade — 2D game asset, a wooden notice board with pinned paper orders and an anchor emblem, around 1740 (blank papers), single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e3_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden notice board with pinned paper orders and an anchor emblem, around 1740 (blank papers), single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e3_light** – Licht und Lager: Schiffslaterne · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 39 Wörter
+Regler: **Portrait 1:2** · 47 Wörter
 ```
-furn_e3_light — 2D game asset, a brass and copper ship's lantern with glass panes, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e3_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a brass and copper ship's lantern with glass panes, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 4 – Stahl & Tuch (1750–1765)
 
 **furn_e4_fuel** – Brennstoff: Koksvorrat · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 39 Wörter
+Regler: **Square 1:1** · 47 Wörter
 ```
-furn_e4_fuel — 2D game asset, a timber bin filled with grey coke, around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e4_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a timber bin filled with grey coke, around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e4_tools** – Werkzeugwand: Zangenreihe für Klingen · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 46 Wörter
+Regler: **Portrait 3:4** · 54 Wörter
 ```
-furn_e4_tools — 2D game asset, a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e4_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e4_bench** – Werkbank: Schleifbock mit Wasserrad · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 50 Wörter
+Regler: **Landscape 3:2** · 58 Wörter
 ```
-furn_e4_bench — 2D game asset, a grinding bench with a large round grindstone driven by a belt from a small water wheel, Sheffield around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e4_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a grinding bench with a large round grindstone driven by a belt from a small water wheel, Sheffield around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e4_trade** – Kundschaft: Firmenmarke der Cutlers' Company · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 43 Wörter
+Regler: **Landscape 3:2** · 51 Wörter
 ```
-furn_e4_trade — 2D game asset, a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e4_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e4_light** – Licht und Lager: Öllampen · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 42 Wörter
+Regler: **Portrait 1:2** · 50 Wörter
 ```
-furn_e4_light — 2D game asset, a row of three small brass oil lamps on a wooden shelf, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e4_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a row of three small brass oil lamps on a wooden shelf, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
 
 **furn_e5_fuel** – Brennstoff: Kohlenhund · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 41 Wörter
+Regler: **Square 1:1** · 49 Wörter
 ```
-furn_e5_fuel — 2D game asset, a small four-wheeled wooden coal tub full of coal, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e5_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small four-wheeled wooden coal tub full of coal, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e5_tools** – Werkzeugwand: Werkzeugwand mit Setzhämmern · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 44 Wörter
+Regler: **Portrait 3:4** · 52 Wörter
 ```
-furn_e5_tools — 2D game asset, a wooden tool wall with set hammers, flatters and swages on pegs, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e5_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden tool wall with set hammers, flatters and swages on pegs, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e5_bench** – Werkbank: Drehbank mit Fußantrieb · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 43 Wörter
+Regler: **Landscape 3:2** · 51 Wörter
 ```
-furn_e5_bench — 2D game asset, a wooden treadle lathe with a foot pedal and a flywheel, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e5_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden treadle lathe with a foot pedal and a flywheel, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e5_trade** – Kundschaft: Schreibpult mit Auftragsbuch · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 48 Wörter
+Regler: **Landscape 3:2** · 56 Wörter
 ```
-furn_e5_trade — 2D game asset, a tall wooden writing desk with an open leather order book and a quill, around 1780 (blank pages), single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e5_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a tall wooden writing desk with an open leather order book and a quill, around 1780 (blank pages), single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e5_light** – Licht und Lager: Stabeisenlager · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 40 Wörter
+Regler: **Portrait 1:2** · 48 Wörter
 ```
-furn_e5_light — 2D game asset, a stack of wrought-iron bars and plates on timber bearers, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e5_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a stack of wrought-iron bars and plates on timber bearers, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
 
 **furn_e6_fuel** – Brennstoff: Koksbunker · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 41 Wörter
+Regler: **Square 1:1** · 49 Wörter
 ```
-furn_e6_fuel — 2D game asset, a brick coke bunker with a wooden hatch, ironworks around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e6_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a brick coke bunker with a wooden hatch, ironworks around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e6_tools** – Werkzeugwand: Gesenksatz · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 44 Wörter
+Regler: **Portrait 3:4** · 52 Wörter
 ```
-furn_e6_tools — 2D game asset, a set of iron swages and dies arranged on a wooden rack, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e6_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a set of iron swages and dies arranged on a wooden rack, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e6_bench** – Werkbank: Schraubstockbank · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 41 Wörter
+Regler: **Landscape 3:2** · 49 Wörter
 ```
-furn_e6_bench — 2D game asset, a long workbench with two vices and iron tools, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e6_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a long workbench with two vices and iron tools, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e6_trade** – Kundschaft: Kontor mit Schreiber · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 43 Wörter
+Regler: **Landscape 3:2** · 51 Wörter
 ```
-furn_e6_trade — 2D game asset, a small wooden counting-house booth with a sloped desk and ledgers, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e6_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small wooden counting-house booth with a sloped desk and ledgers, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e6_light** – Licht und Lager: Öllampenreihe · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 41 Wörter
+Regler: **Portrait 1:2** · 49 Wörter
 ```
-furn_e6_light — 2D game asset, a row of three hanging oil lamps on an iron bar, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e6_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a row of three hanging oil lamps on an iron bar, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 7 – Krieg & Erfindergeist (1800–1820)
 
 **furn_e7_fuel** – Brennstoff: Kohlenaufzug · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 45 Wörter
+Regler: **Square 1:1** · 53 Wörter
 ```
-furn_e7_fuel — 2D game asset, a wooden coal hoist with a rope, pulley and a coal bucket, London around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e7_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden coal hoist with a rope, pulley and a coal bucket, London around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e7_tools** – Werkzeugwand: Normallehren und Schablonen · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 43 Wörter
+Regler: **Portrait 3:4** · 51 Wörter
 ```
-furn_e7_tools — 2D game asset, a wall board with iron templates, gauges and squares, engineering works around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e7_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wall board with iron templates, gauges and squares, engineering works around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e7_bench** – Werkbank: Werkbank mit Messschraube · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 43 Wörter
+Regler: **Landscape 3:2** · 51 Wörter
 ```
-furn_e7_bench — 2D game asset, a cast-iron workbench with a vice and a brass bench micrometer, around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e7_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a cast-iron workbench with a vice and a brass bench micrometer, around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e7_trade** – Kundschaft: Messingschild am Tor · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 42 Wörter
+Regler: **Landscape 3:2** · 50 Wörter
 ```
-furn_e7_trade — 2D game asset, a polished brass name plate on a dark wooden board, around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e7_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a polished brass name plate on a dark wooden board, around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e7_light** – Licht und Lager: Gaslicht · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 45 Wörter
+Regler: **Portrait 1:2** · 53 Wörter
 ```
-furn_e7_light — 2D game asset, an early gas lamp on a wall bracket with a glass globe, London around 1812, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e7_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, an early gas lamp on a wall bracket with a glass globe, London around 1812, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 8 – Eisenbahnfieber (1820–1839)
 
 **furn_e8_fuel** – Brennstoff: Kohlenwagen auf Schienen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 44 Wörter
+Regler: **Square 1:1** · 52 Wörter
 ```
-furn_e8_fuel — 2D game asset, a small iron coal wagon on a short piece of rail track, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e8_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small iron coal wagon on a short piece of rail track, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e8_tools** – Werkzeugwand: Gesenke für Kupplungen · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 43 Wörter
+Regler: **Portrait 3:4** · 51 Wörter
 ```
-furn_e8_tools — 2D game asset, a rack with heavy swages and dies for railway coupling links, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e8_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a rack with heavy swages and dies for railway coupling links, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e8_bench** – Werkbank: Prüfbank · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 44 Wörter
+Regler: **Landscape 3:2** · 52 Wörter
 ```
-furn_e8_bench — 2D game asset, a cast-iron proving bench for testing chains, with a lever and weights, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e8_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a cast-iron proving bench for testing chains, with a lever and weights, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e8_trade** – Kundschaft: Anschlag der Eisenbahngesellschaft · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 44 Wörter
+Regler: **Landscape 3:2** · 52 Wörter
 ```
-furn_e8_trade — 2D game asset, a wooden notice board with a railway company poster showing a locomotive, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e8_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden notice board with a railway company poster showing a locomotive, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e8_light** – Licht und Lager: Gaslicht · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 42 Wörter
+Regler: **Portrait 1:2** · 50 Wörter
 ```
-furn_e8_light — 2D game asset, a cast-iron gas lamp on a wall bracket with a glass globe, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e8_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, a cast-iron gas lamp on a wall bracket with a glass globe, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 9 – Der Dampfhammer (1839–1860)
 
 **furn_e9_fuel** – Brennstoff: Bunker mit Schütte · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 41 Wörter
+Regler: **Square 1:1** · 49 Wörter
 ```
-furn_e9_fuel — 2D game asset, a riveted iron coal bunker with a chute, foundry around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e9_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a riveted iron coal bunker with a chute, foundry around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e9_tools** – Werkzeugwand: Drehkran · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 42 Wörter
+Regler: **Portrait 3:4** · 50 Wörter
 ```
-furn_e9_tools — 2D game asset, a small cast-iron jib crane with a chain hoist, foundry around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e9_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small cast-iron jib crane with a chain hoist, foundry around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e9_bench** – Werkbank: Prüfbank mit Lehren · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 40 Wörter
+Regler: **Landscape 3:2** · 48 Wörter
 ```
-furn_e9_bench — 2D game asset, a cast-iron proving bench with gauges and callipers, around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e9_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a cast-iron proving bench with gauges and callipers, around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e9_trade** – Kundschaft: Telegraf · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 42 Wörter
+Regler: **Landscape 3:2** · 50 Wörter
 ```
-furn_e9_trade — 2D game asset, an early electric needle telegraph instrument in a wooden case, around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e9_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, an early electric needle telegraph instrument in a wooden case, around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e9_light** – Licht und Lager: Gaslaternen · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 39 Wörter
+Regler: **Portrait 1:2** · 47 Wörter
 ```
-furn_e9_light — 2D game asset, two gas lamps with glass globes on iron brackets, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e9_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, two gas lamps with glass globes on iron brackets, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 10 – Das Stahlzeitalter (1860–1880)
 
 **furn_e10_fuel** – Brennstoff: Gasgenerator · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 44 Wörter
+Regler: **Square 1:1** · 52 Wörter
 ```
-furn_e10_fuel — 2D game asset, a riveted iron gas producer with pipes and a valve wheel, steelworks around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e10_fuel — Flat orthographic front elevation, like a technical drawing. 2D game asset, a riveted iron gas producer with pipes and a valve wheel, steelworks around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e10_tools** – Werkzeugwand: Laufkran · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 45 Wörter
+Regler: **Portrait 3:4** · 53 Wörter
 ```
-furn_e10_tools — 2D game asset, a section of an overhead travelling crane with a hook and chain, steelworks around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e10_tools — Flat orthographic front elevation, like a technical drawing. 2D game asset, a section of an overhead travelling crane with a hook and chain, steelworks around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e10_bench** – Werkbank: Werkstoff-Prüfmaschine · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 44 Wörter
+Regler: **Landscape 3:2** · 52 Wörter
 ```
-furn_e10_bench — 2D game asset, a large horizontal materials testing machine with a lever, weights and dial, around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e10_bench — Flat orthographic front elevation, like a technical drawing. 2D game asset, a large horizontal materials testing machine with a lever, weights and dial, around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e10_trade** – Kundschaft: Kontor mit Telegraf · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 42 Wörter
+Regler: **Landscape 3:2** · 50 Wörter
 ```
-furn_e10_trade — 2D game asset, a small office desk with a telegraph key and sounder, around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e10_trade — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small office desk with a telegraph key and sounder, around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **furn_e10_light** – Licht und Lager: Gaslicht und Bogenlampe · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 41 Wörter
+Regler: **Portrait 1:2** · 49 Wörter
 ```
-furn_e10_light — 2D game asset, an early electric arc lamp in an iron frame, around 1878, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+furn_e10_light — Flat orthographic front elevation, like a technical drawing. 2D game asset, an early electric arc lamp in an iron frame, around 1878, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 

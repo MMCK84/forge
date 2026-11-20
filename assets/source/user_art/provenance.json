@@ -100,10 +100,14 @@
    "hinweis": "20.11.: gusseisernes Schwungrad mit acht geraden Speichen (statt sechs gebogenen) – unkritisch."
   },
   "engine_body": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Zylinder mit Kolbenstange, Säule und Ziegelsockel, ohne eingemalten Balancier; Kolbenstange und Säulenkopf misst der Import."
   },
   "engine_beam": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: gusseiserner Gitter-Balancier mit Mittellager und Augen an den Enden, flache Seitenansicht."
   },
   "machine_water_helve": {
    "quelle": "Gemini"
@@ -207,6 +211,21 @@
    "quelle": "Midjourney",
    "bewertung": "gut",
    "hinweis": "20.11.: genieteter Eisenkörper mit Ankerstäben, weißglühende Arbeitsöffnung, Gasleitungen mit Ventilen beidseitig, Schornsteinstutzen. Gemalten Rauch schneidet der Import weg."
+  },
+  "steam_hammer_frame": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: zwei A-Ständer, Querhaupt mit Zylinder, Steuerhebel rechts – frontal. Schmaler als das bisher gezeichnete Gestell, wirkt im Spiel aber gut."
+  },
+  "steam_hammer_ram": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Hammerblock eher klein, die Kolbenstange läuft bis zur Bahn durch; das Spiel zeigt nur den unteren Teil – im Spiel stimmig."
+  },
+  "steam_hammer_anvil": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: massive Schabotte mit Gesenk, Keilen und Eichenbalken; leicht von oben – im Spiel unauffällig."
   }
  },
  "abgelehnt": {

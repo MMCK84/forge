@@ -32,11 +32,13 @@ const FRAME_DRAW_HEIGHT := 328.0
 var FRAME_BEARING: Vector2 = UserMachineMeta.META.get("FRAME_BEARING", Vector2(330, 30))   # Lager oben auf dem Gestell
 var FRAME_SIZE: Vector2 = UserMachineMeta.META.get("FRAME_HEIGHT", Vector2(670, 657))
 const WHEEL_SCALE := 0.95
-const ENGINE_PIVOT := Vector2(452, 64)    # Säulenkopf der Dampfmaschine
-const ENGINE_ROD := Vector2(215, 4)       # Kolbenstange oben
-const ENGINE_SCALE := 0.42
-const ENGINE_BEAM_PIVOT := Vector2(350, 48)
-const ENGINE_BEAM_HALF := 325.0
+var ENGINE_PIVOT: Vector2 = UserMachineMeta.META.get("ENGINE_PIVOT", Vector2(452, 64))    # Säulenkopf der Dampfmaschine
+var ENGINE_ROD: Vector2 = UserMachineMeta.META.get("ENGINE_ROD", Vector2(215, 4))         # Kolbenstange oben
+var ENGINE_SIZE: Vector2 = UserMachineMeta.META.get("ENGINE_SIZE", Vector2(612, 666))
+## Höhe der Dampfmaschine im Spiel (Bühnen-Pixel), unabhängig von der Grafik
+const ENGINE_DRAW_HEIGHT := 280.0
+var ENGINE_BEAM_PIVOT: Vector2 = UserMachineMeta.META.get("ENGINE_BEAM_PIVOT", Vector2(350, 48))
+var ENGINE_BEAM_HALF: float = UserMachineMeta.META.get("ENGINE_BEAM_HALF", Vector2(325, 0)).x
 
 
 func strike() -> void:
@@ -176,7 +178,8 @@ func _draw_user() -> bool:
 		var fw := Assets.user("machine_flywheel.png")
 		if eng == null or eb == null or fw == null:
 			return false
-		var es := eng.get_size() * ENGINE_SCALE
+		var engine_scale := ENGINE_DRAW_HEIGHT / maxf(1.0, ENGINE_SIZE.y)
+		var es := eng.get_size() * engine_scale
 		# rechte Kante knapp innerhalb der Bühne (Bühnenbreite 1080, eigene Position abziehen)
 		var eo := Vector2(1060.0 - position.x - es.x, pivot.y + 320.0 - es.y)
 		var fc := eo + Vector2(es.x + 10.0, es.y - 140.0)
@@ -185,8 +188,8 @@ func _draw_user() -> bool:
 		draw_texture_rect(fw, Rect2(-fs * 0.5, fs), false)
 		draw_set_transform(Vector2.ZERO)
 		draw_texture_rect(eng, Rect2(eo, es), false)
-		var col_top := eo + ENGINE_PIVOT * ENGINE_SCALE
-		var rod_top := eo + ENGINE_ROD * ENGINE_SCALE
+		var col_top := eo + ENGINE_PIVOT * engine_scale
+		var rod_top := eo + ENGINE_ROD * engine_scale
 		var bs := (col_top.x - rod_top.x) / ENGINE_BEAM_HALF
 		draw_set_transform(col_top, sin(_wheel * 2.0) * 0.18, Vector2(bs, bs))
 		draw_texture(eb, -ENGINE_BEAM_PIVOT)
@@ -237,9 +240,13 @@ func _draw_steam_hammer() -> void:
 		var fh := base - (top - 130.0)
 		var fw := fh * frame_t.get_width() / frame_t.get_height()
 		draw_texture_rect(frame_t, Rect2(cx - fw * 0.5, base - fh, fw, fh), false)
+		# Bär: so breit wie der Hammerblock; von der Kolbenstange nur der Teil unterhalb des Zylinders
 		var rw := 150.0 * k
-		var rh := rw * ram_t.get_height() / ram_t.get_width()
-		draw_texture_rect(ram_t, Rect2(cx - rw * 0.5, ram_bottom - rh, rw, rh), false)
+		var rs := rw / float(ram_t.get_width())
+		var vis := minf(float(ram_t.get_height()) * rs, ram_bottom - (top - 40.0))
+		var src_h := vis / rs
+		draw_texture_rect_region(ram_t, Rect2(cx - rw * 0.5, ram_bottom - vis, rw, vis),
+			Rect2(0.0, float(ram_t.get_height()) - src_h, float(ram_t.get_width()), src_h))
 		_draw_steam_puffs(Vector2(cx + 70.0 * k, top - 120.0 * k))
 		return
 	var iron := Color("34363b")

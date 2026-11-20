@@ -86,6 +86,8 @@ LESSONS = [
      "Raw nur noch, wenn die Form nicht stimmt; sonst Standard mit Stil-Referenz (ein Hintergrund oder eine Esse); `--no photo, 3d render`; Horn-Richtung gleicht der Import aus (spiegeln); Griff, Bahn und Ambossbahn misst der Import selbst"),
     ("20.11.", "Essen", "Esse Stufe 3 (neu) und Siemens-Ofen: Inhalt gelungen (zwei Bälge mit Hebel bzw. genieteter Gasofen), aber trotz `--no smoke` Rauch über dem Schornstein",
      "„the chimney top is clean (no smoke)“; den Rest schneidet der Import weg (`FORGE_SMOKE`), das Spiel erzeugt eigenen Rauch"),
+    ("20.11.", "alle Frontal-/Seitenansichten", "Midjourney malt freigestellte Objekte häufig perspektivisch, obwohl „front view“ im Prompt steht",
+     "Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten"),
     ("20.11.", "Maschinenteile", "neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock",
      "historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt"),
 ]
@@ -159,7 +161,27 @@ SHORTEN = [
 def shorten(prompt):
     for long, short in SHORTEN:
         prompt = prompt.replace(long, short)
-    return prompt
+    return view_first(prompt)
+
+
+# Midjourney zeichnet freigestellte Objekte oft perspektivisch, obwohl „front view“ im Prompt steht:
+# Die Ansicht kommt deshalb ganz an den Anfang (stärkste Gewichtung), dazu Verbote gegen Perspektive.
+VIEW_NEG = "(no perspective, no isometric view, no three-quarter view, no angled view, no vanishing point)"
+
+
+def view_first(prompt):
+    if "white background" not in prompt or "game background" in prompt:
+        return prompt
+    low = prompt.lower()
+    if "from directly above" in low or "top-down" in low:
+        return prompt
+    if "side view" in low or "from the side" in low or "side elevation" in low:
+        lead = "Flat orthographic side elevation, like a technical drawing"
+    elif "front view" in low or "from the front" in low or "front elevation" in low:
+        lead = "Flat orthographic front elevation, like a technical drawing"
+    else:
+        return prompt
+    return f"{lead} {VIEW_NEG}. " + prompt
 
 
 def midjourney(prompt):
@@ -616,7 +638,12 @@ def main():
               "| App-Icon, Store-Banner | **HD** | Standard | mittel | 0 | Fast |", "",
               "Raw hält sich genauer an Vorgaben wie „genau von der Seite“, malt aber fotorealistisch statt im gezeichneten Stil des Spiels – deshalb nur im Notfall. Für den Stil immer ein gelungenes Bild (Hintergrund oder Esse) als Stil-Referenz `--sref` anhängen. HD lohnt sich nur, wo das Bild "
               "groß zu sehen ist (Hintergründe 1080 × 1920, Icon, Banner); Gegenstände verkleinert das Spiel ohnehin auf 256–1000 px. "
-              "Für eine Serie (z. B. alle Werkstücke) das beste Bild als Stil-Referenz `--sref <URL>` an alle weiteren Prompts der Gruppe hängen.", ""]
+              "Für eine Serie (z. B. alle Werkstücke) das beste Bild als Stil-Referenz `--sref <URL>` an alle weiteren Prompts der Gruppe hängen.", "",
+              "**Gegen perspektivische Bilder** (Midjourney ignoriert „front view“ oft): (1) ein Bild mit der richtigen Blickrichtung als "
+              "**Bild-Prompt** vor den Text setzen und `--iw 1` anhängen – am besten das bisherige Bild desselben Objekts (auch Gemini) oder ein "
+              "gelungenes Bild derselben Gruppe; (2) Stylization niedrig lassen (ca. 10 %, notfalls `--s 50`); (3) wenn es dann noch kippt: "
+              "Raw einschalten **und** ein gezeichnetes Bild als Stil-Referenz `--sref` anhängen, damit es nicht fotorealistisch wird. "
+              "Leicht perspektivische Bilder lieber trotzdem schicken – oft reicht es im Spiel (z. B. die Schabotte).", ""]
     lines += ["", "## Regeln für alle Bilder", "",
               "- Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.",
               "- Objekt vollständig im Bild mit etwas Rand.",
