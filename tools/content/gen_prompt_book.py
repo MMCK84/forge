@@ -61,6 +61,8 @@ LESSONS = [
      "Blasebalg ausdrücklich beschreiben: tropfenförmig, zwei Holzbretter mit gefaltetem Leder, waagerecht auf einem Holzgestell; `--no cannon`"),
     ("20.11.", "Essen", "Bodenfleck trotz `--no ground patch`; Hintergrund cremeweiß statt reinweiß",
      "unkritisch – der Import schneidet beides weg"),
+    ("20.11.", "Hintergründe", "Epoche 1 in 3:4 auf Anhieb brauchbar: Kante bei 64 %, Fenster direkt unter den Deckenbalken, Wand hell",
+     "Format 3:4 und Bildaufbau-Text beibehalten; 50–65 % Kantenhöhe sind in Ordnung"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]

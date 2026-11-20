@@ -15,15 +15,15 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 0 |
+| ✅ gut (Midjourney) | 1 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 43 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 42 |
 | ⬜ noch nicht vorhanden | 81 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
-| A · Werkstatt-Hintergründe | 0 | 1 | 6 | 3 | 0 |
+| A · Werkstatt-Hintergründe | 1 | 1 | 5 | 3 | 0 |
 | B · Essen | 0 | 0 | 4 | 2 | 0 |
 | C · Amboss und Hämmer | 0 | 0 | 5 | 0 | 0 |
 | D · Maschinen | 0 | 0 | 7 | 3 | 4 |
@@ -56,6 +56,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Essen | Test-Esse (Stufe 1): Frontalansicht gut, aber geschlossener Backofen mit Kuppel, Glut tief in der Öffnung, nur ~35 % breit | „open smith's hearth, not an oven“, Glut liegt offen auf einem hüfthohen Herdtisch, Abzugshaube mit freiem Spalt darüber; `--no dome, oven, bread oven, arch over the fire, enclosed firebox` |
 | 20.11. | Essen | Blasebalg sah aus wie eine Kanone bzw. ein Fernrohr | Blasebalg ausdrücklich beschreiben: tropfenförmig, zwei Holzbretter mit gefaltetem Leder, waagerecht auf einem Holzgestell; `--no cannon` |
 | 20.11. | Essen | Bodenfleck trotz `--no ground patch`; Hintergrund cremeweiß statt reinweiß | unkritisch – der Import schneidet beides weg |
+| 20.11. | Hintergründe | Epoche 1 in 3:4 auf Anhieb brauchbar: Kante bei 64 %, Fenster direkt unter den Deckenbalken, Wand hell | Format 3:4 und Bildaufbau-Text beibehalten; 50–65 % Kantenhöhe sind in Ordnung |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -95,8 +96,9 @@ Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand
 
 **Format 3:4 (Regler: Portrait 3:4).** Im Hochformat 9:16 setzt Midjourney die Wand hartnäckig zu tief. In 3:4 landet die Wand-Boden-Kante bei 55–62 % der Bildhöhe genau richtig; das Spiel verlängert den dunklen Boden nach unten (dort liegt das Bedienfeld). Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` als **Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–65 % geht).
 
-**background_1** – Die Dorfschmiede (1700–1715) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Portrait 3:4**
+**background_1** – Die Dorfschmiede (1700–1715) · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4**  
+*20.11.: erstes Bild im Format 3:4 – Kante bei 64 % (Bühne y 915), Fenster knapp unter der Statusleiste, hell genug*
 ```
 background_1 — Vertical 3:4 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills the upper 55 percent of the image and meets the floor at 55 percent of the image height, an empty floor fills the lower 45 percent, the top 15 percent of the image shows only dark ceiling beams and the window sits just below them. Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. Interior of a small half-timbered English village smithy around 1700, seen from a high viewpoint. The back wall: timber frame with whitewashed wattle-and-daub panels, rough oak beams along the top. The floor comes towards the viewer: packed earth with straw and soot. A small window high on the back wall in the upper left corner shows green English countryside with a hedge and a distant church tower. On the far right edge a wooden rack with tongs, and a few horseshoes nailed to a beam. The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later. Warm orange firelight falls on the centre of the back wall from below, as if from an off-screen hearth; the corners are dim. The lower third is plain dark floor with little detail, getting darker towards the bottom edge --ar 3:4 --no forge, hearth, fire, anvil, machine, tools in the centre, people, animals, text, watermark, letters, numbers, date, signature, black bars, letterbox, border
 ```

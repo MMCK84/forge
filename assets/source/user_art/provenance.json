@@ -2,7 +2,9 @@
  "_hinweis": "Herkunft und Bewertung der gelieferten Grafiken. quelle: Gemini (bis 20.11.2026) oder Midjourney (seitdem). bewertung (nur Midjourney): gut | ändern; hinweis: was zu ändern ist. Gemini-Bilder werden später ersetzt.",
  "bilder": {
   "background_1": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: erstes Bild im Format 3:4 – Kante bei 64 % (Bühne y 915), Fenster knapp unter der Statusleiste, hell genug"
   },
   "background_2": {
    "quelle": "Gemini"
