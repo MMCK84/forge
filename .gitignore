@@ -6,3 +6,4 @@ export/
 build/
 *.tmp
 __pycache__/
+ForgeWorkshop_*.zip
