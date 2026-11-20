@@ -182,9 +182,19 @@ def main():
             if ext.lower() in (".png", ".webp", ".jpg", ".jpeg") and base.startswith("furn_"):
                 save(_cutout(os.path.join(fdir, fn)), base + ".png", max_w=420, max_h=420)
     # 16 Wasser-Schwanzhammer (weiß) als Bild im Laden
-    a = load("water_helve.webp")
-    sat = a.max(axis=2) - a.min(axis=2)
-    save(to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32)), "machine_water_helve.png", max_w=360)
+    for mid in ("water_helve", "steam_helve", "nasmyth", "great_steam_hammer"):
+        if os.path.exists(find_src(mid + ".png")):
+            a = load(mid + ".png")
+            sat = a.max(axis=2) - a.min(axis=2)
+            save(to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32)), "machine_" + mid + ".png", max_w=360)
+    # 23 Kundenporträts im ovalen Rahmen (weiß außen): assets/source/user_art/portraits/portrait_<kunde>.png
+    pdir = os.path.join(SRC, "portraits")
+    if os.path.isdir(pdir):
+        for fn in sorted(os.listdir(pdir)):
+            base, ext = os.path.splitext(fn)
+            if ext.lower() in (".png", ".webp", ".jpg", ".jpeg") and base.startswith("portrait_"):
+                img = _cutout(os.path.join(pdir, fn))
+                save(img.resize((PORTRAIT_W, int(round(img.height * PORTRAIT_W / img.width))), Image.LANCZOS), base + ".png")
 
     # 17 Werkstücke: assets/source/user_art/items/<item_id>.(webp|png|jpg) → item_<item_id>.png
     items_dir = os.path.join(SRC, "items")
@@ -347,6 +357,8 @@ def bg_variant(im, base, scale, square):
 
 # Hintergründe mit sehr tiefer Wand-Boden-Kante: so viele Pixel (Original) oben abschneiden
 BG_TOP_CROP = {"background_10": 300}
+
+PORTRAIT_W = 300   # Breite der Porträts (Auftragsbuch)
 
 HAMMER_IDS = ["hammer_hand", "hammer_cross_peen", "hammer_steel_faced", "hammer_crucible"]
 HAMMER_W = 360   # Breite der Hammergrafik (wird im Spiel mit 0.62 gezeichnet)

@@ -29,8 +29,10 @@ static func item_tex(item_id: String) -> Texture2D:
 	return t if t != null else tex("items/" + item_id + ".png")
 
 
+## Kundenporträt; ein Bild des Auftraggebers (ui/user/portrait_<kunde>.png) hat Vorrang.
 static func portrait(customer_id: String) -> Texture2D:
-	return tex("portraits/" + customer_id + ".png")
+	var u := user("portrait_" + customer_id + ".png")
+	return u if u != null else tex("portraits/" + customer_id + ".png")
 
 
 static func background(epoch: int) -> Texture2D:

@@ -17,20 +17,20 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 37 |
+| ✅ gut (Midjourney) | 51 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 22 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 18 |
 | ⬜ noch nicht vorhanden | 115 |
-| ⬜ noch nicht vorhanden (optional) | 62 |
+| ⬜ noch nicht vorhanden (optional) | 52 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
 | A · Werkstatt-Hintergründe | 10 | 0 | 0 | 0 | 0 |
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
-| D · Maschinen | 9 | 0 | 1 | 0 | 4 |
-| E · Werkstücke | 7 | 1 | 9 | 64 | 0 |
-| F · Kundenporträts | 0 | 0 | 0 | 0 | 54 |
+| D · Maschinen | 13 | 0 | 1 | 0 | 0 |
+| E · Werkstücke | 11 | 1 | 5 | 64 | 0 |
+| F · Kundenporträts | 6 | 0 | 0 | 0 | 48 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
 | H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
 
@@ -339,8 +339,9 @@ Regler: **Landscape 3:2** · 65 Wörter · Datei `steam_hammer_anvil`
 M9 — Flat orthographic front elevation, like a technical drawing. 2D game asset, the anvil block (schabotte) of an 1840s steam hammer exact front view (orthographic): a massive squat cast-iron block, wider at the base, with a flat steel die on top held by a dovetail and wedges, set on heavy oak timbers, hand-painted 2D game art, dark ink outlines, dark iron, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, hammer, frame, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**M10** – Gestell des großen Dampfhammers (Epoche 10) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 3:4** · 79 Wörter · Datei `steam_hammer_large_frame`
+**M10** – Gestell des großen Dampfhammers (Epoche 10) · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4** · 79 Wörter · Datei `steam_hammer_large_frame`  
+*20.11.: genietete Bogenständer, Zylinder mit Rohren, Plattform mit Geländer – frontal.*
 ```
 M10 — Flat orthographic front elevation, like a technical drawing. 2D game asset, the frame of a huge 1870s double-standard steam hammer exact front view (orthographic): two massive riveted wrought-iron standards forming an arch, a large steam cylinder on top with pipes and valve gear, a platform with railing for the hammer driver, a tall empty open gap in the middle where the hammer moves, hand-painted 2D game art, dark ink outlines, dark iron with rivets, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, hammer head, piston rod, anvil, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -353,20 +354,23 @@ Regler: **Square 1:1** · 61 Wörter · Datei `machine_water_helve`
 ML1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**ML2** – Dampf-Schwanzhammer (Ladenbild) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 59 Wörter · Datei `machine_steam_helve`
+**ML2** – Dampf-Schwanzhammer (Ladenbild) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 59 Wörter · Datei `machine_steam_helve`  
+*20.11.: Ladenbild: Balanciermaschine mit Schwungrad treibt den Schwanzhammer, Amboss rechts – Seitenansicht.*
 ```
 ML2 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a 1790s steam-powered helve hammer: a small beam engine with a flywheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**ML3** – Nasmyth-Dampfhammer (Ladenbild) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 50 Wörter · Datei `machine_nasmyth`
+**ML3** – Nasmyth-Dampfhammer (Ladenbild) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 50 Wörter · Datei `machine_nasmyth`  
+*20.11.: Ladenbild: Nasmyth-Dampfhammer frontal mit Ständern, Zylinder, Steuerhebel und Schabotte.*
 ```
 ML3 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 1840s Nasmyth steam hammer: two cast-iron standards, a steam cylinder on top, the hammer block hanging above a massive anvil block, a control lever, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**ML4** – Großer Dampfhammer (Ladenbild) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 48 Wörter · Datei `machine_great_steam_hammer`
+**ML4** – Großer Dampfhammer (Ladenbild) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 48 Wörter · Datei `machine_great_steam_hammer`  
+*20.11.: Ladenbild: großer Dampfhammer mit Bogenständern, Plattform und Treppe.*
 ```
 ML4 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a huge 1870s steam hammer with riveted wrought-iron arch standards, a large cylinder, a platform for the driver and a massive anvil block, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -375,28 +379,32 @@ ML4 — Flat orthographic front elevation, like a technical drawing. 2D game ass
 
 Kalt, nur Metall (kein Holz), von oben, weißer Hintergrund ohne Schatten, quadratisch. Die Glut färbt das Spiel ein.
 
-**W0** – Rohling (alle Epochen) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 69 Wörter · Datei `blank`
+**W0** – Rohling (alle Epochen) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 69 Wörter · Datei `blank`  
+*20.11.: Stabeisen-Rohling, flach von oben.*
 ```
 W0 — 2D game asset, a single piece of rectangular wrought iron bar stock, about eight times as long as it is wide, square cross-section, both ends roughly cut, horizontal from left to right, dark grey wrought iron with mill scale, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 1 – Die Dorfschmiede (1700–1715)
 
-**W1-1** – Nagel · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 64 Wörter · Datei `nail`
+**W1-1** – Nagel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter · Datei `nail`  
+*20.11.: geschmiedeter Nagel mit Rosenkopf.*
 ```
 W1-1 — 2D game asset, a single large hand-forged nail with a square tapering shank ending in a sharp point and a faceted hammered rosehead, horizontal with the head on the left, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-2** – Hufeisen · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 53 Wörter · Datei `horseshoe`
+**W1-2** – Hufeisen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 53 Wörter · Datei `horseshoe`  
+*20.11.: Hufeisen mit Nagellöchern, Öffnung unten.*
 ```
 W1-2 — 2D game asset, a single hand-forged horseshoe with a fullered groove and eight square nail holes, opening pointing down, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-3** – Haken · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 61 Wörter · Datei `hook`
+**W1-3** – Haken · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 61 Wörter · Datei `hook`  
+*20.11.: S-Haken.*
 ```
 W1-3 — 2D game asset, a single hand-forged S-shaped hanging hook made from round bar, pointed tip on the lower curve, small curled scroll on the upper end, upright, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -929,38 +937,44 @@ Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_carpenter`
 P1-6 — 2D game asset, a head-and-shoulders portrait of an English village carpenter of about 1710, leather apron, rolled sleeves, a pencil behind the ear, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P2-1** – the postmaster of Bath (Epoche 2–3) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_postmaster_bath`
+**P2-1** – the postmaster of Bath (Epoche 2–3) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_postmaster_bath`  
+*20.11.: Brustbild im ovalen Goldrahmen, passend zur Beschreibung; Import stellt den Rahmen frei.*
 ```
 P2-1 — 2D game asset, a head-and-shoulders portrait of a fashionable postmaster of Bath around 1725, neat tie wig, blue coat with brass buttons, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P2-2** – the coachbuilder of York (Epoche 2–3) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 58 Wörter · Datei `portrait_coachbuilder_york`
+**P2-2** – the coachbuilder of York (Epoche 2–3) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 58 Wörter · Datei `portrait_coachbuilder_york`  
+*20.11.: Brustbild im ovalen Goldrahmen, passend zur Beschreibung; Import stellt den Rahmen frei.*
 ```
 P2-2 — 2D game asset, a head-and-shoulders portrait of a coachbuilder from York around 1725, sturdy man in a waistcoat with rolled sleeves, wood shavings on his shoulder, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P2-3** – the Turnpike Trust (Epoche 2–3) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_turnpike_trust`
+**P2-3** – the Turnpike Trust (Epoche 2–3) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 55 Wörter · Datei `portrait_turnpike_trust`  
+*20.11.: Brustbild im ovalen Goldrahmen, passend zur Beschreibung; Import stellt den Rahmen frei.*
 ```
 P2-3 — 2D game asset, a head-and-shoulders portrait of a gentleman trustee of a turnpike road around 1725, tricorn hat, grey coat, holding a ledger, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P2-4** – the coaching-inn keeper (Epoche 2–3) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_innkeeper_coaching`
+**P2-4** – the coaching-inn keeper (Epoche 2–3) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_innkeeper_coaching`  
+*20.11.: Brustbild im ovalen Goldrahmen, passend zur Beschreibung; Import stellt den Rahmen frei.*
 ```
 P2-4 — 2D game asset, a head-and-shoulders portrait of the portly landlord of a coaching inn around 1725, red waistcoat, white apron, jolly expression, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P2-5** – Carrier Bennett (Epoche 2–3) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_carrier_bennett`
+**P2-5** – Carrier Bennett (Epoche 2–3) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_carrier_bennett`  
+*20.11.: Brustbild im ovalen Goldrahmen, passend zur Beschreibung; Import stellt den Rahmen frei.*
 ```
 P2-5 — 2D game asset, a head-and-shoulders portrait of a carrier wagon driver around 1725, weather-beaten face, slouch hat, heavy woollen greatcoat, a whip over his shoulder, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P3-1** – the Navy Board (Epoche 3–4) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_navy_board`
+**P3-1** – the Navy Board (Epoche 3–4) · ✅ gut (Midjourney)  
+Regler: **Portrait 4:5** · 54 Wörter · Datei `portrait_navy_board`  
+*20.11.: Brustbild im ovalen Goldrahmen, passend zur Beschreibung; Import stellt den Rahmen frei.*
 ```
 P3-1 — 2D game asset, a head-and-shoulders portrait of a Navy Board commissioner around 1740, white powdered wig, dark blue coat with gold lace, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
