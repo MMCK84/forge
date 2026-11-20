@@ -111,6 +111,67 @@ FORGE_COKE,Koks-Esse mit Zylindergebläse,Coke forge with blowing cylinders
 FORGE_DOUBLE_BELLOWS,Esse mit Doppelblasebalg,Forge with double bellows
 FORGE_SIEMENS,Siemens-Gasofen,Siemens gas furnace
 FORGE_WELDING_FURNACE,Schweißofen,Welding furnace
+FURN_E10_BENCH,Werkstoff-Prüfmaschine,Materials testing machine
+FURN_E10_FUEL,Gasgenerator,Gas producer
+FURN_E10_LIGHT,Gaslicht und Bogenlampe,Gas light and arc lamp
+FURN_E10_TOOLS,Laufkran,Overhead travelling crane
+FURN_E10_TRADE,Kontor mit Telegraf,Office with telegraph
+FURN_E1_BENCH,Schleifstein mit Kurbel,Hand-cranked grindstone
+FURN_E1_FUEL,Holzkohlekorb,Charcoal basket
+FURN_E1_LIGHT,Talglaterne,Tallow lantern
+FURN_E1_TOOLS,Zangenbrett,Tong rack
+FURN_E1_TRADE,Bemaltes Brett mit Hufeisen über dem Tor,Painted board with a horseshoe over the door
+FURN_E2_BENCH,Werkbank mit Schraubstock,Workbench with leg vice
+FURN_E2_FUEL,Kohlenkiste,Coal chest
+FURN_E2_LIGHT,Stabeisenregal,Bar iron rack
+FURN_E2_TOOLS,Werkzeugwand mit Gesenken,Tool wall with swages
+FURN_E2_TRADE,Schild „Smith & Farrier“ an der Straße,“Smith & Farrier” sign by the road
+FURN_E3_BENCH,Werkbank mit Feilen,Workbench with files
+FURN_E3_FUEL,Kohlenschütte,Coal chute
+FURN_E3_LIGHT,Schiffslaterne,Ship's lantern
+FURN_E3_TOOLS,Gesenkblock,Swage block
+FURN_E3_TRADE,Anschlagtafel der Admiralität,Admiralty notice board
+FURN_E4_BENCH,Schleifbock mit Wasserrad,Water-driven grinding bench
+FURN_E4_FUEL,Koksvorrat,Coke store
+FURN_E4_LIGHT,Öllampen,Oil lamps
+FURN_E4_TOOLS,Zangenreihe für Klingen,Row of blade tongs
+FURN_E4_TRADE,Firmenmarke der Cutlers' Company,Cutlers' Company mark
+FURN_E5_BENCH,Drehbank mit Fußantrieb,Treadle lathe
+FURN_E5_FUEL,Kohlenhund,Coal tub
+FURN_E5_LIGHT,Stabeisenlager,Bar iron store
+FURN_E5_TOOLS,Werkzeugwand mit Setzhämmern,Tool wall with set hammers
+FURN_E5_TRADE,Schreibpult mit Auftragsbuch,Writing desk with order book
+FURN_E6_BENCH,Schraubstockbank,Vice bench
+FURN_E6_FUEL,Koksbunker,Coke bunker
+FURN_E6_LIGHT,Öllampenreihe,Row of oil lamps
+FURN_E6_TOOLS,Gesenksatz,Set of swages
+FURN_E6_TRADE,Kontor mit Schreiber,Counting house with clerk
+FURN_E7_BENCH,Werkbank mit Messschraube,Workbench with micrometer
+FURN_E7_FUEL,Kohlenaufzug,Coal hoist
+FURN_E7_LIGHT,Gaslicht,Gas lighting
+FURN_E7_TOOLS,Normallehren und Schablonen,Standard gauges and templates
+FURN_E7_TRADE,Messingschild am Tor,Brass plate at the gate
+FURN_E8_BENCH,Prüfbank,Proving bench
+FURN_E8_FUEL,Kohlenwagen auf Schienen,Coal wagon on rails
+FURN_E8_LIGHT,Gaslicht,Gas lighting
+FURN_E8_TOOLS,Gesenke für Kupplungen,Coupling swages
+FURN_E8_TRADE,Anschlag der Eisenbahngesellschaft,Railway company notice
+FURN_E9_BENCH,Prüfbank mit Lehren,Proving bench with gauges
+FURN_E9_FUEL,Bunker mit Schütte,Bunker with chute
+FURN_E9_LIGHT,Gaslaternen,Gas lamps
+FURN_E9_TOOLS,Drehkran,Jib crane
+FURN_E9_TRADE,Telegraf,Telegraph
+FURN_FX_BENCH,"Zielfenster 25 °C breiter, 20 % weniger Gefügeschaden","Target window 25 °C wider, 20 % less damage"
+FURN_FX_FUEL,Esse heizt 15 % schneller,Forge heats 15 % faster
+FURN_FX_LIGHT,"Lohn +5 %, halber Materialverlust bei Ausschuss","Pay +5 %, half the material loss on scrap"
+FURN_FX_TOOLS,+10 % Fortschritt je Schlag,+10 % progress per blow
+FURN_FX_TOOLS_BIG,"+10 % Fortschritt je Schlag, große Stücke deutlich leichter","+10 % progress per blow, large pieces much easier"
+FURN_FX_TRADE,"4 statt 3 Angebote, neue Angebote schon nach 30 s","4 instead of 3 offers, new offers after just 30 s"
+FURN_SLOT_BENCH,Werkbank,Workbench
+FURN_SLOT_FUEL,Brennstoff,Fuel
+FURN_SLOT_LIGHT,Licht und Lager,Light and stores
+FURN_SLOT_TOOLS,Werkzeugwand,Tool wall
+FURN_SLOT_TRADE,Kundschaft,Custom
 FX_BURNED,Verbrannt! Ausschuss,Burnt! Scrapped
 FX_CRACKED,Gerissen! Ausschuss,Cracked! Scrapped
 FX_NEXT_STEP,Nächster Arbeitsgang: {step} ({lo}–{hi} °C),Next step: {step} ({lo}–{hi} °C)
@@ -148,6 +209,8 @@ HINT_FORCE_MEDIUM_TEXT,"In der neuen Werkstatt verlangen Breiten, Spitzen und Ab
 HINT_FORCE_MEDIUM_TITLE,Mittlere Schläge,Medium blows
 HINT_FORCE_TEXT,"Ab jetzt zählt auch, wie fest Ihr zuschlagt. Über dem Hammer-Knopf wählt Ihr Leicht, Mittel oder Schwer (am Rechner auch mit den Pfeiltasten ↑ und ↓).\n\nStrecken, Stauchen und Lochen brauchen schwere Schläge, Biegen, Verdrehen und Schlichten leichte. Neben dem Zielfenster seht Ihr, was der aktuelle Arbeitsgang verlangt.\n\nZu sanft kostet Zeit – zu fest beschädigt das Werkstück.","From now on it also matters how hard you strike. Above the hammer button choose Light, Medium or Heavy (arrow keys ↑ and ↓ on a computer).\n\nDrawing out, upsetting and punching need heavy blows; bending, twisting and planishing need light ones. Next to the target window you can see what the current step requires.\n\nToo soft costs time – too hard damages the piece."
 HINT_FORCE_TITLE,Schlagstärke,Blow strength
+HINT_FURNISH_TEXT,"Euer erstes Einrichtungsstück steht! Jedes der fünf Stücke hilft auf seine Weise – und wenn die Werkstatt vollständig eingerichtet ist, zahlt die Zunft eine Prämie.","Your first fitting is in place! Each of the five pieces helps in its own way – and once the workshop is fully fitted out, the guild pays a bonus."
+HINT_FURNISH_TITLE,Einrichtung,Fittings
 HINT_HARDEN_TEXT,"Ist das Stück fertig geschmiedet, zieht Ihr es in den Löschtrog [Q]. Bewertet wird die Temperatur beim Abschrecken: 760–840 °C ist richtig, darüber droht ein Härteriss, darunter bleibt es zu weich. Zu kalt? Einfach nachheizen.","Once the piece is fully forged, put it into the quench trough [Q]. The temperature when quenching counts: 760–840 °C is right; hotter risks a quench crack, cooler leaves it too soft. Too cold? Just reheat it."
 HINT_HARDEN_TITLE,Härten,Hardening
 HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab – auch wenn das Spiel geschlossen ist (bis zu 8 Stunden).,Your journeyman works his own orders in the background – even while the game is closed (up to 8 hours).
@@ -418,6 +481,7 @@ MACHINE_STEAM_HELVE,Dampf-Schwanzhammer,Steam-powered helve hammer
 MACHINE_WATER_HELVE,Wasser-Schwanzhammer,Water-powered helve hammer
 MAT_IRON,Schmiedeeisen,Wrought iron
 MAT_STEEL,Stahl,Steel
+MSG_FURNISHED,Werkstatt vollständig eingerichtet! Prämie der Zunft: {bonus},Workshop fully fitted out! Guild bonus: {bonus}
 MSG_RUIN_COST,Neuer Rohling: -{cost},New blank: -{cost}
 MS_MS_E10_01_REAPERS_TEXT,Die Mähmaschine ersetzt die Sense. Hornsby verkauft sie bis nach Russland.,The reaping machine replaces the scythe. Hornsby sells them as far as Russia.
 MS_MS_E10_01_REAPERS_TITLE,Mähmesser für Hornsby,Reaper knives for Hornsby
@@ -641,6 +705,7 @@ STAFF_STRIKER_DESC,"Schlägt mit dem Vorschlaghammer mit: Schlagkraft 20, ein Sc
 STAT_BEST,Bester Auftrag,Best order
 STAT_EARNED,Insgesamt verdient,Total earned
 STAT_EPOCH,Epoche,Era
+STAT_FURNISHED,Vollständig eingerichtete Werkstätten,Workshops fully fitted out
 STAT_HITS,Hammerschläge,Hammer blows
 STAT_JOBS,Abgeschlossene Aufträge,Orders completed
 STAT_JOURNEYMAN,Verdienst des Gesellen,Journeyman's earnings
@@ -726,6 +791,8 @@ UI_FORGE_INFO,{k} °C/s · bis {t} °C · {s} Plätze,{k} °C/s · up to {t} °C
 UI_FREE_PLAY_NOTE,Freies Spiel: Die Aufträge gehen endlos weiter.,Free play: orders continue endlessly.
 UI_FROM_EPOCH,ab Epoche {e},from era {e}
 UI_FULLSCREEN,Vollbild,Fullscreen
+UI_FURNISHED,Eingerichtet,Fitted
+UI_FURNISH_NOTE,"Jede Werkstatt hat fünf Plätze. Mit dem Umzug in die nächste Epoche beginnt die Einrichtung von vorn. Sind alle fünf eingerichtet, zahlt die Zunft eine Prämie von {bonus}.","Every workshop has five places. When you move on to the next era, you furnish the new workshop from scratch. Once all five are fitted out, the guild pays a bonus of {bonus}."
 UI_HAMMER_INFO,Schlagkraft {p},Striking power {p}
 UI_HIRE,Einstellen,Hire
 UI_HIRED,Eingestellt,Hired
@@ -774,6 +841,7 @@ UI_SAVE_NEWER,Der Spielstand stammt aus einer neueren Spielversion und kann nich
 UI_SAVE_RESTORED,Der letzte Spielstand war beschädigt – die Sicherung wurde geladen.,The latest save was damaged – the backup was loaded.
 UI_SCREEN_SHAKE,Bildschirmwackeln,Screen shake
 UI_SECTION_FORGES,Essen,Forges
+UI_SECTION_FURNISH,Einrichtung der Werkstatt,Workshop fittings
 UI_SECTION_HAMMERS,Hämmer,Hammers
 UI_SECTION_MACHINES,Maschinen,Machines
 UI_SECTION_UPGRADE,Hammer verbessern,Improve hammer

@@ -157,6 +157,10 @@ static func apply_setup(s: WorkshopSim, setup: Dictionary) -> void:
 	s.has_trough = bool(setup.get("has_trough", false))
 	s.apprentice_to_forge_below = float(setup.get("apprentice_to_forge_below", 750.0))
 	s.apprentice_to_anvil_at = float(setup.get("apprentice_to_anvil_at", 1050.0))
+	s.window_bonus = float(setup.get("window_bonus", 0.0))
+	s.damage_factor = float(setup.get("damage_factor", 1.0))
+	s.ruin_cost_factor = float(setup.get("ruin_cost_factor", 1.0))
+	s.big_factor_mult = float(setup.get("big_factor_mult", 1.0))
 
 
 ## Referenzleistung in Form-Punkten je Sekunde (5.8):

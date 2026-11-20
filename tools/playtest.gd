@@ -227,6 +227,15 @@ func _epoch_scene(e: int) -> void:
 		gm.buy_machine("machine_nasmyth")
 	if e == 10:
 		gm.buy_machine("machine_great_steam_hammer")
+	# Werkstatt-Einrichtung: in Epoche 3 und 7 teilweise (Rest als Kreide-Umriss), sonst ab Epoche 5 vollständig
+	if e in [3, 7] or e >= 5:
+		var furn_slots: Array = ["fuel", "tools"] if e in [3, 7] else ["fuel", "tools", "bench", "trade", "light"]
+		var before: int = gm.total_pence
+		for sl in furn_slots:
+			gm.debug_add_money(gm.furnish_price(sl))
+			check(gm.buy_furnishing(sl), "Epoche %d: Einrichtung '%s' gekauft" % [e, sl])
+		if furn_slots.size() == 5:
+			check(gm.fully_furnished() and gm.total_pence > before, "Epoche %d: vollständig eingerichtet, Prämie gezahlt" % e)
 	await wait(0.2)
 	await close_overlays()
 	# Passenden Auftrag suchen (Mengen-, Schweiß-, Härte-, Großauftrag)

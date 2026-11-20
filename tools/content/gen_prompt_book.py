@@ -336,6 +336,64 @@ UI = [
     ("store_banner", "store_banner", "Store-Banner (Google Play 1024 × 500)", False, "Wide 2:1 banner illustration for a mobile game, interior of an 18th-century English smithy at night lit only by forge fire, on the right half a blacksmith's anvil with a glowing horseshoe and a raised hammer with sparks flying, a brick forge glowing in the background, the left half is calm, dark and empty for a title to be added later, hand-painted 2D game art with dark ink outlines and warm painterly textures, no people, no text, no letters, no watermark"),
 ]
 
+# H Werkstatt-Einrichtung (scripts/furnishings.gd): je Epoche fünf Stücke, freigestellt
+FURN_TAIL = ("single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, "
+             "fully inside the frame (no people), isolated on pure flat white background")
+FURN_FORMAT = {"fuel": "square 1:1", "tools": "portrait 3:4", "bench": "landscape 3:2", "trade": "landscape 3:2", "light": "portrait 1:2"}
+FURN_SLOT_DE = {"fuel": "Brennstoff", "tools": "Werkzeugwand", "bench": "Werkbank", "trade": "Kundschaft", "light": "Licht und Lager"}
+FURN_DESC = {
+    1: {"fuel": "a woven wicker basket full of charcoal, early 18th-century English village smithy",
+        "tools": "a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700",
+        "bench": "a hand-cranked sandstone grindstone in a simple oak frame with a water trough, around 1700",
+        "trade": "a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700",
+        "light": "a small tin tallow lantern with horn panes, hanging from an iron hook"},
+    2: {"fuel": "an iron-bound wooden coal chest full of coal, with a shovel, around 1725",
+        "tools": "a wooden tool wall with tongs, swages and fullers on pegs, around 1725",
+        "bench": "a heavy oak workbench with a blacksmith's leg vice, around 1725",
+        "trade": "a painted hanging inn-style sign board showing a horseshoe and a hammer, wrought-iron bracket, around 1725",
+        "light": "a wooden rack holding long iron bars of different sections"},
+    3: {"fuel": "a wooden coal chute with a heap of coal at its foot, naval dockyard around 1740",
+        "tools": "a square cast-iron swage block with many holes and shaped grooves standing on a wooden stand",
+        "bench": "a tarred oak workbench with a vice and a row of files, around 1740",
+        "trade": "a wooden notice board with pinned paper orders and an anchor emblem, around 1740 (blank papers)",
+        "light": "a brass and copper ship's lantern with glass panes"},
+    4: {"fuel": "a timber bin filled with grey coke, around 1755",
+        "tools": "a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755",
+        "bench": "a grinding bench with a large round grindstone driven by a belt from a small water wheel, Sheffield around 1755",
+        "trade": "a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755 (no lettering)",
+        "light": "a row of three small brass oil lamps on a wooden shelf"},
+    5: {"fuel": "a small four-wheeled wooden coal tub full of coal, around 1780",
+        "tools": "a wooden tool wall with set hammers, flatters and swages on pegs, around 1780",
+        "bench": "a wooden treadle lathe with a foot pedal and a flywheel, around 1780",
+        "trade": "a tall wooden writing desk with an open leather order book and a quill, around 1780 (blank pages)",
+        "light": "a stack of wrought-iron bars and plates on timber bearers"},
+    6: {"fuel": "a brick coke bunker with a wooden hatch, ironworks around 1790",
+        "tools": "a set of iron swages and dies arranged on a wooden rack, around 1790",
+        "bench": "a long workbench with two vices and iron tools, around 1790",
+        "trade": "a small wooden counting-house booth with a sloped desk and ledgers, around 1790 (no people)",
+        "light": "a row of three hanging oil lamps on an iron bar"},
+    7: {"fuel": "a wooden coal hoist with a rope, pulley and a coal bucket, London around 1810",
+        "tools": "a wall board with iron templates, gauges and squares, engineering works around 1810",
+        "bench": "a cast-iron workbench with a vice and a brass bench micrometer, around 1810",
+        "trade": "a polished brass name plate on a dark wooden board, around 1810 (no lettering)",
+        "light": "an early gas lamp on a wall bracket with a glass globe, London around 1812"},
+    8: {"fuel": "a small iron coal wagon on a short piece of rail track, around 1830",
+        "tools": "a rack with heavy swages and dies for railway coupling links, around 1830",
+        "bench": "a cast-iron proving bench for testing chains, with a lever and weights, around 1830",
+        "trade": "a wooden notice board with a railway company poster showing a locomotive, around 1830 (no lettering)",
+        "light": "a cast-iron gas lamp on a wall bracket with a glass globe"},
+    9: {"fuel": "a riveted iron coal bunker with a chute, foundry around 1845",
+        "tools": "a small cast-iron jib crane with a chain hoist, foundry around 1845",
+        "bench": "a cast-iron proving bench with gauges and callipers, around 1845",
+        "trade": "an early electric needle telegraph instrument in a wooden case, around 1845 (no lettering)",
+        "light": "two gas lamps with glass globes on iron brackets"},
+    10: {"fuel": "a riveted iron gas producer with pipes and a valve wheel, steelworks around 1870",
+         "tools": "a section of an overhead travelling crane with a hook and chain, steelworks around 1870",
+         "bench": "a large horizontal materials testing machine with a lever, weights and dial, around 1870",
+         "trade": "a small office desk with a telegraph key and sounder, around 1870 (no people)",
+         "light": "an early electric arc lamp in an iron frame, around 1878"},
+}
+
 PORTRAIT_TAIL = ("in an oval gilt wooden frame, hand-painted 2D game art with dark ink outlines and warm painterly textures, friendly but serious expression, "
                  "plain dark background inside the frame, no text, no name plate, no watermark, isolated on pure flat white background outside the frame, portrait 4:5")
 PORTRAITS = {
@@ -394,6 +452,18 @@ PORTRAITS = {
     "hornsby": "an agricultural engineer around 1865, ruddy face, tweed jacket, bowler hat",
     "coventry_machinists": "a young bicycle maker around 1870, moustache, waistcoat with rolled sleeves, flat cap",
 }
+
+
+def _furn_names_de():
+    import re as _re
+    src = open(os.path.join(ROOT, "scripts", "furnishings.gd"), encoding="utf-8").read()
+    out = {}
+    for e, body in _re.findall(r"^\t(\d+): \{(.*?)\},$", src, _re.S | _re.M):
+        out[int(e)] = {sl: de for sl, de, en in _re.findall(r'"(\w+)": \["([^"]*)", "([^"]*)"\]', body)}
+    return out
+
+
+FURN_NAMES_DE = _furn_names_de()
 
 
 def main():
@@ -486,6 +556,20 @@ def main():
         g.append(block(title, prompt, add(st), fname))
     sections.append(("G · Oberfläche, Symbole, Store",
                      "Spieltitel und Schriften kommen aus Schriftarten (kein Bild nötig); Glühskala, Fortschritt und Partikel zeichnet das Spiel selbst.", g))
+    # H Werkstatt-Einrichtung
+    h_parts = []
+    for e in range(1, 11):
+        h_parts.append(f"### Epoche {e} – {EPOCH_NAMES[e]}\n")
+        for slot in ["fuel", "tools", "bench", "trade", "light"]:
+            fid = f"furn_e{e}_{slot}"
+            st = add(HAVE if have(fid + ".png") else NEED)
+            h_parts.append(block(f"{FURN_SLOT_DE[slot]}: {FURN_NAMES_DE[e][slot]}",
+                                 f"2D game asset, {FURN_DESC[e][slot]}, {FURN_TAIL}, {FURN_FORMAT[slot]}", st, fid))
+    sections.append(("H · Werkstatt-Einrichtung (5 je Epoche)",
+                     "Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager). "
+                     "Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; "
+                     "Originale nach `assets/source/user_art/furnishings/<id>.png` (über den Eingang). Standard-Modus mit einem Hintergrund "
+                     "der Epoche als Stil-Referenz, damit Licht und Farben zum Raum passen.", h_parts))
 
     def counts(txt):
         n_opt = txt.count(NOT_OPT)
@@ -532,17 +616,19 @@ def main():
     lines += ["", "## Regeln für alle Bilder", "",
               "- Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.",
               "- Objekt vollständig im Bild mit etwas Rand.",
-              "- Dateiname = die fett gedruckte ID (z. B. `door_hinge.webp`); Format egal (webp, png, jpg).",
+              "- Dateiname = die fett gedruckte ID (z. B. `door_hinge.png`); das unveränderte Original (PNG) über GitHub in "
+              "`assets/source/user_art/eingang/` hochladen – Bilder im Chat werden verkleinert.",
               "- Einheitlicher Stil: handgemalt, dünne dunkle Tuschekontur, warme Malstruktur.",
               "- Midjourney: Prompt komplett kopieren (inkl. `--ar` und `--no`); Einstellungen je Gruppe siehe oben.",
               "- Für einheitlichen Stil: ein gelungenes Bild als Stil-Referenz verwenden (`--sref <Bild-URL>`).",
               "",
               "## Reihenfolge (was am meisten bringt)", "",
-              "1. **Essen in Frontalansicht** (B) – sieht man ständig.",
-              "2. **Hintergründe 7–10** (A) und **Dampfhammer-Teile** (D).",
-              "3. **Werkstücke** epochenweise (E), dann **Löschtrog** (G).",
-              "4. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.",
-              "5. Dann: alle 🟠 Midjourney-Bilder mit Hinweis nachbessern, später alle 🟡 Gemini-Bilder ersetzen (gleiche Dateinamen).",
+              "Erledigt: alle zehn Hintergründe (A), Essen Stufe 1–5 in Frontalansicht (B), Amboss und Hämmer (C).", "",
+              "1. **Werkstücke** epochenweise (E) – die größte Lücke; Standard-Modus mit Stil-Referenz (nicht Raw).",
+              "2. **Esse Stufe 3 neu** (Doppelbalg) und **Siemens-Ofen** (B), **Dampfhammer-Teile** (D), **Löschtrog** (G).",
+              "3. **Werkstatt-Einrichtung** (H) – das Spiel zeigt bis dahin Platzhalter.",
+              "4. Die übrigen 🟡 Gemini-Bilder ersetzen: Maschinenteile (D), Oberfläche (G) – gleiche Dateinamen.",
+              "5. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.",
               ""]
     for title, intro, parts in sections:
         lines += [f"## {title}", "", intro, ""] + parts

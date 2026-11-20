@@ -18,7 +18,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | ✅ gut (Midjourney) | 19 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 28 |
-| ⬜ noch nicht vorhanden | 77 |
+| ⬜ noch nicht vorhanden | 127 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -30,6 +30,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | E · Werkstücke | 0 | 0 | 9 | 72 | 0 |
 | F · Kundenporträts | 0 | 0 | 0 | 0 | 54 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
+| H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
 
@@ -87,18 +88,20 @@ Raw hält sich genauer an Vorgaben wie „genau von der Seite“, malt aber foto
 
 - Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.
 - Objekt vollständig im Bild mit etwas Rand.
-- Dateiname = die fett gedruckte ID (z. B. `door_hinge.webp`); Format egal (webp, png, jpg).
+- Dateiname = die fett gedruckte ID (z. B. `door_hinge.png`); das unveränderte Original (PNG) über GitHub in `assets/source/user_art/eingang/` hochladen – Bilder im Chat werden verkleinert.
 - Einheitlicher Stil: handgemalt, dünne dunkle Tuschekontur, warme Malstruktur.
 - Midjourney: Prompt komplett kopieren (inkl. `--ar` und `--no`); Einstellungen je Gruppe siehe oben.
 - Für einheitlichen Stil: ein gelungenes Bild als Stil-Referenz verwenden (`--sref <Bild-URL>`).
 
 ## Reihenfolge (was am meisten bringt)
 
-1. **Essen in Frontalansicht** (B) – sieht man ständig.
-2. **Hintergründe 7–10** (A) und **Dampfhammer-Teile** (D).
-3. **Werkstücke** epochenweise (E), dann **Löschtrog** (G).
-4. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.
-5. Dann: alle 🟠 Midjourney-Bilder mit Hinweis nachbessern, später alle 🟡 Gemini-Bilder ersetzen (gleiche Dateinamen).
+Erledigt: alle zehn Hintergründe (A), Essen Stufe 1–5 in Frontalansicht (B), Amboss und Hämmer (C).
+
+1. **Werkstücke** epochenweise (E) – die größte Lücke; Standard-Modus mit Stil-Referenz (nicht Raw).
+2. **Esse Stufe 3 neu** (Doppelbalg) und **Siemens-Ofen** (B), **Dampfhammer-Teile** (D), **Löschtrog** (G).
+3. **Werkstatt-Einrichtung** (H) – das Spiel zeigt bis dahin Platzhalter.
+4. Die übrigen 🟡 Gemini-Bilder ersetzen: Maschinenteile (D), Oberfläche (G) – gleiche Dateinamen.
+5. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.
 
 ## A · Werkstatt-Hintergründe (1:1 – für Hoch- und Querformat)
 
@@ -1293,5 +1296,329 @@ app_icon — Square 1:1 mobile game app icon, a heavy blacksmith's hammer striki
 Regler: **Landscape 2:1** · 69 Wörter
 ```
 store_banner — Wide 2:1 banner illustration for a mobile game, interior of an 18th-century English smithy at night lit only by forge fire, on the right half a blacksmith's anvil with a glowing horseshoe and a raised hammer with sparks flying, a brick forge glowing in the background, the left half is calm, dark and empty for a title to be added later, hand-painted 2D game art, dark ink outlines, painterly --ar 2:1 --no people, text, letters, numbers, watermark
+```
+
+## H · Werkstatt-Einrichtung (5 je Epoche)
+
+Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager). Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; Originale nach `assets/source/user_art/furnishings/<id>.png` (über den Eingang). Standard-Modus mit einem Hintergrund der Epoche als Stil-Referenz, damit Licht und Farben zum Raum passen.
+
+### Epoche 1 – Die Dorfschmiede (1700–1715)
+
+**furn_e1_fuel** – Brennstoff: Holzkohlekorb · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 42 Wörter
+```
+furn_e1_fuel — 2D game asset, a woven wicker basket full of charcoal, early 18th-century English village smithy, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e1_tools** – Werkzeugwand: Zangenbrett · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 48 Wörter
+```
+furn_e1_tools — 2D game asset, a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e1_bench** – Werkbank: Schleifstein mit Kurbel · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 45 Wörter
+```
+furn_e1_bench — 2D game asset, a hand-cranked sandstone grindstone in a simple oak frame with a water trough, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e1_trade** – Kundschaft: Bemaltes Brett mit Hufeisen über dem Tor · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 49 Wörter
+```
+furn_e1_trade — 2D game asset, a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e1_light** – Licht und Lager: Talglaterne · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 43 Wörter
+```
+furn_e1_light — 2D game asset, a small tin tallow lantern with horn panes, hanging from an iron hook, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 2 – Kutschen & Handelswege (1715–1735)
+
+**furn_e2_fuel** – Brennstoff: Kohlenkiste · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 43 Wörter
+```
+furn_e2_fuel — 2D game asset, an iron-bound wooden coal chest full of coal, with a shovel, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e2_tools** – Werkzeugwand: Werkzeugwand mit Gesenken · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 43 Wörter
+```
+furn_e2_tools — 2D game asset, a wooden tool wall with tongs, swages and fullers on pegs, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e2_bench** – Werkbank: Werkbank mit Schraubstock · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 41 Wörter
+```
+furn_e2_bench — 2D game asset, a heavy oak workbench with a blacksmith's leg vice, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e2_trade** – Kundschaft: Schild „Smith & Farrier“ an der Straße · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 46 Wörter
+```
+furn_e2_trade — 2D game asset, a painted hanging inn-style sign board showing a horseshoe and a hammer, wrought-iron bracket, around 1725, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e2_light** – Licht und Lager: Stabeisenregal · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 40 Wörter
+```
+furn_e2_light — 2D game asset, a wooden rack holding long iron bars of different sections, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 3 – Hafen & Royal Navy (1735–1750)
+
+**furn_e3_fuel** – Brennstoff: Kohlenschütte · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 46 Wörter
+```
+furn_e3_fuel — 2D game asset, a wooden coal chute with a heap of coal at its foot, naval dockyard around 1740, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e3_tools** – Werkzeugwand: Gesenkblock · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 46 Wörter
+```
+furn_e3_tools — 2D game asset, a square cast-iron swage block with many holes and shaped grooves standing on a wooden stand, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e3_bench** – Werkbank: Werkbank mit Feilen · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 44 Wörter
+```
+furn_e3_bench — 2D game asset, a tarred oak workbench with a vice and a row of files, around 1740, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e3_trade** – Kundschaft: Anschlagtafel der Admiralität · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 46 Wörter
+```
+furn_e3_trade — 2D game asset, a wooden notice board with pinned paper orders and an anchor emblem, around 1740 (blank papers), single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e3_light** – Licht und Lager: Schiffslaterne · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 39 Wörter
+```
+furn_e3_light — 2D game asset, a brass and copper ship's lantern with glass panes, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 4 – Stahl & Tuch (1750–1765)
+
+**furn_e4_fuel** – Brennstoff: Koksvorrat · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 39 Wörter
+```
+furn_e4_fuel — 2D game asset, a timber bin filled with grey coke, around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e4_tools** – Werkzeugwand: Zangenreihe für Klingen · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 46 Wörter
+```
+furn_e4_tools — 2D game asset, a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e4_bench** – Werkbank: Schleifbock mit Wasserrad · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 50 Wörter
+```
+furn_e4_bench — 2D game asset, a grinding bench with a large round grindstone driven by a belt from a small water wheel, Sheffield around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e4_trade** – Kundschaft: Firmenmarke der Cutlers' Company · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 43 Wörter
+```
+furn_e4_trade — 2D game asset, a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e4_light** – Licht und Lager: Öllampen · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 42 Wörter
+```
+furn_e4_light — 2D game asset, a row of three small brass oil lamps on a wooden shelf, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
+
+**furn_e5_fuel** – Brennstoff: Kohlenhund · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 41 Wörter
+```
+furn_e5_fuel — 2D game asset, a small four-wheeled wooden coal tub full of coal, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e5_tools** – Werkzeugwand: Werkzeugwand mit Setzhämmern · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 44 Wörter
+```
+furn_e5_tools — 2D game asset, a wooden tool wall with set hammers, flatters and swages on pegs, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e5_bench** – Werkbank: Drehbank mit Fußantrieb · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 43 Wörter
+```
+furn_e5_bench — 2D game asset, a wooden treadle lathe with a foot pedal and a flywheel, around 1780, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e5_trade** – Kundschaft: Schreibpult mit Auftragsbuch · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 48 Wörter
+```
+furn_e5_trade — 2D game asset, a tall wooden writing desk with an open leather order book and a quill, around 1780 (blank pages), single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e5_light** – Licht und Lager: Stabeisenlager · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 40 Wörter
+```
+furn_e5_light — 2D game asset, a stack of wrought-iron bars and plates on timber bearers, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
+
+**furn_e6_fuel** – Brennstoff: Koksbunker · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 41 Wörter
+```
+furn_e6_fuel — 2D game asset, a brick coke bunker with a wooden hatch, ironworks around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e6_tools** – Werkzeugwand: Gesenksatz · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 44 Wörter
+```
+furn_e6_tools — 2D game asset, a set of iron swages and dies arranged on a wooden rack, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e6_bench** – Werkbank: Schraubstockbank · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 41 Wörter
+```
+furn_e6_bench — 2D game asset, a long workbench with two vices and iron tools, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e6_trade** – Kundschaft: Kontor mit Schreiber · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 43 Wörter
+```
+furn_e6_trade — 2D game asset, a small wooden counting-house booth with a sloped desk and ledgers, around 1790, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e6_light** – Licht und Lager: Öllampenreihe · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 41 Wörter
+```
+furn_e6_light — 2D game asset, a row of three hanging oil lamps on an iron bar, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 7 – Krieg & Erfindergeist (1800–1820)
+
+**furn_e7_fuel** – Brennstoff: Kohlenaufzug · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 45 Wörter
+```
+furn_e7_fuel — 2D game asset, a wooden coal hoist with a rope, pulley and a coal bucket, London around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e7_tools** – Werkzeugwand: Normallehren und Schablonen · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 43 Wörter
+```
+furn_e7_tools — 2D game asset, a wall board with iron templates, gauges and squares, engineering works around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e7_bench** – Werkbank: Werkbank mit Messschraube · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 43 Wörter
+```
+furn_e7_bench — 2D game asset, a cast-iron workbench with a vice and a brass bench micrometer, around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e7_trade** – Kundschaft: Messingschild am Tor · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 42 Wörter
+```
+furn_e7_trade — 2D game asset, a polished brass name plate on a dark wooden board, around 1810, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e7_light** – Licht und Lager: Gaslicht · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 45 Wörter
+```
+furn_e7_light — 2D game asset, an early gas lamp on a wall bracket with a glass globe, London around 1812, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 8 – Eisenbahnfieber (1820–1839)
+
+**furn_e8_fuel** – Brennstoff: Kohlenwagen auf Schienen · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 44 Wörter
+```
+furn_e8_fuel — 2D game asset, a small iron coal wagon on a short piece of rail track, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e8_tools** – Werkzeugwand: Gesenke für Kupplungen · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 43 Wörter
+```
+furn_e8_tools — 2D game asset, a rack with heavy swages and dies for railway coupling links, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e8_bench** – Werkbank: Prüfbank · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 44 Wörter
+```
+furn_e8_bench — 2D game asset, a cast-iron proving bench for testing chains, with a lever and weights, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e8_trade** – Kundschaft: Anschlag der Eisenbahngesellschaft · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 44 Wörter
+```
+furn_e8_trade — 2D game asset, a wooden notice board with a railway company poster showing a locomotive, around 1830, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e8_light** – Licht und Lager: Gaslicht · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 42 Wörter
+```
+furn_e8_light — 2D game asset, a cast-iron gas lamp on a wall bracket with a glass globe, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 9 – Der Dampfhammer (1839–1860)
+
+**furn_e9_fuel** – Brennstoff: Bunker mit Schütte · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 41 Wörter
+```
+furn_e9_fuel — 2D game asset, a riveted iron coal bunker with a chute, foundry around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e9_tools** – Werkzeugwand: Drehkran · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 42 Wörter
+```
+furn_e9_tools — 2D game asset, a small cast-iron jib crane with a chain hoist, foundry around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e9_bench** – Werkbank: Prüfbank mit Lehren · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 40 Wörter
+```
+furn_e9_bench — 2D game asset, a cast-iron proving bench with gauges and callipers, around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e9_trade** – Kundschaft: Telegraf · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 42 Wörter
+```
+furn_e9_trade — 2D game asset, an early electric needle telegraph instrument in a wooden case, around 1845, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no lettering, people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e9_light** – Licht und Lager: Gaslaternen · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 39 Wörter
+```
+furn_e9_light — 2D game asset, two gas lamps with glass globes on iron brackets, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+### Epoche 10 – Das Stahlzeitalter (1860–1880)
+
+**furn_e10_fuel** – Brennstoff: Gasgenerator · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 44 Wörter
+```
+furn_e10_fuel — 2D game asset, a riveted iron gas producer with pipes and a valve wheel, steelworks around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e10_tools** – Werkzeugwand: Laufkran · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 45 Wörter
+```
+furn_e10_tools — 2D game asset, a section of an overhead travelling crane with a hook and chain, steelworks around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e10_bench** – Werkbank: Werkstoff-Prüfmaschine · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 44 Wörter
+```
+furn_e10_bench — 2D game asset, a large horizontal materials testing machine with a lever, weights and dial, around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e10_trade** – Kundschaft: Kontor mit Telegraf · ⬜ noch nicht vorhanden  
+Regler: **Landscape 3:2** · 42 Wörter
+```
+furn_e10_trade — 2D game asset, a small office desk with a telegraph key and sounder, around 1870, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**furn_e10_light** – Licht und Lager: Gaslicht und Bogenlampe · ⬜ noch nicht vorhanden  
+Regler: **Portrait 1:2** · 41 Wörter
+```
+furn_e10_light — 2D game asset, an early electric arc lamp in an iron frame, around 1878, single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 

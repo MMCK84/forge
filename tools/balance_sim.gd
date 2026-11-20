@@ -10,6 +10,7 @@ const Catalog = preload("res://scripts/catalog.gd")
 const Economy = preload("res://scripts/economy.gd")
 const ReferencePlayer = preload("res://scripts/reference_player.gd")
 const JobGenerator = preload("res://scripts/job_generator.gd")
+const Furnishings = preload("res://scripts/furnishings.gd")
 
 ## Zielwerte aus 5.8: [Minuten, Einnahmen in Pence]
 const TARGETS := [[12, 900], [23, 7200], [56, 26160], [83, 67440], [131, 186960], [157, 453600],
@@ -22,10 +23,14 @@ var levels: Dictionary = {}
 var forge: ForgeData
 var machine: MachineData = null
 var staff: Array = []
+## Werkstatt-Einrichtung der laufenden Epoche (mit --no-furnish: keine)
+var furnished: Array = []
+var use_furnish: bool = true
 
 
 func _init() -> void:
 	var mixed := OS.get_cmdline_user_args().has("--mixed")
+	use_furnish = not OS.get_cmdline_user_args().has("--no-furnish")
 	hammer = Catalog.HAMMERS[0]
 	forge = Catalog.FORGES[0]
 	levels[hammer.id] = 0
@@ -51,6 +56,7 @@ func _init() -> void:
 		var n := 0
 		var ne: int = cfg.epoch_job_counts[e - 1]
 		var fee := Economy.epoch_fee(cfg, e) if e < last_epoch else 0
+		furnished = []
 		while true:
 			_shop(e, fee)
 			if n >= ne and (e == last_epoch or money >= fee):
@@ -69,7 +75,7 @@ func _init() -> void:
 			if d > 1500.0:
 				_dump_stuck(job, _setup(e))
 				print("WARNUNG: Auftrag hängt (%.0f s): Epoche %d, %s, Kategorie %s, Menge %d, %s, Präzision %s, Esse %s" % [d, e, job.template_id, job.category, job.quantity, job.material, job.is_precision(), forge.id])
-			var gross := Economy.job_payout(cfg, job.reward_base_pence, job.is_precision(), 2, false)
+			var gross := Economy.round_half_up(float(Economy.job_payout(cfg, job.reward_base_pence, job.is_precision(), 2, false)) * float(_fx(e)["payout_factor"]))
 			var wages := 0
 			for s in staff:
 				if s.id != "staff_journeyman":
@@ -89,10 +95,10 @@ func _init() -> void:
 			money -= fee
 		total_s += ep_time
 		var tgt: Array = TARGETS[e - 1]
-		print("  %2d   | %6.1f min (%3d, %+4d %%) | %-14s (%-8s, %+4d %%) | %4.0f s → %4.0f s          | %s +%d, %s%s" % [
+		print("  %2d   | %6.1f min (%3d, %+4d %%) | %-14s (%-8s, %+4d %%) | %4.0f s → %4.0f s          | %s +%d, %s%s, Einr. %d/5" % [
 			e, ep_time / 60.0, tgt[0], int(round((ep_time / 60.0 / float(tgt[0]) - 1.0) * 100.0)),
 			Economy.format_lsd(ep_income, "de"), Economy.format_lsd(int(tgt[1]), "de"), int(round((float(ep_income) / float(tgt[1]) - 1.0) * 100.0)),
-			first, last, hammer.id, int(levels[hammer.id]), forge.id, (", " + machine.id) if machine != null else ""])
+			first, last, hammer.id, int(levels[hammer.id]), forge.id, (", " + machine.id) if machine != null else "", furnished.size()])
 	print("Gesamt: %.2f h (Ziel ca. 13,5 h)" % (total_s / 3600.0))
 	quit()
 
@@ -105,11 +111,18 @@ func _setup(e: int) -> Dictionary:
 			striker = s
 		if s.id == "staff_apprentice":
 			apprentice = true
+	var fx := _fx(e)
 	return {
-		"k_heat": forge.k_heat * (cfg.stoker_heat_factor if _has_staff("staff_stoker") else 1.0), "t_max": forge.t_max, "slots": forge.slots,
-		"hammer_power": Economy.hammer_power(cfg, hammer.p_base, int(levels[hammer.id])),
+		"k_heat": forge.k_heat * (cfg.stoker_heat_factor if _has_staff("staff_stoker") else 1.0) * float(fx["heat_factor"]), "t_max": forge.t_max, "slots": forge.slots,
+		"hammer_power": Economy.hammer_power(cfg, hammer.p_base, int(levels[hammer.id])) * float(fx["power_factor"]),
 		"machine": machine, "striker": striker, "has_apprentice": apprentice, "has_trough": e >= 4,
+		"window_bonus": fx["window_bonus"], "damage_factor": fx["damage_factor"],
+		"ruin_cost_factor": fx["ruin_cost_factor"], "big_factor_mult": fx["big_factor_mult"],
 	}
+
+
+func _fx(e: int) -> Dictionary:
+	return Furnishings.effects(furnished, e)
 
 
 func _has_staff(id: String) -> bool:
@@ -145,6 +158,19 @@ func _shop(e: int, fee: int) -> void:
 				money -= m.price
 				machine = m
 				changed = true
+		# Einrichtung: günstigster Platz zuerst, ohne die Meistergebühr anzutasten
+		if use_furnish:
+			for sl in Furnishings.slots_by_price():
+				if furnished.has(sl):
+					continue
+				var fp := Furnishings.price(cfg, e, sl)
+				if money - fp >= fee:
+					money -= fp
+					furnished.append(sl)
+					if furnished.size() == Furnishings.SLOTS.size():
+						money += Furnishings.complete_bonus(cfg, e)
+					changed = true
+				break
 		var lvl: int = levels[hammer.id]
 		if lvl < cfg.upgrade_max_level:
 			var c := Economy.upgrade_cost(cfg, e, lvl)

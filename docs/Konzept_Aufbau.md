@@ -1,6 +1,6 @@
 # Konzept: Aufbau der Werkstatt
 
-Stand 20.11.2026 · Entwurf zur Entscheidung durch den Auftraggeber
+Stand 20.11.2026 · Teil 1 (Einrichtung) vom Auftraggeber freigegeben und umgesetzt; Teil 2 und weitere Ideen offen
 
 ## Ausgangslage
 

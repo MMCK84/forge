@@ -162,6 +162,13 @@ def main():
 
     # 12/13 Essen in Frontalansicht (Midjourney, weiß): assets/source/user_art/forges/<forge_id>.png
     forge_import()
+    # 22 Werkstatt-Einrichtung (weiß): assets/source/user_art/furnishings/furn_e<E>_<platz>.png
+    fdir = os.path.join(SRC, "furnishings")
+    if os.path.isdir(fdir):
+        for fn in sorted(os.listdir(fdir)):
+            base, ext = os.path.splitext(fn)
+            if ext.lower() in (".png", ".webp", ".jpg", ".jpeg") and base.startswith("furn_"):
+                save(_cutout(os.path.join(fdir, fn)), base + ".png", max_w=420, max_h=420)
     # 16 Wasser-Schwanzhammer (weiß) als Bild im Laden
     a = load("water_helve.webp")
     sat = a.max(axis=2) - a.min(axis=2)

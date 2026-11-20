@@ -26,6 +26,7 @@ func build(box: VBoxContainer) -> void:
 		["STAT_EARNED", Economy.format_lsd(gm.lifetime_pence)],
 		["STAT_BEST", Economy.format_lsd(int(st.get("best_payout", 0)))],
 		["STAT_JOURNEYMAN", Economy.format_lsd(int(st.get("journeyman_pence", 0)))],
+		["STAT_FURNISHED", str(int(st.get("workshops_furnished", 0)))],
 		["STAT_RUINED", str(int(st.get("pieces_ruined", 0)))],
 		["STAT_HITS", str(int(st.get("hits", 0)))],
 	]

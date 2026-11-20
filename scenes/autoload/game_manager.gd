@@ -10,6 +10,7 @@ const JobGenerator = preload("res://scripts/job_generator.gd")
 const ReferencePlayer = preload("res://scripts/reference_player.gd")
 const Catalog = preload("res://scripts/catalog.gd")
 const Localization = preload("res://scripts/localization.gd")
+const Furnishings = preload("res://scripts/furnishings.gd")
 
 const GAME_VERSION := "0.1.0"
 const EPOCH_YEARS := ["1700–1715", "1715–1735", "1735–1750", "1750–1765", "1765–1785", "1785–1800", "1800–1820", "1820–1839", "1839–1860", "1860–1880"]
@@ -68,6 +69,8 @@ var hired_ids: Array = []
 var apprentice_to_forge_below: float = 750.0
 var apprentice_to_anvil_at: float = 1050.0
 var current_epoch: int = 1
+## Werkstatt-Einrichtung der aktuellen Epoche: gekaufte Plätze (scripts/furnishings.gd)
+var furnished: Array = []
 var jobs_completed_in_epoch: int = 0
 var completed_milestone_ids: Array = []
 var generator_seed: int = 0
@@ -228,6 +231,7 @@ func new_game() -> void:
 	apprentice_to_forge_below = cfg.apprentice_to_forge_below
 	apprentice_to_anvil_at = cfg.apprentice_to_anvil_at
 	current_epoch = 1
+	furnished = []
 	jobs_completed_in_epoch = 0
 	completed_milestone_ids = []
 	var r := RandomNumberGenerator.new()
@@ -274,11 +278,22 @@ func _apply_equipment() -> void:
 	sim.striker = staff["staff_striker"] if hired_ids.has("staff_striker") else null
 	sim.apprentice_to_forge_below = apprentice_to_forge_below
 	sim.apprentice_to_anvil_at = apprentice_to_anvil_at
+	var fx := furnish_effects()
+	sim.window_bonus = fx["window_bonus"]
+	sim.damage_factor = fx["damage_factor"]
+	sim.ruin_cost_factor = fx["ruin_cost_factor"]
+	sim.big_factor_mult = fx["big_factor_mult"]
 
 
-## Der Heizer (Personal ab Epoche 7) lässt die Esse schneller heizen.
+## Der Heizer (Personal ab Epoche 7) und der Brennstoff-Platz der Einrichtung lassen die Esse schneller heizen.
 func heat_factor() -> float:
-	return cfg.stoker_heat_factor if hired_ids.has("staff_stoker") else 1.0
+	var f: float = cfg.stoker_heat_factor if hired_ids.has("staff_stoker") else 1.0
+	return f * float(furnish_effects()["heat_factor"])
+
+
+## Wirkungen der Werkstatt-Einrichtung der aktuellen Epoche.
+func furnish_effects() -> Dictionary:
+	return Furnishings.effects(furnished, current_epoch)
 
 
 func current_setup() -> Dictionary:
@@ -292,6 +307,10 @@ func current_setup() -> Dictionary:
 		"has_trough": has_trough(),
 		"apprentice_to_forge_below": apprentice_to_forge_below,
 		"apprentice_to_anvil_at": apprentice_to_anvil_at,
+		"window_bonus": furnish_effects()["window_bonus"],
+		"damage_factor": furnish_effects()["damage_factor"],
+		"ruin_cost_factor": furnish_effects()["ruin_cost_factor"],
+		"big_factor_mult": furnish_effects()["big_factor_mult"],
 	}
 
 
@@ -315,7 +334,7 @@ func hammer_level(id: String) -> int:
 
 func current_hammer_power() -> float:
 	var h := current_hammer()
-	return Economy.hammer_power(cfg, h.p_base, hammer_level(h.id))
+	return Economy.hammer_power(cfg, h.p_base, hammer_level(h.id)) * float(furnish_effects()["power_factor"])
 
 
 func has_trough() -> bool:
@@ -448,12 +467,23 @@ func refresh_offers() -> void:
 		if o.is_milestone():
 			has_ms = true
 	if ms != null and not has_ms and (active_job == null or active_job.milestone_id != ms.id):
-		if job_offers.size() >= cfg.offers_count:
+		if job_offers.size() >= offers_count():
 			job_offers.pop_back()
 		job_offers.push_front(_make_milestone_offer(ms))
-	while job_offers.size() < cfg.offers_count:
+	while job_offers.size() < offers_count():
 		job_offers.append(_make_generated_offer())
 	offers_changed.emit()
+
+
+## Anzahl der Angebote im Auftragsbuch (Kundschafts-Platz der Einrichtung: eines mehr).
+func offers_count() -> int:
+	var n: int = furnish_effects()["offers_count"]
+	return n if n > 0 else cfg.offers_count
+
+
+func reroll_cooldown_s() -> int:
+	var n: int = furnish_effects()["reroll_cooldown_s"]
+	return n if n > 0 else cfg.reroll_cooldown_s
 
 
 func reroll_seconds_left() -> int:
@@ -468,7 +498,7 @@ func reroll_offers() -> bool:
 		if o.is_milestone():
 			keep.append(o)
 	job_offers = keep
-	reroll_available_at = int(Time.get_unix_time_from_system()) + cfg.reroll_cooldown_s
+	reroll_available_at = int(Time.get_unix_time_from_system()) + reroll_cooldown_s()
 	refresh_offers()
 	sim_event.emit("page", {})
 	return true
@@ -557,8 +587,9 @@ func _complete_active_job() -> void:
 	var ev := sim.evaluate()
 	var stars: int = ev["stars"]
 	var late := j.is_late()
-	var gross := Economy.job_payout(cfg, j.reward_base_pence, j.is_precision(), stars, late)
-	var base2 := Economy.job_payout(cfg, j.reward_base_pence, j.is_precision(), 2, late)
+	var pf: float = furnish_effects()["payout_factor"]
+	var gross := Economy.round_half_up(float(Economy.job_payout(cfg, j.reward_base_pence, j.is_precision(), stars, late)) * pf)
+	var base2 := Economy.round_half_up(float(Economy.job_payout(cfg, j.reward_base_pence, j.is_precision(), 2, late)) * pf)
 	var wages := {}
 	var wage_total := 0
 	for sid in ["staff_apprentice", "staff_striker"]:
@@ -726,6 +757,45 @@ func hire(id: String) -> bool:
 	return true
 
 
+# ------------------------------------------------------------------ Werkstatt-Einrichtung
+
+func furnish_price(slot: String) -> int:
+	return Furnishings.price(cfg, current_epoch, slot)
+
+
+func is_furnished(slot: String) -> bool:
+	return furnished.has(slot)
+
+
+func fully_furnished() -> bool:
+	for sl in Furnishings.SLOTS:
+		if not furnished.has(sl):
+			return false
+	return true
+
+
+## Kauft das Einrichtungsstück eines Platzes der aktuellen Epoche. Sind danach alle fünf Plätze
+## eingerichtet, zahlt die Zunft eine Prämie.
+func buy_furnishing(slot: String) -> bool:
+	if not Furnishings.SLOTS.has(slot) or furnished.has(slot):
+		return false
+	var price := furnish_price(slot)
+	if not can_afford(price):
+		return false
+	_pay(price, Furnishings.item_id(current_epoch, slot))
+	furnished.append(slot)
+	request_hint("furnish")
+	if fully_furnished():
+		var bonus := Furnishings.complete_bonus(cfg, current_epoch)
+		_add_pence(bonus, true)
+		stats["workshops_furnished"] = int(stats.get("workshops_furnished", 0)) + 1
+		message.emit("MSG_FURNISHED", {"bonus": Economy.format_lsd(bonus)})
+		sim_event.emit("furnished", {})
+	_after_purchase()
+	refresh_offers()
+	return true
+
+
 func set_apprentice_thresholds(to_forge_below: float, to_anvil_at: float) -> void:
 	apprentice_to_forge_below = clampf(to_forge_below, cfg.cold_limit, cfg.optimal_max)
 	apprentice_to_anvil_at = clampf(to_anvil_at, apprentice_to_forge_below + 50.0, 1300.0)
@@ -755,6 +825,7 @@ func advance_epoch() -> bool:
 		active_job = null
 		sim.clear_job()
 	current_epoch += 1
+	furnished = []
 	jobs_completed_in_epoch = 0
 	job_offers.clear()
 	_apply_equipment()
@@ -843,6 +914,7 @@ func to_save_dict() -> Dictionary:
 		},
 		"progress": {
 			"current_epoch": current_epoch, "jobs_completed_in_epoch": jobs_completed_in_epoch,
+			"furnished": furnished.duplicate(),
 			"completed_milestone_ids": completed_milestone_ids.duplicate(),
 			"generator_seed": generator_seed, "generator_state": str(generator.get_state()),
 			"generator_uid": generator.uid_counter,
@@ -899,6 +971,12 @@ func load_from_dict(d: Dictionary) -> void:
 	var pr: Dictionary = d.get("progress", {})
 	current_epoch = clampi(int(pr.get("current_epoch", 1)), 1, EPOCH_COUNT)
 	jobs_completed_in_epoch = maxi(0, int(pr.get("jobs_completed_in_epoch", 0)))
+	furnished = []
+	var fu = pr.get("furnished", [])
+	if fu is Array:
+		for v in fu:
+			if Furnishings.SLOTS.has(str(v)) and not furnished.has(str(v)):
+				furnished.append(str(v))
 	completed_milestone_ids = _known_ids(pr.get("completed_milestone_ids", []), milestones, "milestone")
 	generator_seed = int(pr.get("generator_seed", 1))
 	var gs := str(pr.get("generator_state", ""))
@@ -1018,6 +1096,7 @@ func debug_set_epoch(epoch: int, progress: float, equip: bool = true) -> void:
 		active_job = null
 		sim.clear_job()
 	current_epoch = epoch
+	furnished = []
 	free_play = false
 	var ne := epoch_job_count(epoch)
 	jobs_completed_in_epoch = clampi(int(round(clampf(progress, 0.0, 1.0) * float(ne - 1))), 0, ne - 1)
@@ -1066,6 +1145,7 @@ func _debug_equip(epoch: int) -> void:
 		if m.min_epoch <= epoch and not owned_machine_ids.has(m.id):
 			owned_machine_ids.append(m.id)
 			active_machine_id = m.id
+	furnished = Furnishings.SLOTS.duplicate()
 
 
 func debug_add_money(pence: int) -> void:

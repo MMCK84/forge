@@ -356,3 +356,28 @@ t("HINT_FORCE_TEXT", "Ab jetzt zählt auch, wie fest Ihr zuschlagt. Über dem Ha
 t("HINT_FORCE_MEDIUM_TITLE", "Mittlere Schläge", "Medium blows")
 t("HINT_FORCE_MEDIUM_TEXT", "In der neuen Werkstatt verlangen Breiten, Spitzen und Abschroten mittlere Schläge – nicht mehr die volle Wucht.", "In the new workshop, spreading, pointing and cutting need medium blows – no longer full force.")
 t("UI_STEAM_WAITS", "Dampfhammer wartet – Schlagstärke zu hoch", "Steam hammer waiting – blow too heavy")
+# Werkstatt-Einrichtung (scripts/furnishings.gd)
+t("UI_SECTION_FURNISH", "Einrichtung der Werkstatt", "Workshop fittings")
+t("UI_FURNISH_NOTE", "Jede Werkstatt hat fünf Plätze. Mit dem Umzug in die nächste Epoche beginnt die Einrichtung von vorn. Sind alle fünf eingerichtet, zahlt die Zunft eine Prämie von {bonus}.", "Every workshop has five places. When you move on to the next era, you furnish the new workshop from scratch. Once all five are fitted out, the guild pays a bonus of {bonus}.")
+t("UI_FURNISHED", "Eingerichtet", "Fitted")
+t("FURN_SLOT_FUEL", "Brennstoff", "Fuel")
+t("FURN_SLOT_TOOLS", "Werkzeugwand", "Tool wall")
+t("FURN_SLOT_BENCH", "Werkbank", "Workbench")
+t("FURN_SLOT_TRADE", "Kundschaft", "Custom")
+t("FURN_SLOT_LIGHT", "Licht und Lager", "Light and stores")
+t("FURN_FX_FUEL", "Esse heizt 15 % schneller", "Forge heats 15 % faster")
+t("FURN_FX_TOOLS", "+10 % Fortschritt je Schlag", "+10 % progress per blow")
+t("FURN_FX_TOOLS_BIG", "+10 % Fortschritt je Schlag, große Stücke deutlich leichter", "+10 % progress per blow, large pieces much easier")
+t("FURN_FX_BENCH", "Zielfenster 25 °C breiter, 20 % weniger Gefügeschaden", "Target window 25 °C wider, 20 % less damage")
+t("FURN_FX_TRADE", "4 statt 3 Angebote, neue Angebote schon nach 30 s", "4 instead of 3 offers, new offers after just 30 s")
+t("FURN_FX_LIGHT", "Lohn +5 %, halber Materialverlust bei Ausschuss", "Pay +5 %, half the material loss on scrap")
+t("MSG_FURNISHED", "Werkstatt vollständig eingerichtet! Prämie der Zunft: {bonus}", "Workshop fully fitted out! Guild bonus: {bonus}")
+t("HINT_FURNISH_TITLE", "Einrichtung", "Fittings")
+t("HINT_FURNISH_TEXT", "Euer erstes Einrichtungsstück steht! Jedes der fünf Stücke hilft auf seine Weise – und wenn die Werkstatt vollständig eingerichtet ist, zahlt die Zunft eine Prämie.", "Your first fitting is in place! Each of the five pieces helps in its own way – and once the workshop is fully fitted out, the guild pays a bonus.")
+t("STAT_FURNISHED", "Vollständig eingerichtete Werkstätten", "Workshops fully fitted out")
+
+import os as _os, re as _re
+_src = open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "scripts", "furnishings.gd"), encoding="utf-8").read()
+for _e, _body in _re.findall(r"^\t(\d+): \{(.*?)\},$", _src, _re.S | _re.M):
+    for _slot, _de, _en in _re.findall(r'"(\w+)": \["([^"]*)", "([^"]*)"\]', _body):
+        t(f"FURN_E{_e}_{_slot.upper()}", _de, _en)

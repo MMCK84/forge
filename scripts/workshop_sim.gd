@@ -40,6 +40,15 @@ var has_apprentice: bool = false
 var striker: StaffData = null
 var apprentice_to_forge_below: float = 750.0
 var apprentice_to_anvil_at: float = 1050.0
+# --- Werkstatt-Einrichtung (scripts/furnishings.gd) ---
+## Zielfenster je Seite breiter (°C)
+var window_bonus: float = 0.0
+## Faktor auf jeden Gefügeschaden
+var damage_factor: float = 1.0
+## Faktor auf die Materialkosten bei Ausschuss
+var ruin_cost_factor: float = 1.0
+## Faktor auf die Handarbeit an großen Schmiedestücken (Kran)
+var big_factor_mult: float = 1.0
 
 # --- Zustand ---
 var forge_slots: Array = []
@@ -265,14 +274,14 @@ func window_for_step(step_id: String) -> Vector2:
 	var w: Vector2
 	if step_id == "" or not cfg.step_windows.has(step_id):
 		w = HeatModel.window(cfg, job.is_precision() if job != null else false)
-		return w
+		return w + Vector2(-window_bonus, window_bonus)
 	var arr: Array = cfg.step_windows[step_id]
 	w = Vector2(float(arr[0]), float(arr[1])) - Vector2.ONE * temp_offset()
 	if job != null and job.is_precision():
 		var mid := (w.x + w.y) * 0.5
 		var half := (w.y - w.x) * 0.5 * cfg.precision_window_keep
 		w = Vector2(mid - half, mid + half)
-	return w
+	return w + Vector2(-window_bonus, window_bonus)
 
 
 func anvil_piece() -> JobInstance.Piece:
@@ -452,7 +461,7 @@ func player_hit() -> String:
 	last_player_hit = sim_time
 	var power := hammer_power
 	if job.is_big():
-		power *= cfg.big_manual_factor
+		power *= minf(1.0, cfg.big_manual_factor * big_factor_mult)
 	return _strike(anvil, power, true, effective_force(anvil))
 
 
@@ -464,7 +473,7 @@ func _strike(idx: int, power: float, is_player: bool, used_force: int = -1) -> S
 	var te := t + temp_offset()
 	var kind := "none"
 	if te < cfg.cold_limit:
-		p.damage += cfg.cold_hit_damage
+		p.damage += cfg.cold_hit_damage * damage_factor
 		kind = "cold"
 		if is_player:
 			hit_landed.emit(kind, 0.0)
@@ -493,7 +502,7 @@ func _strike(idx: int, power: float, is_player: bool, used_force: int = -1) -> S
 	var used := req if used_force < 0 else used_force
 	var fdiff := 0 if req < 0 else used - req
 	if fdiff >= 2:
-		p.damage += cfg.force_too_hard_damage
+		p.damage += cfg.force_too_hard_damage * damage_factor
 	var gain := power * HeatModel.multiplier(cfg, te) * force_factor(used, req)
 	gain = clampf(gain, 0.0, maxf(0.0, cap - p.progress))
 	var step_before := step_index(idx)
@@ -568,7 +577,7 @@ func _ruin(idx: int, reason: String) -> void:
 	pieces_ruined += 1
 	piece_ruined.emit(idx, reason)
 	var per_piece := float(job.reward_base_pence) / float(maxi(1, job.quantity))
-	cost_incurred.emit(Economy.round_half_up(per_piece * cfg.ruin_material_cost), "ruin")
+	cost_incurred.emit(Economy.round_half_up(per_piece * cfg.ruin_material_cost * ruin_cost_factor), "ruin")
 
 
 func _check_damage(idx: int) -> void:
@@ -601,7 +610,7 @@ func step(dt: float) -> void:
 			p.temp = maxf(p.temp - cfg.k_cool * dt, cfg.room_temp)
 		var te := p.temp + temp_offset()
 		if te > cfg.optimal_max:
-			p.damage += HeatModel.overheat_damage_rate(cfg, te) * dt
+			p.damage += HeatModel.overheat_damage_rate(cfg, te) * dt * damage_factor
 		if te > cfg.burn_limit:
 			_ruin(i, "burned")
 			continue
@@ -694,7 +703,7 @@ func _step_striker(dt: float) -> void:
 		striker_timer -= striker.hit_interval_s
 		var power := striker.p_base
 		if job.is_big():
-			power *= cfg.big_manual_factor
+			power *= minf(1.0, cfg.big_manual_factor * big_factor_mult)
 		var kind := _strike(anvil, power, false, FORCE_HEAVY)
 		striker_hit.emit(kind)
 		if job == null:

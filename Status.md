@@ -30,7 +30,11 @@ wenn alles fertig ist.
   Pyrometer, Auftragsbuch-Seite), App-Icon und Store-Banner.
 - **Prompt-Heft** `assets/source/user_art/PROMPTS_Hochformat.md` (Generator `tools/content/gen_prompt_book.py`):
   alle Bilder mit Midjourney-Prompt, ID am Anfang jedes Prompts, Regler-Einstellung, Status, Erkenntnis-Tabelle.
-- **Tests:** Unit-Tests grün (1658 Prüfungen, 0 Fehler, 20.11.); grafischer Spieltest bis Epoche 10.
+- **Werkstatt-Einrichtung:** je Epoche fünf Plätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager) mit
+  zeitgemäßem Stück und Wirkung (Heizen +15 %, Schlag +10 %/Kran, Fenster ±25 °C und −20 % Schaden, 4 Angebote/30 s,
+  Lohn +5 %/halber Ausschuss); Preise 40 % der Meistergebühr, Prämie bei vollständiger Einrichtung; beginnt je Epoche neu.
+  Daten `scripts/furnishings.gd`, Darstellung `scenes/main/furnish_view.gd` (Platzhalter, Kreide-Umriss), Laden-Abschnitt.
+- **Tests:** Unit-Tests grün (1841 Prüfungen, 0 Fehler, 20.11.); grafischer Spieltest bis Epoche 10 (mit Einrichtung).
 
 ## Bildstatus (Prompt-Heft)
 
@@ -84,8 +88,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
 4. Später: Querformat für Tablets (Anordnung der Bedienelemente, Querformat-Ausschnitt der 1:1-Hintergründe;
    der Boden ist dort nur ~20 % hoch – ggf. ebenfalls verlängern).
-5. **Aufbau der Werkstatt** (Konzept `docs/Konzept_Aufbau.md`, wartet auf Entscheidung): Einrichtung mit fünf
-   Plätzen je Epoche, sichtbares Personal, weitere Ideen. Spielzeit darf länger werden, darf aber nicht langweilig sein.
+5. **Aufbau der Werkstatt** (Konzept `docs/Konzept_Aufbau.md`): Teil 1 Einrichtung **umgesetzt** (Platzhalterbilder;
+   Bilder kommen über Prompt-Heft Bereich H). Offen: Lage von Kohle und Werkbank (ab Epoche 5 hinter der Maschine) mit den
+   echten Bildern abstimmen; Teil 2 sichtbares Personal; weitere Ideen (Stammkunden, Ereignisse, Meisterstück).
+   Spielzeit darf länger werden, darf aber nicht langweilig sein.
 6. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
 7. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
@@ -131,6 +137,11 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Amboss und vier Hämmer** (Midjourney) eingebaut; Originale in `assets/source/user_art/tools/`. Der Import spiegelt
   den Amboss (Horn rechts) und misst Ambossbahn, Griffpunkt und Hammerbahn → `scripts/user_tool_meta.gd`. Stil fotorealistisch
   (Raw-Modus) – im Spiel unauffällig; Prompt-Heft empfiehlt künftig Standard + Stil-Referenz und `--no photo, 3d render`.
+- 20.11.: **Werkstatt-Einrichtung (Aufbau Teil 1)** eingebaut: Daten, Wirkungen in Simulation/Abrechnung/Auftragsbuch,
+  Laden-Abschnitt, Darstellung mit Platzhaltern, Speichern, Prämie, Statistik, Hinweis, Klang; 183 neue Prüfungen; Spieltest
+  kauft Einrichtung in Ep. 3/5–10. Balancing: mit Einrichtung 12,98 h statt 13,58 h (Vorteile beschleunigen) → Nachstimmen
+  der Epochen mit `tune_balance.py` läuft. Prompt-Heft: Bereich H (50 Einrichtungsbilder), Reihenfolge und Regeln aktualisiert;
+  Import für `assets/source/user_art/furnishings/`.
 
 ## Prüfen
 

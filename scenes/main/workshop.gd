@@ -12,6 +12,7 @@ const ForgeView = preload("res://scenes/main/forge_view.gd")
 const AnvilView = preload("res://scenes/main/anvil_view.gd")
 const TroughView = preload("res://scenes/main/trough_view.gd")
 const MachineView = preload("res://scenes/main/machine_view.gd")
+const FurnishView = preload("res://scenes/main/furnish_view.gd")
 const PieceView = preload("res://scenes/main/piece_view.gd")
 const GlowScale = preload("res://scenes/ui/glow_scale.gd")
 const Hud = preload("res://scenes/ui/hud.gd")
@@ -37,6 +38,7 @@ var forge_view: ForgeView
 var anvil_view: AnvilView
 var trough_view: TroughView
 var machine_view: MachineView
+var furnish_view: FurnishView
 var glow_scale: GlowScale
 var hud: Hud
 var tutorial: Tutorial
@@ -86,6 +88,9 @@ func _ready() -> void:
 
 	# Bühne (Bühnen-Koordinaten 1080 × 1920, skaliert): Esse oben an der Rückwand,
 	# Amboss davor auf dem Boden, Maschine/Löschtrog rechts daneben.
+	# Ganz hinten (vor dem Hintergrund): die Einrichtung der Werkstatt
+	furnish_view = FurnishView.new()
+	stage.add_child(furnish_view)
 	machine_view = MachineView.new()
 	machine_view.position = MACHINE_POS
 	machine_view.size = Vector2(1020, 330)
@@ -847,6 +852,7 @@ func _on_offline(pence: int, seconds: float) -> void:
 func _on_state_changed() -> void:
 	var gm := GameManager
 	background.set_epoch(gm.current_epoch, _rep_level())
+	furnish_view.set_state(gm.current_epoch, gm.furnished, Background.floor_y_for(gm.current_epoch))
 	var f := gm.current_forge()
 	forge_view.tier = f.tier
 	_place_forge()

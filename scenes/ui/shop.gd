@@ -1,10 +1,12 @@
 extends "res://scenes/ui/overlay.gd"
-## Laden (5.1–5.4, 6.3): Hämmer, Verbesserungsstufen, Essen, Maschinen.
+## Laden (5.1–5.4, 6.3): Einrichtung, Hämmer, Verbesserungsstufen, Essen, Maschinen.
 
 const Economy = preload("res://scripts/economy.gd")
 const Catalog = preload("res://scripts/catalog.gd")
 const Assets = preload("res://scripts/assets.gd")
 const UserForgeMeta = preload("res://scripts/user_forge_meta.gd")
+const Furnishings = preload("res://scripts/furnishings.gd")
+const FurnishView = preload("res://scenes/main/furnish_view.gd")
 
 
 func _init() -> void:
@@ -18,6 +20,22 @@ func build(box: VBoxContainer) -> void:
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 8)
 	box.add_child(scroll(list, 860))
+	# Einrichtung der Werkstatt (je Epoche neu)
+	list.add_child(_section("UI_SECTION_FURNISH"))
+	for slot in Furnishings.slots_by_price():
+		var fname := tr(Furnishings.name_key(gm.current_epoch, slot))
+		var fx_key := "FURN_FX_" + str(slot).to_upper()
+		if slot == "tools" and gm.current_epoch >= Furnishings.BIG_FROM_EPOCH:
+			fx_key = "FURN_FX_TOOLS_BIG"
+		var price: int = gm.furnish_price(slot)
+		var f_info := tr("FURN_SLOT_" + str(slot).to_upper()) + ": " + tr(fx_key)
+		var fr := _row(fname, f_info, 0 if gm.is_furnished(slot) else price, 1, FurnishView.icon(gm.current_epoch, slot))
+		if gm.is_furnished(slot):
+			fr.add_child(_status_btn(tr("UI_FURNISHED")))
+		else:
+			fr.add_child(_buy_btn(price, 1, func() -> void: gm.buy_furnishing(slot)))
+		list.add_child(fr)
+	list.add_child(UIKit.wrap_label(tr("UI_FURNISH_NOTE").format({"bonus": Economy.format_lsd(Furnishings.complete_bonus(gm.cfg, gm.current_epoch))}), 19, UIKit.INK_LIGHT, UIKit.CW - 20.0))
 	# Hämmer
 	list.add_child(_section("UI_SECTION_HAMMERS"))
 	for h in Catalog.HAMMERS:
