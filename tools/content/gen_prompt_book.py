@@ -82,9 +82,11 @@ LESSONS = [
      "„Evening but well lit“; `--no fireplace, flames`; „Through the small window: …“ statt „Window view“, damit die Aussicht im kleinen Fenster links landet; zu tiefe Kante gleicht der Import aus (oben Decke abschneiden, `BG_TOP_CROP`)"),
     ("20.11.", "Essen", "erste Frontalansichten (Stufe 1–5): Aufbau, Blasebalg links und offenes Glutbett gelungen; Stufe 3 zeigt nur einen Blasebalg und einen Sack statt zwei übereinanderliegender Bälge; Stufe 1 hat ein schmales Glutbett (~25 % der Breite)",
      "Doppelblasebalg ausdrücklich: „two identical teardrop bellows stacked one above the other, one lever“; Glutbett „wide, about two thirds of the width“; Glutbett, Schornstein und Ursprung misst jetzt der Import selbst"),
+    ("20.11.", "Hämmer, Amboss (Raw)", "Formen und Ansicht genau richtig, aber fotorealistische 3D-Renderings statt handgemalt mit Tuschekontur – der Raw-Modus überstimmt die Stilangabe; Amboss mit Horn nach links",
+     "Raw nur noch, wenn die Form nicht stimmt; sonst Standard mit Stil-Referenz (ein Hintergrund oder eine Esse); `--no photo, 3d render`; Horn-Richtung gleicht der Import aus (spiegeln); Griff, Bahn und Ambossbahn misst der Import selbst"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
-ISOLATED_NEG = ["border", "shadow"]
+ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
 BG_NEG = ["black band", "border"]
 # Essen: die vorhandenen Schrägansichten werden durch Frontalansichten ersetzt.
 # Sobald die Frontalansichten da sind, hier True setzen.
@@ -519,12 +521,12 @@ def main():
               "Version immer gleich lassen (8.2). "
               "Weirdness immer 0. Video-Einstellungen spielen keine Rolle.", "",
               "| Gruppe | Model | Raw | Stylization | Variety | Speed |", "|---|---|---|---|---|---|",
-              "| Werkstücke (E), Hämmer (C), Maschinenteile (D), Symbole (G) | Standard | **Raw** | niedrig (ca. 10 %) | 0 | Relax, wenn möglich |",
-              "| Essen (B), Amboss, Schabotte | Standard | **Raw** | niedrig (ca. 10 %) | 0 | Fast |",
+              "| Werkstücke (E), Hämmer (C), Maschinenteile (D), Symbole (G) | Standard | Standard (Raw nur, wenn die Form nicht stimmt) | niedrig (ca. 10 %) | 0 | Relax, wenn möglich |",
+              "| Essen (B), Amboss, Schabotte | Standard | Standard (Raw nur, wenn die Form nicht stimmt) | niedrig (ca. 10 %) | 0 | Fast |",
               "| Hintergründe (A) | **HD** (für das ausgewählte Bild) | Standard | mittel (ca. 30–40 %) | 0 | Fast |",
               "| Porträts (F) | Standard | Standard | mittel (ca. 30 %) | 0 | Relax, wenn möglich |",
               "| App-Icon, Store-Banner | **HD** | Standard | mittel | 0 | Fast |", "",
-              "Raw hält sich genauer an Vorgaben wie „genau von der Seite“ oder „Kopf links“. HD lohnt sich nur, wo das Bild "
+              "Raw hält sich genauer an Vorgaben wie „genau von der Seite“, malt aber fotorealistisch statt im gezeichneten Stil des Spiels – deshalb nur im Notfall. Für den Stil immer ein gelungenes Bild (Hintergrund oder Esse) als Stil-Referenz `--sref` anhängen. HD lohnt sich nur, wo das Bild "
               "groß zu sehen ist (Hintergründe 1080 × 1920, Icon, Banner); Gegenstände verkleinert das Spiel ohnehin auf 256–1000 px. "
               "Für eine Serie (z. B. alle Werkstücke) das beste Bild als Stil-Referenz `--sref <URL>` an alle weiteren Prompts der Gruppe hängen.", ""]
     lines += ["", "## Regeln für alle Bilder", "",

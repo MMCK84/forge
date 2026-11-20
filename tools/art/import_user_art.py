@@ -157,24 +157,11 @@ def main():
                 a = load(name + ext)
                 bg = flood_bg(a.min(axis=2) > 238)
                 save(to_rgba(a, bg.astype(np.float32)), name + ".png", max_w=160)
-    # 11 Amboss auf Holzklotz (weiß), auf Spielgröße vorskaliert (wird 1:1 gezeichnet)
-    a = load("anvil.webp")
-    sat = a.max(axis=2) - a.min(axis=2)
-    img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
-    img = img.crop(img.getbbox())
-    save(img.resize((457, int(img.height * 457 / img.width)), Image.LANCZOS), "anvil.png")
+    # 11 Amboss und 14 Hämmer (Midjourney, weiß): assets/source/user_art/tools/ – vermessen nach scripts/user_tool_meta.gd
+    tool_import()
 
     # 12/13 Essen in Frontalansicht (Midjourney, weiß): assets/source/user_art/forges/<forge_id>.png
     forge_import()
-    # 14 Hämmer in reiner Seitenansicht (Kopf links senkrecht, Bahn unten, Stiel waagerecht nach rechts)
-    for hid in ["hammer_hand", "hammer_cross_peen", "hammer_steel_faced", "hammer_crucible"]:
-        path = os.path.join(SRC, hid + ".jpg")
-        if not os.path.exists(path):
-            continue
-        a = load(hid + ".jpg")
-        sat = a.max(axis=2) - a.min(axis=2)
-        img = to_rgba(a, flood_bg((a.min(axis=2) > 222) & (sat < 20)).astype(np.float32))
-        save(img, hid + ".png", max_w=360)
     # 16 Wasser-Schwanzhammer (weiß) als Bild im Laden
     a = load("water_helve.webp")
     sat = a.max(axis=2) - a.min(axis=2)
@@ -283,6 +270,76 @@ def main():
 
 # Hintergründe mit sehr tiefer Wand-Boden-Kante: so viele Pixel (Original) oben abschneiden
 BG_TOP_CROP = {"background_10": 300}
+
+HAMMER_IDS = ["hammer_hand", "hammer_cross_peen", "hammer_steel_faced", "hammer_crucible"]
+HAMMER_W = 360   # Breite der Hammergrafik (wird im Spiel mit 0.62 gezeichnet)
+ANVIL_W = 457    # Breite des Ambosses im Spiel (Horn bis Ende der Bahn)
+# Amboss: Horn muss nach rechts zeigen – Originale mit Horn links werden gespiegelt
+ANVIL_HORN_LEFT = True
+
+
+def _cutout(path):
+    a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
+    sat = a.max(axis=2) - a.min(axis=2)
+    white = (a.min(axis=2) > 215) & (sat < 28)
+    bg = flood_bg(white)
+    solid = ~bg
+    lab, n = ndimage.label(solid)
+    if n > 1:
+        sizes = ndimage.sum(solid, lab, range(1, n + 1))
+        solid = np.isin(lab, [k + 1 for k, sz in enumerate(sizes) if sz >= 0.05 * sizes.max()])
+    img = to_rgba(a, (~solid).astype(np.float32))
+    return img.crop(img.getbbox())
+
+
+def tool_import():
+    """Amboss und Hämmer freistellen, auf Spielgröße bringen und vermessen:
+    Amboss – Mitte und Oberkante der Bahn; Hammer – Griffpunkt (Stielende) und Mitte der Bahn (unten am Kopf)."""
+    tdir = os.path.join(SRC, "tools")
+    if not os.path.isdir(tdir):
+        return
+    lines = ["## Automatisch erzeugt von tools/art/import_user_art.py – nicht von Hand ändern.",
+             "## Amboss: Mitte (x) und Oberkante (y) der Bahn. Hämmer: Griffpunkt, Mitte der Bahn, Richtung Kopf→Bahn (90° = unten).", ""]
+    p = os.path.join(tdir, "anvil.png")
+    if os.path.exists(p):
+        img = _cutout(p)
+        if ANVIL_HORN_LEFT:
+            img = img.transpose(Image.FLIP_LEFT_RIGHT)
+        img = img.resize((ANVIL_W, int(round(img.height * ANVIL_W / img.width))), Image.LANCZOS)
+        al = np.asarray(img)[..., 3] > 128
+        # Mitte der Bahn = Mitte des Holzklotzes (unteres Viertel), Oberkante = oberste Zeile über der Mitte
+        low = np.where(al[int(img.height * 0.8):].any(axis=0))[0]
+        cx = int((low[0] + low[-1]) / 2)
+        col = al[:, max(0, cx - 20):cx + 20].any(axis=1)
+        top = int(np.where(col)[0][0])
+        save(img, "anvil.png")
+        lines.append(f"const ANVIL := {{\"face\": Vector2({cx}, {top})}}")
+    else:
+        lines.append("const ANVIL := {}")
+    lines.append("const HAMMERS := {")
+    for hid in HAMMER_IDS:
+        p = os.path.join(tdir, hid + ".png")
+        if not os.path.exists(p):
+            continue
+        img = _cutout(p)
+        img = img.resize((HAMMER_W, int(round(img.height * HAMMER_W / img.width))), Image.LANCZOS)
+        al = np.asarray(img)[..., 3] > 128
+        hcol = al.sum(axis=0)
+        head = np.where(hcol > 0.5 * hcol.max())[0]
+        hx0, hx1 = head[0], head[-1]
+        # zusammenhängender Kopf links
+        gaps = np.where(np.diff(head) > 3)[0]
+        if len(gaps):
+            hx1 = head[gaps[0]]
+        face_x = int((hx0 + hx1) / 2)
+        face_y = int(np.where(al[:, hx0:hx1 + 1].any(axis=1))[0][-1])
+        gx = int(np.where(al.any(axis=0))[0][-1]) - 6
+        gy = int(np.mean(np.where(al[:, gx - 10:gx])[0]))
+        save(img, hid + ".png")
+        lines.append(f'\t"{hid}": [Vector2({gx}, {gy}), Vector2({face_x}, {face_y}), 90.0],')
+    lines.append("}")
+    open(os.path.join(ROOT, "scripts", "user_tool_meta.gd"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
+
 
 FORGE_IDS = ["forge_clay", "forge_brick", "forge_double_bellows", "forge_coke", "forge_welding_furnace", "forge_siemens"]
 FORGE_W = 920          # Breite im Spiel (Bühnen-Pixel)

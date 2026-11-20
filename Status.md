@@ -38,7 +38,7 @@ wenn alles fertig ist.
 |---|---|---|---|---|
 | A Hintergründe (1:1) | **10 (alle)** | – | – | – |
 | B Essen (frontal) | 4 (Stufe 1, 2, 4, 5) | 1 (Stufe 3: Doppelbalg fehlt) | – | 1 (Stufe 6) |
-| C Amboss, Hämmer | – | – | 5 | – |
+| C Amboss, Hämmer | 5 (fotorealistisch) | – | – | – |
 | D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
 | E Werkstücke | – | – | 9 | 72 (Epochen 2–10) |
 | F Kundenporträts (optional) | – | – | – | 54 |
@@ -128,6 +128,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Ep. 10: Kante 84 % → Import schneidet oben 300 px ab. Erkenntnisse (gemaltes Feuer, zweites Fenster rechts, dunkel,
   Doppelbalg) in alle Prompts übernommen. Unit-Tests grün, Spieltest 0 Probleme.
   Offen: In Epoche 9/10 verdeckt das Dampfhammer-Gestell die Anzeige „Rohlinge“ (Zeichenreihenfolge).
+- 20.11.: **Amboss und vier Hämmer** (Midjourney) eingebaut; Originale in `assets/source/user_art/tools/`. Der Import spiegelt
+  den Amboss (Horn rechts) und misst Ambossbahn, Griffpunkt und Hammerbahn → `scripts/user_tool_meta.gd`. Stil fotorealistisch
+  (Raw-Modus) – im Spiel unauffällig; Prompt-Heft empfiehlt künftig Standard + Stil-Referenz und `--no photo, 3d render`.
 
 ## Prüfen
 

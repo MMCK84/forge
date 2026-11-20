@@ -21,12 +21,8 @@ const FORCE_SWING := [0.55, 1.0, 1.6]
 ## Hammergrafiken des Auftraggebers in reiner Seitenansicht (Kopf links senkrecht, Bahn unten,
 ## Stiel waagerecht nach rechts): Griffpunkt am Stielende, Mitte der Bahn, Richtung der
 ## Kopfachse zur Bahn (90° = nach unten). Beim Schlag sitzt die Bahn flach auf dem Werkstück.
-const USER_HAMMERS := {
-	"hammer_hand": [Vector2(340, 88), Vector2(39, 175), 90.0],
-	"hammer_cross_peen": [Vector2(340, 85), Vector2(35, 164), 90.0],
-	"hammer_steel_faced": [Vector2(340, 103), Vector2(38, 203), 90.0],
-	"hammer_crucible": [Vector2(340, 83), Vector2(31, 163), 90.0],
-}
+const UserToolMeta = preload("res://scripts/user_tool_meta.gd")
+const USER_HAMMERS: Dictionary = UserToolMeta.HAMMERS
 const USER_HAMMER_SCALE := 0.62
 ## Ausholwinkel (Bogenmaß) zwischen Schlag und angehobenem Hammer
 const USER_HAMMER_RAISE := 0.55
@@ -73,8 +69,10 @@ func _draw() -> void:
 			var bw := bh * block_t.get_width() / block_t.get_height()
 			draw_texture_rect(block_t, Rect2(rest_point().x - bw * 0.5, 137.0, bw, bh), false)
 		elif user_t != null:
-			# Amboss des Auftraggebers: Bahnmitte über der Ablage, Bahnoberkante bei y ≈ 137 (Werkstück liegt bei 138)
-			draw_texture(user_t, Vector2(rest_point().x - 153.0, 134.0))
+			# Amboss des Auftraggebers: Bahnmitte über der Ablage, Bahnoberkante bei y ≈ 137 (Werkstück liegt bei 138);
+			# die Maße misst der Import (scripts/user_tool_meta.gd)
+			var face: Vector2 = UserToolMeta.ANVIL.get("face", Vector2(153, 3))
+			draw_texture(user_t, Vector2(rest_point().x - face.x, 137.0 - face.y))
 		else:
 			draw_texture(anvil_t, Vector2(-10, -10))
 		# Handhammer: liegt beim Schlag auf (swing = 1) und hebt sich wieder (swing → 0)
