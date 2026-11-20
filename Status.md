@@ -85,8 +85,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
 4. Später: Querformat für Tablets (Anordnung der Bedienelemente, Querformat-Ausschnitt der 1:1-Hintergründe;
    der Boden ist dort nur ~20 % hoch – ggf. ebenfalls verlängern).
-5. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
-6. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
+5. **Aufbau der Werkstatt** (Konzept `docs/Konzept_Aufbau.md`, wartet auf Entscheidung): Einrichtung mit fünf
+   Plätzen je Epoche, sichtbares Personal, weitere Ideen. Spielzeit darf länger werden, darf aber nicht langweilig sein.
+6. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
+7. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
 ## Verlauf
 
@@ -118,6 +120,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Prompt: Abendlicht, Feuerschein; Kante 69 % → 991) – beide ✅. Zweites Fenster trotz `--no` → Fenster-Baustein präzisiert.
   Wichtig: nach `import_user_art.py` erst `godot --headless --path . --import`, sonst zeigt der Spieltest alte Bilder.
   Unit-Tests grün, Spieltest 34 Screenshots, 0 Probleme.
+- 20.11.: BG3–BG10 laut Auftraggeber hochgeladen, auf GitHub aber noch nicht angekommen (Commit fehlt vermutlich).
+  Auftraggeber findet die Hintergründe etwas dunkel – Aufhellung beim Import möglich, Entscheidung wenn alle 10 im Spiel sind.
+- 20.11.: Konzept „Aufbau der Werkstatt“ geschrieben (`docs/Konzept_Aufbau.md`).
 
 ## Prüfen
 
