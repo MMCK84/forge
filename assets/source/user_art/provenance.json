@@ -226,6 +226,46 @@
    "quelle": "Midjourney",
    "bewertung": "gut",
    "hinweis": "20.11.: massive Schabotte mit Gesenk, Keilen und Eichenbalken; leicht von oben – im Spiel unauffällig."
+  },
+  "wheel_tyre": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: geschmiedeter Radreifen, leicht schräg – im Spiel unauffällig. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "coach_axle": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: vereinfachte Achse mit Endknöpfen. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "coach_fitting": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Beschlagband mit Voluten und Nagellöchern. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "lantern_bracket": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Wandplatte mit Ausleger, Voluten und Haken. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "post_horseshoe": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Hufeisen mit Falz und Nagellöchern, Öffnung unten. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "turnpike_fitting": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: Bandbeschlag mit Ring und Riegel. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "chain_link": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: drei Glieder statt einem – liest sich klar als Kette. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "drag_shoe": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "20.11.: falsches Objekt – Stab mit Haken und Öse statt Hemmschuh (Kufe unter dem Rad); Prompt jetzt in Seitenansicht mit genauer Form."
   }
  },
  "abgelehnt": {

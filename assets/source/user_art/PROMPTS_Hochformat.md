@@ -15,10 +15,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 30 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 0 |
+| ✅ gut (Midjourney) | 37 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 22 |
-| ⬜ noch nicht vorhanden | 123 |
+| ⬜ noch nicht vorhanden | 115 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -27,7 +27,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 9 | 0 | 1 | 0 | 4 |
-| E · Werkstücke | 0 | 0 | 9 | 72 | 0 |
+| E · Werkstücke | 7 | 1 | 9 | 64 | 0 |
 | F · Kundenporträts | 0 | 0 | 0 | 0 | 54 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 1 | 4 |
 | H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
@@ -71,6 +71,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Essen | Esse Stufe 3 (neu) und Siemens-Ofen: Inhalt gelungen (zwei Bälge mit Hebel bzw. genieteter Gasofen), aber trotz `--no smoke` Rauch über dem Schornstein | „the chimney top is clean (no smoke)“; den Rest schneidet der Import weg (`FORGE_SMOKE`), das Spiel erzeugt eigenen Rauch |
 | 20.11. | alle Frontal-/Seitenansichten | Midjourney malt freigestellte Objekte häufig perspektivisch, obwohl „front view“ im Prompt steht | Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten |
 | 20.11. | Maschinenteile | neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock | historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt |
+| 20.11. | Werkstücke | Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten | Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst) |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -430,52 +431,60 @@ gate_latch — 2D game asset, a single hand-forged gate latch: flat iron latch b
 
 ### Epoche 2 – Kutschen & Handelswege (1715–1735)
 
-**wheel_tyre** – Radreifen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter
+**wheel_tyre** – Radreifen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter  
+*20.11.: geschmiedeter Radreifen, leicht schräg – im Spiel unauffällig. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 wheel_tyre — 2D game asset, a single forged iron wheel tyre: one flat iron hoop forming a perfect circle seen from directly above, narrow uniform band, a visible forge-welded joint, empty in the middle, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**coach_axle** – Kutschachse · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 65 Wörter
+**coach_axle** – Kutschachse · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 65 Wörter  
+*20.11.: vereinfachte Achse mit Endknöpfen. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 coach_axle — 2D game asset, a single forged coach axle: straight thick square iron bar with a round tapered axle arm at each end and a raised collar where each arm begins, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**coach_fitting** – Kutschbeschlag · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter
+**coach_fitting** – Kutschbeschlag · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter  
+*20.11.: Beschlagband mit Voluten und Nagellöchern. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 coach_fitting — 2D game asset, a single forged coach body fitting: flat iron stay bar with elegant scrolled curls at both ends and four countersunk bolt holes, gently curved, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**lantern_bracket** – Laternenhalter · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 76 Wörter
+**lantern_bracket** – Laternenhalter · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 76 Wörter  
+*20.11.: Wandplatte mit Ausleger, Voluten und Haken. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 lantern_bracket — 2D game asset, a single hand-forged wall bracket for a hanging lantern: horizontal square-bar arm with a small hook at the right tip, a decorative scroll brace below the arm, and a flat wall plate with two nail holes on the left, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**post_horseshoe** – Postpferd-Hufeisen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter
+**post_horseshoe** – Postpferd-Hufeisen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter  
+*20.11.: Hufeisen mit Falz und Nagellöchern, Öffnung unten. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 post_horseshoe — 2D game asset, a single light hand-forged horseshoe for a coach horse: narrow web, deep fullered groove, six nail holes and a small raised toe clip at the front, opening pointing down, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**turnpike_fitting** – Schlagbaumbeschlag · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 75 Wörter
+**turnpike_fitting** – Schlagbaumbeschlag · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 75 Wörter  
+*20.11.: Bandbeschlag mit Ring und Riegel. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 turnpike_fitting — 2D game asset, a single heavy forged hinge for a turnpike toll gate: thick flat iron strap with three bolt holes and a large rolled eye at the left end, with an L-shaped iron pintle pin seated in the eye, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**drag_shoe** – Hemmschuh · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 68 Wörter
+**drag_shoe** – Hemmschuh · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 91 Wörter  
+*20.11.: falsches Objekt – Stab mit Haken und Öse statt Hemmschuh (Kufe unter dem Rad); Prompt jetzt in Seitenansicht mit genauer Form.*
 ```
-drag_shoe — 2D game asset, a single forged drag shoe for a coach wheel: elongated iron skid shaped like a narrow trough, front end curled upwards, a forged ring for the chain at the back, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+drag_shoe — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged drag shoe (wheel skid) for a coach wheel, seen exactly from the side: a flat iron sole as long as a forearm with low side walls, the front end curled upwards like a sleigh runner, a forged ring with a short chain at the back end, horizontal, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 3 – Hafen & Royal Navy (1735–1750)
 
-**chain_link** – Kettenglied · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter
+**chain_link** – Kettenglied · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter  
+*20.11.: drei Glieder statt einem – liest sich klar als Kette. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 chain_link — 2D game asset, a single large forged oval chain link made from thick round bar, a visible forge-weld seam on one long side, empty in the middle, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -511,9 +520,9 @@ carriage_fitting — 2D game asset, a single forged gun-carriage fitting (cap sq
 ```
 
 **rudder_pintle** – Ruderfingerling · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 101 Wörter
+Regler: **Square 1:1** · 81 Wörter
 ```
-rudder_pintle — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged rudder pintle for a sailing ship: long flat iron strap with four bolt holes, at the left end bent into a thick round pin pointing downwards at a right angle, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+rudder_pintle — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged rudder pintle for a sailing ship: long flat iron strap with four bolt holes, at the left end bent into a thick round pin pointing downwards at a right angle, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 4 – Stahl & Tuch (1750–1765)
@@ -537,9 +546,9 @@ knife — 2D game asset, a single forged knife blade without handle: straight sp
 ```
 
 **spring** – Feder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 85 Wörter
+Regler: **Square 1:1** · 65 Wörter
 ```
-spring — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single hand-forged coil spring: steel wire wound into eight even coils with open straight ends, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+spring — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single hand-forged coil spring: steel wire wound into eight even coils with open straight ends, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **chisel** – Meißel · ⬜ noch nicht vorhanden  
@@ -575,9 +584,9 @@ piston_rod — 2D game asset, a single forged piston rod for a steam engine: lon
 ```
 
 **valve_part** – Ventilteil · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 94 Wörter
+Regler: **Square 1:1** · 74 Wörter
 ```
-valve_part — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-engine valve: round flat valve disc with a bevelled rim on the left and a straight round valve stem pointing to the right, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+valve_part — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-engine valve: round flat valve disc with a bevelled rim on the left and a straight round valve stem pointing to the right, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **beam_strap** – Balancierbeschlag · ⬜ noch nicht vorhanden  
@@ -619,9 +628,9 @@ pump_rod — 2D game asset, a single section of forged pump rod for a Cornish mi
 ### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
 
 **boiler_rivet** – Kesselniete · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 86 Wörter
+Regler: **Square 1:1** · 66 Wörter
 ```
-boiler_rivet — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single large forged boiler rivet: short thick round shank with a domed snap head on the left, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+boiler_rivet — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single large forged boiler rivet: short thick round shank with a domed snap head on the left, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **boiler_plate** – Kesselblech · ⬜ noch nicht vorhanden  
@@ -655,9 +664,9 @@ lathe_tool — 2D game asset, a single forged lathe cutting tool: short square s
 ```
 
 **leaf_spring** – Blattfeder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 102 Wörter
+Regler: **Square 1:1** · 82 Wörter
 ```
-leaf_spring — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged carriage leaf spring: a stack of five gently curved steel leaves of decreasing length held by a central iron clamp band, rolled eyes at both ends of the longest leaf, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+leaf_spring — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged carriage leaf spring: a stack of five gently curved steel leaves of decreasing length held by a central iron clamp band, rolled eyes at both ends of the longest leaf, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **wagon_axle** – Wagenachse · ⬜ noch nicht vorhanden  
@@ -673,9 +682,9 @@ large_shaft — 2D game asset, a single forged mill drive shaft: very long thick
 ```
 
 **crankshaft** – Kurbelwelle · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 97 Wörter
+Regler: **Square 1:1** · 77 Wörter
 ```
-crankshaft — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged crankshaft: straight round iron shaft with one single crank throw in the middle, made of two rectangular webs and a round crankpin offset to one side, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only, cold and unheated, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, leather, rope, glow, sparks, fire, cast shadow, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+crankshaft — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged crankshaft: straight round iron shaft with one single crank throw in the middle, made of two rectangular webs and a round crankpin offset to one side, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 7 – Krieg & Erfindergeist (1800–1820)

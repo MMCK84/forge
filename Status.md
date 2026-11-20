@@ -44,7 +44,7 @@ wenn alles fertig ist.
 | B Essen (frontal) | **6 (alle)** | – | – | – |
 | C Amboss, Hämmer | 5 (fotorealistisch) | – | – | – |
 | D Maschinenteile | 9 (Schwanzhammer, Dampfmaschine, Dampfhammer) | – | 1 (Ladenbild) | 4 optional |
-| E Werkstücke | – | – | 9 | 72 (Epochen 2–10) |
+| E Werkstücke | 7 (Epoche 2/3) | 1 (Hemmschuh) | 9 (Epoche 1) | 64 |
 | F Kundenporträts (optional) | – | – | – | 54 |
 | G Oberfläche, Store | – | – | 12 | 5 |
 | H Werkstatt-Einrichtung | – | – | – | 50 (Platzhalter im Spiel) |
@@ -152,6 +152,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Kolbenstange, Säulenkopf und Balancier; der Bär wird bis zum Zylinder gezeigt. Die Anzeige „Rohlinge“ ist in Ep. 9/10 nicht
   mehr verdeckt. Gegen perspektivische Bilder: Ansicht an den Prompt-Anfang („Flat orthographic … elevation“), Verbote gegen
   Perspektive, Tipp Bild-Prompt mit `--iw 1` und Raw + `--sref` – im Heft unter Einstellungen und in `LESSONS`.
+- 20.11.: **Erste Werkstücke** (Midjourney): Epoche 2 Radreifen, Kutschachse, Kutschbeschlag, Laternenhalter, Postpferd-
+  Hufeisen, Schlagbaumbeschlag ✅, Hemmschuh 🟠 (falsches Objekt → Prompt in Seitenansicht); Epoche 3 Kettenglied ✅.
+  Fotorealistisch auf grauem Grund – Import stellt sauber frei. Frage des Auftraggebers: Was fehlt für Epoche 1? → Antwort:
+  spielbar ist sie schon; für einen einheitlichen Midjourney-Look fehlen 9 Werkstücke, 5 Einrichtungsstücke und die UI-Bilder.
 
 ## Prüfen
 

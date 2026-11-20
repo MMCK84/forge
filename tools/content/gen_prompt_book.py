@@ -90,6 +90,8 @@ LESSONS = [
      "Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten"),
     ("20.11.", "Maschinenteile", "neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock",
      "historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt"),
+    ("20.11.", "Werkstücke", "Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten",
+     "Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst)"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -141,10 +143,11 @@ def _split_top(text):
 
 # Lange Standard-Formulierungen → kurze (Midjourney warnt bei langen Prompts: „Long prompt … may increase variability“)
 SHORTEN = [
-    ("viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, "
+    ("viewed from directly above, lying flat, ", "top-down view, lying flat, "),
+    ("centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, "
      "visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), "
      "cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background",
-     "top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, "
+     "centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, "
      "metal only (no wood, no rope), cold (no glow, no fire), no other objects, pure flat white background"),
     ("18th/19th-century British blacksmith work", "British smith's work"),
     ("18th-century British blacksmith work", "British smith's work"),

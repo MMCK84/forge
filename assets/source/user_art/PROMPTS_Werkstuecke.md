@@ -102,7 +102,7 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 
 **drag_shoe** – Hemmschuh
 ```
-2D game asset, a single forged drag shoe for a coach wheel: elongated iron skid shaped like a narrow trough, front end curled upwards, a forged ring for the chain at the back, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged drag shoe (wheel skid) for a coach wheel, seen exactly from the side: a flat iron sole as long as a forearm with low side walls, the front end curled upwards like a sleigh runner, a forged ring with a short chain at the back end, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **lantern_bracket** – Laternenhalter
