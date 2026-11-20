@@ -135,7 +135,7 @@ def parse_prompts(path):
 # ------------------------------------------------------------------ Bausteine der Prompts
 
 BG_HEAD = ("Vertical 9:16 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills only the top 40 percent "
-           "of the image and meets the floor at 40 percent of the image height, a large empty floor fills the lower 60 percent. "
+           "of the image and meets the floor at 40 percent of the image height, a large empty floor fills the lower 60 percent, the top 10 percent of the image shows only dark ceiling beams and the window sits just below them. "
            "Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. ")
 BG_TAIL = ("The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later. "
            "Warm orange firelight falls on the centre of the back wall from below, as if from an off-screen hearth; the corners are dim. "
