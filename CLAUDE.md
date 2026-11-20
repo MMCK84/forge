@@ -1,6 +1,7 @@
 # Hinweise für die Arbeit an diesem Projekt
 
 - Sprache mit dem Auftraggeber: Deutsch.
+- Aktueller Projektstand und offene Punkte: `Status.md` (nach größeren Schritten aktualisieren).
 - Godot 4.7.2 verwenden (4.7.1 stürzt ab); `.uid`-Dateien gehören ins Repository.
 - **Grafiken des Auftraggebers:** Alle Bilder bis zum 20.11.2026 stammen von **Gemini**, alle neuen
   von **Midjourney**. Die Gemini-Bilder sollen später durch Midjourney-Bilder ersetzt werden.
