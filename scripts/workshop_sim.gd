@@ -59,9 +59,11 @@ var selected_slot: int = 0
 var sim_time: float = 0.0
 var last_player_hit: float = -10.0
 var machine_timer: float = 0.0
-## Dampfhammer (wählbare Stärke) schlägt nur auf Kommando: gehalten = fortlaufend
+## Maschinen schlagen nur auf Kommando: gehalten = fortlaufend
 var machine_hold: bool = false
 var last_machine_blow: float = -10.0
+## Zeitpunkt des letzten getippten Maschinenschlags (gegen einen Doppelschlag direkt danach)
+var last_machine_tap: float = -10.0
 var striker_timer: float = 0.0
 var steam_cost_accum: float = 0.0
 var water_level: float = 1.0
@@ -681,9 +683,10 @@ func _machine_force() -> int:
 	return FORCE_HEAVY
 
 
-## Dampfhämmer (wählbare Stärke) bedient der Spieler selbst – Schwanzhämmer laufen am Antrieb mit.
+## Alle Maschinen bedient der Spieler selbst (einheitliche Steuerung): Tippen = ein Schlag,
+## Halten = fortlaufend. Schwanzhämmer schlagen dabei nur schwer und ruhen in leichten Arbeitsgängen.
 func machine_commanded() -> bool:
-	return machine != null and machine.force_mode == "adjustable"
+	return machine != null
 
 
 ## Ein Dampfhammer-Schlag auf Kommando (Tippen). Gibt die Art des Schlags zurück ("none", wenn nicht möglich).
@@ -693,6 +696,7 @@ func command_machine_blow() -> String:
 	if sim_time - last_machine_blow < 1.0 / maxf(machine.hits_per_s, 0.01) - EPS:
 		return "none"
 	last_machine_blow = sim_time
+	last_machine_tap = sim_time
 	var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force())
 	machine_hit.emit(kind)
 	if machine.cost_per_minute > 0:
@@ -708,7 +712,7 @@ func _step_machine(dt: float) -> void:
 	var interval := 1.0 / maxf(machine.hits_per_s, 0.01)
 	while machine_timer >= interval and machine_engaged():
 		machine_timer -= interval
-		if machine_commanded() and sim_time - last_machine_blow < interval - EPS:
+		if sim_time - last_machine_tap < interval - EPS:
 			continue
 		last_machine_blow = sim_time
 		var kind := _strike(anvil, machine.p_base * water_factor(), false, _machine_force())

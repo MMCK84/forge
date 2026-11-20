@@ -126,7 +126,7 @@ t("UI_FORGE_BURN_NOTE", "Achtung: Ab der Esse mit Doppelblasebalg liegt die Höc
 t("UI_MACHINE_INFO", "Schlagkraft {p} · {h} Schläge/s", "Striking power {p} · {h} blows/s")
 t("UI_MACHINE_COST", "Betriebskosten {c} je Minute", "running cost {c} per minute")
 t("UI_MACHINE_WATER", "Leistung schwankt mit dem Wasserstand (60–100 %)", "output varies with the water level (60–100 %)")
-t("UI_MACHINE_NOTE", "Schwanzhämmer schlagen automatisch mit, solange ein Werkstück (ab 400 °C) auf dem Amboss liegt. Dampfhämmer bedient Ihr selbst: Tippen = ein Schlag, Halten = fortlaufend. Es ist immer nur eine Maschine aktiv.", "Helve hammers strike automatically while a piece (400 °C or hotter) lies on the anvil. Steam hammers you work yourself: tap = one blow, hold = continuous. Only one machine is active at a time.")
+t("UI_MACHINE_NOTE", "Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur schwer, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.", "You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike heavy only, steam hammers with the chosen force. Only one machine is active at a time.")
 t("UI_BUY", "Kaufen", "Buy")
 t("UI_EQUIP", "Benutzen", "Use")
 t("UI_EQUIPPED", "In Gebrauch", "In use")
@@ -284,9 +284,9 @@ H = {
           "Forge welding", "Halfway through, progress pauses: strike 6 blows at white heat (1200–1300 °C). Blows outside don't count – and the iron suffers at this heat, so be quick and precise!"),
  "harden": ("Härten", "Ist das Stück fertig geschmiedet, zieht Ihr es in den Löschtrog [Q]. Bewertet wird die Temperatur beim Abschrecken: 760–840 °C ist richtig, darüber droht ein Härteriss, darunter bleibt es zu weich. Zu kalt? Einfach nachheizen.",
             "Hardening", "Once the piece is fully forged, put it into the quench trough [Q]. The temperature when quenching counts: 760–840 °C is right; hotter risks a quench crack, cooler leaves it too soft. Too cold? Just reheat it."),
- "machine": ("Maschinenbetrieb", "Eure Maschine schlägt automatisch mit, solange ein Werkstück mit mindestens 400 °C auf dem Amboss liegt – zusätzlich zu Euren eigenen Schlägen.",
-             "Machine power", "Your machine strikes automatically while a piece of at least 400 °C lies on the anvil – in addition to your own blows."),
- "big": ("Großschmiedestück", "Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – Ihr haltet das Eisen in der richtigen Hitze.",
+ "machine": ("Maschinenbetrieb", "Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur schwer und ruht in leichten Arbeitsgängen.",
+             "Machine power", "You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes heavy only and rests during light steps."),
+ "big": ("Großschmiedestück", "Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – haltet HAMMERN gedrückt und das Eisen in der richtigen Hitze.",
          "Heavy forging", "Too heavy for the hand hammer: your blows count only 25 %. The machine does most of the work – you keep the iron at the right heat."),
  "journeyman": ("Der Geselle", "Euer Geselle arbeitet im Hintergrund eigene Aufträge ab – auch wenn das Spiel geschlossen ist (bis zu 8 Stunden).",
                 "The journeyman", "Your journeyman works his own orders in the background – even while the game is closed (up to 8 hours)."),

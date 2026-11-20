@@ -202,6 +202,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Halten = fortlaufend, Loslassen = Stopp (vorher liefen sie automatisch und ließen sich nicht anhalten). Schwanzhämmer laufen
   wie bisher am Antrieb mit. Hinweis „Am Steuerhebel“ beim Kauf/Aktivieren. Referenzspieler hält den Hebel → Balancing
   unverändert. Tests 2106/0, Spieltest 0 Probleme.
+- 20.11.: **Einheitliche Maschinensteuerung:** Auch die **Schwanzhämmer** (Wasser- und Dampf-Schwanzhammer) schlagen jetzt nur
+  auf Kommando – Tippen = ein Schlag, Halten = fortlaufend, Loslassen = Stopp. Damit funktionieren alle Maschinen gleich wie
+  der Handhammer. Schwanzhämmer schlagen weiterhin nur schwer (leichte Schritte von Hand). Texte (Maschinen-Hinweis, Laden)
+  angepasst. Balancing unverändert **13,33 h** (Seed 1), Tests 2106/0, Spieltest 0 Probleme.
 
 ## Prüfen
 

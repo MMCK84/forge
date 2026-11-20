@@ -197,6 +197,7 @@ func test_apprentice() -> void:
 func test_machine_strikes() -> void:
 	var s := _sim(_job(100000, 1))
 	s.machine = Catalog.MACHINES[1]
+	s.machine_hold = true  # Maschinen schlagen, solange der Spieler den Hammer-Knopf hält
 	var costs := [0]
 	s.cost_incurred.connect(func(p: int, _r: String) -> void: costs[0] += p)
 	s.load_raw()
@@ -406,6 +407,7 @@ func test_machines_follow_force() -> void:
 	helve.force_mode = "heavy"
 	var s := _force_sim([{"id": "bend", "share": 1.0}])
 	s.machine = helve
+	s.machine_hold = true
 	s.job.pieces[0].temp = 850.0
 	assert_true(not s.machine_engaged(), "Schwanzhammer pausiert beim Biegen (leicht)")
 	var s2 := _force_sim([{"id": "draw", "share": 1.0}])
@@ -439,6 +441,7 @@ func test_helve_works_all_steps_on_big_forgings() -> void:
 	var s := _force_sim([{"id": "planish", "share": 1.0}])
 	s.job.category = "big"
 	s.machine = helve
+	s.machine_hold = true
 	s.job.pieces[0].temp = 800.0
 	assert_true(s.machine_engaged(), "bei Großschmiedestücken arbeitet der Schwanzhammer auch beim Schlichten")
 	var kinds := []
@@ -502,7 +505,7 @@ func test_steam_hammer_on_command() -> void:
 	s.machine_hold = false
 	_run(s, 2.0)
 	assert_eq(hits.size(), n, "Loslassen hält den Hammer an")
-	# Schwanzhammer läuft am Antrieb automatisch
+	# Schwanzhammer: dieselbe Steuerung
 	var h := _sim(_job(100000), 100.0, 1500.0)
 	h.machine = load("res://data/machines/machine_steam_helve.tres")
-	assert_true(not h.machine_commanded(), "Schwanzhammer läuft automatisch")
+	assert_true(h.machine_commanded(), "Schwanzhammer wird ebenso bedient")

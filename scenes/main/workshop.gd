@@ -595,8 +595,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
-## Tippen = ein Schlag, Halten = fortlaufende Schläge. Den Dampfhammer bedient der Spieler damit
-## selbst: Tippen ein Dampfschlag, Halten fortlaufend, Loslassen hält ihn an.
+## Tippen = ein Schlag, Halten = fortlaufende Schläge. Die Maschine (Schwanz- oder Dampfhammer) bedient
+## der Spieler damit ebenso: Tippen ein Maschinenschlag, Halten fortlaufend, Loslassen hält sie an.
 func _hammer_press() -> void:
 	if Overlay.open_count > 0:
 		return

@@ -203,7 +203,7 @@ HAMMER_CROSS_PEEN,Kreuzschlaghammer,Cross-peen hammer
 HAMMER_CRUCIBLE,Gussstahl-Hammer (Tiegelstahl),Crucible-steel hammer
 HAMMER_HAND,Handhammer,Hand hammer
 HAMMER_STEEL_FACED,Hammer mit verstählter Bahn,Steel-faced hammer
-HINT_BIG_TEXT,Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – Ihr haltet das Eisen in der richtigen Hitze.,Too heavy for the hand hammer: your blows count only 25 %. The machine does most of the work – you keep the iron at the right heat.
+HINT_BIG_TEXT,Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – haltet HAMMERN gedrückt und das Eisen in der richtigen Hitze.,Too heavy for the hand hammer: your blows count only 25 %. The machine does most of the work – you keep the iron at the right heat.
 HINT_BIG_TITLE,Großschmiedestück,Heavy forging
 HINT_FORCE_MEDIUM_TEXT,"In der neuen Werkstatt verlangen Breiten, Spitzen und Abschroten mittlere Schläge – nicht mehr die volle Wucht.","In the new workshop, spreading, pointing and cutting need medium blows – no longer full force."
 HINT_FORCE_MEDIUM_TITLE,Mittlere Schläge,Medium blows
@@ -217,7 +217,7 @@ HINT_HARDEN_TEXT,"Ist das Stück fertig geschmiedet, zieht Ihr es in den Löscht
 HINT_HARDEN_TITLE,Härten,Hardening
 HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab – auch wenn das Spiel geschlossen ist (bis zu 8 Stunden).,Your journeyman works his own orders in the background – even while the game is closed (up to 8 hours).
 HINT_JOURNEYMAN_TITLE,Der Geselle,The journeyman
-HINT_MACHINE_TEXT,"Eure Maschine schlägt automatisch mit, solange ein Werkstück mit mindestens 400 °C auf dem Amboss liegt – zusätzlich zu Euren eigenen Schlägen.",Your machine strikes automatically while a piece of at least 400 °C lies on the anvil – in addition to your own blows.
+HINT_MACHINE_TEXT,"Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur schwer und ruht in leichten Arbeitsgängen.","You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes heavy only and rests during light steps."
 HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
 HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr in der Mitte des Zielfensters schmiedet: Jedes Fenster ist auf seine mittleren 60 % verengt. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the middle of the target window counts here: every window is narrowed to its central 60 %. Three stars earn a 25 % tip.
 HINT_PRECISION_TITLE,Präzisionsauftrag,Precision order
@@ -815,7 +815,7 @@ UI_MACHINE_COST,Betriebskosten {c} je Minute,running cost {c} per minute
 UI_MACHINE_FORCE,schlägt mit der gewählten Schlagstärke,strikes with the chosen blow strength
 UI_MACHINE_HEAVY,schlägt nur schwer,strikes heavy blows only
 UI_MACHINE_INFO,Schlagkraft {p} · {h} Schläge/s,Striking power {p} · {h} blows/s
-UI_MACHINE_NOTE,"Schwanzhämmer schlagen automatisch mit, solange ein Werkstück (ab 400 °C) auf dem Amboss liegt. Dampfhämmer bedient Ihr selbst: Tippen = ein Schlag, Halten = fortlaufend. Es ist immer nur eine Maschine aktiv.","Helve hammers strike automatically while a piece (400 °C or hotter) lies on the anvil. Steam hammers you work yourself: tap = one blow, hold = continuous. Only one machine is active at a time."
+UI_MACHINE_NOTE,"Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur schwer, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.","You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike heavy only, steam hammers with the chosen force. Only one machine is active at a time."
 UI_MACHINE_WATER,Leistung schwankt mit dem Wasserstand (60–100 %),output varies with the water level (60–100 %)
 UI_MAXED,Höchststufe,Maximum
 UI_MENU,Menü [Esc],Menu [Esc]
