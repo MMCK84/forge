@@ -57,13 +57,18 @@ func _draw() -> void:
 	var s := stage_scale
 	var o := stage_offset
 	var user_tex := Assets.user("background_%d.jpg" % epoch)
+	## Breite Fassung (volles 1:1-Bild im selben Maßstab) für breite Fenster bzw. später das Querformat
+	var wide_tex := Assets.user("background_%d_wide.jpg" % epoch)
 	var land_tex := Assets.background(epoch)
 	# Flächen außerhalb der Bühne (breite Fenster am PC, sehr hohe Handys)
-	draw_rect(Rect2(Vector2.ZERO, size), FLOORS[epoch - 1].darkened(0.4))
+	draw_rect(Rect2(Vector2.ZERO, size), FLOORS[epoch - 1].darkened(0.6))
 	if user_tex != null:
-		_fill_bands(user_tex, Rect2(0, 0, 1080, 1920))
+		_fill_bands(wide_tex if wide_tex != null else user_tex)
 	draw_set_transform(o, 0.0, Vector2(s, s))
-	if user_tex != null:
+	if wide_tex != null:
+		var ww := float(wide_tex.get_width())
+		draw_texture_rect(wide_tex, Rect2((STAGE.x - ww) * 0.5, 0, ww, STAGE.y), false)
+	elif user_tex != null:
 		draw_texture_rect(user_tex, Rect2(Vector2.ZERO, STAGE), false)
 	elif land_tex != null:
 		_draw_landscape(land_tex)
@@ -73,20 +78,40 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO)
 
 
-## Oben die oberste, unten die unterste Bildzeile in die freien Bänder strecken (hohe Handys).
-func _fill_bands(tex: Texture2D, _src: Rect2) -> void:
+## Freie Flächen neben bzw. über/unter der Bühne füllen. Seitlich: das Bild gespiegelt und abgedunkelt
+## fortsetzen, mit weichem Übergang (statt einen Randstreifen zu strecken); oben/unten die äußerste Bildzeile.
+func _fill_bands(tex: Texture2D) -> void:
 	var s := stage_scale
 	var o := stage_offset
-	var w := STAGE.x * s
+	var tw := float(tex.get_width())
 	var th := float(tex.get_height())
+	# Bildfläche in Bildschirm-Koordinaten (das Bild ist ggf. breiter als die Bühne)
+	var img := Rect2(o.x + (STAGE.x - tw) * 0.5 * s, o.y, tw * s, STAGE.y * s)
 	if o.y > 0.5:
-		draw_texture_rect_region(tex, Rect2(o.x, 0, w, o.y), Rect2(0, 0, tex.get_width(), th * 0.01), Color(0.6, 0.6, 0.6))
+		draw_texture_rect_region(tex, Rect2(img.position.x, 0, img.size.x, o.y), Rect2(0, 0, tw, th * 0.01), Color(0.6, 0.6, 0.6))
 		var bottom := o.y + STAGE.y * s
-		draw_texture_rect_region(tex, Rect2(o.x, bottom, w, size.y - bottom), Rect2(0, th * 0.99, tex.get_width(), th * 0.01))
-	if o.x > 0.5:
-		var dim := Color(0.45, 0.42, 0.4)
-		draw_texture_rect_region(tex, Rect2(0, o.y, o.x, STAGE.y * s), Rect2(0, 0, tex.get_width() * 0.08, th), dim)
-		draw_texture_rect_region(tex, Rect2(o.x + w, o.y, size.x - o.x - w, STAGE.y * s), Rect2(tex.get_width() * 0.92, 0, tex.get_width() * 0.08, th), dim)
+		draw_texture_rect_region(tex, Rect2(img.position.x, bottom, img.size.x, size.y - bottom), Rect2(0, th * 0.99, tw, th * 0.01))
+	var dim := Color(0.42, 0.4, 0.38)
+	var shade := Color(0, 0, 0, 0.0)
+	var dark := Color(0, 0, 0, 0.55)
+	var fade_w := minf(img.size.x * 0.25, 160.0)
+	if img.position.x > 0.5:
+		# links: gespiegelte Kopie direkt links neben dem Bild
+		draw_set_transform(Vector2(img.position.x, 0), 0.0, Vector2(-1, 1))
+		draw_texture_rect(tex, Rect2(0, img.position.y, img.size.x, img.size.y), false, dim)
+		draw_set_transform(Vector2.ZERO)
+		var x1 := img.position.x
+		draw_polygon(PackedVector2Array([Vector2(maxf(0.0, x1 - fade_w), 0), Vector2(x1, 0), Vector2(x1, size.y), Vector2(maxf(0.0, x1 - fade_w), size.y)]),
+			PackedColorArray([dark, shade, shade, dark]))
+		draw_rect(Rect2(0, 0, maxf(0.0, x1 - fade_w), size.y), dark)
+	if img.end.x < size.x - 0.5:
+		draw_set_transform(Vector2(img.end.x + img.size.x, 0), 0.0, Vector2(-1, 1))
+		draw_texture_rect(tex, Rect2(0, img.position.y, img.size.x, img.size.y), false, dim)
+		draw_set_transform(Vector2.ZERO)
+		var x2 := img.end.x
+		draw_polygon(PackedVector2Array([Vector2(x2, 0), Vector2(minf(size.x, x2 + fade_w), 0), Vector2(minf(size.x, x2 + fade_w), size.y), Vector2(x2, size.y)]),
+			PackedColorArray([shade, dark, dark, shade]))
+		draw_rect(Rect2(minf(size.x, x2 + fade_w), 0, size.x, size.y), dark)
 
 
 ## Gerendertes Querformat-Bild: so vergrößern, dass seine Bodenkante (y 700) bei 800 liegt,

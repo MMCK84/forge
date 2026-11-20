@@ -13,7 +13,7 @@ const LAYOUT := {
 	"trade": {"x": 975.0, "dy": -300.0, "size": Vector2(170, 110)},
 	"light": {"x": 800.0, "dy": -430.0, "size": Vector2(60, 110)},
 	"fuel": {"x": 1010.0, "dy": 95.0, "size": Vector2(130, 105)},
-	"bench": {"x": 985.0, "dy": 250.0, "size": Vector2(200, 140)},
+	"bench": {"x": 965.0, "dy": 250.0, "size": Vector2(200, 140)},
 }
 
 var epoch: int = 1

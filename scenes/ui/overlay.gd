@@ -73,7 +73,11 @@ func _ready() -> void:
 func _fit_scroll() -> void:
 	if _scroll == null or content == null or not is_inside_tree():
 		return
-	var max_h := get_viewport_rect().size.y - 230.0
+	# Platz zwischen Status- und Navigationsleiste (zusammen ca. 230) abzüglich Titelzeile und Rand des Fensters
+	var chrome := 0.0
+	if panel != null:
+		chrome = panel.get_combined_minimum_size().y - _scroll.get_combined_minimum_size().y
+	var max_h := get_viewport_rect().size.y - 250.0 - maxf(chrome, 150.0)
 	_scroll.custom_minimum_size.y = minf(content.get_combined_minimum_size().y, max_h)
 
 

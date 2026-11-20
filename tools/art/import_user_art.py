@@ -201,44 +201,18 @@ def main():
             if ext.lower() in (".webp", ".png", ".jpg", ".jpeg") and base.startswith("background_"):
                 im = Image.open(os.path.join(bg_dir, fn)).convert("RGB")
                 # Quadratische Originale (1:1, für Hoch- und Querformat): im Hochformat nur der mittlere
-                # 3:4-Ausschnitt – die äußeren Achtel sind fürs Querformat (Tablet) gedacht
+                # 3:4-Ausschnitt; zusätzlich eine breite Fassung (volle Bildbreite, gleicher Maßstab) für
+                # breite Fenster/Querformat – background_N_wide.jpg
                 square = im.width > im.height * 0.78
-                if square:
-                    cw = int(round(im.height * 3 / 4))
-                    x0 = (im.width - cw) // 2
-                    im = im.crop((x0, 0, x0 + cw, im.height))
-                # Liegt die Wand-Boden-Kante sehr tief, oben etwas Decke abschneiden (Kante rückt nach oben)
-                top = BG_TOP_CROP.get(base, 0)
-                if top:
-                    im = im.crop((0, top, im.width, im.height))
-                # Einfarbigen Balken am unteren Rand (Midjourney malt manchmal einen) abschneiden –
-                # der Boden wird ohnehin nach unten verlängert
-                g = np.asarray(im.convert("L")).astype(np.float32)
-                cut = im.height
-                while square and cut > im.height * 0.7 and g[cut - 1].std() < 4.0:
-                    cut -= 1
-                if cut < im.height - 4:
-                    im = im.crop((0, 0, im.width, cut - 2))
-                h = int(round(im.height * 1080 / im.width))
-                im = im.resize((1080, h), Image.LANCZOS)
-                if h >= 1920:
-                    im = im.crop((0, 0, 1080, 1920))
-                else:
-                    # Kürzere Bilder (z. B. 3:4): Boden nach unten verlängern – die untersten Zeilen
-                    # strecken und zum Rand hin abdunkeln (dort liegt im Spiel das Bedienfeld)
-                    canvas = Image.new("RGB", (1080, 1920))
-                    canvas.paste(im, (0, 0))
-                    strip = im.crop((0, h - 24, 1080, h)).filter(ImageFilter.GaussianBlur(18)).resize((1080, 1920 - h), Image.BILINEAR)
-                    arr = np.asarray(strip).astype(np.float32)
-                    fade = np.linspace(1.0, 0.45, arr.shape[0])[:, None, None]
-                    canvas.paste(Image.fromarray((arr * fade).astype(np.uint8)), (0, h))
-                    # weicher Übergang an der Nahtstelle
-                    blend = 40
-                    top = np.asarray(canvas.crop((0, h - blend, 1080, h + blend)).filter(ImageFilter.GaussianBlur(6)))
-                    canvas.paste(Image.fromarray(top), (0, h - blend))
-                    im = canvas
+                cw = int(round(im.height * 3 / 4)) if square else im.width
+                scale = 1080.0 / cw
                 os.makedirs(OUT, exist_ok=True)
-                im.save(os.path.join(OUT, base + ".jpg"), quality=88, optimize=True)
+                if square:
+                    x0 = (im.width - cw) // 2
+                    bg_variant(im.crop((x0, 0, x0 + cw, im.height)), base, scale, True).save(os.path.join(OUT, base + ".jpg"), quality=88, optimize=True)
+                    bg_variant(im, base, scale, True).save(os.path.join(OUT, base + "_wide.jpg"), quality=85, optimize=True)
+                else:
+                    bg_variant(im, base, scale, False).save(os.path.join(OUT, base + ".jpg"), quality=88, optimize=True)
     # 19 Auftragsbuch-Einzelseite (weiß) für das Hochformat
     a = load("ledger_page.jpg")
     sat = a.max(axis=2) - a.min(axis=2)
@@ -336,6 +310,39 @@ def main():
     open(os.path.join(ROOT, "scripts", "user_machine_meta.gd"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     derived()
     print("fertig:", sorted(os.listdir(OUT)))
+
+
+def bg_variant(im, base, scale, square):
+    """Hintergrund auf Bühnenhöhe 1920 bringen: zu tiefe Kante oben beschneiden (BG_TOP_CROP), einfarbigen
+    Streifen unten entfernen, mit `scale` skalieren und den dunklen Boden nach unten verlängern."""
+    top = BG_TOP_CROP.get(base, 0)
+    if top:
+        im = im.crop((0, top, im.width, im.height))
+    # Einfarbigen Balken am unteren Rand (Midjourney malt manchmal einen) abschneiden – gemessen in der Bildmitte
+    g = np.asarray(im.convert("L")).astype(np.float32)
+    mid = g[:, int(im.width * 0.2):int(im.width * 0.8)]
+    cut = im.height
+    while square and cut > im.height * 0.7 and mid[cut - 1].std() < 4.0:
+        cut -= 1
+    if cut < im.height - 4:
+        im = im.crop((0, 0, im.width, cut - 2))
+    w = int(round(im.width * scale))
+    h = int(round(im.height * scale))
+    im = im.resize((w, h), Image.LANCZOS)
+    if h >= 1920:
+        return im.crop((0, 0, w, 1920))
+    # Kürzere Bilder: Boden nach unten verlängern – die untersten Zeilen strecken und zum Rand hin
+    # abdunkeln (dort liegt im Spiel das Bedienfeld)
+    canvas = Image.new("RGB", (w, 1920))
+    canvas.paste(im, (0, 0))
+    strip = im.crop((0, h - 24, w, h)).filter(ImageFilter.GaussianBlur(18)).resize((w, 1920 - h), Image.BILINEAR)
+    arr = np.asarray(strip).astype(np.float32)
+    fade = np.linspace(1.0, 0.45, arr.shape[0])[:, None, None]
+    canvas.paste(Image.fromarray((arr * fade).astype(np.uint8)), (0, h))
+    blend = 40
+    seam = np.asarray(canvas.crop((0, h - blend, w, h + blend)).filter(ImageFilter.GaussianBlur(6)))
+    canvas.paste(Image.fromarray(seam), (0, h - blend))
+    return canvas
 
 
 # Hintergründe mit sehr tiefer Wand-Boden-Kante: so viele Pixel (Original) oben abschneiden

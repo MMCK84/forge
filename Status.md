@@ -163,6 +163,11 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Kürzel je Bild** (Wunsch des Auftraggebers): BG1–10, F1–6, AN, H1–4, M1–10, ML1–4, W0/W1-1…W10-n, P…, U1–17,
   E1-1…E10-5 – stehen vorn im Prompt und im Heft (Datei-ID dahinter). `tools/art/sort_inbox.py --move` sortiert Lieferungen
   anhand des Kürzels im Dateinamen ein; Import findet Originale mit beliebiger Endung.
+- 20.11.: Optik-Prüfung (Auftraggeber: „teilweise verschoben bzw. schräg“): In breiten Fenstern wurde ein Randstreifen
+  des Hintergrunds in die Breite gezogen (verzerrte Streifen). Jetzt erzeugt der Import `background_N_wide.jpg` (volles
+  1:1-Bild, 1440×1920) und das Spiel zeigt daneben eine gespiegelte, abgedunkelte Fortsetzung mit weichem Übergang.
+  Fenster (z. B. Personal) ragten im Standardfenster unter die Navigationsleiste → Höhe begrenzt. Werkbank-Platzhalter
+  innerhalb der Bühne.
 
 ## Prüfen
 
