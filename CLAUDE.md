@@ -13,7 +13,8 @@
 - Status je Bild in `provenance.json`: quelle Gemini/Midjourney, bei Midjourney bewertung gut/ändern
   mit hinweis. Stufen im Heft: noch nicht vorhanden · Gemini · Midjourney (ändern) · gut.
 - Originale lädt der Auftraggeber über GitHub in `assets/source/user_art/eingang/` hoch (Chat-Bilder sind verkleinert);
-  vor jeder Lieferung `git pull`, Eingang einsortieren und leeren.
+  vor jeder Lieferung `git pull`, dann `python tools/art/sort_inbox.py --move` (sortiert nach dem Kürzel im Dateinamen,
+  z. B. `W2-3.png`, `BG4.png`, `E1-2.png`; Kürzel stehen im Prompt-Heft und in `assets/source/user_art/codes.json`).
 - Gelieferte Bilder: Originale nach `assets/source/user_art/` (Werkstücke in `items/`, Maschinenteile in
   `machines/`, Hintergründe in `backgrounds/`), dann `python tools/art/import_user_art.py` und
   `godot --headless --path . --import` (sonst zeigt das Spiel noch die alten Bilder).

@@ -15,8 +15,20 @@ SRC = os.path.join(ROOT, "assets", "source", "user_art")
 OUT = os.path.join(ROOT, "assets", "sprites", "ui", "user")
 
 
+def find_src(name):
+    """Pfad eines Originals; die Endung ist egal (eine neue Lieferung kann .png statt .webp/.jpg sein)."""
+    p = os.path.join(SRC, name)
+    if os.path.exists(p):
+        return p
+    base = os.path.splitext(p)[0]
+    for e in (".png", ".webp", ".jpg", ".jpeg"):
+        if os.path.exists(base + e):
+            return base + e
+    return p
+
+
 def load(name):
-    return np.asarray(Image.open(os.path.join(SRC, name)).convert("RGB")).astype(np.float32)
+    return np.asarray(Image.open(find_src(name)).convert("RGB")).astype(np.float32)
 
 
 def flood_bg(is_bg):
@@ -233,7 +245,7 @@ def main():
     save(to_rgba(a, flood_bg((a.min(axis=2) > 225) & (sat < 22)).astype(np.float32)), "ledger_page.png", max_w=760)
 
     # 20 App-Icon: quadratisch, 1024 (iOS) und 512 (Google Play), 192 für Godot/Android
-    icon = Image.open(os.path.join(SRC, "app_icon.jpg")).convert("RGB")
+    icon = Image.open(find_src("app_icon.jpg")).convert("RGB")
     side = min(icon.size)
     icon = icon.crop(((icon.width - side) // 2, (icon.height - side) // 2, (icon.width + side) // 2, (icon.height + side) // 2))
     store = os.path.join(ROOT, "store")

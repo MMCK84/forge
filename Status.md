@@ -64,7 +64,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 ## Arbeitsweise mit Bildern (Midjourney v8.2)
 
-- **Originale über GitHub** in `assets/source/user_art/eingang/` hochladen (Chat-Bilder werden verkleinert/komprimiert und
+- **Originale über GitHub** in `assets/source/user_art/eingang/` hochladen, **Dateiname = Kürzel** (z. B. `W2-3.png`) (Chat-Bilder werden verkleinert/komprimiert und
   kommen während einer laufenden Antwort gar nicht als Datei an). Der Chat bleibt für die schnelle Ansicht.
 - Jede Lieferung: Original nach `assets/source/user_art/` (`items/`, `machines/`, `backgrounds/`),
   `python tools/art/import_user_art.py`, Herkunft/Bewertung in `provenance.json`, Heft neu erzeugen.
@@ -160,6 +160,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   (mit Rückfrage), „Speichern & Beenden“ heißt jetzt „Speichern & zum Hauptmenü“; **Schlagstärke** deutlicher: Knöpfe in der
   Lehrzeit ausgeblendet (erscheinen mit dem Erklär-Hinweis), der verlangte Knopf pulsiert golden, wenn eine andere Stärke
   gewählt ist.
+- 20.11.: **Kürzel je Bild** (Wunsch des Auftraggebers): BG1–10, F1–6, AN, H1–4, M1–10, ML1–4, W0/W1-1…W10-n, P…, U1–17,
+  E1-1…E10-5 – stehen vorn im Prompt und im Heft (Datei-ID dahinter). `tools/art/sort_inbox.py --move` sortiert Lieferungen
+  anhand des Kürzels im Dateinamen ein; Import findet Originale mit beliebiger Endung.
 
 ## Prüfen
 

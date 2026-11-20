@@ -1,0 +1,950 @@
+{
+ "BG1": {
+  "id": "background_1",
+  "dir": "backgrounds"
+ },
+ "BG2": {
+  "id": "background_2",
+  "dir": "backgrounds"
+ },
+ "BG3": {
+  "id": "background_3",
+  "dir": "backgrounds"
+ },
+ "BG4": {
+  "id": "background_4",
+  "dir": "backgrounds"
+ },
+ "BG5": {
+  "id": "background_5",
+  "dir": "backgrounds"
+ },
+ "BG6": {
+  "id": "background_6",
+  "dir": "backgrounds"
+ },
+ "BG7": {
+  "id": "background_7",
+  "dir": "backgrounds"
+ },
+ "BG8": {
+  "id": "background_8",
+  "dir": "backgrounds"
+ },
+ "BG9": {
+  "id": "background_9",
+  "dir": "backgrounds"
+ },
+ "BG10": {
+  "id": "background_10",
+  "dir": "backgrounds"
+ },
+ "F1": {
+  "id": "forge_clay",
+  "dir": "forges"
+ },
+ "F2": {
+  "id": "forge_brick",
+  "dir": "forges"
+ },
+ "F3": {
+  "id": "forge_double_bellows",
+  "dir": "forges"
+ },
+ "F4": {
+  "id": "forge_coke",
+  "dir": "forges"
+ },
+ "F5": {
+  "id": "forge_welding_furnace",
+  "dir": "forges"
+ },
+ "F6": {
+  "id": "forge_siemens",
+  "dir": "forges"
+ },
+ "AN": {
+  "id": "anvil",
+  "dir": "tools"
+ },
+ "H1": {
+  "id": "hammer_hand",
+  "dir": "tools"
+ },
+ "H2": {
+  "id": "hammer_cross_peen",
+  "dir": "tools"
+ },
+ "H3": {
+  "id": "hammer_steel_faced",
+  "dir": "tools"
+ },
+ "H4": {
+  "id": "hammer_crucible",
+  "dir": "tools"
+ },
+ "M1": {
+  "id": "water_wheel",
+  "dir": "machines"
+ },
+ "M2": {
+  "id": "helve_beam",
+  "dir": "machines"
+ },
+ "M3": {
+  "id": "helve_frame",
+  "dir": "machines"
+ },
+ "M4": {
+  "id": "flywheel",
+  "dir": "machines"
+ },
+ "M5": {
+  "id": "engine_body",
+  "dir": "machines"
+ },
+ "M6": {
+  "id": "engine_beam",
+  "dir": "machines"
+ },
+ "M7": {
+  "id": "steam_hammer_frame",
+  "dir": "machines"
+ },
+ "M8": {
+  "id": "steam_hammer_ram",
+  "dir": "machines"
+ },
+ "M9": {
+  "id": "steam_hammer_anvil",
+  "dir": "machines"
+ },
+ "M10": {
+  "id": "steam_hammer_large_frame",
+  "dir": "machines"
+ },
+ "ML1": {
+  "id": "water_helve",
+  "dir": ""
+ },
+ "ML2": {
+  "id": "steam_helve",
+  "dir": ""
+ },
+ "ML3": {
+  "id": "nasmyth",
+  "dir": ""
+ },
+ "ML4": {
+  "id": "great_steam_hammer",
+  "dir": ""
+ },
+ "W0": {
+  "id": "blank",
+  "dir": "items"
+ },
+ "W1-1": {
+  "id": "nail",
+  "dir": "items"
+ },
+ "W1-2": {
+  "id": "horseshoe",
+  "dir": "items"
+ },
+ "W1-3": {
+  "id": "hook",
+  "dir": "items"
+ },
+ "W1-4": {
+  "id": "door_hinge",
+  "dir": "items"
+ },
+ "W1-5": {
+  "id": "sickle",
+  "dir": "items"
+ },
+ "W1-6": {
+  "id": "ploughshare",
+  "dir": "items"
+ },
+ "W1-7": {
+  "id": "fire_poker",
+  "dir": "items"
+ },
+ "W1-8": {
+  "id": "gate_latch",
+  "dir": "items"
+ },
+ "W2-1": {
+  "id": "wheel_tyre",
+  "dir": "items"
+ },
+ "W2-2": {
+  "id": "coach_axle",
+  "dir": "items"
+ },
+ "W2-3": {
+  "id": "coach_fitting",
+  "dir": "items"
+ },
+ "W2-4": {
+  "id": "lantern_bracket",
+  "dir": "items"
+ },
+ "W2-5": {
+  "id": "post_horseshoe",
+  "dir": "items"
+ },
+ "W2-6": {
+  "id": "turnpike_fitting",
+  "dir": "items"
+ },
+ "W2-7": {
+  "id": "drag_shoe",
+  "dir": "items"
+ },
+ "W3-1": {
+  "id": "chain_link",
+  "dir": "items"
+ },
+ "W3-2": {
+  "id": "anchor_shank",
+  "dir": "items"
+ },
+ "W3-3": {
+  "id": "boathook",
+  "dir": "items"
+ },
+ "W3-4": {
+  "id": "mooring_ring",
+  "dir": "items"
+ },
+ "W3-5": {
+  "id": "ship_bolt",
+  "dir": "items"
+ },
+ "W3-6": {
+  "id": "carriage_fitting",
+  "dir": "items"
+ },
+ "W3-7": {
+  "id": "rudder_pintle",
+  "dir": "items"
+ },
+ "W4-1": {
+  "id": "spindle",
+  "dir": "items"
+ },
+ "W4-2": {
+  "id": "cloth_shears",
+  "dir": "items"
+ },
+ "W4-3": {
+  "id": "knife",
+  "dir": "items"
+ },
+ "W4-4": {
+  "id": "spring",
+  "dir": "items"
+ },
+ "W4-5": {
+  "id": "chisel",
+  "dir": "items"
+ },
+ "W4-6": {
+  "id": "file",
+  "dir": "items"
+ },
+ "W4-7": {
+  "id": "cargo_chain",
+  "dir": "items"
+ },
+ "W4-8": {
+  "id": "barrel_hoop",
+  "dir": "items"
+ },
+ "W5-1": {
+  "id": "piston_rod",
+  "dir": "items"
+ },
+ "W5-2": {
+  "id": "valve_part",
+  "dir": "items"
+ },
+ "W5-3": {
+  "id": "beam_strap",
+  "dir": "items"
+ },
+ "W5-4": {
+  "id": "lock_fitting",
+  "dir": "items"
+ },
+ "W5-5": {
+  "id": "miners_pick",
+  "dir": "items"
+ },
+ "W5-6": {
+  "id": "drill_steel",
+  "dir": "items"
+ },
+ "W5-7": {
+  "id": "conveyor_chain",
+  "dir": "items"
+ },
+ "W5-8": {
+  "id": "pump_rod",
+  "dir": "items"
+ },
+ "W6-1": {
+  "id": "boiler_rivet",
+  "dir": "items"
+ },
+ "W6-2": {
+  "id": "boiler_plate",
+  "dir": "items"
+ },
+ "W6-3": {
+  "id": "rabble",
+  "dir": "items"
+ },
+ "W6-4": {
+  "id": "tie_rod",
+  "dir": "items"
+ },
+ "W6-5": {
+  "id": "ship_chain",
+  "dir": "items"
+ },
+ "W6-6": {
+  "id": "lathe_tool",
+  "dir": "items"
+ },
+ "W6-7": {
+  "id": "leaf_spring",
+  "dir": "items"
+ },
+ "W6-8": {
+  "id": "wagon_axle",
+  "dir": "items"
+ },
+ "W6-9": {
+  "id": "large_shaft",
+  "dir": "items"
+ },
+ "W6-10": {
+  "id": "crankshaft",
+  "dir": "items"
+ },
+ "W7-1": {
+  "id": "block_pin",
+  "dir": "items"
+ },
+ "W7-2": {
+  "id": "boiler_stay",
+  "dir": "items"
+ },
+ "W7-3": {
+  "id": "gas_lamp_bracket",
+  "dir": "items"
+ },
+ "W7-4": {
+  "id": "navvy_spade",
+  "dir": "items"
+ },
+ "W7-5": {
+  "id": "press_screw",
+  "dir": "items"
+ },
+ "W7-6": {
+  "id": "bayonet",
+  "dir": "items"
+ },
+ "W7-7": {
+  "id": "anchor_fluke",
+  "dir": "items"
+ },
+ "W7-8": {
+  "id": "chain_eyebar",
+  "dir": "items"
+ },
+ "W8-1": {
+  "id": "rail_spike",
+  "dir": "items"
+ },
+ "W8-2": {
+  "id": "coupling_hook",
+  "dir": "items"
+ },
+ "W8-3": {
+  "id": "safety_valve_lever",
+  "dir": "items"
+ },
+ "W8-4": {
+  "id": "coupling_chain",
+  "dir": "items"
+ },
+ "W8-5": {
+  "id": "loco_tyre",
+  "dir": "items"
+ },
+ "W8-6": {
+  "id": "buffer_spring",
+  "dir": "items"
+ },
+ "W8-7": {
+  "id": "connecting_rod",
+  "dir": "items"
+ },
+ "W8-8": {
+  "id": "crank_axle",
+  "dir": "items"
+ },
+ "W9-1": {
+  "id": "bridge_rivet",
+  "dir": "items"
+ },
+ "W9-2": {
+  "id": "palace_bracket",
+  "dir": "items"
+ },
+ "W9-3": {
+  "id": "paddle_arm",
+  "dir": "items"
+ },
+ "W9-4": {
+  "id": "hammer_die",
+  "dir": "items"
+ },
+ "W9-5": {
+  "id": "admiralty_anchor",
+  "dir": "items"
+ },
+ "W9-6": {
+  "id": "marine_piston_rod",
+  "dir": "items"
+ },
+ "W9-7": {
+  "id": "marine_crank",
+  "dir": "items"
+ },
+ "W9-8": {
+  "id": "propeller_shaft",
+  "dir": "items"
+ },
+ "W10-1": {
+  "id": "velocipede_fork",
+  "dir": "items"
+ },
+ "W10-2": {
+  "id": "steel_axle",
+  "dir": "items"
+ },
+ "W10-3": {
+  "id": "reaper_knife",
+  "dir": "items"
+ },
+ "W10-4": {
+  "id": "tunnel_drill",
+  "dir": "items"
+ },
+ "W10-5": {
+  "id": "steel_tyre",
+  "dir": "items"
+ },
+ "W10-6": {
+  "id": "gun_hoop",
+  "dir": "items"
+ },
+ "W10-7": {
+  "id": "armour_plate",
+  "dir": "items"
+ },
+ "W10-8": {
+  "id": "steel_shaft",
+  "dir": "items"
+ },
+ "P1-1": {
+  "id": "portrait_squire",
+  "dir": "portraits"
+ },
+ "P1-2": {
+  "id": "portrait_vicar",
+  "dir": "portraits"
+ },
+ "P1-3": {
+  "id": "portrait_farmer_hollow",
+  "dir": "portraits"
+ },
+ "P1-4": {
+  "id": "portrait_miller_upton",
+  "dir": "portraits"
+ },
+ "P1-5": {
+  "id": "portrait_landlady_red_lion",
+  "dir": "portraits"
+ },
+ "P1-6": {
+  "id": "portrait_carpenter",
+  "dir": "portraits"
+ },
+ "P2-1": {
+  "id": "portrait_postmaster_bath",
+  "dir": "portraits"
+ },
+ "P2-2": {
+  "id": "portrait_coachbuilder_york",
+  "dir": "portraits"
+ },
+ "P2-3": {
+  "id": "portrait_turnpike_trust",
+  "dir": "portraits"
+ },
+ "P2-4": {
+  "id": "portrait_innkeeper_coaching",
+  "dir": "portraits"
+ },
+ "P2-5": {
+  "id": "portrait_carrier_bennett",
+  "dir": "portraits"
+ },
+ "P3-1": {
+  "id": "portrait_navy_board",
+  "dir": "portraits"
+ },
+ "P3-2": {
+  "id": "portrait_shipwright_portsmouth",
+  "dir": "portraits"
+ },
+ "P3-3": {
+  "id": "portrait_merchant_bristol",
+  "dir": "portraits"
+ },
+ "P3-4": {
+  "id": "portrait_harbourmaster",
+  "dir": "portraits"
+ },
+ "P3-5": {
+  "id": "portrait_ropewalk_chatham",
+  "dir": "portraits"
+ },
+ "P4-1": {
+  "id": "portrait_clothier_leeds",
+  "dir": "portraits"
+ },
+ "P4-2": {
+  "id": "portrait_cutlers_sheffield",
+  "dir": "portraits"
+ },
+ "P4-3": {
+  "id": "portrait_spinning_master",
+  "dir": "portraits"
+ },
+ "P4-4": {
+  "id": "portrait_toolmaker_holt",
+  "dir": "portraits"
+ },
+ "P4-5": {
+  "id": "portrait_dockyard_chatham",
+  "dir": "portraits"
+ },
+ "P5-1": {
+  "id": "portrait_boulton_watt",
+  "dir": "portraits"
+ },
+ "P5-2": {
+  "id": "portrait_mine_cornwall",
+  "dir": "portraits"
+ },
+ "P5-3": {
+  "id": "portrait_colliery_wednesbury",
+  "dir": "portraits"
+ },
+ "P5-4": {
+  "id": "portrait_canal_company",
+  "dir": "portraits"
+ },
+ "P5-5": {
+  "id": "portrait_ironmaster_coalbrookdale",
+  "dir": "portraits"
+ },
+ "P5-6": {
+  "id": "portrait_wedgwood_etruria",
+  "dir": "portraits"
+ },
+ "P6-1": {
+  "id": "portrait_mill_owner",
+  "dir": "portraits"
+ },
+ "P6-2": {
+  "id": "portrait_plateway_company",
+  "dir": "portraits"
+ },
+ "P6-3": {
+  "id": "portrait_engine_works",
+  "dir": "portraits"
+ },
+ "P6-4": {
+  "id": "portrait_ironworks_partners",
+  "dir": "portraits"
+ },
+ "P6-5": {
+  "id": "portrait_east_india",
+  "dir": "portraits"
+ },
+ "P7-1": {
+  "id": "portrait_navy_portsmouth",
+  "dir": "portraits"
+ },
+ "P7-2": {
+  "id": "portrait_maudslay",
+  "dir": "portraits"
+ },
+ "P7-3": {
+  "id": "portrait_telford",
+  "dir": "portraits"
+ },
+ "P7-4": {
+  "id": "portrait_gas_light_company",
+  "dir": "portraits"
+ },
+ "P7-5": {
+  "id": "portrait_horse_guards",
+  "dir": "portraits"
+ },
+ "P7-6": {
+  "id": "portrait_trevithick",
+  "dir": "portraits"
+ },
+ "P8-1": {
+  "id": "portrait_stockton_darlington",
+  "dir": "portraits"
+ },
+ "P8-2": {
+  "id": "portrait_stephenson_works",
+  "dir": "portraits"
+ },
+ "P8-3": {
+  "id": "portrait_liverpool_manchester",
+  "dir": "portraits"
+ },
+ "P8-4": {
+  "id": "portrait_brunel",
+  "dir": "portraits"
+ },
+ "P8-5": {
+  "id": "portrait_hetton_colliery",
+  "dir": "portraits"
+ },
+ "P9-1": {
+  "id": "portrait_nasmyth",
+  "dir": "portraits"
+ },
+ "P9-2": {
+  "id": "portrait_great_western_ss",
+  "dir": "portraits"
+ },
+ "P9-3": {
+  "id": "portrait_admiralty_steam",
+  "dir": "portraits"
+ },
+ "P9-4": {
+  "id": "portrait_britannia_bridge",
+  "dir": "portraits"
+ },
+ "P9-5": {
+  "id": "portrait_crystal_palace",
+  "dir": "portraits"
+ },
+ "P10-1": {
+  "id": "portrait_john_brown",
+  "dir": "portraits"
+ },
+ "P10-2": {
+  "id": "portrait_armstrong_elswick",
+  "dir": "portraits"
+ },
+ "P10-3": {
+  "id": "portrait_midland_railway",
+  "dir": "portraits"
+ },
+ "P10-4": {
+  "id": "portrait_white_star",
+  "dir": "portraits"
+ },
+ "P10-5": {
+  "id": "portrait_hornsby",
+  "dir": "portraits"
+ },
+ "P10-6": {
+  "id": "portrait_coventry_machinists",
+  "dir": "portraits"
+ },
+ "U1": {
+  "id": "panel_parchment",
+  "dir": ""
+ },
+ "U2": {
+  "id": "buttons_leather_brass",
+  "dir": ""
+ },
+ "U3": {
+  "id": "frame_wood_iron",
+  "dir": ""
+ },
+ "U4": {
+  "id": "button_ember",
+  "dir": ""
+ },
+ "U5": {
+  "id": "ledger_page",
+  "dir": ""
+ },
+ "U6": {
+  "id": "coin_pouch",
+  "dir": ""
+ },
+ "U7": {
+  "id": "coins",
+  "dir": ""
+ },
+ "U8": {
+  "id": "coins_victoria",
+  "dir": ""
+ },
+ "U9": {
+  "id": "wax_seals",
+  "dir": ""
+ },
+ "U10": {
+  "id": "seal_victoria",
+  "dir": ""
+ },
+ "U11": {
+  "id": "pointer_sheet",
+  "dir": ""
+ },
+ "U12": {
+  "id": "pyrometer_dial",
+  "dir": ""
+ },
+ "U13": {
+  "id": "stars",
+  "dir": ""
+ },
+ "U14": {
+  "id": "hourglass",
+  "dir": ""
+ },
+ "U15": {
+  "id": "trough",
+  "dir": ""
+ },
+ "U16": {
+  "id": "app_icon",
+  "dir": ""
+ },
+ "U17": {
+  "id": "store_banner",
+  "dir": ""
+ },
+ "E1-1": {
+  "id": "furn_e1_fuel",
+  "dir": "furnishings"
+ },
+ "E1-2": {
+  "id": "furn_e1_tools",
+  "dir": "furnishings"
+ },
+ "E1-3": {
+  "id": "furn_e1_bench",
+  "dir": "furnishings"
+ },
+ "E1-4": {
+  "id": "furn_e1_trade",
+  "dir": "furnishings"
+ },
+ "E1-5": {
+  "id": "furn_e1_light",
+  "dir": "furnishings"
+ },
+ "E2-1": {
+  "id": "furn_e2_fuel",
+  "dir": "furnishings"
+ },
+ "E2-2": {
+  "id": "furn_e2_tools",
+  "dir": "furnishings"
+ },
+ "E2-3": {
+  "id": "furn_e2_bench",
+  "dir": "furnishings"
+ },
+ "E2-4": {
+  "id": "furn_e2_trade",
+  "dir": "furnishings"
+ },
+ "E2-5": {
+  "id": "furn_e2_light",
+  "dir": "furnishings"
+ },
+ "E3-1": {
+  "id": "furn_e3_fuel",
+  "dir": "furnishings"
+ },
+ "E3-2": {
+  "id": "furn_e3_tools",
+  "dir": "furnishings"
+ },
+ "E3-3": {
+  "id": "furn_e3_bench",
+  "dir": "furnishings"
+ },
+ "E3-4": {
+  "id": "furn_e3_trade",
+  "dir": "furnishings"
+ },
+ "E3-5": {
+  "id": "furn_e3_light",
+  "dir": "furnishings"
+ },
+ "E4-1": {
+  "id": "furn_e4_fuel",
+  "dir": "furnishings"
+ },
+ "E4-2": {
+  "id": "furn_e4_tools",
+  "dir": "furnishings"
+ },
+ "E4-3": {
+  "id": "furn_e4_bench",
+  "dir": "furnishings"
+ },
+ "E4-4": {
+  "id": "furn_e4_trade",
+  "dir": "furnishings"
+ },
+ "E4-5": {
+  "id": "furn_e4_light",
+  "dir": "furnishings"
+ },
+ "E5-1": {
+  "id": "furn_e5_fuel",
+  "dir": "furnishings"
+ },
+ "E5-2": {
+  "id": "furn_e5_tools",
+  "dir": "furnishings"
+ },
+ "E5-3": {
+  "id": "furn_e5_bench",
+  "dir": "furnishings"
+ },
+ "E5-4": {
+  "id": "furn_e5_trade",
+  "dir": "furnishings"
+ },
+ "E5-5": {
+  "id": "furn_e5_light",
+  "dir": "furnishings"
+ },
+ "E6-1": {
+  "id": "furn_e6_fuel",
+  "dir": "furnishings"
+ },
+ "E6-2": {
+  "id": "furn_e6_tools",
+  "dir": "furnishings"
+ },
+ "E6-3": {
+  "id": "furn_e6_bench",
+  "dir": "furnishings"
+ },
+ "E6-4": {
+  "id": "furn_e6_trade",
+  "dir": "furnishings"
+ },
+ "E6-5": {
+  "id": "furn_e6_light",
+  "dir": "furnishings"
+ },
+ "E7-1": {
+  "id": "furn_e7_fuel",
+  "dir": "furnishings"
+ },
+ "E7-2": {
+  "id": "furn_e7_tools",
+  "dir": "furnishings"
+ },
+ "E7-3": {
+  "id": "furn_e7_bench",
+  "dir": "furnishings"
+ },
+ "E7-4": {
+  "id": "furn_e7_trade",
+  "dir": "furnishings"
+ },
+ "E7-5": {
+  "id": "furn_e7_light",
+  "dir": "furnishings"
+ },
+ "E8-1": {
+  "id": "furn_e8_fuel",
+  "dir": "furnishings"
+ },
+ "E8-2": {
+  "id": "furn_e8_tools",
+  "dir": "furnishings"
+ },
+ "E8-3": {
+  "id": "furn_e8_bench",
+  "dir": "furnishings"
+ },
+ "E8-4": {
+  "id": "furn_e8_trade",
+  "dir": "furnishings"
+ },
+ "E8-5": {
+  "id": "furn_e8_light",
+  "dir": "furnishings"
+ },
+ "E9-1": {
+  "id": "furn_e9_fuel",
+  "dir": "furnishings"
+ },
+ "E9-2": {
+  "id": "furn_e9_tools",
+  "dir": "furnishings"
+ },
+ "E9-3": {
+  "id": "furn_e9_bench",
+  "dir": "furnishings"
+ },
+ "E9-4": {
+  "id": "furn_e9_trade",
+  "dir": "furnishings"
+ },
+ "E9-5": {
+  "id": "furn_e9_light",
+  "dir": "furnishings"
+ },
+ "E10-1": {
+  "id": "furn_e10_fuel",
+  "dir": "furnishings"
+ },
+ "E10-2": {
+  "id": "furn_e10_tools",
+  "dir": "furnishings"
+ },
+ "E10-3": {
+  "id": "furn_e10_bench",
+  "dir": "furnishings"
+ },
+ "E10-4": {
+  "id": "furn_e10_trade",
+  "dir": "furnishings"
+ },
+ "E10-5": {
+  "id": "furn_e10_light",
+  "dir": "furnishings"
+ }
+}

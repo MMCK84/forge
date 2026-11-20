@@ -255,17 +255,24 @@ def final_status(st, fname):
     return GEMINI
 
 
-def block(title, prompt, st, fname, note=""):
+# Kürzel je Bild (stehen vorn im Prompt und im Heft; Dateiname beim Hochladen = Kürzel) → (ID, Zielordner)
+CODES = {}
+DEST = {"A": "backgrounds", "B": "forges", "C": "tools", "D": "machines", "E": "items", "F": "portraits", "G": "", "H": "furnishings"}
+
+
+def block(title, prompt, st, fname, note="", code=None, section=""):
     st = final_status(st, fname)
     pv_note = _prov(fname).get("hinweis", "")
     note = " ".join(x for x in (pv_note, note) if x and st != NOT and st != NOT_OPT) or ("" if st in (NOT, NOT_OPT) else note)
-    # ID vorn: Zuordnung in Midjourney (die Galerie zeigt den Prompt); --no text verhindert Schrift im Bild
-    mj = f"{fname} — " + midjourney(shorten(prompt))
+    # Kürzel vorn: Zuordnung in Midjourney (die Galerie zeigt den Prompt); --no text verhindert Schrift im Bild
+    code = code or fname
+    CODES[code] = {"id": fname, "dir": DEST.get(section, "")}
+    mj = f"{code} — " + midjourney(shorten(prompt))
     m = re.search(r"--ar (\d+):(\d+)", mj)
     w, h = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
     slider = ("Portrait" if w < h else "Landscape" if w > h else "Square") + f" {w}:{h}"
     words = len(mj.split(" --")[0].split()) - 2
-    s = f"**{fname}** – {title} · {st}  \nRegler: **{slider}** · {words} Wörter"
+    s = f"**{code}** – {title} · {st}  \nRegler: **{slider}** · {words} Wörter · Datei `{fname}`"
     if note:
         s += f"  \n*{note}*"
     return s + "\n```\n" + mj + "\n```\n"
@@ -511,7 +518,7 @@ def main():
     a = []
     for e in range(1, 11):
         st = add(status(f"background_{e}.jpg"))
-        a.append(block(EPOCH_NAMES[e], BG_HEAD + BACKGROUNDS[e] + BG_TAIL, st, f"background_{e}"))
+        a.append(block(EPOCH_NAMES[e], BG_HEAD + BACKGROUNDS[e] + BG_TAIL, st, f"background_{e}", code=f"BG{e}", section="A"))
     sections.append(("A · Werkstatt-Hintergründe (1:1 – für Hoch- und Querformat)",
                      "Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 55–60 % der Höhe, "
                      "unteres Drittel ruhig und dunkel (Bedienelemente).\n\n"
@@ -523,57 +530,64 @@ def main():
                      "Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–70 % geht; liegt sie tiefer, schneidet der Import oben Decke ab).", a))
     # B Essen
     b = []
-    for fid, title, desc in FORGES:
+    for k, (fid, title, desc) in enumerate(FORGES, start=1):
         st = add(HAVE if have(fid + ".png") else NEED)
-        b.append(block(title, f"2D game asset, {desc}, {FORGE_TAIL}", st, fid))
+        b.append(block(title, f"2D game asset, {desc}, {FORGE_TAIL}", st, fid, code=f"F{k}", section="B"))
     sections.append(("B · Essen (Frontalansicht, alle sechs Stufen)",
                      "Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, "
                      "damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. "
                      "Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.", b))
     # C Amboss & Hämmer
-    c = [block("Amboss auf Eichenklotz (alle Epochen)", "2D game sprite asset, heavy 18th-century cast iron anvil mounted on a thick oak wood stump, blacksmith equipment, side-view orthographic perspective, horn pointing to the right, crisp clean edges, isolated on white background, game art", add(status("anvil.png")), "anvil")]
-    for hid, title, desc in HAMMERS:
-        c.append(block(title, f"2D game asset, {desc}, {HAMMER_TAIL}", add(status(hid + ".png")), hid))
+    c = [block("Amboss auf Eichenklotz (alle Epochen)", "2D game sprite asset, heavy 18th-century cast iron anvil mounted on a thick oak wood stump, blacksmith equipment, side-view orthographic perspective, horn pointing to the right, crisp clean edges, isolated on white background, game art", add(status("anvil.png")), "anvil", code="AN", section="C")]
+    for k, (hid, title, desc) in enumerate(HAMMERS, start=1):
+        c.append(block(title, f"2D game asset, {desc}, {HAMMER_TAIL}", add(status(hid + ".png")), hid, code=f"H{k}", section="C"))
     sections.append(("C · Amboss und Hämmer",
                      "Hämmer in reiner Seitenansicht: Kopf links senkrecht, Bahn unten, Stiel waagerecht nach rechts.", c))
     # D Maschinen
     d = []
-    for out_name, fname, title, optional, prompt in MACHINES:
-        d.append(block(title, prompt, add(status(out_name + ".png", optional)), fname))
+    for k, (out_name, fname, title, optional, prompt) in enumerate(MACHINES, start=1):
+        d.append(block(title, prompt, add(status(out_name + ".png", optional)), fname, code=f"M{k}", section="D"))
     d.append("**Ladenbilder der Maschinen** (ganze Maschine als ein Bild, nur für den Laden)\n")
-    for fname, title, optional, prompt in SHOP_MACHINES:
-        d.append(block(title, prompt, add(status(fname + ".png", optional)), fname))
+    for k, (fname, title, optional, prompt) in enumerate(SHOP_MACHINES, start=1):
+        d.append(block(title, prompt, add(status(fname + ".png", optional)), fname, code=f"ML{k}", section="G"))
     sections.append(("D · Maschinen (Einzelteile für die Animation)",
                      "Drehteile genau von vorn und kreisrund, Mittelpunkt = Bildmitte; bewegliche Teile einzeln.", d))
     # E Werkstücke
     e_parts = []
     st = add(status("item_blank.png"))
     name, prompt = item_prompts.get("blank", ("Rohling", ""))
-    e_parts.append(block("Rohling (alle Epochen)", prompt, st, "blank"))
+    e_parts.append(block("Rohling (alle Epochen)", prompt, st, "blank", code="W0", section="E"))
     for ep in range(1, 11):
         e_parts.append(f"### Epoche {ep} – {EPOCH_NAMES[ep]}\n")
+        n = 0
         for it in ITEMS:
             if it[1] != ep:
                 continue
             iid = it[0]
+            if iid == "blank":
+                continue
+            n += 1
             name, prompt = item_prompts.get(iid, (it[6], "(Prompt fehlt)"))
-            e_parts.append(block(it[6], prompt, add(status(f"item_{iid}.png")), iid))
+            e_parts.append(block(it[6], prompt, add(status(f"item_{iid}.png")), iid, code=f"W{ep}-{n}", section="E"))
     sections.append(("E · Werkstücke (Rohling + 80)",
                      "Kalt, nur Metall (kein Holz), von oben, weißer Hintergrund ohne Schatten, quadratisch. Die Glut färbt das Spiel ein.", e_parts))
     # F Porträts
     f_parts = []
+    pcount = {}
     for cust in CUSTOMERS:
         cid, lo, hi = cust[0], cust[1], cust[2]
         desc = PORTRAITS.get(cid, "a customer")
         st = add(status(f"portrait_{cid}.png", True))
         rng = f"Epoche {lo}" if lo == hi else f"Epoche {lo}–{hi}"
-        f_parts.append(block(f"{cust[5]} ({rng})", f"2D game asset, a head-and-shoulders portrait of {desc}, {PORTRAIT_TAIL}", st, f"portrait_{cid}"))
+        pcount[lo] = pcount.get(lo, 0) + 1
+        f_parts.append(block(f"{cust[5]} ({rng})", f"2D game asset, a head-and-shoulders portrait of {desc}, {PORTRAIT_TAIL}", st, f"portrait_{cid}",
+                             code=f"P{lo}-{pcount[lo]}", section="F"))
     sections.append(("F · Kundenporträts (54)",
                      "Die aktuellen Porträts sind noch meine gerenderten (im Spiel vorhanden, aber im alten Stil). "
                      "Für einen einheitlichen Stil empfehlenswert, aber nicht zwingend.", f_parts))
     # G Oberfläche
     g = []
-    for out_name, fname, title, optional, prompt in UI:
+    for k, (out_name, fname, title, optional, prompt) in enumerate(UI, start=1):
         if out_name == "app_icon":
             st = HAVE if os.path.exists(os.path.join(ROOT, "store", "app_icon_1024.png")) else NEED
         elif out_name == "store_banner":
@@ -582,18 +596,18 @@ def main():
             st = HAVE if have("trough.png") else NEED
         else:
             st = status(out_name, optional)
-        g.append(block(title, prompt, add(st), fname))
+        g.append(block(title, prompt, add(st), fname, code=f"U{k}", section="G"))
     sections.append(("G · Oberfläche, Symbole, Store",
                      "Spieltitel und Schriften kommen aus Schriftarten (kein Bild nötig); Glühskala, Fortschritt und Partikel zeichnet das Spiel selbst.", g))
     # H Werkstatt-Einrichtung
     h_parts = []
     for e in range(1, 11):
         h_parts.append(f"### Epoche {e} – {EPOCH_NAMES[e]}\n")
-        for slot in ["fuel", "tools", "bench", "trade", "light"]:
+        for k, slot in enumerate(["fuel", "tools", "bench", "trade", "light"], start=1):
             fid = f"furn_e{e}_{slot}"
             st = add(HAVE if have(fid + ".png") else NEED)
             h_parts.append(block(f"{FURN_SLOT_DE[slot]}: {FURN_NAMES_DE[e][slot]}",
-                                 f"2D game asset, {FURN_DESC[e][slot]}, {FURN_TAIL}, {FURN_FORMAT[slot]}", st, fid))
+                                 f"2D game asset, {FURN_DESC[e][slot]}, {FURN_TAIL}, {FURN_FORMAT[slot]}", st, fid, code=f"E{e}-{k}", section="H"))
     sections.append(("H · Werkstatt-Einrichtung (5 je Epoche)",
                      "Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager). "
                      "Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; "
@@ -614,6 +628,8 @@ def main():
              f"- {GEMINI} – ist im Spiel, soll später ersetzt werden",
              f"- {MJ_CHANGE} – der Hinweis darunter sagt, was",
              f"- {GOOD} – fertig", "",
+             "**Kürzel:** Jedes Bild hat ein Kürzel (z. B. `W2-3`, `BG4`, `E1-2`), das ganz vorn im Prompt steht. "
+             "Die Datei beim Hochladen einfach so nennen (`W2-3.png`) – ich sortiere sie anhand des Kürzels ein.", "",
              "**Bildquelle:** Bis zum 20.11.2026 Gemini, seitdem **Midjourney**. Prompts in Midjourney-Schreibweise: "
              "Verbote hinter `--no`, Seitenverhältnis hinter `--ar`. Herkunft und Bewertung je Bild: `provenance.json`.", "",
              "## Übersicht", "",
@@ -650,7 +666,7 @@ def main():
     lines += ["", "## Regeln für alle Bilder", "",
               "- Freigestellt auf **reinem Weiß**, ohne Schatten, ohne Text, ohne Jahreszahlen, ohne Wasserzeichen.",
               "- Objekt vollständig im Bild mit etwas Rand.",
-              "- Dateiname = die fett gedruckte ID (z. B. `door_hinge.png`); das unveränderte Original (PNG) über GitHub in "
+              "- Dateiname = das fett gedruckte Kürzel (z. B. `W1-4.png`); das unveränderte Original (PNG) über GitHub in "
               "`assets/source/user_art/eingang/` hochladen – Bilder im Chat werden verkleinert.",
               "- Einheitlicher Stil: handgemalt, dünne dunkle Tuschekontur, warme Malstruktur.",
               "- Midjourney: Prompt komplett kopieren (inkl. `--ar` und `--no`); Einstellungen je Gruppe siehe oben.",
@@ -667,6 +683,11 @@ def main():
     for title, intro, parts in sections:
         lines += [f"## {title}", "", intro, ""] + parts
     open(OUT, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    for _c, _v in CODES.items():
+        if _c.startswith("ML"):
+            _v["id"] = _v["id"].replace("machine_", "")
+    import json as _json
+    _json.dump(CODES, open(os.path.join(SRC, "codes.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(OUT, total)
 
 
