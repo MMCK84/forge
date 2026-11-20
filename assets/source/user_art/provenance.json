@@ -4,10 +4,12 @@
   "background_1": {
    "quelle": "Midjourney",
    "bewertung": "gut",
-   "hinweis": "20.11.: Variante 4 (1:1, 2000 × 2000, gekürzter Prompt): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (72 %, Bühne y 1044), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch, die Esse leuchtet selbst."
+   "hinweis": "20.11.: Variante 4 als Original (PNG 2048 × 2048): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (73 %, Bühne y 1053), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch."
   },
   "background_2": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "20.11.: 1:1, PNG 2048 × 2048, nachgeschärfter Prompt: Abendstimmung mit Feuerschein in der Wandmitte, Bruchstein, Steinplatten, Rad und Geschirr an den Rändern. Kante 69 % (Bühne y 991). Zweites, großes Fenster rechts der Mitte steht teils hinter der Esse, die Postkutsche darin ist kaum zu sehen – im Spiel unauffällig."
   },
   "background_3": {
    "quelle": "Gemini"

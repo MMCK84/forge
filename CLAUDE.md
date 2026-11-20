@@ -15,7 +15,8 @@
 - Originale lädt der Auftraggeber über GitHub in `assets/source/user_art/eingang/` hoch (Chat-Bilder sind verkleinert);
   vor jeder Lieferung `git pull`, Eingang einsortieren und leeren.
 - Gelieferte Bilder: Originale nach `assets/source/user_art/` (Werkstücke in `items/`, Maschinenteile in
-  `machines/`, Hintergründe in `backgrounds/`), dann `python tools/art/import_user_art.py`.
+  `machines/`, Hintergründe in `backgrounds/`), dann `python tools/art/import_user_art.py` und
+  `godot --headless --path . --import` (sonst zeigt das Spiel noch die alten Bilder).
 - Hintergründe im Format **1:1** (Hochformat: mittlerer 3:4-Ausschnitt, Querformat/Tablet später: volle Breite).
 - **Musik (Suno):** Prompts in `assets/source/user_audio/PROMPTS_Musik.md`, erzeugt mit
   `python tools/content/gen_music_book.py`; Originale nach `assets/source/user_audio/music/<id>.wav`, Herkunft/Bewertung in

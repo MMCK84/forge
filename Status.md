@@ -36,7 +36,7 @@ wenn alles fertig ist.
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (1:1) | 1 (Ep. 1) | 1 (Ep. 7) | 5 (Ep. 2–6) | 3 (Ep. 8–10) |
+| A Hintergründe (1:1) | 2 (Ep. 1, 2) | 1 (Ep. 7) | 4 (Ep. 3–6) | 3 (Ep. 8–10) |
 | B Essen (frontal) | – | – | 4 (Schrägansicht) | 2 (Stufe 5, 6) |
 | C Amboss, Hämmer | – | – | 5 | – |
 | D Maschinenteile | – | – | 7 | 7 (u. a. Dampfhammer) |
@@ -68,7 +68,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
   Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
   der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
-  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 1044). Bildaufbau-Vorlage (1:1, Bild-Prompt):
+  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1 = 1053, Ep. 2 = 991). Bildaufbau-Vorlage (1:1, Bild-Prompt):
   `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
   **Erst nach dem Upscale 2× (2048 × 2048) schicken** – ohne Upscale nur 1024 × 1024.
 - **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
@@ -113,9 +113,15 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   im Spiel gut. Epoche 2 (1:1) nur als Vorschau, abgelehnt (Kante ~80 %, zweites Fenster außerhalb, kalt, kein Feuerschein).
   Hintergrund-Prompts nachgeschärft (hoher Blickpunkt, Boden untere Hälfte, Abendlicht/Feuerschein, nur ein Fenster).
 - 20.11.: Bild-Upload im Chat ist verlustbehaftet (5 MB → 0,5 MB WebP, max. 2000 px). Eingangsordner
-  `assets/source/user_art/eingang/` für Originale über GitHub angelegt. Epoche 1 als Original nachliefern.
+  `assets/source/user_art/eingang/` für Originale über GitHub angelegt.
+- 20.11.: Erste Originale über den Eingang: **Epoche 1** (PNG 2048², `USER_FLOOR_Y` 1053) und **Epoche 2 neu** (nachgeschärfter
+  Prompt: Abendlicht, Feuerschein; Kante 69 % → 991) – beide ✅. Zweites Fenster trotz `--no` → Fenster-Baustein präzisiert.
+  Wichtig: nach `import_user_art.py` erst `godot --headless --path . --import`, sonst zeigt der Spieltest alte Bilder.
+  Unit-Tests grün, Spieltest 34 Screenshots, 0 Probleme.
 
 ## Prüfen
+
+- Nach neuen Bildern: `python tools/art/import_user_art.py`, dann `godot --headless --path . --import`
 
 - Unit-Tests: `godot --headless --path . res://tests/run_tests.tscn`
 - Spieltest: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn`

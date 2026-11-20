@@ -15,15 +15,15 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 1 |
+| ✅ gut (Midjourney) | 2 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 1 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 42 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 41 |
 | ⬜ noch nicht vorhanden | 81 |
 | ⬜ noch nicht vorhanden (optional) | 62 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
-| A · Werkstatt-Hintergründe | 1 | 1 | 5 | 3 | 0 |
+| A · Werkstatt-Hintergründe | 2 | 1 | 4 | 3 | 0 |
 | B · Essen | 0 | 0 | 4 | 2 | 0 |
 | C · Amboss und Hämmer | 0 | 0 | 5 | 0 | 0 |
 | D · Maschinen | 0 | 0 | 7 | 3 | 4 |
@@ -63,6 +63,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Hintergründe | Epoche 1, Variante 3: eine große, leere, helle Wandfläche direkt hinter der Esse lässt Esse und Amboss im Spiel am besten wirken (bei Variante 1 stand ein Fachwerkpfosten genau dahinter) | „a large plain wall area without posts or beams directly behind the centre“ in allen Hintergrund-Prompts |
 | 20.11. | alle | Midjourney meldet „Long prompt – Prompts of this length will be adjusted … may increase variability“ (Hintergründe hatten ~320 Wörter) | alle Prompts gekürzt: Bausteine in Stichworten, Verbote knapp (`--no text, numbers, watermark`, freigestellt zusätzlich `border, shadow`); Wortzahl steht jetzt bei jedem Prompt |
 | 20.11. | Hintergründe | gekürzter Prompt (Epoche 1 V4, Epoche 2): kein schwarzer Streifen mehr, Upscale 2000 × 2000 – aber Kante tiefer (72 % bzw. ~80 %), Tageslicht statt Feuerschein, Epoche 2 mit zweitem Fenster außerhalb des Hochformats und verwischter grauer Fläche („plain wall“) | „high viewpoint, the floor fills the lower half“, „Evening, warm orange firelight on the centre of the back wall“, „only one small window“, „centre free of posts and windows“ statt „plain wall“; `--no daylight beam, second window` |
+| 20.11. | Hintergründe | Epoche 2 mit nachgeschärftem Prompt: Abendlicht und Feuerschein in der Wandmitte klappen, Kante 69 % (vorher ~80 %), aber trotz `--no second window` ein zweites großes Fenster rechts der Mitte | Bausteine beibehalten; Fenster noch deutlicher: „Only one small window, high in the upper left part of the back wall“ |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -106,13 +107,14 @@ Vorhandene gute 3:4-Bilder (Epoche 1) nicht neu erzeugen, sondern im Midjourney-
 
 **background_1** – Die Dorfschmiede (1700–1715) · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 108 Wörter  
-*20.11.: Variante 4 (1:1, 2000 × 2000, gekürzter Prompt): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (72 %, Bühne y 1044), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch, die Esse leuchtet selbst.*
+*20.11.: Variante 4 als Original (PNG 2048 × 2048): kein Streifen, große freie Putzfläche hinter der Esse, Fenster mit Kirchturm in den mittleren drei Vierteln, Werkzeug und Hufeisen an den Rändern. Kante tief (73 %, Bühne y 1053), wirkt im Spiel aber gut. Tageslicht statt Feuerschein – unkritisch.*
 ```
 background_1 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
 
-**background_2** – Kutschen & Handelswege (1715–1735) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 111 Wörter
+**background_2** – Kutschen & Handelswege (1715–1735) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 111 Wörter  
+*20.11.: 1:1, PNG 2048 × 2048, nachgeschärfter Prompt: Abendstimmung mit Feuerschein in der Wandmitte, Bruchstein, Steinplatten, Rad und Geschirr an den Rändern. Kante 69 % (Bühne y 991). Zweites, großes Fenster rechts der Mitte steht teils hinter der Esse, die Postkutsche darin ist kaum zu sehen – im Spiel unauffällig.*
 ```
 background_2 — Square 2D game background, hand-painted, dark ink outlines. Evening, lit by warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs --ar 1:1 --no forge, fire, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
 ```
