@@ -4,6 +4,8 @@ extends "res://scenes/ui/overlay.gd"
 const Economy = preload("res://scripts/economy.gd")
 const Assets = preload("res://scripts/assets.gd")
 const JobBook = preload("res://scenes/ui/job_book.gd")
+const Mastery = preload("res://scripts/mastery.gd")
+const Seal = preload("res://scenes/ui/mastery_seal.gd")
 
 var report: Dictionary = {}
 var _continue_btn: Button
@@ -37,6 +39,7 @@ func build(box: VBoxContainer) -> void:
 	var stars_row := CenterContainer.new()
 	stars_row.add_child(UIKit.stars_view(int(report["stars"]), 64.0))
 	box.add_child(stars_row)
+	_mastery_row(box, j)
 	var lines: Array = []
 	lines.append(["SET_HIT_QUOTE", "%d %%" % int(round(float(report["hit_quote"]) * 100.0))])
 	if int(report.get("best_streak", 0)) >= 3:
@@ -48,6 +51,8 @@ func build(box: VBoxContainer) -> void:
 	if bool(report["late"]):
 		lines.append(["SET_LATE", ""])
 	lines.append(["SET_WAGE", Economy.format_lsd(int(report["gross"]) - int(report["tip"]))])
+	if float(report.get("mastery_bonus", 0.0)) > 0.0001:
+		lines.append(["SET_MASTERY_BONUS", "+%d %%" % int(round(float(report["mastery_bonus"]) * 100.0))])
 	if int(report["tip"]) > 0:
 		lines.append(["SET_TIP", "+" + Economy.format_lsd(int(report["tip"]))])
 	var wages: Dictionary = report["wages"]
@@ -115,3 +120,32 @@ func _continue() -> void:
 	var r := report
 	close()
 	continue_pressed.emit(r)
+
+
+## Meisterschaft des Werkstücks: neues Siegel groß, sonst Fortschritt bis zur nächsten Stufe.
+func _mastery_row(box: VBoxContainer, j: JobInstance) -> void:
+	if not report.has("mastery_after"):
+		return
+	var gm := GameManager
+	var before := int(report["mastery_before"])
+	var after := int(report["mastery_after"])
+	var jobs := int(report.get("mastery_jobs", 0))
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 14)
+	var item := gm.item_name(j.template_id)
+	if after > before:
+		row.add_child(Seal.make(after, 72.0))
+		var pct := int(round((Mastery.payout_factor(gm.cfg, after) - 1.0) * 100.0))
+		row.add_child(UIKit.wrap_label(tr("SET_MASTERY_NEW").format({"level": tr(Mastery.LEVEL_KEYS[after]), "item": item, "p": pct}), 24, UIKit.GREEN, 440))
+		GameManager.sim_event.emit("mastery_up", {"level": after})
+	else:
+		row.add_child(Seal.make(after, 40.0))
+		var nt := Mastery.next_threshold(gm.cfg, jobs)
+		var text := ""
+		if nt > 0:
+			text = tr("SET_MASTERY_PROGRESS").format({"item": item, "n": jobs, "t": nt, "level": tr(Mastery.LEVEL_KEYS[after + 1])})
+		else:
+			text = tr("SET_MASTERY_MAX").format({"item": item, "n": jobs})
+		row.add_child(UIKit.wrap_label(text, 20, UIKit.INK_LIGHT, 440))
+	box.add_child(row)

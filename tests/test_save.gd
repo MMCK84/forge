@@ -115,6 +115,7 @@ func test_gamestate_roundtrip() -> void:
 	gm.accept_offer(0)
 	gm.sim.load_raw()
 	gm.sim.step(1.0)
+	gm.mastery = {"horseshoe": {"jobs": 6, "best": 3}, "nail": {"jobs": 1, "best": 2}}
 	var d1: Dictionary = gm.to_save_dict()
 	var text := JSON.stringify(d1)
 	gm.new_game()
@@ -241,4 +242,48 @@ func test_repeat_job() -> void:
 	assert_eq(j.reward_base_pence, done.reward_base_pence, "gleicher Lohn")
 	assert_eq(j.pieces_done(), 0, "Stücke zurückgesetzt")
 	assert_eq(gm.job_offers.size(), gm.offers_count(), "Angebote wieder vollständig")
+	gm.end_session()
+
+
+func test_mastery() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	var Mastery = load("res://scripts/mastery.gd")
+	var cfg: BalanceConfig = gm.cfg
+	assert_eq(Mastery.level(cfg, 0), 0)
+	assert_eq(Mastery.level(cfg, int(cfg.mastery_jobs[0])), 1, "Bronze")
+	assert_eq(Mastery.level(cfg, int(cfg.mastery_jobs[1])), 2, "Silber")
+	assert_eq(Mastery.level(cfg, 999), 3, "Gold ist die höchste Stufe")
+	assert_eq(Mastery.next_threshold(cfg, 0), int(cfg.mastery_jobs[0]))
+	assert_eq(Mastery.next_threshold(cfg, 999), -1)
+	assert_near(Mastery.payout_factor(cfg, 2), 1.0 + 2.0 * cfg.mastery_bonus_per_level, 0.0001)
+	gm.new_game()
+	assert_eq(gm.accept_offer(0), "")
+	var tid: String = gm.active_job.template_id
+	gm.debug_finish_job()
+	assert_eq(gm.mastery_jobs(tid), 1, "ein Auftrag gezählt")
+	assert_eq(int(gm.mastery[tid]["best"]), 3, "beste Sternezahl")
+	# Lohnbonus: gleicher Auftrag mit Goldsiegel bringt mehr
+	var j: JobInstance = null
+	for o in gm.job_offers:
+		if not o.is_milestone():
+			j = o
+			break
+	var reports: Array = []
+	var cb := func(r: Dictionary) -> void: reports.append(r)
+	gm.settlement_ready.connect(cb)
+	var copy: JobInstance = j.duplicate_offer()
+	gm.job_offers = [j]
+	gm.accept_offer(0)
+	gm.debug_finish_job()
+	gm.mastery[copy.template_id] = {"jobs": 50, "best": 3}
+	gm.job_offers = [copy]
+	gm.accept_offer(0)
+	gm.debug_finish_job()
+	gm.settlement_ready.disconnect(cb)
+	assert_eq(reports.size(), 2)
+	assert_eq(int(reports[1]["mastery_before"]), 3)
+	var expect := int(round(float(reports[0]["gross"]) * Mastery.payout_factor(cfg, 3) / Mastery.payout_factor(cfg, int(reports[0]["mastery_before"]))))
+	assert_true(absi(int(reports[1]["gross"]) - expect) <= 1, "Lohn mit Goldsiegel höher (%d vs. %d)" % [int(reports[1]["gross"]), expect])
 	gm.end_session()

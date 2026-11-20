@@ -223,6 +223,9 @@ func _on_sim_event(kind: String, data: Dictionary) -> void:
 		"furnished":
 			play("done", -2.0)
 			play("coins", 0.0)
+		"mastery_up":
+			play("done", -1.0, false, 0.9 + 0.1 * int(data.get("level", 1)))
+			play("sparks", -4.0)
 		"page":
 			play("page", -4.0)
 		"piece_done":

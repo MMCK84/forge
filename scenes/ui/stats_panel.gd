@@ -31,6 +31,8 @@ func build(box: VBoxContainer) -> void:
 		["STAT_HITS", str(int(st.get("hits", 0)))],
 		["STAT_BEST_STREAK", str(int(st.get("best_streak", 0)))],
 	]
+	var book := UIKit.button(tr("UI_PATTERN_BOOK"), _open_book, Vector2(0, 64), 24)
+	box.add_child(book)
 	var grid := GridContainer.new()
 	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 24)
@@ -39,3 +41,9 @@ func build(box: VBoxContainer) -> void:
 		grid.add_child(UIKit.label(tr(r[0]), 22, UIKit.INK_LIGHT))
 		grid.add_child(UIKit.label(str(r[1]), 22, UIKit.INK))
 	box.add_child(grid)
+
+
+func _open_book() -> void:
+	var p = load("res://scenes/ui/pattern_book.gd").new()
+	get_parent().add_child(p)
+	close()

@@ -334,7 +334,10 @@ func _epoch_scene(e: int) -> void:
 func _panels() -> void:
 	var gm := GameManager
 	await close_overlays()
-	for path in ["res://scenes/ui/staff_panel.gd", "res://scenes/ui/settings_panel.gd", "res://scenes/ui/stats_panel.gd",
+	# Musterbuch mit allen drei Siegelstufen zeigen
+	for pair in [["hook", 12], ["horseshoe", 5], ["nail", 2]]:
+		gm.mastery[pair[0]] = {"jobs": pair[1], "best": 3}
+	for path in ["res://scenes/ui/staff_panel.gd", "res://scenes/ui/settings_panel.gd", "res://scenes/ui/stats_panel.gd", "res://scenes/ui/pattern_book.gd",
 			"res://scenes/ui/pause_menu.gd", "res://scenes/ui/credits_panel.gd"]:
 		var p = workshop().call("open_overlay", path)
 		await wait(0.4)

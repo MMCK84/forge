@@ -11,6 +11,7 @@ const Economy = preload("res://scripts/economy.gd")
 const ReferencePlayer = preload("res://scripts/reference_player.gd")
 const JobGenerator = preload("res://scripts/job_generator.gd")
 const Furnishings = preload("res://scripts/furnishings.gd")
+const Mastery = preload("res://scripts/mastery.gd")
 
 ## Zielwerte aus 5.8: [Minuten, Einnahmen in Pence]
 const TARGETS := [[12, 900], [23, 7200], [56, 26160], [83, 67440], [131, 186960], [157, 453600],
@@ -26,6 +27,8 @@ var staff: Array = []
 ## Werkstatt-Einrichtung der laufenden Epoche (mit --no-furnish: keine)
 var furnished: Array = []
 var use_furnish: bool = true
+## Meisterschaft: item_id -> fertige Aufträge
+var mastery: Dictionary = {}
 
 
 func _init() -> void:
@@ -75,7 +78,9 @@ func _init() -> void:
 			if d > 1500.0:
 				_dump_stuck(job, _setup(e))
 				print("WARNUNG: Auftrag hängt (%.0f s): Epoche %d, %s, Kategorie %s, Menge %d, %s, Präzision %s, Esse %s" % [d, e, job.template_id, job.category, job.quantity, job.material, job.is_precision(), forge.id])
-			var gross := Economy.round_half_up(float(Economy.job_payout(cfg, job.reward_base_pence, job.is_precision(), 2, false)) * float(_fx(e)["payout_factor"]))
+			var mf := Mastery.payout_factor(cfg, Mastery.level(cfg, int(mastery.get(job.template_id, 0))))
+			mastery[job.template_id] = int(mastery.get(job.template_id, 0)) + 1
+			var gross := Economy.round_half_up(float(Economy.job_payout(cfg, job.reward_base_pence, job.is_precision(), 2, false)) * float(_fx(e)["payout_factor"]) * mf)
 			var wages := 0
 			for s in staff:
 				if s.id != "staff_journeyman":

@@ -11,6 +11,10 @@ extends Resource
 ## Wärme ab – und das Schweißfenster (1200–1300 °C) bleibt auch mit schnellen Essen gut zwei Sekunden offen.
 @export var white_heat_rate: float = 60.0
 
+## Meisterschaft je Werkstück: fertige Aufträge für Bronze, Silber, Gold; Lohn je Stufe
+@export var mastery_jobs: Array = [2, 5, 10]
+@export var mastery_bonus_per_level: float = 0.05
+
 ## Schlagserie: alle so viele Treffer in Folge (im Zielfenster) eine Stufe mehr Schlagwirkung
 @export var streak_level_hits: int = 5
 @export var streak_bonus_per_level: float = 0.10

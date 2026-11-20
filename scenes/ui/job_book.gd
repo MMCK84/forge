@@ -3,6 +3,8 @@ extends "res://scenes/ui/overlay.gd"
 ## Im Hochformat als Seite eines Kontorbuchs (Grafik des Auftraggebers), sonst Standardfenster.
 
 const Economy = preload("res://scripts/economy.gd")
+const Mastery = preload("res://scripts/mastery.gd")
+const Seal = preload("res://scenes/ui/mastery_seal.gd")
 const Assets = preload("res://scripts/assets.gd")
 ## Kunden der Marine bekommen das Admiralitätssiegel
 const NAVY := ["navy_board", "dockyard_chatham", "harbourmaster", "shipwright_portsmouth"]
@@ -127,6 +129,17 @@ func _book_entry(i: int, j: JobInstance, width: float) -> Control:
 	if j.quantity > 1:
 		tags.append(tr("UI_QUANTITY").format({"n": j.quantity}))
 	box.add_child(UIKit.wrap_label(" · ".join(tags), 19, UIKit.LEATHER, width))
+	var mlv := gm.mastery_level(j.template_id)
+	var mrow := HBoxContainer.new()
+	mrow.add_theme_constant_override("separation", 8)
+	mrow.add_child(Seal.make(mlv, 30.0))
+	var mtext := ""
+	if mlv > 0:
+		mtext = tr("UI_MASTERY_OFFER").format({"level": tr(Mastery.LEVEL_KEYS[mlv]), "p": int(round((Mastery.payout_factor(gm.cfg, mlv) - 1.0) * 100.0))})
+	else:
+		mtext = tr("UI_MASTERY_NEXT").format({"n": gm.mastery_jobs(j.template_id), "t": int(gm.cfg.mastery_jobs[0]), "level": tr(Mastery.LEVEL_KEYS[1])})
+	mrow.add_child(UIKit.label(mtext, 18, UIKit.LEATHER if mlv > 0 else UIKit.INK_LIGHT))
+	box.add_child(mrow)
 	if not j.steps.is_empty():
 		var names: PackedStringArray = []
 		for st in j.steps:

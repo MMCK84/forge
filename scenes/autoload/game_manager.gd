@@ -11,6 +11,7 @@ const ReferencePlayer = preload("res://scripts/reference_player.gd")
 const Catalog = preload("res://scripts/catalog.gd")
 const Localization = preload("res://scripts/localization.gd")
 const Furnishings = preload("res://scripts/furnishings.gd")
+const Mastery = preload("res://scripts/mastery.gd")
 
 const GAME_VERSION := "0.1.0"
 const EPOCH_YEARS := ["1700–1715", "1715–1735", "1735–1750", "1750–1765", "1765–1785", "1785–1800", "1800–1820", "1820–1839", "1839–1860", "1860–1880"]
@@ -71,6 +72,8 @@ var apprentice_to_anvil_at: float = 1050.0
 var current_epoch: int = 1
 ## Werkstatt-Einrichtung der aktuellen Epoche: gekaufte Plätze (scripts/furnishings.gd)
 var furnished: Array = []
+## Meisterschaft je Werkstück: item_id -> {"jobs": n, "best": Sterne}
+var mastery: Dictionary = {}
 var jobs_completed_in_epoch: int = 0
 var completed_milestone_ids: Array = []
 var generator_seed: int = 0
@@ -233,6 +236,7 @@ func new_game() -> void:
 	apprentice_to_anvil_at = cfg.apprentice_to_anvil_at
 	current_epoch = 1
 	furnished = []
+	mastery = {}
 	jobs_completed_in_epoch = 0
 	completed_milestone_ids = []
 	var r := RandomNumberGenerator.new()
@@ -624,7 +628,8 @@ func _complete_active_job() -> void:
 	var ev := sim.evaluate()
 	var stars: int = ev["stars"]
 	var late := j.is_late()
-	var pf: float = furnish_effects()["payout_factor"]
+	var lv_before := mastery_level(j.template_id)
+	var pf: float = furnish_effects()["payout_factor"] * Mastery.payout_factor(cfg, lv_before)
 	var gross := Economy.round_half_up(float(Economy.job_payout(cfg, j.reward_base_pence, j.is_precision(), stars, late)) * pf)
 	var base2 := Economy.round_half_up(float(Economy.job_payout(cfg, j.reward_base_pence, j.is_precision(), 2, late)) * pf)
 	var wages := {}
@@ -642,6 +647,12 @@ func _complete_active_job() -> void:
 		stats["three_star_jobs"] = int(stats.get("three_star_jobs", 0)) + 1
 	stats["best_payout"] = maxi(int(stats.get("best_payout", 0)), net)
 	stats["best_streak"] = maxi(int(stats.get("best_streak", 0)), int(ev.get("best_streak", 0)))
+	var m_entry: Dictionary = mastery.get(j.template_id, {})
+	Mastery.record(m_entry, stars)
+	mastery[j.template_id] = m_entry
+	var lv_after := mastery_level(j.template_id)
+	if lv_after > lv_before:
+		request_hint("mastery")
 	jobs_completed_in_epoch += 1
 	sim.force_enabled = force_counts()
 	# Lehrzeit-Drehbuch: Folgeangebote neu erzeugen, damit sie zum nächsten Auftrag passen
@@ -675,6 +686,8 @@ func _complete_active_job() -> void:
 		"gross": gross, "tip": maxi(0, gross - base2), "late": late,
 		"wages": wages, "costs": j.costs_pence, "net": net,
 		"epoch_done": epoch_done, "game_done": game_done,
+		"mastery_before": lv_before, "mastery_after": lv_after, "mastery_jobs": int(m_entry.get("jobs", 0)),
+		"mastery_bonus": Mastery.payout_factor(cfg, lv_before) - 1.0,
 	}
 	active_job = null
 	sim.clear_job()
@@ -967,6 +980,7 @@ func to_save_dict() -> Dictionary:
 		"progress": {
 			"current_epoch": current_epoch, "jobs_completed_in_epoch": jobs_completed_in_epoch,
 			"furnished": furnished.duplicate(),
+			"mastery": mastery.duplicate(true),
 			"completed_milestone_ids": completed_milestone_ids.duplicate(),
 			"generator_seed": generator_seed, "generator_state": str(generator.get_state()),
 			"generator_uid": generator.uid_counter,
@@ -1029,6 +1043,14 @@ func load_from_dict(d: Dictionary) -> void:
 		for v in fu:
 			if Furnishings.SLOTS.has(str(v)) and not furnished.has(str(v)):
 				furnished.append(str(v))
+	mastery = {}
+	var ma = pr.get("mastery", {})
+	if ma is Dictionary:
+		for k in ma:
+			if items.has(str(k)) and ma[k] is Dictionary:
+				mastery[str(k)] = {"jobs": maxi(0, int(ma[k].get("jobs", 0))), "best": clampi(int(ma[k].get("best", 0)), 0, 3)}
+			else:
+				_log_unknown("item", str(k))
 	completed_milestone_ids = _known_ids(pr.get("completed_milestone_ids", []), milestones, "milestone")
 	generator_seed = int(pr.get("generator_seed", 1))
 	var gs := str(pr.get("generator_state", ""))
@@ -1107,6 +1129,15 @@ func _log_unknown(kind: String, id: String) -> void:
 func item_name(item_id: String, plural: bool = false) -> String:
 	var key := "ITEM_" + item_id.to_upper() + ("_PL" if plural else "")
 	return tr(key)
+
+
+## Meisterschaft eines Werkstücks (0 = keine, 1 Bronze, 2 Silber, 3 Gold).
+func mastery_level(item_id: String) -> int:
+	return Mastery.level(cfg, int(mastery.get(item_id, {}).get("jobs", 0)))
+
+
+func mastery_jobs(item_id: String) -> int:
+	return int(mastery.get(item_id, {}).get("jobs", 0))
 
 
 func job_title(j: JobInstance) -> String:

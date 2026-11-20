@@ -221,6 +221,8 @@ HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab �
 HINT_JOURNEYMAN_TITLE,Der Geselle,The journeyman
 HINT_MACHINE_TEXT,"Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur schwer und ruht in leichten Arbeitsgängen.","You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes heavy only and rests during light steps."
 HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
+HINT_MASTERY_TEXT,"Euer erstes Siegel! Wer ein Werkstück immer wieder schmiedet, erhält Bronze-, Silber- und Goldsiegel – und für dieses Werkstück jedes Mal mehr Lohn. Alle Werkstücke und Siegel findet Ihr im Musterbuch (Statistik).","Your first seal! Forge a piece again and again to earn bronze, silver and gold seals – and a higher wage for that piece each time. All pieces and seals are in the pattern book (statistics)."
+HINT_MASTERY_TITLE,Meisterschaft,Mastery
 HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr in der Mitte des Zielfensters schmiedet: Jedes Fenster ist auf seine mittleren 60 % verengt. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the middle of the target window counts here: every window is narrowed to its central 60 %. Three stars earn a 25 % tip.
 HINT_PRECISION_TITLE,Präzisionsauftrag,Precision order
 HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet. Nutzt alle Plätze der Esse, damit die nächsten Stücke schon heizen, während Ihr schmiedet.\n\nWird das Stück auf dem Amboss zu kalt, tauscht Ihr es mit [E] oder per Klick auf ein heißes Stück in der Esse.","Several pieces: each is heated and forged on its own. Use every place in the forge so the next pieces are heating while you work.\n\nWhen the piece on the anvil gets too cold, swap it with [E] or by clicking a hot piece in the forge."
@@ -485,6 +487,9 @@ MACHINE_GREAT_STEAM_HAMMER,Großer Dampfhammer,Great steam hammer
 MACHINE_NASMYTH,Nasmyth-Dampfhammer,Nasmyth steam hammer
 MACHINE_STEAM_HELVE,Dampf-Schwanzhammer,Steam-powered helve hammer
 MACHINE_WATER_HELVE,Wasser-Schwanzhammer,Water-powered helve hammer
+MASTERY_BRONZE,Bronzesiegel,Bronze seal
+MASTERY_GOLD,Goldsiegel,Gold seal
+MASTERY_SILVER,Silbersiegel,Silver seal
 MAT_IRON,Schmiedeeisen,Wrought iron
 MAT_STEEL,Stahl,Steel
 MSG_FURNISHED,Werkstatt vollständig eingerichtet! Prämie der Zunft: {bonus},Workshop fully fitted out! Guild bonus: {bonus}
@@ -695,6 +700,10 @@ SET_COSTS,Material & Betrieb,Materials & running costs
 SET_DAMAGE,Gefügeschaden (Ø),Structural damage (avg.)
 SET_HIT_QUOTE,Trefferquote im Zielfenster,Blows in the target window
 SET_LATE,"Verspätet geliefert (halber Lohn, kein Trinkgeld)","Delivered late (half pay, no tip)"
+SET_MASTERY_BONUS,Meisterschaft,Mastery
+SET_MASTERY_MAX,{item}: Goldsiegel ({n} Aufträge),{item}: gold seal ({n} orders)
+SET_MASTERY_NEW,Neues {level} für „{item}“! Künftig +{p} % Lohn für dieses Werkstück.,New {level} for “{item}”! From now on +{p} % wage for this piece.
+SET_MASTERY_PROGRESS,{item}: {n}/{t} Aufträge bis zum {level},{item}: {n}/{t} orders to the {level}
 SET_NET,Gutgeschrieben,Credited
 SET_QUALITY,Qualitätswert Q,Quality value Q
 SET_QUENCH,Abzug durch Härten,Hardening penalty
@@ -821,6 +830,8 @@ UI_MACHINE_HEAVY,schlägt nur schwer,strikes heavy blows only
 UI_MACHINE_INFO,Schlagkraft {p} · {h} Schläge/s,Striking power {p} · {h} blows/s
 UI_MACHINE_NOTE,"Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur schwer, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.","You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike heavy only, steam hammers with the chosen force. Only one machine is active at a time."
 UI_MACHINE_WATER,Leistung schwankt mit dem Wasserstand (60–100 %),output varies with the water level (60–100 %)
+UI_MASTERY_NEXT,Meisterschaft: {n}/{t} Aufträge bis zum {level},Mastery: {n}/{t} orders to the {level}
+UI_MASTERY_OFFER,{level} – Lohn +{p} %,{level} – wage +{p} %
 UI_MAXED,Höchststufe,Maximum
 UI_MENU,Menü [Esc],Menu [Esc]
 UI_MISSING,Es fehlen noch {m}.,You still need {m}.
@@ -832,6 +843,10 @@ UI_NO_JOB,Kein Auftrag – öffnet das Auftragsbuch [J].,No order – open the o
 UI_OFFER_DETAILS,{fp} Form-Punkte · Lohn {wage} (2 Sterne) · geschätzt {time},{fp} form points · pay {wage} (2 stars) · est. {time}
 UI_OFFLINE_EARNINGS,Während Eurer Abwesenheit ({t}) hat der Geselle {m} verdient.,"While you were away ({t}), your journeyman earned {m}."
 UI_OK,OK,OK
+UI_PATTERN_BOOK,Musterbuch,Pattern book
+UI_PATTERN_RULES,"Wer ein Werkstück immer wieder schmiedet, erhält ein Siegel und mehr Lohn dafür: {ladder}",Forge a piece again and again to earn a seal and a higher wage for it: {ladder}
+UI_PATTERN_SUMMARY,"Geschmiedet: {made} von {all} Werkstücken · Siegel: {b} Bronze, {s} Silber, {g} Gold","Forged: {made} of {all} pieces · Seals: {b} bronze, {s} silver, {g} gold"
+UI_PATTERN_TIP,{n} Aufträge · {level},{n} orders · {level}
 UI_PAUSE,Pause,Paused
 UI_PAY_AND_MOVE,Gebühr zahlen & umziehen,Pay the fee & move
 UI_PIECE_INFO,Stück {i}/{n} · {p} %,Piece {i}/{n} · {p} %
