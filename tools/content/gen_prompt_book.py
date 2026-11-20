@@ -55,6 +55,12 @@ LESSONS = [
     ("20.11.", "Hintergründe", "Midjourney setzt die Kante im Hochformat hartnäckig auf ~60 % (Epoche 8 und 9)",
      "**Format 3:4** statt 9:16: dort landet die Kante bei 55–62 % genau richtig im Spiel; das Spiel verlängert den Boden nach unten"),
     ("20.11.", "alle", "Zuordnung der Bilder in Midjourney schwierig", "jeder Prompt beginnt mit der ID (= Dateiname), z. B. `background_9 —`"),
+    ("20.11.", "Essen", "Test-Esse (Stufe 1): Frontalansicht gut, aber geschlossener Backofen mit Kuppel, Glut tief in der Öffnung, nur ~35 % breit",
+     "„open smith's hearth, not an oven“, Glut liegt offen auf einem hüfthohen Herdtisch, Abzugshaube mit freiem Spalt darüber; `--no dome, oven, bread oven, arch over the fire, enclosed firebox`"),
+    ("20.11.", "Essen", "Blasebalg sah aus wie eine Kanone bzw. ein Fernrohr",
+     "Blasebalg ausdrücklich beschreiben: tropfenförmig, zwei Holzbretter mit gefaltetem Leder, waagerecht auf einem Holzgestell; `--no cannon`"),
+    ("20.11.", "Essen", "Bodenfleck trotz `--no ground patch`; Hintergrund cremeweiß statt reinweiß",
+     "unkritisch – der Import schneidet beides weg"),
 ]
 GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
 ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
@@ -218,17 +224,24 @@ BACKGROUNDS = {
     10: "Interior of a Sheffield steelworks forge around 1870, seen from a high viewpoint. The back wall: very tall dark brick wall with iron roof trusses and a travelling crane rail along the top. The floor comes towards the viewer: cast-iron floor plates with steel scale. A window high on the back wall in the upper left corner shows Bessemer converters blowing a shower of sparks into the night. The right third of the room is left open and empty, because a very large steam hammer will be placed there later. ",
 }
 
+## Offene Schmiede-Esse (Stufe 1–4): Midjourney macht aus „hearth with hood“ sonst einen Backofen
+OPEN_HEARTH = ("an open smith's hearth, not an oven: a waist-high flat hearth table with the glowing coals lying openly on top of it, "
+               "open at the front and at both sides, the hood hangs above the fire with a clear open gap between the coals and the hood "
+               "(no dome, no oven, no bread oven, no arch over the fire, no enclosed firebox)")
+BELLOWS = ("a large classic blacksmith's leather bellows shaped like a teardrop, made of two wooden boards joined by pleated leather, "
+           "lying horizontally on a wooden stand, its iron nozzle leads into the side of the hearth (no cannon)")
+
 FORGE_TAIL = ("shown in a straight front view (symmetrical, orthographic, no perspective distortion, no three-quarter view), seen from slightly above "
-              "so that the glowing fire bed on top of the hearth is visible as a wide horizontal band across the middle of the hearth, the fire bed "
+              "so that the glowing fire bed lying flat on top of the hearth is visible as a wide horizontal band across the middle of the hearth, the fire bed "
               "takes up about 60 % of the forge's width, the hood and chimney are centred above the fire bed and shown completely inside the image, "
               "the bottom edge of the hearth is straight and level (no floor, no ground patch), hand-painted 2D game art with dark ink outlines and "
               "warm painterly textures, no smoke, no sparks, no flames rising above the coals, no people, nothing in front of the hearth, no text, "
               "no watermark, isolated on pure flat white background, wide landscape 2:1")
 FORGES = [
-    ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge: a low hearth of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, a leather hand bellows on a wooden stand at the left side with its nozzle pointing into the hearth, orange glowing charcoal fire"),
-    ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a red brick smith's hearth of the 1720s with a brick hood and a square brick chimney, bound with iron straps, a leather bellows at the left side with its nozzle pointing into the hearth, bright orange coal fire"),
-    ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large brick and stone smith's hearth of the 1740s with a wide brick hood bound with iron bands, two large leather bellows stacked at the left side worked by one wooden lever, hot yellow-orange coal fire"),
-    ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's hearth of cast-iron plates and firebrick with a riveted iron hood and a round iron chimney, a cast-iron blowing cylinder with an air pipe at the left side, brilliant yellow-white coke fire"),
+    ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", the hearth table built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, at the left side " + BELLOWS + ", orange glowing charcoal fire"),
+    ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", the hearth table built of red brick bound with iron straps, a brick hood and a square brick chimney, at the left side " + BELLOWS + ", bright orange coal fire"),
+    ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", the hearth table built of brick and stone, a wide brick hood bound with iron bands, at the left side two large teardrop-shaped leather bellows of wooden boards and pleated leather stacked one above the other, worked by one long wooden lever, their nozzle leads into the side of the hearth (no cannon), hot yellow-orange coal fire"),
+    ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's forge, " + OPEN_HEARTH + ", the hearth table built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, at the left side an upright cast-iron blowing cylinder with an air pipe leading into the side of the hearth, brilliant yellow-white coke fire"),
     ("forge_welding_furnace", "Schweißofen (Stufe 5, Epoche 8)", "a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney"),
     ("forge_siemens", "Siemens-Gasofen (Stufe 6, Epoche 10)", "a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub"),
 ]
