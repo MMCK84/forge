@@ -21,8 +21,8 @@ wenn alles fertig ist.
 - **Schlagstärke** (leicht/mittel/schwer) in allen Epochen: je Arbeitsschritt eine passende Stärke,
   Tutorial-Aufträge ohne, in Epoche 1 nur mittel/schwer; Schwanzhammer/Zuschläger nur bei schweren Schritten
   (große Schmiedestücke: alle Schritte); Dampfhammer schlägt mit gewählter Stärke und hält bei zwei Stufen zu hart an.
-- **Balancing** mit `tools/tune_balance.py`: Gesamtspielzeit ca. 13,6 h
-  (Minuten je Epoche 12.8/25.1/56.9/83.3/130.9/157.5/77.2/85.2/90.2/96.3).
+- **Balancing** mit `tools/tune_balance.py` (mit Schlagserie und Einrichtung): Gesamtspielzeit ca. 13,5 h
+  (Minuten je Epoche 12.1/22.4/55.0/82.8/130.6/156.9/77.9/83.6/90.0/96.0).
 - **Ton:** Musik der Epochen 7–10, Dampfhammer-Klang, Tonhöhe/Lautstärke nach Schlagstärke.
 - **Grafiken des Auftraggebers** eingebunden (Import-Pipeline `tools/art/import_user_art.py`):
   Hintergründe, Essen 1–4, Amboss, 4 Hämmer (Seitenansicht), Maschinenteile (Schwanzhammer, Wasserrad,
@@ -221,7 +221,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   angepasst. Balancing unverändert **13,33 h** (Seed 1), Tests 2106/0, Spieltest 0 Probleme.
 - 20.11.: **Schlagserie und Stufensprung** (Kernausbau Schritt 1) eingebaut, siehe „Fertig“. Rahmen um die Esse-Plätze und den
   Rohling-Stapel entfernt (nur noch Nummer bzw. Anzahl, gewählter Platz mit weichem Schein). Der Serienbonus macht den
-  Referenzspieler 15–20 % schneller (11,3 h statt 13,3 h) → Balancing wird mit `tune_balance.py` nachgestimmt.
+  Referenzspieler 15–20 % schneller (11,3 h statt 13,3 h) → mit `tune_balance.py` nachgestimmt (8 Iterationen, 4 Seeds):
+  **13,46 h**, Minuten 12.1/22.4/55.0/82.8/130.6/156.9/77.9/83.6/90.0/96.0 (alle ±3 %). Dabei einen Hänger behoben:
+  Bei voller Esse holte der Referenzspieler ein Schweißstück nicht an den Amboss (es nahm in der Weißglut Schaden und
+  wurde immer wieder Ausschuss) → er tauscht es jetzt sofort gegen das Amboss-Stück. Tests 2119/0.
 
 ## Prüfen
 

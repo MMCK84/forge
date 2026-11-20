@@ -67,8 +67,8 @@ quality_tiers = [{
 "min_epoch": 2
 }]
 epoch_job_counts = PackedInt32Array(30, 40, 50, 50, 60, 70, 50, 55, 60, 60)
-fp_start = PackedFloat32Array(41.0, 208.0, 1908.0, 6452.0, 13167.0, 17016.0, 16270.0, 12016.0, 23209.0, 50605.0)
-rate_per_fp = PackedFloat32Array(0.292683, 0.346154, 0.110063, 0.083695, 0.094934, 0.152797, 0.354026, 0.726531, 0.551424, 0.379409)
+fp_start = PackedFloat32Array(39.0, 237.0, 2512.0, 8483.0, 17344.0, 21822.0, 21101.0, 16416.0, 29034.0, 61937.0)
+rate_per_fp = PackedFloat32Array(0.307692, 0.303797, 0.083599, 0.063657, 0.072071, 0.119146, 0.272973, 0.531798, 0.440794, 0.309992)
 scale_per_epoch = 5.0
 free_play_exponent_cap = 1.5
 type_factor_standard = 1.0
