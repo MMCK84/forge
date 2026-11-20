@@ -48,6 +48,19 @@ eines Kapitels.
    gleichzeitig. Eilaufträge kommen jetzt erst ab der Epochenmitte (`rush_from_grade`).
 4. **Einrichtung wird angekündigt:** Hinweisfenster am Ende der Lehrzeit.
 
+## Kernausbau (beschlossen 20.11.)
+
+Erfolgserlebnisse auf jeder Zeitebene:
+
+| Zeitebene | Neu | Stand |
+|---|---|---|
+| Sekunden | **Schlagserie** (alle 5 Treffer +10 % Schlagkraft, max. +30 %), **Stufensprung** je Arbeitsgang | umgesetzt |
+| Minuten | **Meisterschaft je Werkstück** mit Siegeln, **Musterbuch** | als Nächstes |
+| Stunden | **Meisterstück je Epoche**, **Kapitelübergang** | danach |
+
+Die Schlagserie gilt ab dem ersten Auftrag (keine neue Bedienung, sie erklärt sich durch die Anzeige).
+Danach wird der Kern eingefroren.
+
 ## Weitere Vorschläge (zur Entscheidung)
 
 - **Meisterstück je Epoche:** Der letzte Meilenstein jeder Epoche als großes, mehrteiliges Stück, das

@@ -34,6 +34,13 @@ wenn alles fertig ist.
   zeitgemäßem Stück und Wirkung (Heizen +15 %, Schlag +10 %/Kran, Fenster ±25 °C und −20 % Schaden, 4 Angebote/30 s,
   Lohn +5 %/halber Ausschuss); Preise 40 % der Meistergebühr, Prämie bei vollständiger Einrichtung; beginnt je Epoche neu.
   Daten `scripts/furnishings.gd`, Darstellung `scenes/main/furnish_view.gd` (Platzhalter, Kreide-Umriss), Laden-Abschnitt.
+- **Schlagserie:** Treffer in Folge im Zielfenster (Hand und Maschine auf Kommando, Feuerschweißen zählt mit) zählen
+  sichtbar hoch („Serie 7“ rechts neben dem Amboss, ab 3 Treffern). Alle 5 Treffer eine Stufe mehr Schlagkraft
+  (+10 %, höchstens +30 %), Klang wird mit jeder Stufe heller; jeder Fehlschlag (zu kalt, falsche Hitze, falsche Stärke)
+  beendet die Serie. Längste Serie in Abrechnung und Statistik. Werte in `balance_config.gd` (`streak_*`).
+- **Stufensprung:** Das Werkstück verändert sich innerhalb eines Arbeitsgangs nur leicht und springt beim Abschluss
+  sichtbar in die nächste Form (Funkenregen, Leuchtring, Klang). Fertige Stücke steigen kurz golden über dem Amboss auf.
+  Zwischenbilder je Arbeitsgang folgen später (erst Epoche 1 zur Probe).
 - **Tests:** Unit-Tests grün (1841 Prüfungen, 0 Fehler, 20.11.); grafischer Spieltest bis Epoche 10 (mit Einrichtung).
 
 ## Bildstatus (Prompt-Heft)
@@ -94,8 +101,8 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    echten Bildern abstimmen; Teil 2 sichtbares Personal; weitere Ideen (Stammkunden, Ereignisse, Meisterstück).
    Spielzeit darf länger werden, darf aber nicht langweilig sein. Weitere Vorschläge zum roten Faden (Meisterstück je Epoche,
    Stammkunden, Kapitelübergang beim Epochenwechsel) in `docs/Roter_Faden.md`.
-6. **Kernausbau (beschlossen 20.11., in dieser Reihenfolge):** (1) **Schlagserie** (Treffer in Folge im Zielfenster,
-   kleiner Bonus) und **Stufensprung** je Arbeitsgang (Funken, Klang; später Zwischenbilder, erst Epoche 1 zur Probe);
+6. **Kernausbau (beschlossen 20.11., in dieser Reihenfolge):** (1) ✔ **Schlagserie** (Treffer in Folge im Zielfenster,
+   kleiner Bonus) und ✔ **Stufensprung** je Arbeitsgang (Funken, Klang; später Zwischenbilder, erst Epoche 1 zur Probe);
    (2) **Meisterschaft je Werkstück** (Siegel, kleiner Vorteil) mit **Musterbuch** (Sammlung aller Werkstücke);
    (3) **Meisterstück je Epoche** und **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
@@ -212,6 +219,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   auf Kommando – Tippen = ein Schlag, Halten = fortlaufend, Loslassen = Stopp. Damit funktionieren alle Maschinen gleich wie
   der Handhammer. Schwanzhämmer schlagen weiterhin nur schwer (leichte Schritte von Hand). Texte (Maschinen-Hinweis, Laden)
   angepasst. Balancing unverändert **13,33 h** (Seed 1), Tests 2106/0, Spieltest 0 Probleme.
+- 20.11.: **Schlagserie und Stufensprung** (Kernausbau Schritt 1) eingebaut, siehe „Fertig“. Rahmen um die Esse-Plätze und den
+  Rohling-Stapel entfernt (nur noch Nummer bzw. Anzahl, gewählter Platz mit weichem Schein). Der Serienbonus macht den
+  Referenzspieler 15–20 % schneller (11,3 h statt 13,3 h) → Balancing wird mit `tune_balance.py` nachgestimmt.
 
 ## Prüfen
 
