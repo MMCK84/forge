@@ -2,6 +2,8 @@
 
 Stand: 20.11.2026 · Branch `claude/sharp-rubin-jfnibw` · Godot 4.7.2
 
+**Prompts für alle Bilder:** `assets/source/user_art/PROMPTS_Hochformat.md` (186 Bilder, nach jeder Lieferung neu erzeugt).
+
 ## Kurzüberblick
 
 Inkrementelles Schmiede-Spiel (England, 1700–1880) in Godot 4 / GDScript, **Hochformat (Mobile)**,
@@ -64,6 +66,12 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
 3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
 4. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen des Bildgenerators prüfen.
+
+## Verlauf
+
+- 20.11.: Neue Sitzung; Godot 4.7.2 neu installiert, Unit-Tests grün (1658/0). `.import`-Dateien auf
+  4.7.2-Standardfelder aktualisiert. Prompt-Heft neu erzeugt (unverändert).
+  Status.md wird ab jetzt nach jedem Arbeitsschritt gepflegt.
 
 ## Prüfen
 
