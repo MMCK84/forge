@@ -94,8 +94,14 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    echten Bildern abstimmen; Teil 2 sichtbares Personal; weitere Ideen (Stammkunden, Ereignisse, Meisterstück).
    Spielzeit darf länger werden, darf aber nicht langweilig sein. Weitere Vorschläge zum roten Faden (Meisterstück je Epoche,
    Stammkunden, Kapitelübergang beim Epochenwechsel) in `docs/Roter_Faden.md`.
-6. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
-7. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
+6. **Kernausbau (beschlossen 20.11., in dieser Reihenfolge):** (1) **Schlagserie** (Treffer in Folge im Zielfenster,
+   kleiner Bonus) und **Stufensprung** je Arbeitsgang (Funken, Klang; später Zwischenbilder, erst Epoche 1 zur Probe);
+   (2) **Meisterschaft je Werkstück** (Siegel, kleiner Vorteil) mit **Musterbuch** (Sammlung aller Werkstücke);
+   (3) **Meisterstück je Epoche** und **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
+   `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
+   Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
+7. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
+8. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
 ## Verlauf
 

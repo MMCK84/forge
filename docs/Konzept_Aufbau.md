@@ -85,10 +85,23 @@ und Balancing vorher fertig werden können.
 | **Zuschläger** | gegenüber am Amboss | Vorschlaghammer oben / unten, im Takt seiner Schläge (alle 2 s) |
 | **Geselle** | hinten an eigener Werkbank | hämmert an seinem eigenen Stück |
 
-Zwei Kleidungsstile: georgianisch (Epoche 1–6) und viktorianisch (7–10) → **16 Bilder**.
-Risiko: Midjourney hält Figuren über mehrere Bilder nicht immer gleich. Abhilfe: Charakter-Referenz
-(gleiche Figur als Referenzbild) und einfache Silhouetten; notfalls nur eine Pose je Figur mit
-Bewegung im Spiel (Wippen, Verschieben).
+Zwei Kleidungsstile: georgianisch (Epoche 1–6) und viktorianisch (7–10) → **16 Posen**.
+Risiko: Midjourney hält Figuren über **mehrere getrennte Bilder** nicht zuverlässig gleich.
+
+**Lösung (Stand 20.11.):**
+1. **Beide Posen in einem Bild** („same man, two poses side by side“, Format 2:1): Innerhalb eines Bildes bleibt die
+   Figur gleich. Der Import schneidet das Bild in zwei Posen → **8 Bilder statt 16**.
+2. **Gegenlicht vor der Glut:** Figuren eher dunkel, vom Feuer angestrahlt, ohne viele Kleinteile
+   (keine Knöpfe, Muster, Schrift). Das passt zur Stimmung, und kleine Abweichungen fallen nicht auf.
+3. **Klein im Spiel** (ca. 250–350 px Höhe auf der Bühne): Gesichter sind kaum erkennbar, Haltung und
+   Kleidung zählen.
+4. **Viktorianische Fassung** mit der georgianischen als Figuren-Referenz in Midjourney, damit es
+   erkennbar „derselbe Lehrling, ein Jahrhundert später“ ist (muss nicht exakt gleich sein: neue Werkstatt, neue Leute).
+5. **Rückfall:** Klappt eine zweite Pose nicht, genügt eine Pose; die Bewegung macht dann das Spiel
+   (Wippen, Verschieben, Werkzeug als eigenes Bild drehen).
+6. **Erst eine Probefigur** (Zuschläger, Epoche 1–6), danach entscheiden.
+
+Umsetzung **später**, nach dem Kernausbau (Schlagserie, Stufensprung, Meisterschaft, Musterbuch, Meisterstück, Kapitelübergang).
 
 ## Weitere Ideen gegen Langeweile (zur Auswahl, später)
 
