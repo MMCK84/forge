@@ -55,8 +55,10 @@ Erfolgserlebnisse auf jeder Zeitebene:
 | Zeitebene | Neu | Stand |
 |---|---|---|
 | Sekunden | **Schlagserie** (alle 5 Treffer +10 % Schlagkraft, max. +30 %), **Stufensprung** je Arbeitsgang | umgesetzt |
-| Minuten | **Meisterschaft je Werkstück** mit Siegeln, **Musterbuch** | als Nächstes |
-| Stunden | **Meisterstück je Epoche**, **Kapitelübergang** | danach |
+| Minuten | **Meisterschaft je Werkstück** (Bronze/Silber/Gold nach 2/5/10 Aufträgen, je +5 % Lohn), **Musterbuch** | umgesetzt |
+| Stunden | **Meisterstück je Epoche**, **Kapitelübergang** | als Nächstes |
+
+Das erste Siegel gibt es meist schon in der Lehrzeit (Auftrag 3: zweiter Nagel) – ein frühes Erfolgserlebnis.
 
 Die Schlagserie gilt ab dem ersten Auftrag (keine neue Bedienung, sie erklärt sich durch die Anzeige).
 Danach wird der Kern eingefroren.

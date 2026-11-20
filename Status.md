@@ -21,8 +21,8 @@ wenn alles fertig ist.
 - **Schlagstärke** (leicht/mittel/schwer) in allen Epochen: je Arbeitsschritt eine passende Stärke,
   Tutorial-Aufträge ohne, in Epoche 1 nur mittel/schwer; Schwanzhammer/Zuschläger nur bei schweren Schritten
   (große Schmiedestücke: alle Schritte); Dampfhammer schlägt mit gewählter Stärke und hält bei zwei Stufen zu hart an.
-- **Balancing** mit `tools/tune_balance.py` (mit Schlagserie und Einrichtung): Gesamtspielzeit ca. 13,5 h
-  (Minuten je Epoche 12.1/22.4/55.0/82.8/130.6/156.9/77.9/83.6/90.0/96.0).
+- **Balancing** mit `tools/tune_balance.py` (mit Schlagserie, Meisterschaft und Einrichtung): Gesamtspielzeit ca. 13,4 h
+  (Minuten je Epoche 12.1/22.5/55.1/81.4/130.3/155.7/77.3/83.4/90.0/96.0).
 - **Ton:** Musik der Epochen 7–10, Dampfhammer-Klang, Tonhöhe/Lautstärke nach Schlagstärke.
 - **Grafiken des Auftraggebers** eingebunden (Import-Pipeline `tools/art/import_user_art.py`):
   Hintergründe, Essen 1–4, Amboss, 4 Hämmer (Seitenansicht), Maschinenteile (Schwanzhammer, Wasserrad,
@@ -41,6 +41,13 @@ wenn alles fertig ist.
 - **Stufensprung:** Das Werkstück verändert sich innerhalb eines Arbeitsgangs nur leicht und springt beim Abschluss
   sichtbar in die nächste Form (Funkenregen, Leuchtring, Klang). Fertige Stücke steigen kurz golden über dem Amboss auf.
   Zwischenbilder je Arbeitsgang folgen später (erst Epoche 1 zur Probe).
+- **Meisterschaft je Werkstück:** Bronze-, Silber- und Goldsiegel nach 2, 5 und 10 fertigen Aufträgen eines Werkstücks
+  (`mastery_jobs`), je Stufe +5 % Lohn für dieses Werkstück (`mastery_bonus_per_level`). Siegel und Fortschritt im
+  Auftragsbuch, neues Siegel groß in der Abrechnung (mit Klang), Hinweisfenster beim ersten Siegel. Logik `scripts/mastery.gd`,
+  Siegel gezeichnet in `scenes/ui/mastery_seal.gd` (Bild des Auftraggebers `seal_mastery_<stufe>.png` hat Vorrang,
+  Prompts U18–U20). Wird gespeichert (`progress.mastery`).
+- **Musterbuch** (Knopf in der Statistik): alle 80 Werkstücke nach Epochen, geschmiedete mit Bild, Anzahl, bester
+  Bewertung und Siegel, noch nie geschmiedete als Schattenriss (`scenes/ui/pattern_book.gd`).
 - **Tests:** Unit-Tests grün (1841 Prüfungen, 0 Fehler, 20.11.); grafischer Spieltest bis Epoche 10 (mit Einrichtung).
 
 ## Bildstatus (Prompt-Heft)
@@ -103,7 +110,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    Stammkunden, Kapitelübergang beim Epochenwechsel) in `docs/Roter_Faden.md`.
 6. **Kernausbau (beschlossen 20.11., in dieser Reihenfolge):** (1) ✔ **Schlagserie** (Treffer in Folge im Zielfenster,
    kleiner Bonus) und ✔ **Stufensprung** je Arbeitsgang (Funken, Klang; später Zwischenbilder, erst Epoche 1 zur Probe);
-   (2) **Meisterschaft je Werkstück** (Siegel, kleiner Vorteil) mit **Musterbuch** (Sammlung aller Werkstücke);
+   (2) ✔ **Meisterschaft je Werkstück** (Siegel, kleiner Vorteil) mit ✔ **Musterbuch** (Sammlung aller Werkstücke);
    (3) **Meisterstück je Epoche** und **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
    Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
@@ -225,6 +232,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   **13,46 h**, Minuten 12.1/22.4/55.0/82.8/130.6/156.9/77.9/83.6/90.0/96.0 (alle ±3 %). Dabei einen Hänger behoben:
   Bei voller Esse holte der Referenzspieler ein Schweißstück nicht an den Amboss (es nahm in der Weißglut Schaden und
   wurde immer wieder Ausschuss) → er tauscht es jetzt sofort gegen das Amboss-Stück. Tests 2119/0.
+- 20.11.: **Meisterschaft je Werkstück und Musterbuch** (Kernausbau Schritt 2), siehe „Fertig“. Prompt-Heft: Siegel
+  U18–U20. Der Lohnbonus verkürzte die Spielzeit auf 13,0 h (`balance_sim.gd` rechnet die Meisterschaft mit) →
+  nachgestimmt (3 Iterationen): **13,40 h**, alle Epochen ±3 %. Tests 2132/0, Spieltest 0 Probleme.
 
 ## Prüfen
 
