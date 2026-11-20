@@ -104,6 +104,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 20.11.: **Epoche 1 Variante 3** eingebaut (Kante 63 % → `USER_FLOOR_Y` 911): große helle Wandfläche hinter der Esse wirkt
   im Spiel am besten – als Baustein in alle Hintergrund-Prompts übernommen. Nur Upscale 2× fehlt noch.
   Unit-Tests grün, Spieltest 33 Screenshots, 0 Probleme.
+- 20.11.: Midjourney warnte „Long prompt“: **alle Prompts gekürzt** (Hintergründe 320 → ~90 Wörter, Essen 220 → ~100,
+  Werkstücke ~110 → ~80, Mittel 88 → 64). Bausteine in Stichworten, gemeinsame Langformeln über `SHORTEN`, Verbote knapp;
+  Wortzahl steht bei jedem Prompt im Heft. Ob die Warnung noch kommt, testet der Auftraggeber.
 
 ## Prüfen
 

@@ -72,10 +72,12 @@ LESSONS = [
      "„the floor continues all the way to the bottom edge“, `--no black band at the bottom, dark strip below the floor`; der Import schneidet einen solchen Streifen automatisch ab (Bild bleibt brauchbar)"),
     ("20.11.", "Hintergründe", "Epoche 1, Variante 3: eine große, leere, helle Wandfläche direkt hinter der Esse lässt Esse und Amboss im Spiel am besten wirken (bei Variante 1 stand ein Fachwerkpfosten genau dahinter)",
      "„a large plain wall area without posts or beams directly behind the centre“ in allen Hintergrund-Prompts"),
+    ("20.11.", "alle", "Midjourney meldet „Long prompt – Prompts of this length will be adjusted … may increase variability“ (Hintergründe hatten ~320 Wörter)",
+     "alle Prompts gekürzt: Bausteine in Stichworten, Verbote knapp (`--no text, numbers, watermark`, freigestellt zusätzlich `border, shadow`); Wortzahl steht jetzt bei jedem Prompt"),
 ]
-GLOBAL_NEG = ["text", "letters", "numbers", "date", "signature", "watermark"]
-ISOLATED_NEG = ["sticker border", "outline frame", "drop shadow", "ground shadow"]
-BG_NEG = ["black bars", "letterbox", "border", "black band at the bottom", "dark strip below the floor"]
+GLOBAL_NEG = ["text", "numbers", "watermark"]
+ISOLATED_NEG = ["border", "shadow"]
+BG_NEG = ["black band", "border"]
 # Essen: die vorhandenen Schrägansichten werden durch Frontalansichten ersetzt.
 # Sobald die Frontalansichten da sind, hier True setzen.
 FORGES_FRONTAL_DONE = os.path.exists(os.path.join(SRC, "forges_frontal"))
@@ -119,6 +121,31 @@ def _split_top(text):
     if cur.strip():
         parts.append(cur.strip())
     return parts
+
+
+# Lange Standard-Formulierungen → kurze (Midjourney warnt bei langen Prompts: „Long prompt … may increase variability“)
+SHORTEN = [
+    ("viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, "
+     "visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), "
+     "cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background",
+     "top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, "
+     "metal only (no wood, no rope), cold (no glow, no fire), no other objects, pure flat white background"),
+    ("18th/19th-century British blacksmith work", "British smith's work"),
+    ("18th-century British blacksmith work", "British smith's work"),
+    ("dark grey unheated wrought iron", "dark grey wrought iron"),
+    ("hand-painted 2D game art with dark ink outlines and warm painterly textures", "hand-painted 2D game art, dark ink outlines, painterly"),
+    ("hand-painted 2D game art with dark ink outlines", "hand-painted 2D game art, dark ink outlines"),
+    ("hand-painted 2D game art with thin dark outlines", "hand-painted 2D game art, thin dark outlines"),
+    ("seen exactly from the front (orthographic, no perspective)", "exact front view (orthographic, no perspective)"),
+    ("isolated on pure flat white background", "on pure flat white background"),
+    (", no shadow, no text, no watermark", ""), (", no text, no watermark", ""), (", no watermark", ""),
+]
+
+
+def shorten(prompt):
+    for long, short in SHORTEN:
+        prompt = prompt.replace(long, short)
+    return prompt
 
 
 def midjourney(prompt):
@@ -194,11 +221,12 @@ def block(title, prompt, st, fname, note=""):
     pv_note = _prov(fname).get("hinweis", "")
     note = " ".join(x for x in (pv_note, note) if x and st != NOT and st != NOT_OPT) or ("" if st in (NOT, NOT_OPT) else note)
     # ID vorn: Zuordnung in Midjourney (die Galerie zeigt den Prompt); --no text verhindert Schrift im Bild
-    mj = f"{fname} — " + midjourney(prompt)
+    mj = f"{fname} — " + midjourney(shorten(prompt))
     m = re.search(r"--ar (\d+):(\d+)", mj)
     w, h = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
     slider = ("Portrait" if w < h else "Landscape" if w > h else "Square") + f" {w}:{h}"
-    s = f"**{fname}** – {title} · {st}  \nRegler: **{slider}**"
+    words = len(mj.split(" --")[0].split()) - 2
+    s = f"**{fname}** – {title} · {st}  \nRegler: **{slider}** · {words} Wörter"
     if note:
         s += f"  \n*{note}*"
     return s + "\n```\n" + mj + "\n```\n"
@@ -215,57 +243,47 @@ def parse_prompts(path):
 
 # ------------------------------------------------------------------ Bausteine der Prompts
 
-BG_HEAD = ("Square 1:1 game background, composition: seen from a high viewpoint looking down into the room, the back wall fills the upper 55 percent "
-           "of the image and meets the floor at 55 percent of the image height, an empty floor fills the lower 45 percent and continues all the way to the bottom edge of the image, the top 15 percent of the image shows only dark ceiling beams and the window sits just below them. "
-           "The room is wide and stretches across the full width of the image: the window and all important elements lie within the central three quarters of the width, "
-           "the outer eighth on the left and on the right only continues the same wall and floor with a few shelves and hanging tools. "
-           "Hand-painted 2D game art with dark ink outlines and warm painterly textures, moderately bright evening light, the upper wall clearly visible. ")
-BG_TAIL = ("The centre of the back wall and the floor in front of it are completely empty, because a forge and an anvil will be placed there later; directly behind the centre there is a large plain wall area without posts or beams. "
-           "Warm orange firelight falls on the centre of the back wall from below, as if from an off-screen hearth; the corners are dim. "
-           "The lower third is plain dark floor with little detail, getting darker towards the bottom edge. "
-           "No forge, no hearth, no fire, no anvil, no machine, no tools in the centre, no people, no animals, no text, no watermark.")
+BG_HEAD = ("Square 2D game background, hand-painted, dark ink outlines, moderately bright. "
+           "Empty room, front view from slightly above: ceiling beams in the top 15 percent, back wall to 55 percent of the height, "
+           "empty floor to the bottom edge. Small window just below the beams, left of centre. "
+           "Plain wall behind the centre, warm firelight from below. Props only at the far edges. ")
+BG_TAIL = "No forge, no fire, no anvil, no machine, no people."
 BACKGROUNDS = {
-    1: "Interior of a small half-timbered English village smithy around 1700, seen from a high viewpoint. The back wall: timber frame with whitewashed wattle-and-daub panels, rough oak beams along the top. The floor comes towards the viewer: packed earth with straw and soot. A small window high on the back wall about a quarter of the width from the left edge shows green English countryside with a hedge and a distant church tower. Near the right side a wooden rack with tongs, and a few horseshoes nailed to a beam. ",
-    2: "Interior of a roadside smithy on an English coaching road around 1725, seen from a high viewpoint. The back wall: rough grey stone wall with heavy timber ceiling beams. The floor comes towards the viewer: worn stone flagstones. A small window high on the back wall about a quarter of the width from the left edge shows a dirt coaching road with a milestone and a distant stagecoach. Near the left side a spare coach wheel leans against the wall; near the right side harness and iron hoops hang on wooden pegs. ",
-    3: "Interior of a harbour smithy in an English naval dockyard around 1740, seen from a high viewpoint. The back wall: weathered red brick with tarred timber beams. The floor comes towards the viewer: tarred wooden planks. A small window high on the back wall about a quarter of the width from the left edge shows the masts and furled sails of a Royal Navy ship of the line in the harbour. Near the left side a wooden barrel; near the right side coils of rope and a length of heavy chain hang from iron hooks. ",
-    4: "Interior of a smith's and cutler's workshop in Sheffield around 1755, seen from a high viewpoint. The back wall: soot-darkened brick. The floor comes towards the viewer: worn stone slabs. A small window high on the back wall about a quarter of the width from the left edge shows Sheffield rooftops with many smoking brick chimneys under a grey sky. Near the left side bolts of dyed woollen cloth (dark red, indigo, ochre) are stacked; near the right side a wooden shelf holds knife blades and files. ",
-    5: "Interior of the forge of a water-powered hammer works in the Severn Gorge around 1780, seen from a high viewpoint. The back wall: high brick wall with heavy oak beams. The floor comes towards the viewer: wet stone floor with small puddles. A small window high on the back wall about a quarter of the width from the left edge shows the cast-iron arch of the Iron Bridge over the river Severn in a wooded gorge. The right part of the room between the centre and the right side is left open and empty, because a large machine will be placed there later. ",
-    6: "Interior of the smithy of a large English ironworks around 1790, seen from a high viewpoint. The back wall: tall dark brick wall with two cast-iron columns. The floor comes towards the viewer: cast-iron floor plates with coke dust. A window high on the back wall about a quarter of the width from the left edge shows glowing blast furnaces and smoking chimneys of an ironworks at dusk. The right part of the room between the centre and the right side is left open and empty, because a steam engine will be placed there later. ",
-    7: "Interior of a London engineering smithy in Lambeth around 1810, seen from a high viewpoint. The back wall: smoke-blackened yellow London stock brick with a heavy timber lintel. The floor comes towards the viewer: worn York stone flags with iron filings. A window high on the back wall about a quarter of the width from the left edge shows the river Thames with sailing barges and the dome of St Paul's in the haze. Near the right side a wooden rack with iron templates and gauges; near the left side a stack of iron bars. ",
-    8: "Interior of a locomotive smithy in Newcastle upon Tyne around 1830, seen from a high viewpoint. The back wall: dark red brick with tall bricked-up arched openings and iron tie rods with round anchor plates. The floor comes towards the viewer: packed cinders and iron plates. A window high on the back wall about a quarter of the width from the left edge shows an early steam locomotive with a tall chimney pulling coal wagons on a track. Near the right side locomotive wheels and tyres lean against the wall; near the left side a stack of coupling chains. ",
-    9: "Interior of the forge shop of a great engineering foundry around 1845, seen from a high viewpoint. The back wall: tall soot-stained brick wall with cast-iron columns and a row of high round-arched windows. The floor comes towards the viewer: heavy cast-iron floor plates and scale. A window high on the back wall about a quarter of the width from the left edge shows a canal with a narrowboat and the chimneys of a foundry. The right part of the room between the centre and the right side is left open and empty, because a large steam hammer will be placed there later. ",
-    10: "Interior of a Sheffield steelworks forge around 1870, seen from a high viewpoint. The back wall: very tall dark brick wall with iron roof trusses and a travelling crane rail along the top. The floor comes towards the viewer: cast-iron floor plates with steel scale. A window high on the back wall about a quarter of the width from the left edge shows Bessemer converters blowing a shower of sparks into the night. The right part of the room between the centre and the right side is left open and empty, because a very large steam hammer will be placed there later. ",
+    1: "English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Window view: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam. ",
+    2: "Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Window view: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs. ",
+    3: "Harbour smithy in a Royal Navy dockyard around 1740: red brick, tarred timber beams, tarred plank floor. Window view: masts and furled sails of a ship of the line. Edges: barrel, coiled rope, heavy chain. ",
+    4: "Smith's and cutler's workshop in Sheffield around 1755: soot-darkened brick, worn stone slabs. Window view: rooftops with smoking chimneys. Edges: bolts of dyed wool, shelf with knife blades. ",
+    5: "Forge of a water-powered hammer works in the Severn Gorge around 1780: brick wall, oak beams, wet stone floor. Window view: the cast-iron Iron Bridge in a wooded gorge. Right third of the floor empty. ",
+    6: "Smithy of a large English ironworks around 1790: dark brick wall, cast-iron columns, iron floor plates with coke dust. Window view: glowing blast furnaces at dusk. Right third of the floor empty. ",
+    7: "London engineering smithy in Lambeth around 1810: smoke-blackened yellow brick, York stone floor. Window view: the Thames with barges, dome of St Paul's. Edges: iron bars, rack with templates. ",
+    8: "Locomotive smithy in Newcastle around 1830: dark red brick with bricked-up arches and tie-rod plates, cinder floor. Window view: early steam locomotive with coal wagons. Edges: locomotive wheels, coupling chains. ",
+    9: "Forge shop of a great engineering foundry around 1845: tall soot-stained brick, cast-iron columns, iron floor plates. Window view: canal with a narrowboat, foundry chimneys. Right third of the floor empty. ",
+    10: "Sheffield steelworks forge around 1870: very tall dark brick wall, iron roof trusses, crane rail, iron floor plates. Window view: Bessemer converters blowing sparks at night. Right third of the floor empty. ",
 }
 
 ## Offene Schmiede-Esse (Stufe 1–4): Midjourney macht aus „hearth with hood“ sonst einen Backofen
-OPEN_HEARTH = ("an open smith's hearth, not an oven: a waist-high flat hearth table with the glowing coals lying openly on top of it, "
-               "open at the front and at both sides, the hood hangs above the fire with a clear open gap between the coals and the hood "
-               "(no dome, no oven, no bread oven, no arch over the fire, no enclosed firebox)")
-BELLOWS = ("a large classic blacksmith's leather bellows shaped like a teardrop, made of two wooden boards joined by pleated leather, "
-           "lying horizontally on a wooden stand, its iron nozzle leads into the side of the hearth (no cannon)")
+OPEN_HEARTH = "open waist-high hearth table, coals lying openly on top, hood above with a clear gap (no oven, no dome, no arch over the fire)"
+BELLOWS = "a teardrop-shaped leather bellows with wooden boards on a stand (no cannon)"
 
-FORGE_TAIL = ("shown in a straight front view (symmetrical, orthographic, no perspective distortion, no three-quarter view), seen from slightly above "
-              "so that the glowing fire bed lying flat on top of the hearth is visible as a wide horizontal band across the middle of the hearth, the fire bed "
-              "takes up about 60 % of the forge's width, the hood and chimney are centred above the fire bed and shown completely inside the image, "
-              "the bottom edge of the hearth is straight and level (no floor, no ground patch), hand-painted 2D game art with dark ink outlines and "
-              "warm painterly textures, no smoke, no sparks, no flames rising above the coals, no people, nothing in front of the hearth, no text, "
-              "no watermark, isolated on pure flat white background, wide landscape 2:1")
+FORGE_TAIL = ("front view from slightly above (no perspective), glowing coal bed a flat band across 60 percent of the width, "
+              "hood and chimney centred and fully visible, level bottom edge (no floor), hand-painted 2D game art, dark ink outlines, "
+              "nothing in front (no smoke, no flames, no people), isolated on pure flat white background, wide 2:1")
 FORGES = [
-    ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", the hearth table built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, at the left side " + BELLOWS + ", orange glowing charcoal fire"),
-    ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", the hearth table built of red brick bound with iron straps, a brick hood and a square brick chimney, at the left side " + BELLOWS + ", bright orange coal fire"),
-    ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", the hearth table built of brick and stone, a wide brick hood bound with iron bands, at the left side two large teardrop-shaped leather bellows of wooden boards and pleated leather stacked one above the other, worked by one long wooden lever, their nozzle leads into the side of the hearth (no cannon), hot yellow-orange coal fire"),
-    ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's forge, " + OPEN_HEARTH + ", the hearth table built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, at the left side an upright cast-iron blowing cylinder with an air pipe leading into the side of the hearth, brilliant yellow-white coke fire"),
+    ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left " + BELLOWS + ", orange glowing charcoal fire"),
+    ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left " + BELLOWS + ", bright orange coal fire"),
+    ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", built of brick and stone, a wide brick hood bound with iron bands, on the left two stacked teardrop-shaped leather bellows with one long lever (no cannon), hot yellow-orange coal fire"),
+    ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's forge, " + OPEN_HEARTH + ", built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire"),
     ("forge_welding_furnace", "Schweißofen (Stufe 5, Epoche 8)", "a long 1830s coal-fired welding furnace: a low hearth of firebrick and cast-iron plates bound by iron tie bars, a low brick arch over a long white-hot coal bed, a short square brick chimney"),
     ("forge_siemens", "Siemens-Gasofen (Stufe 6, Epoche 10)", "a massive 1870s Siemens regenerative gas furnace: a rectangular firebrick body clad with riveted iron plates and vertical iron buckstays, a wide open working front showing a blinding white-hot hearth, gas pipes with valves at both sides, a squat iron chimney stub"),
 ]
 
-HAMMER_TAIL = ("the whole hammer is level and not tilted, hand-painted 2D game art with a thin dark ink outline, no engraving, no text, no numbers, "
-               "no cast shadow, no watermark, the whole object fully inside the frame with a margin, isolated on pure flat white background, wide 2:1")
+HAMMER_TAIL = ("level, not tilted, hand-painted 2D game art, thin dark ink outline (no engraving), fully inside the frame, "
+               "isolated on pure flat white background, wide 2:1")
 HAMMERS = [
-    ("hammer_hand", "Handhammer (Stufe 1)", "a simple 18th-century blacksmith's hand hammer shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the plain forged iron head stands upright on the left: flat striking face pointing straight down, short rounded back pointing straight up, the straight ash-wood handle goes through the middle of the head and points horizontally to the right, matte dark iron with hammer marks"),
-    ("hammer_cross_peen", "Kreuzschlaghammer (Stufe 2)", "an 18th-century cast iron cross-peen blacksmith's hammer shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the head stands upright on the left: square flat striking face pointing straight down, the back of the head tapers to a wedge-shaped cross peen pointing straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, dark cast iron with slight rust"),
-    ("hammer_steel_faced", "Hammer mit verstählter Bahn (Stufe 3)", "an 18th-century blacksmith's hammer with a steel-faced head shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the head stands upright on the left: dark wrought iron body with a bright polished steel striking face forge-welded onto the bottom, a visible weld line between iron and steel, the striking face points straight down, a wedge-shaped peen points straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right"),
-    ("hammer_crucible", "Gussstahl-Hammer / Tiegelstahl (Stufe 4)", "a high-quality late-18th-century crucible steel blacksmith's hammer shown in a perfectly flat side view (orthographic profile, no perspective, no three-quarter view), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap"),
+    ("hammer_hand", "Handhammer (Stufe 1)", "a simple 18th-century blacksmith's hand hammer in flat side view (orthographic, no perspective), the plain forged iron head stands upright on the left: flat striking face pointing straight down, short rounded back pointing straight up, the straight ash-wood handle goes through the middle of the head and points horizontally to the right, matte dark iron with hammer marks"),
+    ("hammer_cross_peen", "Kreuzschlaghammer (Stufe 2)", "an 18th-century cast iron cross-peen blacksmith's hammer in flat side view (orthographic, no perspective), the head stands upright on the left: square flat striking face pointing straight down, the back of the head tapers to a wedge-shaped cross peen pointing straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right, dark cast iron with slight rust"),
+    ("hammer_steel_faced", "Hammer mit verstählter Bahn (Stufe 3)", "an 18th-century blacksmith's hammer with a steel-faced head in flat side view (orthographic, no perspective), the head stands upright on the left: dark wrought iron body with a bright polished steel striking face forge-welded onto the bottom, a visible weld line between iron and steel, the striking face points straight down, a wedge-shaped peen points straight up, the straight hardwood handle goes through the middle of the head and points horizontally to the right"),
+    ("hammer_crucible", "Gussstahl-Hammer / Tiegelstahl (Stufe 4)", "a high-quality late-18th-century crucible steel blacksmith's hammer in flat side view (orthographic, no perspective), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap"),
 ]
 
 MACHINES = [
