@@ -1,6 +1,6 @@
 # Projektstatus Forge Workshop
 
-Stand: 21.11.2026 · Branch `claude/sharp-rubin-jfnibw` (Sitzungs-Branch `claude/clever-maxwell-drsata`, beide gleich) · Godot 4.7.2
+Stand: 21.11.2026 · Branch `claude/sharp-rubin-jfnibw` · Godot 4.7.2
 
 **Prompts für alle Bilder:** `assets/source/user_art/PROMPTS_Hochformat.md` (Bereiche A–I, Kürzel je Bild, nach jeder Lieferung neu erzeugt).  
 **Prompts für die Musik (Suno):** `assets/source/user_audio/PROMPTS_Musik.md` (11 Stücke + 2 optionale Jingles) – Musik kommt später.  
@@ -278,6 +278,8 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   Lehrling (Epoche 2) gibt jeder Druck auf HAMMERN/Leertaste genau einen Schlag; mit dem Lehrling hämmert Gedrückthalten
   fortlaufend (Hinweisfenster beim Einstellen, Beschreibung im Personal-Fenster, Kapitelübergang Epoche 2, Lehrzeit-Text).
   Maschinen lassen sich unabhängig davon immer halten. Tests 2153/0, Spieltest 0 Probleme.
+- 21.11.: Neue Sitzung auf `claude/sharp-rubin-jfnibw`; Godot 4.7.2 installiert, Unit-Tests grün (2153/0). Eingang leer –
+  warte auf W1-1R bis W1-8R, U22, U23.
 
 ## Prüfen
 
