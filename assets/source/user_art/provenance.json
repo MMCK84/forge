@@ -33,8 +33,8 @@
   },
   "forge_clay": {
    "quelle": "Midjourney",
-   "bewertung": "gut",
-   "hinweis": "20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend."
+   "bewertung": "ändern",
+   "hinweis": "20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend. 21.11.: Blasebalg wirkt wie ein aufrecht stehender Sack/eine Vase (Auftraggeber) → neu mit klassischem, waagerecht liegendem Blasebalg; Prompt geschärft."
   },
   "forge_brick": {
    "quelle": "Midjourney",
@@ -589,6 +589,106 @@
    "quelle": "Midjourney",
    "bewertung": "gut",
    "hinweis": "21.11.: aufgeschlagenes Auftragsbuch mit roter Doppellinie, Messingecken und Lesebändchen – für das Querformat (Tablet) später; noch nicht im Spiel."
+  },
+  "background_0": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Lehrwerkstatt des Meisters: Fachwerk über Steinsockel, Steinplatten, Marktkreuz im Fenster, Werkzeugregale an den Rändern; Kante ca. 71 % wie BG1. Im Hochformat fallen die Regale an den Rändern weg – Wirkung im Spiel wird mit der Umsetzung von Nr. 15 geprüft."
+  },
+  "furn_e2_bench": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: schwere Eichen-Werkbank mit Schraubstock, leichte Dreiviertelansicht."
+  },
+  "furn_e2_trade": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Wirtshausschild mit Hufeisen und Hammer an geschmiedetem Ausleger."
+  },
+  "furn_e2_light": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Ständer mit langen Eisenstangen."
+  },
+  "furn_e3_fuel": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Kohlenschütte aus Holz mit Haufen davor (wirkt etwas wie ein Förderturm, im Spiel unauffällig)."
+  },
+  "furn_e3_trade": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Aushangbrett mit leeren Aufträgen und Anker-Emblem."
+  },
+  "furn_e3_light": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: Schiffslaterne wie eine Sturm-/Petroleumlaterne mit Glaskolben und Brennstofftank (erst ab ~1850) → Prompt: Kerze hinter flachen Glasscheiben, ohne Glaskolben."
+  },
+  "furn_e4_fuel": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Holzkiste mit Brennstoff; zeigt schwarze Kohle statt grauem Koks – klein im Spiel, Prompt für künftige Bilder geschärft."
+  },
+  "furn_e4_tools": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: Reihe aus Spießen statt zweischenkliger Zangen – liest sich nicht als Zangenregal → Prompt geschärft."
+  },
+  "furn_e4_trade": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: runde Holzplakette mit gekreuzten Klingen (Messerschmiedzeichen)."
+  },
+  "furn_e4_light": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: zwei Regale (Varianten) mit Lampen mit Glaszylinder und einer Sturmlaterne (erst ab ~1780/1850) → ein Regal, drei offene Tüllenlampen."
+  },
+  "furn_e5_fuel": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Kohlenhunt in Seitenansicht, runde Räder."
+  },
+  "furn_e5_tools": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Werkzeugwand mit Setzhämmern und Gesenken."
+  },
+  "furn_e5_bench": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Tretdrehbank in Seitenansicht mit Schwungrädern und Pedal."
+  },
+  "furn_e5_trade": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Schreibsekretär mit aufgeschlagenem Auftragsbuch und Feder."
+  },
+  "furn_e5_light": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: fünf Stapel (Varianten) untereinander statt eines Stapels – Hochformat passte nicht zum liegenden Stapel → Format 2:1, ein Stapel."
+  },
+  "furn_e6_fuel": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: Ziegelgewölbe mit Holztür – wirkt wie ein Backofen → offene Ziegelbucht mit grauem Koks."
+  },
+  "furn_e6_tools": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Werkbank mit Gesenken und Setzeisen."
+  },
+  "furn_e6_trade": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: leerer Holzschrank statt Kontor mit Pult und Hauptbüchern → Prompt mit Bestandteilen."
+  },
+  "furn_e6_light": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: drei Sturmlaternen mit Glaskolben (erst ab ~1850) → Kerzenlaternen mit flachen Scheiben."
   }
  },
  "abgelehnt": {

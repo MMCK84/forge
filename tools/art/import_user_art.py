@@ -254,7 +254,7 @@ def main():
         for fn in sorted(os.listdir(fdir)):
             base, ext = os.path.splitext(fn)
             if ext.lower() in (".png", ".webp", ".jpg", ".jpeg") and base.startswith("furn_"):
-                save(_cutout(os.path.join(fdir, fn)), base + ".png", max_w=420, max_h=420)
+                save(_strip_ground_smear(_cutout_furn(os.path.join(fdir, fn))), base + ".png", max_w=420, max_h=420)
     # 16 Wasser-Schwanzhammer (weiß) als Bild im Laden
     for mid in ("water_helve", "steam_helve", "nasmyth", "great_steam_hammer"):
         if os.path.exists(find_src(mid + ".png")):
@@ -449,6 +449,50 @@ def _cutout(path):
     # damit helle Teile des Objekts (Schleifstein, Glas) bleiben
     pure = (a.min(axis=2) > 238) & (sat < 12)
     bg = flood_bg(white) | enclosed(pure, 1500)
+    solid = ~bg
+    lab, n = ndimage.label(solid)
+    if n > 1:
+        sizes = ndimage.sum(solid, lab, range(1, n + 1))
+        solid = np.isin(lab, [k + 1 for k, sz in enumerate(sizes) if sz >= 0.05 * sizes.max()])
+    img = to_rgba(a, (~solid).astype(np.float32))
+    return img.crop(img.getbbox())
+
+
+def _strip_ground_smear(img):
+    """Hellen, ungesättigten Bodenschatten (gemalter Strich unter Möbeln) im unteren Drittel entfernen,
+    soweit er an den freigestellten Rand grenzt."""
+    arr = np.asarray(img).astype(np.float32)
+    h = arr.shape[0]
+    rgb = arr[..., :3]
+    lum = rgb.mean(axis=2)
+    sat = rgb.max(axis=2) - rgb.min(axis=2)
+    alpha = arr[..., 3] > 20
+    smear = alpha & (lum > 140) & (sat < 34)
+    smear[: int(h * 0.7)] = False
+    transparent = ~alpha
+    lab, n = ndimage.label(smear | transparent)
+    edge = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+    kill = np.isin(lab, list(edge)) & smear
+    if kill.any():
+        arr[..., 3][kill] = 0
+        out = Image.fromarray(arr.astype(np.uint8), "RGBA")
+        return out.crop(out.getbbox())
+    return img
+
+
+def _cutout_furn(path):
+    """Einrichtung freistellen. Weißer Grund wie _cutout; getönter Grund (Creme, Graubeige – Midjourney liefert
+    ihn teils so, z. B. E2-3, E6-5): Farbe am Bildrand messen und alles in ihrer Nähe vom Rand her entfernen,
+    eingeschlossene Flächen (zwischen Tischbeinen) ab Mindestgröße ebenso."""
+    a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
+    border = np.concatenate([a[:6].reshape(-1, 3), a[-6:].reshape(-1, 3), a[:, :6].reshape(-1, 3), a[:, -6:].reshape(-1, 3)])
+    ref = np.median(border, axis=0)
+    if ref.min() >= 236:
+        return _cutout(path)
+    dist = np.abs(a - ref).max(axis=2)
+    sat = a.max(axis=2) - a.min(axis=2)
+    near = (dist < 26) & (sat < 40)
+    bg = flood_bg(near) | enclosed((dist < 12) & (sat < 40), 1500)
     solid = ~bg
     lab, n = ndimage.label(solid)
     if n > 1:
