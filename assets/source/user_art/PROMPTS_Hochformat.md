@@ -1278,9 +1278,9 @@ U3 — Flat orthographic front elevation, like a technical drawing. 2D UI window
 ```
 
 **U4** – Glut-Knopf HAMMERN · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 32 Wörter · Datei `button_ember`
+Regler: **Square 1:1** · 43 Wörter · Datei `button_ember`
 ```
-U4 — 2D game UI button, forged dark iron plate with glowing orange ember cracks, heavy brass border, a hammer-and-gear symbol in the middle, industrial 18th-century style, flat orthographic view, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+U4 — 2D game UI button, forged dark iron plate with glowing orange ember cracks, heavy brass border, a simple embossed symbol of a blacksmith hammer crossed with forge tongs in the middle, early 18th-century village smithy style, flat orthographic view, isolated on white background --ar 1:1 --no gear, cogwheel, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **U5** – Auftragsbuch-Seite · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  

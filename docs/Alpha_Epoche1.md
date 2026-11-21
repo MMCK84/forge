@@ -61,6 +61,16 @@ Epochenwechsel). Bilder in `user://audit_e1/`.
 Fertig und abgenommen für Epoche 1: Hintergrund BG1, Lehm-Esse F1, Amboss, Hand- und Kreuzschlaghammer, Rohling, Nagel,
 Hufeisen, Haken, fünf Porträts.
 
+## Schwache Grafiken (ehrliche Einschätzung, 21.11.)
+
+- **U4 Glut-Knopf HAMMERN:** Das Symbol ist ein Zahnrad mit Hammer – ein Industrie-Zeichen, das nicht in eine Dorfschmiede
+  von 1700 passt. Prompt geändert: gekreuzter Hammer und Zange, ausdrücklich ohne Zahnrad.
+- **W1-4 bis W1-8 (Gemini):** flach, wenig Schmiedespuren, uneinheitliche Größe und Blickrichtung – neben den
+  Midjourney-Stücken (Nagel, Hufeisen, Haken) fällt der Unterschied im Musterbuch sofort auf.
+- **Einrichtung:** bisher nur meine Platzhalter-Zeichnungen (Laterne als gelbes Rechteck, Schild als brauner Kasten) – das
+  ist im Moment das Schlechteste im Bild.
+- **Hauptmenü:** nur der abgedunkelte Werkstatt-Hintergrund – wirkt leer (siehe Vorschlag Titelbild).
+
 ## Zur Entscheidung
 
 - **Zwischenbilder für den Stufensprung** (Werkstück sieht nach jedem Arbeitsgang anders aus): für Epoche 1 eine „Rohform“
