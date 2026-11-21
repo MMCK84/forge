@@ -41,10 +41,13 @@ Epochenwechsel). Bilder in `user://audit_e1/`.
 
 ## Noch offen (Code)
 
-- **Tastenkürzel nur am Rechner:** „[J]“, „[R]“, „[E]“, „Klick / Leertaste“, „Menü [Esc]“ erscheinen auch auf dem Handy –
-  vor dem Android-Export nur auf Geräten mit Tastatur anzeigen.
 - **Testmenü-Knöpfe** (Hauptmenü, Pause) nur in der Entwicklerfassung, nicht im Export.
-- **Einrichtung im Laden** ohne Vorschaubild, solange die Bilder fehlen (kommt mit E1-1 bis E1-5 automatisch).
+- Erledigt 21.11.: Tastenhinweise nur am Rechner (dort an jedem Knopf), Einrichtung im Shop mit Bildern, „Shop“ statt
+  „Laden“, Schlagstärke Sanft/Mittel/Fest, Hammer lehnt in Ruhelage am Horn, Dauerschlag erst mit dem Lehrling.
+
+## Noch fehlende Bilder für Epoche 1 (Stand 21.11.)
+
+W1-1R bis W1-8R (Rohformen, fertiges Werkstück als Bild-Prompt), U22 Titelbild, U23 Meisterbrief.
 
 ## Benötigte Bilder (Kürzel aus dem Prompt-Heft)
 

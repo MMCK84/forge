@@ -1,133 +1,91 @@
 # Projektstatus Forge Workshop
 
-Stand: 20.11.2026 · Branch `claude/sharp-rubin-jfnibw` · Godot 4.7.2
+Stand: 21.11.2026 · Branch `claude/sharp-rubin-jfnibw` · Godot 4.7.2
 
-**Prompts für alle Bilder:** `assets/source/user_art/PROMPTS_Hochformat.md` (186 Bilder, nach jeder Lieferung neu erzeugt).  
-**Prompts für die Musik (Suno):** `assets/source/user_audio/PROMPTS_Musik.md` (11 Stücke + 2 optionale Jingles).
+**Prompts für alle Bilder:** `assets/source/user_art/PROMPTS_Hochformat.md` (Bereiche A–I, Kürzel je Bild, nach jeder Lieferung neu erzeugt).  
+**Prompts für die Musik (Suno):** `assets/source/user_audio/PROMPTS_Musik.md` (11 Stücke + 2 optionale Jingles) – Musik kommt später.  
+**Übergabe an eine neue Sitzung:** `docs/Uebergabe.md`.
 
 ## Kurzüberblick
 
-Inkrementelles Schmiede-Spiel (England, 1700–1880) in Godot 4 / GDScript, **Hochformat (Mobile)**,
-Entwicklung am PC. **Fokus derzeit Hochformat**; später soll das Spiel am **Tablet auch im Querformat** laufen
-(eigene Anordnung der Bedienelemente, aber dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android). Der Android-Export kommt erst,
-wenn alles fertig ist.
+Inkrementelles Schmiede-Spiel (England, 1700–1880) in Godot 4 / GDScript, **Hochformat (Mobile)**, Entwicklung am PC
+(der Auftraggeber spielt in Godot 4.7.2 am PC). Später soll das Spiel am **Tablet auch im Querformat** laufen (eigene
+Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) – Export erst, wenn alles fertig ist.
+**Aktuelles Ziel: Epoche 1 auf Alpha-Niveau** (`docs/Alpha_Epoche1.md`), danach die übrigen Epochen nach demselben Muster.
+**Der Kern ist eingefroren** (keine neuen Mechaniken mehr; nur Bilder, Musik, Feinschliff und Wünsche des Auftraggebers).
 
 ## Fertig
 
-- **Hochformat-Umbau:** Viewport 720×1280, Bühne in 1080×1920 gezeichnet und eingepasst; Statusleiste oben,
-  Navigationsleiste unten (Aufträge, Laden, Personal, Statistik), Bedienfeld 720×380 über der Navigation.
-- **10 Epochen** (1700–1880), Inhalte 1–6 in `data/`, 7–10 in `tools/content/epochs_7_10.py`
-  (32 Werkstücke, 22 Kunden, 36 Meilensteine, Heizer-Personal, Essen-Stufe 5/6, Nasmyth- und großer Dampfhammer).
-- **Schlagstärke** (leicht/mittel/schwer) in allen Epochen: je Arbeitsschritt eine passende Stärke,
-  Tutorial-Aufträge ohne, in Epoche 1 nur mittel/schwer; Schwanzhammer/Zuschläger nur bei schweren Schritten
-  (große Schmiedestücke: alle Schritte); Dampfhammer schlägt mit gewählter Stärke und hält bei zwei Stufen zu hart an.
-- **Balancing** mit `tools/tune_balance.py` (mit Schlagserie, Meisterschaft und Einrichtung): Gesamtspielzeit ca. 13,4 h
-  (Minuten je Epoche 12.1/22.5/55.1/81.4/130.3/155.7/77.3/83.4/90.0/96.0).
-- **Ton:** Musik der Epochen 7–10, Dampfhammer-Klang, Tonhöhe/Lautstärke nach Schlagstärke.
-- **Grafiken des Auftraggebers** eingebunden (Import-Pipeline `tools/art/import_user_art.py`):
-  Hintergründe, Essen 1–4, Amboss, 4 Hämmer (Seitenansicht), Maschinenteile (Schwanzhammer, Wasserrad,
-  Dampfmaschine), 9 Werkstücke Epoche 1, UI (Pergament, Knöpfe, Rahmen, Glut-Knopf, Siegel, Münzen,
-  Pyrometer, Auftragsbuch-Seite), App-Icon und Store-Banner.
-- **Prompt-Heft** `assets/source/user_art/PROMPTS_Hochformat.md` (Generator `tools/content/gen_prompt_book.py`):
-  alle Bilder mit Midjourney-Prompt, ID am Anfang jedes Prompts, Regler-Einstellung, Status, Erkenntnis-Tabelle.
-- **Werkstatt-Einrichtung:** je Epoche fünf Plätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager) mit
-  zeitgemäßem Stück und Wirkung (Heizen +15 %, Schlag +10 %/Kran, Fenster ±25 °C und −20 % Schaden, 4 Angebote/30 s,
-  Lohn +5 %/halber Ausschuss); Preise 40 % der Meistergebühr, Prämie bei vollständiger Einrichtung; beginnt je Epoche neu.
-  Daten `scripts/furnishings.gd`, Darstellung `scenes/main/furnish_view.gd` (Platzhalter, Kreide-Umriss), Laden-Abschnitt.
-- **Schlagserie:** Treffer in Folge im Zielfenster (Hand und Maschine auf Kommando, Feuerschweißen zählt mit) zählen
-  sichtbar hoch („Serie 7“ rechts neben dem Amboss, ab 3 Treffern). Alle 5 Treffer eine Stufe mehr Schlagkraft
-  (+10 %, höchstens +30 %), Klang wird mit jeder Stufe heller; jeder Fehlschlag (zu kalt, falsche Hitze, falsche Stärke)
-  beendet die Serie. Längste Serie in Abrechnung und Statistik. Werte in `balance_config.gd` (`streak_*`).
-- **Stufensprung:** Das Werkstück verändert sich innerhalb eines Arbeitsgangs nur leicht und springt beim Abschluss
-  sichtbar in die nächste Form (Funkenregen, Leuchtring, Klang). Fertige Stücke steigen kurz golden über dem Amboss auf.
-  Zwischenbilder je Arbeitsgang folgen später (erst Epoche 1 zur Probe).
-- **Meisterschaft je Werkstück:** Bronze-, Silber- und Goldsiegel nach 2, 5 und 10 fertigen Aufträgen eines Werkstücks
-  (`mastery_jobs`), je Stufe +5 % Lohn für dieses Werkstück (`mastery_bonus_per_level`). Siegel und Fortschritt im
-  Auftragsbuch, neues Siegel groß in der Abrechnung (mit Klang), Hinweisfenster beim ersten Siegel. Logik `scripts/mastery.gd`,
-  Siegel gezeichnet in `scenes/ui/mastery_seal.gd` (Bild des Auftraggebers `seal_mastery_<stufe>.png` hat Vorrang,
-  Prompts U18–U20). Wird gespeichert (`progress.mastery`).
-- **Musterbuch** (Knopf in der Statistik): alle 80 Werkstücke nach Epochen, geschmiedete mit Bild, Anzahl, bester
-  Bewertung und Siegel, noch nie geschmiedete als Schattenriss (`scenes/ui/pattern_book.gd`).
-- **Meisterstück je Epoche:** Der Abschluss-Meilenstein jeder Epoche ist ein mehrteiliges Meisterstück: 1–2 Vorarbeiten,
-  die die Mechaniken des Kapitels abfragen (z. B. Epoche 3: Kettenglieder und Ring geschweißt, dann der Ankerschaft),
-  danach das Hauptstück. Die Zunft prüft jeden Teil (mindestens 2 Sterne, sonst neu schmieden). Teile und Stand im
-  Auftragsbuch, Abrechnung mit „Teil bestanden“ bzw. Meisterbrief, Stand im Musterbuch, Hinweisfenster beim ersten
-  Meisterstück, Statistik. Daten `scripts/masterpieces.gd`, Fortschritt wird gespeichert (`progress.masterpiece_progress`).
-- **Kapitelübergang:** Das Epochenfenster zeigt beim Angebot „Was Euch erwartet“ und nach dem Umzug „Neu in diesem
-  Kapitel“ (neue Mechaniken, Ausrüstung, Personal; Texte `EPOCH_<n>_NEW`).
-- **Tests:** Unit-Tests grün (1841 Prüfungen, 0 Fehler, 20.11.); grafischer Spieltest bis Epoche 10 (mit Einrichtung).
+- **Hochformat:** Viewport 720×1280, Bühne 1080×1920; Statusleiste oben, Navigation unten (Aufträge [J], Shop [S],
+  Personal [P], Statistik [T]), Bedienfeld 720×380.
+- **10 Epochen** (1700–1880), Inhalte 1–6 in `data/`, 7–10 in `tools/content/epochs_7_10.py` (80 Werkstücke, Kunden,
+  Meilensteine, Personal, Essen, Maschinen).
+- **Lehrzeit** (5 Aufträge nach Drehbuch, `docs/Roter_Faden.md`), **Schlagstärke Sanft – Mittel – Fest** ab Auftrag 6
+  (Epoche 1 nur Sanft/Fest), Hinweisfenster beim ersten Auftreten jeder Mechanik, **Kapitelübergang** („Was Euch erwartet“).
+- **Steuerung:** Tippen/Leertaste = ein Schlag. **Gedrückthalten = fortlaufend erst mit dem Lehrling** (Epoche 2, „er schlägt
+  im Takt mit“). Alle Maschinen (Schwanz- und Dampfhämmer): Tippen = ein Schlag, Halten = fortlaufend, Loslassen = Stopp.
+  Tastenhinweise **am Rechner an jedem Knopf, auf Handy/Tablet nie** (Übersetzung entfernt sie, „Klickt“ → „Tippt“;
+  Test am Rechner mit `-- --touch`).
+- **Kernausbau:** Schlagserie (je 5 Treffer +10 %, max. +30 %), Stufensprung je Arbeitsgang (Rohform-Bilder vorbereitet,
+  Prompt-Heft I), Meisterschaft je Werkstück (Bronze/Silber/Gold nach 2/5/10 Aufträgen, je +5 % Lohn) mit Musterbuch,
+  Meisterstück je Epoche (Vorarbeiten + Hauptstück, Zunftprüfung ≥ 2 Sterne, nach zwei Fehlversuchen 1 Stern).
+- **Werkstatt-Einrichtung:** je Epoche fünf Plätze mit Wirkung, beginnt je Epoche neu; Epoche 1 mit Midjourney-Bildern,
+  übrige Epochen mit Platzhaltern (Prompt-Heft H).
+- **Balancing** (`tools/tune_balance.py`, `tools/balance_sim.gd` rechnet Serie, Meisterschaft, Einrichtung und
+  Meisterstück-Vorarbeiten mit): Spielzeit ca. **13,9 h**.
+- **Grafiken des Auftraggebers:** Import-Pipeline `tools/art/import_user_art.py` (Freistellen, Vermessen, Varianten);
+  Lieferweg über GitHub-Eingang + `tools/art/sort_inbox.py`. Bildstatus siehe unten.
+- **Prüfwerkzeuge:** Unit-Tests (2153/0), grafischer Spieltest (34 Bilder, 0 Probleme), Durchspiel-Test (ganzes Spiel bis
+  zum Finale, Seeds 3/7/11 ohne Probleme), Bestandsaufnahme Epoche 1 (38 Bildschirme).
 
-## Bildstatus (Prompt-Heft)
+## Bildstatus (Prompt-Heft, 21.11.)
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
 | A Hintergründe (1:1) | **10 (alle)** | – | – | – |
 | B Essen (frontal) | **6 (alle)** | – | – | – |
-| C Amboss, Hämmer | 5 (fotorealistisch) | – | – | – |
-| D Maschinenteile | 9 (Schwanzhammer, Dampfmaschine, Dampfhammer) | – | 1 (Ladenbild) | 4 optional |
-| E Werkstücke | 7 (Epoche 2/3) | 1 (Hemmschuh) | 9 (Epoche 1) | 64 |
-| F Kundenporträts (optional) | – | – | – | 54 |
-| G Oberfläche, Store | – | – | 12 | 5 |
-| H Werkstatt-Einrichtung | – | – | – | 50 (Platzhalter im Spiel) |
+| C Amboss, Hämmer | **5 (alle)** | – | – | – |
+| D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
+| E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
+| F Kundenporträts | 20 | – | – | 34 optional |
+| G Oberfläche, Symbole, Store | 19 (alle Pflicht-Bilder bis auf U22/U23) | – | – | U22 Titelbild, U23 Meisterbrief (+2 optional) |
+| H Werkstatt-Einrichtung | 5 (Epoche 1) | – | – | 45 |
+| I Rohformen | – | – | – | 80 (zuerst W1-1R bis W1-8R) |
 
-Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
+**Für Epoche 1 Alpha fehlen nur noch:** W1-1R bis W1-8R, U22, U23 (10 Bilder).
 
-## Musik (Suno)
+## Musik (Suno) – später
 
-- Bisher spielt das Spiel selbst erzeugte Musik (`tools/art/render_audio.py`, 11 Schleifen: Menü + Epoche 1–10).
-  Sie soll durch Suno-Stücke ersetzt werden (Auftraggeber bucht Suno Pro für einen Monat).
-- Heft: `assets/source/user_audio/PROMPTS_Musik.md` (Generator `tools/content/gen_music_book.py`) mit Styles,
-  Exclude Styles und Strukturangaben je Stück; Tempo und Tonart wie bisher. Zeitgerechte Instrumente je Epoche.
-- Jede Lieferung: Original nach `assets/source/user_audio/music/<id>.wav`, Schleife schneiden und überblenden,
-  Lautstärke angleichen, OGG nach `assets/audio/music/`, `provenance.json` (Suno, gut/ändern), Heft neu erzeugen.
-  Das Import-Skript (Schleife, Lautstärke) schreibe ich mit der ersten Lieferung.
-- Optional: Fanfare „neue Epoche“ und Meilenstein-Jingle (spielt das Spiel noch nicht ab, würde ich einbauen).
+- Bisher spielt das Spiel selbst erzeugte Platzhalter-Musik (`tools/art/render_audio.py`).
+- Heft: `assets/source/user_audio/PROMPTS_Musik.md` (`tools/content/gen_music_book.py`). Lieferung: Original nach
+  `assets/source/user_audio/music/<id>.wav`, Import-Skript (Schleife, Lautstärke) schreibe ich mit der ersten Lieferung.
 
 ## Arbeitsweise mit Bildern (Midjourney v8.2)
 
-- **Originale über GitHub** in `assets/source/user_art/eingang/` hochladen, **Dateiname = Kürzel** (z. B. `W2-3.png`) (Chat-Bilder werden verkleinert/komprimiert und
-  kommen während einer laufenden Antwort gar nicht als Datei an). Der Chat bleibt für die schnelle Ansicht.
-- Jede Lieferung: Original nach `assets/source/user_art/` (`items/`, `machines/`, `backgrounds/`),
-  `python tools/art/import_user_art.py`, Herkunft/Bewertung in `provenance.json`, Heft neu erzeugen.
-- Erkenntnisse sofort in **alle** betroffenen Prompts (gemeinsame Bausteine und `LESSONS` im Generator).
-- **Hintergründe im Format 1:1** (Regler „Square 1:1“, danach Upscale 2×, mind. 1440 px): ein Bild für Hoch- und Querformat.
-  Hochformat = mittlerer 3:4-Ausschnitt (macht der Import automatisch), Querformat = volle Breite. Fenster und alles
-  Wichtige in den mittleren drei Vierteln, äußere Achtel nur Wand und Boden. Wand-Boden-Kante bei 50–65 % ist in Ordnung;
-  der Import verlängert den Boden auf 1080×1920. Kante je Epoche ausmessen und in `scenes/main/workshop_background.gd` →
-  `USER_FLOOR_Y` eintragen (Bühnen-y; Ep. 1–10 eingetragen). Zu tiefe Kante: `BG_TOP_CROP` im Import (Ep. 10: 300 px). Bildaufbau-Vorlage (1:1, Bild-Prompt):
-  `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (`python tools/art/make_bg_template.py`).
-  **Erst nach dem Upscale 2× (2048 × 2048) schicken** – ohne Upscale nur 1024 × 1024.
-- **Essen:** frontal, Format 2:1, offener Herdtisch (kein Backofen/keine Kuppel), Glutbett ~60 % breit,
-  Blasebalg links als tropfenförmiger Leder-Blasebalg. Ein erster Midjourney-Test (Backofen mit Kuppel)
-  wurde abgelehnt; die Prompts sind entsprechend nachgeschärft.
-- Midjourney liefert vier Varianten: eine auswählen und nur diese schicken.
+- Auftraggeber lädt Originale per **GitHub Desktop** in `assets/source/user_art/eingang/` hoch, **Dateiname = Kürzel**
+  (z. B. `W2-3.png`, `W1-2R.png`, `U22.png`). Vor dem Einsortieren `git pull`, dann `python tools/art/sort_inbox.py --move`,
+  `python tools/art/import_user_art.py`, `godot --headless --path . --import`; `provenance.json` (Midjourney, gut/ändern +
+  Hinweis) und Heft (`python tools/content/gen_prompt_book.py`) aktualisieren. Schwache Bilder sofort melden.
+- Erkenntnisse sofort in **alle** betroffenen Prompts (Bausteine und `LESSONS` im Generator).
+- **Perspektive:** Esse, Amboss, Hämmer, Maschinen und Werkstücke streng flach (Ansicht ganz vorn im Prompt, --no-Liste);
+  **Einrichtung darf leicht dreiviertel sein** (steht im perspektivisch gemalten Raum); Mechanik Bauteil für Bauteil beschreiben.
+- **Zeitbezug:** typische moderne Verwechslungen ausdrücklich ausschließen (z. B. Sturmlaterne, Doppeladler).
+- **Rohformen:** Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; spätere Formen (Spitze, Kopf, Biegung, Löcher)
+  als `--no`. Fertiges Werkstück als Bild-Prompt nur schwach (`--iw 0.5`), sonst kopiert Midjourney das fertige Stück.
+- **Hintergründe 1:1**, Upscale 2× vor dem Schicken; Wand-Boden-Kante je Epoche in `USER_FLOOR_Y`.
+- Originale liegen im Repository unter `assets/source/user_art/` (z. B. Werkstücke in `items/<id>.png`).
 
 ## Offen / nächste Schritte
 
-1. Midjourney-Bilder einbinden, sobald sie kommen: Dampfhammer-Teile, Werkstücke Epochen 2–10, Löschtrog,
-   optional Kundenporträts.
-2. Danach die Gemini-Bilder schrittweise durch Midjourney ersetzen.
-3. Nach jeder Bildänderung: Unit-Tests und grafischer Spieltest (Auflösung 1080×1920).
-4. Später: Querformat für Tablets (Anordnung der Bedienelemente, Querformat-Ausschnitt der 1:1-Hintergründe;
-   der Boden ist dort nur ~20 % hoch – ggf. ebenfalls verlängern).
-5. **Aufbau der Werkstatt** (Konzept `docs/Konzept_Aufbau.md`): Teil 1 Einrichtung **umgesetzt** (Platzhalterbilder;
-   Bilder kommen über Prompt-Heft Bereich H). Offen: Lage von Kohle und Werkbank (ab Epoche 5 hinter der Maschine) mit den
-   echten Bildern abstimmen; Teil 2 sichtbares Personal; weitere Ideen (Stammkunden, Ereignisse, Meisterstück).
-   Spielzeit darf länger werden, darf aber nicht langweilig sein. Weitere Vorschläge zum roten Faden (Meisterstück je Epoche,
-   Stammkunden, Kapitelübergang beim Epochenwechsel) in `docs/Roter_Faden.md`.
-6. **Kernausbau (beschlossen 20.11., in dieser Reihenfolge):** (1) ✔ **Schlagserie** (Treffer in Folge im Zielfenster,
-   kleiner Bonus) und ✔ **Stufensprung** je Arbeitsgang (Funken, Klang; später Zwischenbilder, erst Epoche 1 zur Probe);
-   (2) ✔ **Meisterschaft je Werkstück** (Siegel, kleiner Vorteil) mit ✔ **Musterbuch** (Sammlung aller Werkstücke);
-   (3) ✔ **Meisterstück je Epoche** und ✔ **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
-   `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
-   Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
-6a. **Epoche 1 auf Alpha-Niveau** (Wunsch des Auftraggebers, 21.11.): Checkliste, Befunde und benötigte Bilder in
-   `docs/Alpha_Epoche1.md`; Prüfwerkzeug `tools/audit_epoch1.tscn` (alle 38 Bildschirme). Bilder der Epoche 1 vollständig (21.11.); Musik kommt später (Wunsch des Auftraggebers); offen: Tastenkürzel nur am Rechner; Testmenü nur in der Entwicklerfassung.
-7. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – gemeinsam festlegen; zu klären, was genau
-   gemeint ist: Wortwahl und Anrede der Texte (bisher historisches „Ihr“), angebotene Spielsprachen (bisher Deutsch/Englisch)
-   und/oder die gestalterische Sprache der Oberfläche (Pergament, Leder, Messing).
-8. Musik von Suno einbinden, sobald sie kommt (Import-Skript für Schleifen mit der ersten Lieferung).
-9. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
+1. **Epoche 1 Alpha:** Bilder W1-1R–W1-8R, U22, U23 einbinden und prüfen (`tools/audit_epoch1.tscn`); dann Epoche 1 abnehmen.
+2. Vor dem Export: Testmenü-Knöpfe nur in der Entwicklerfassung.
+3. Danach Epoche 2 ff. nach demselben Muster (Werkstücke, Rohformen, Einrichtung je Epoche); W2-7, W3-7 und ML1 ersetzen.
+4. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
+   angebotene Sprachen (Deutsch/Englisch) und/oder Gestaltung der Oberfläche.
+5. **Musik (Suno)** – später.
+6. Später: Querformat für Tablets (U21 Doppelseite des Auftragsbuchs vorbereitet); sichtbares Personal
+   (`docs/Konzept_Aufbau.md`, Teil 2); Stammkunden.
+7. Zum Schluss: Android-Export, Store-Eintrag, Nutzungsbedingungen von Bild- und Musikgenerator prüfen.
 
 ## Verlauf
 
@@ -321,6 +279,13 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Lehrling (Epoche 2) gibt jeder Druck auf HAMMERN/Leertaste genau einen Schlag; mit dem Lehrling hämmert Gedrückthalten
   fortlaufend (Hinweisfenster beim Einstellen, Beschreibung im Personal-Fenster, Kapitelübergang Epoche 2, Lehrzeit-Text).
   Maschinen lassen sich unabhängig davon immer halten. Tests 2153/0, Spieltest 0 Probleme.
+- 21.11.: Neue Sitzung auf `claude/sharp-rubin-jfnibw`; Godot 4.7.2 installiert, Unit-Tests grün (2153/0). Eingang leer –
+  warte auf W1-1R bis W1-8R, U22, U23.
+- 21.11.: **W1-1R (Probe) abgelehnt:** Mit dem Nagel als Bild-Prompt und `--iw 1.5` kam wieder der fertige Nagel (Kopf, Spitze) –
+  im Spiel wäre kein Stufensprung zu sehen. Rohform-Prompts neu: Stand **nach dem ersten Arbeitsgang** (Nagel: gestreckter
+  Vierkantstab, stumpf, ohne Kopf und Spitze), Epoche 1 von Hand beschrieben, übrige Epochen aus den Arbeitsgängen in
+  `data/items/*.tres`; was spätere Gänge formen, steht als `--no`; `--iw 0.5`; Material aus den Spieldaten (Sichel Eisen).
+  `LESSONS` ergänzt, Heft neu erzeugt.
 
 ## Prüfen
 
