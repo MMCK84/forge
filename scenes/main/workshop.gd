@@ -467,7 +467,7 @@ func _sync_pieces() -> void:
 			v = piece_views[i]
 		var on_anvil := p.location == JobInstance.LOC_ANVIL
 		v.target_pos = anvil_point() if on_anvil else slot_point(maxi(0, p.slot))
-		v.size_px = 190.0 if on_anvil else 150.0
+		v.size_px = 220.0 if on_anvil else 150.0
 		var badge := ""
 		if sim.in_weld_phase(i):
 			badge = "weld"
@@ -764,6 +764,10 @@ func _update_hand_hammer() -> void:
 	var sim = GameManager.sim
 	var busy: bool = machine_view.machine_id != "" and sim.machine_engaged() and (machine_view.steam_hammer or machine_view.has_user_parts())
 	anvil_view.hand_hammer_visible = not busy
+	var piece_on_anvil: bool = sim.anvil >= 0
+	if anvil_view.has_piece != piece_on_anvil:
+		anvil_view.has_piece = piece_on_anvil
+		anvil_view.queue_redraw()
 	if sim.anvil >= 0:
 		machine_view.force_level = sim.effective_force(sim.anvil)
 
@@ -825,7 +829,9 @@ func _sync_force_buttons() -> void:
 func _update_force_state() -> void:
 	var sim = GameManager.sim
 	var enabled: bool = GameManager.force_counts()
-	if enabled != sim.force_enabled:
+	# Auch die Sichtbarkeit der Knöpfe prüfen: Der GameManager schaltet sim.force_enabled nach dem
+	# letzten Lehrzeit-Auftrag selbst um – sonst blieben die Stärke-Knöpfe bis zum Neustart verborgen
+	if enabled != sim.force_enabled or (force_row != null and force_row.visible != enabled):
 		sim.force_enabled = enabled
 		# In Epoche 1 wird „mittel“ nie verlangt (dort zählt nur leicht/schwer): schwer voreinstellen
 		if enabled and _medium_hidden() and sim.force == 1:

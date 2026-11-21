@@ -20,9 +20,11 @@ func build(box: VBoxContainer) -> void:
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 8)
 	box.add_child(scroll(list, 860))
-	# Einrichtung der Werkstatt (je Epoche neu)
-	list.add_child(_section("UI_SECTION_FURNISH"))
-	for slot in Furnishings.slots_by_price():
+	# Einrichtung der Werkstatt (je Epoche neu) – erst nach der Lehrzeit (dann kündigt ein Hinweis sie an)
+	var show_furnish: bool = not (gm.current_epoch == 1 and not gm.free_play and gm.jobs_completed_in_epoch < gm.cfg.tutorial_standard_only_jobs)
+	if show_furnish:
+		list.add_child(_section("UI_SECTION_FURNISH"))
+	for slot in (Furnishings.slots_by_price() if show_furnish else []):
 		var fname := tr(Furnishings.name_key(gm.current_epoch, slot))
 		var fx_key := "FURN_FX_" + str(slot).to_upper()
 		if slot == "tools" and gm.current_epoch >= Furnishings.BIG_FROM_EPOCH:
@@ -35,7 +37,8 @@ func build(box: VBoxContainer) -> void:
 		else:
 			fr.add_child(_buy_btn(price, 1, func() -> void: gm.buy_furnishing(slot)))
 		list.add_child(fr)
-	list.add_child(UIKit.wrap_label(tr("UI_FURNISH_NOTE").format({"bonus": Economy.format_lsd(Furnishings.complete_bonus(gm.cfg, gm.current_epoch))}), 19, UIKit.INK_LIGHT, UIKit.CW - 20.0))
+	if show_furnish:
+		list.add_child(UIKit.wrap_label(tr("UI_FURNISH_NOTE").format({"bonus": Economy.format_lsd(Furnishings.complete_bonus(gm.cfg, gm.current_epoch))}), 19, UIKit.INK_LIGHT, UIKit.CW - 20.0))
 	# Hämmer
 	list.add_child(_section("UI_SECTION_HAMMERS"))
 	for h in Catalog.HAMMERS:
@@ -164,9 +167,14 @@ func _buy_btn(price: int, min_epoch: int, action: Callable) -> Button:
 	if min_epoch > gm.current_epoch:
 		var b := UIKit.button(tr("UI_FROM_EPOCH").format({"e": min_epoch}), Callable(), Vector2(160, 56), 20)
 		b.disabled = true
+		b.modulate = Color(1, 1, 1, 0.72)
 		return b
 	var buy := UIKit.button(tr("UI_BUY"), _do.bind(action), Vector2(160, 56), 20)
 	buy.disabled = not gm.can_afford(price)
+	if buy.disabled:
+		# Zu teuer: gedämpft, im Tooltip steht, was noch fehlt
+		buy.modulate = Color(1, 1, 1, 0.72)
+		buy.tooltip_text = tr("UI_MISSING").format({"m": Economy.format_lsd(price - gm.total_pence)})
 	return buy
 
 

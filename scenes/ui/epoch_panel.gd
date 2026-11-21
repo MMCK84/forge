@@ -24,7 +24,9 @@ func build(box: VBoxContainer) -> void:
 	var bg := Background.new()
 	bg.auto_fit = false
 	bg.stage_scale = UIKit.CW / 1080.0
-	bg.stage_offset = Vector2(0, -110.0 * bg.stage_scale)
+	# Ausschnitt um die Rückwand mit Fenster (knapp über der Wand-Boden-Kante)
+	var fy: float = Background.USER_FLOOR_Y[clampi(show_epoch, 1, Background.USER_FLOOR_Y.size()) - 1]
+	bg.stage_offset = Vector2(0, -(fy - 470.0) * bg.stage_scale)
 	pic_holder.add_child(bg)
 	bg.position = Vector2.ZERO
 	bg.size = pic_holder.custom_minimum_size
