@@ -74,6 +74,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | offen |
 | 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
 | 9 | Mit dem letzten Schlag erscheint sofort die Abrechnung – der Spieler sieht das fertige Werkstück nie (Bild wechselt erst mit dem Abschluss des letzten Arbeitsgangs von der Rohform zum fertigen Stück, siehe Beobachtung vom 21.11.). Vorschlag: fertiges Stück kurz (ca. 1,5 s) mit Aufblitzen auf dem Amboss zeigen, dann Abrechnung; Tippen überspringt | offen |
+| 10 | Unklares Schild an der Wand (brauner Kasten mit gelben Punkten): ist das „Zunftschild“ für den Ruf (ab 40 Sternen, 2–5 Punkte), Platzhalter-Zeichnung ohne Erklärung, konkurriert mit dem Einrichtungs-Schild E1-4. Vorschlag: 4 Midjourney-Tafeln (U24–U27) + Hinweis beim ersten Erscheinen + Tooltip + fester Platz; Alternative: entfernen | **Entscheidung offen** |
 
 ## Musik (Suno) – später
 
