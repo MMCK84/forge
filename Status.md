@@ -281,6 +281,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   elevation“ und zugleich „front view from slightly above“. Alle Einrichtungs-Prompts jetzt „at eye level“; runde Teile
   (Schleifstein E1-3, Schleifbank E4-3, Drehbank E5-3, Kohlenhund E5-1, Kohlenwagen E8-1) in Seitenansicht „so that … is a
   perfect circle“ wie beim Wasserrad; Löschtrog (U15) ebenfalls ohne „von oben“. `LESSONS` ergänzt, Heft neu erzeugt.
+- 21.11.: E1-3 in strenger Seitenansicht ergab technischen Unsinn (Kurbel auf der Steinfläche, Lager vor dem Stein). Neu:
+  Mechanik Bauteil für Bauteil beschrieben, **leichte Dreiviertelansicht** erlaubt (Einrichtung steht im perspektivisch
+  gemalten Raum; flach bleiben Esse, Amboss, Hämmer, Maschinen, Werkstücke); ebenso E4-3. `LESSONS` ergänzt.
 
 ## Prüfen
 

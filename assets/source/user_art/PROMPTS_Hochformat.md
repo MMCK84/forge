@@ -74,6 +74,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | alle Frontal-/Seitenansichten | Midjourney malt freigestellte Objekte häufig perspektivisch, obwohl „front view“ im Prompt steht | Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten |
 | 20.11. | Maschinenteile | neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock | historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt |
 | 20.11. | Werkstücke | Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten | Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst) |
+| 21.11. | Einrichtung | Schleifstein (E1-3) in strenger Seitenansicht: technischer Unsinn – Kurbel auf der Steinfläche, Lagerbock vor dem Stein, Achse ohne Lager; in reiner Seitenansicht liegen Achse und Lager hinter dem Stein, Midjourney erfindet dann etwas | Mechanik mit Achse (Schleifstein, Schleifbank) Bauteil für Bauteil beschreiben (Achse durch die Mitte, Achsenden in Lagerböcken auf den Seitenholmen, Stein taucht in den Trog, Kurbel am Achsende, „mechanically correct“) und eine **leichte Dreiviertelansicht** erlauben – die Einrichtung steht im Raum, der selbst perspektivisch gemalt ist; flach bleiben nur Esse, Amboss, Hämmer, Maschinen und Werkstücke |
 | 21.11. | Einrichtung | Schleifstein (E1-3) kam immer perspektivisch: Der Prompt verlangte zugleich „orthographic front elevation“ und „front view from slightly above“ – das „von oben“ erzeugt die Schrägsicht | „from slightly above“ aus allen Einrichtungs-Prompts entfernt („front view at eye level“); runde Teile (Schleifstein, Räder, Schwungrad) „seen exactly from the side so that … is a perfect circle“ wie beim Wasserrad (M1), das so sofort flach kam; hilft das nicht: M1 als Bild-Prompt mit `--iw 0.5` anhängen |
 | 21.11. | Werkstücke | Ruderfingerling (W3-7) kam als dünner, schräger Spieß ohne Bandeisen und Bolzenlöcher; eine Schere kam mit Fingerringen statt als Federschere | Form mit einem bekannten Umriss beschreiben („shaped like a capital letter L turned on its side“), Verwechslungen ausdrücklich ausschließen („not a thin spike, not diagonal“, „no finger rings, not scissors“) |
 | 20.11. | Porträts | Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller | bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung |
@@ -1407,9 +1408,9 @@ E1-2 — Flat orthographic front elevation, like a technical drawing. 2D game as
 ```
 
 **E1-3** – Werkbank: Schleifstein mit Kurbel · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 88 Wörter · Datei `furn_e1_bench`
+Regler: **Landscape 3:2** · 75 Wörter · Datei `furn_e1_bench`
 ```
-E1-3 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a hand-cranked sandstone grindstone seen exactly from the side so that the stone is a perfect circle, the iron axle with its crank handle in the exact centre of the stone, standing upright in a low oak trestle frame with a small wooden water trough under the stone, around 1700, single object, straight side view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
+E1-3 — 2D game asset, a hand-cranked smithy grindstone around 1700: thick sandstone wheel on an iron axle, the axle ends resting in bearings on top of a four-legged oak trestle frame, lower part of the stone dipping into a water trough, crank handle on the axle end, mechanically correct, slight three-quarter view at eye level, single object, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **E1-4** – Kundschaft: Bemaltes Brett mit Hufeisen über dem Tor · ⬜ noch nicht vorhanden  
@@ -1503,9 +1504,9 @@ E4-2 — Flat orthographic front elevation, like a technical drawing. 2D game as
 ```
 
 **E4-3** – Werkbank: Schleifbock mit Wasserrad · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 71 Wörter · Datei `furn_e4_bench`
+Regler: **Landscape 3:2** · 74 Wörter · Datei `furn_e4_bench`
 ```
-E4-3 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a grinding bench seen exactly from the side: a large grindstone as a perfect circle, driven by a belt from a small water wheel that is also a perfect circle, Sheffield around 1755, single object, straight side view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
+E4-3 — 2D game asset, a Sheffield grinding trough around 1755: large sandstone grindstone on an iron axle resting in bearings on a heavy timber frame, lower part of the stone in a water trough, leather belt from a pulley on the axle to a drive shaft, mechanically correct, slight three-quarter view at eye level, single object, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **E4-4** – Kundschaft: Firmenmarke der Cutlers' Company · ⬜ noch nicht vorhanden  

@@ -92,6 +92,8 @@ LESSONS = [
      "historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt"),
     ("20.11.", "Werkstücke", "Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten",
      "Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst)"),
+    ("21.11.", "Einrichtung", "Schleifstein (E1-3) in strenger Seitenansicht: technischer Unsinn – Kurbel auf der Steinfläche, Lagerbock vor dem Stein, Achse ohne Lager; in reiner Seitenansicht liegen Achse und Lager hinter dem Stein, Midjourney erfindet dann etwas",
+     "Mechanik mit Achse (Schleifstein, Schleifbank) Bauteil für Bauteil beschreiben (Achse durch die Mitte, Achsenden in Lagerböcken auf den Seitenholmen, Stein taucht in den Trog, Kurbel am Achsende, „mechanically correct“) und eine **leichte Dreiviertelansicht** erlauben – die Einrichtung steht im Raum, der selbst perspektivisch gemalt ist; flach bleiben nur Esse, Amboss, Hämmer, Maschinen und Werkstücke"),
     ("21.11.", "Einrichtung", "Schleifstein (E1-3) kam immer perspektivisch: Der Prompt verlangte zugleich „orthographic front elevation“ und „front view from slightly above“ – das „von oben“ erzeugt die Schrägsicht",
      "„from slightly above“ aus allen Einrichtungs-Prompts entfernt („front view at eye level“); runde Teile (Schleifstein, Räder, Schwungrad) „seen exactly from the side so that … is a perfect circle“ wie beim Wasserrad (M1), das so sofort flach kam; hilft das nicht: M1 als Bild-Prompt mit `--iw 0.5` anhängen"),
     ("21.11.", "Werkstücke", "Ruderfingerling (W3-7) kam als dünner, schräger Spieß ohne Bandeisen und Bolzenlöcher; eine Schere kam mit Fingerringen statt als Federschere",
@@ -386,7 +388,10 @@ UI = [
 FURN_TAIL = ("single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, "
              "fully inside the frame (no people), isolated on pure flat white background")
 def _furn_tail(desc):
-    """Runde Teile in Seitenansicht: dann auch der Schluss „side view“ (kein Widerspruch zu „from the side“)."""
+    """Runde Teile in Seitenansicht: dann auch der Schluss „side view“ (kein Widerspruch zu „from the side“).
+    Mechanik mit Achse (Schleifstein): leichte Dreiviertelansicht, sonst erfindet Midjourney unsinnige Lager."""
+    if "three-quarter view" in desc:
+        return FURN_TAIL.replace("straight front view at eye level, ", "")
     return FURN_TAIL.replace("straight front view", "straight side view") if "from the side" in desc else FURN_TAIL
 
 
@@ -395,7 +400,7 @@ FURN_SLOT_DE = {"fuel": "Brennstoff", "tools": "Werkzeugwand", "bench": "Werkban
 FURN_DESC = {
     1: {"fuel": "a woven wicker basket full of charcoal, early 18th-century English village smithy",
         "tools": "a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700",
-        "bench": "a hand-cranked sandstone grindstone seen exactly from the side so that the stone is a perfect circle, the iron axle with its crank handle in the exact centre of the stone, standing upright in a low oak trestle frame with a small wooden water trough under the stone, around 1700",
+        "bench": "a hand-cranked smithy grindstone around 1700: thick sandstone wheel on an iron axle, the axle ends resting in bearings on top of a four-legged oak trestle frame, lower part of the stone dipping into a water trough, crank handle on the axle end, mechanically correct, slight three-quarter view at eye level",
         "trade": "a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700",
         "light": "a small tin tallow lantern with horn panes, hanging from an iron hook"},
     2: {"fuel": "an iron-bound wooden coal chest full of coal, with a shovel, around 1725",
@@ -410,7 +415,7 @@ FURN_DESC = {
         "light": "a brass and copper ship's lantern with glass panes"},
     4: {"fuel": "a timber bin filled with grey coke, around 1755",
         "tools": "a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755",
-        "bench": "a grinding bench seen exactly from the side: a large grindstone as a perfect circle, driven by a belt from a small water wheel that is also a perfect circle, Sheffield around 1755",
+        "bench": "a Sheffield grinding trough around 1755: large sandstone grindstone on an iron axle resting in bearings on a heavy timber frame, lower part of the stone in a water trough, leather belt from a pulley on the axle to a drive shaft, mechanically correct, slight three-quarter view at eye level",
         "trade": "a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755 (no lettering)",
         "light": "a row of three small brass oil lamps on a wooden shelf"},
     5: {"fuel": "a small four-wheeled wooden coal tub full of coal seen exactly from the side, the wheels as perfect circles, around 1780",
