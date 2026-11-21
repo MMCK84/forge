@@ -205,8 +205,9 @@ def view_first(prompt):
         return prompt
     low = prompt.lower()
     side = "side view" in low or "from the side" in low or "side elevation" in low
-    # Widerspruch „from the side“ + „top-down/lying flat“ (W9-1 kam deshalb immer von oben): Seitenansicht gewinnt
-    if side and ("from directly above" in low or "top-down" in low):
+    front = "front view" in low or "from the front" in low or "front elevation" in low
+    # Widerspruch Seiten-/Vorderansicht + „top-down/lying flat“ (W9-1 kam deshalb immer von oben): die Ansicht gewinnt
+    if (side or front) and ("from directly above" in low or "top-down" in low):
         for t in ("viewed from directly above, lying flat, ", "top-down view, lying flat, ", "viewed from directly above, ", "top-down view, "):
             prompt = prompt.replace(t, "")
         prompt = prompt.replace("seen from the side, horizontal", "seen exactly from the side (not from above), horizontal")

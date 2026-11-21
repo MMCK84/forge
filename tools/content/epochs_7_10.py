@@ -11,7 +11,7 @@ Epochen 1–6 direkt in den .tres-Dateien stehen). Erzeugen der Ressourcen:
 ITEMS = [
  # Epoche 7 – Krieg & Erfindergeist (1800–1820)
  ("block_pin", 7, 0.9, "normal", "bolt", True, "Blockrollen-Bolzen", "Blockrollen-Bolzen", "m", "pulley-block pin", "pulley-block pins"),
- ("boiler_stay", 7, 0.9, "normal", "rod", True, "Kessel-Stehbolzen", "Kessel-Stehbolzen", "m", "boiler stay", "boiler stays"),
+ ("boiler_stay", 7, 0.9, "normal", "rod", True, "Stechzirkel", "Stechzirkel", "m", "pair of dividers", "pairs of dividers"),  # Kennung bleibt; bis 21.11. Kessel-Stehbolzen
  ("gas_lamp_bracket", 7, 1.1, "normal", "lantern", True, "Gaslaternen-Ausleger", "Gaslaternen-Ausleger", "m", "gas-lamp bracket", "gas-lamp brackets"),
  ("navvy_spade", 7, 1.0, "normal", "ploughshare", True, "Spaten", "Spaten", "m", "navvy's spade", "navvies' spades"),
  ("press_screw", 7, 1.2, "normal", "spindle", False, "Pressenspindel", "Pressenspindeln", "f", "press screw", "press screws"),
@@ -21,7 +21,7 @@ ITEMS = [
  # Epoche 8 – Eisenbahnfieber (1820–1839)
  ("rail_spike", 8, 0.8, "normal", "nail", True, "Schienennagel", "Schienennägel", "m", "track spike", "track spikes"),
  ("coupling_hook", 8, 1.0, "normal", "hook", True, "Kupplungshaken", "Kupplungshaken", "m", "coupling hook", "coupling hooks"),
- ("safety_valve_lever", 8, 1.0, "normal", "bar", True, "Sicherheitsventil-Hebel", "Sicherheitsventil-Hebel", "m", "safety-valve lever", "safety-valve levers"),
+ ("safety_valve_lever", 8, 1.0, "normal", "bar", True, "Weichenhebel", "Weichenhebel", "m", "point lever", "point levers"),  # bis 21.11. Sicherheitsventil-Hebel
  ("coupling_chain", 8, 1.1, "weld", "chain", True, "Kupplungskette", "Kupplungsketten", "f", "coupling chain", "coupling chains"),
  ("loco_tyre", 8, 1.3, "weld", "tyre", True, "Lokomotiv-Radreifen", "Lokomotiv-Radreifen", "m", "locomotive tyre", "locomotive tyres"),
  ("buffer_spring", 8, 1.1, "harden", "spring", True, "Pufferfeder", "Pufferfedern", "f", "buffer spring", "buffer springs"),
@@ -30,7 +30,7 @@ ITEMS = [
  # Epoche 9 – Der Dampfhammer (1839–1860)
  ("bridge_rivet", 9, 0.8, "normal", "rivet", True, "Brückenniete", "Brückennieten", "f", "bridge rivet", "bridge rivets"),
  ("palace_bracket", 9, 1.0, "normal", "bracket", True, "Säulenkopf-Beschlag", "Säulenkopf-Beschläge", "m", "column-head bracket", "column-head brackets"),
- ("paddle_arm", 9, 1.1, "normal", "bar", True, "Schaufelrad-Arm", "Schaufelrad-Arme", "m", "paddle-wheel arm", "paddle-wheel arms"),
+ ("paddle_arm", 9, 1.1, "normal", "bar", True, "Bootsdavit", "Bootsdavits", "m", "boat davit", "boat davits"),  # bis 21.11. Schaufelrad-Arm
  ("hammer_die", 9, 1.2, "harden", "plate", True, "Hammergesenk", "Hammergesenke", "n", "hammer die", "hammer dies"),
  ("admiralty_anchor", 9, 1.5, "weld", "anchor", False, "Admiralitätsanker", "Admiralitätsanker", "m", "Admiralty anchor", "Admiralty anchors"),
  ("marine_piston_rod", 9, 1.4, "big", "rod", False, "Schiffs-Kolbenstange", "Schiffs-Kolbenstangen", "f", "marine piston rod", "marine piston rods"),
@@ -130,8 +130,8 @@ MILESTONES = [
   "Spaten für den Caledonian Canal", "Telfords Kanal quer durch die Highlands wird von tausenden Navvies gegraben – mit Euren Spaten.",
   "Spades for the Caledonian Canal", "Telford's canal across the Highlands is dug by thousands of navvies – with your spades."),
  ("ms_e7_07_stays", 7, "boiler_stay", "trevithick", 8, False, 1.0,
-  "Stehbolzen für Trevithicks Hochdruckkessel", "Trevithick arbeitet mit Dampf unter hohem Druck. Seine Kessel halten nur mit guten Stehbolzen.",
-  "Stays for Trevithick's high-pressure boiler", "Trevithick works with high-pressure steam. His boilers only hold with good stays."),
+  "Stechzirkel für Trevithicks Zeichenbrett", "Trevithick baut Maschinen für Dampf unter hohem Druck – jedes Maß wird mit dem Stechzirkel abgegriffen. Er braucht Zirkel, die nicht nachgeben.",
+  "Dividers for Trevithick's drawing board", "Trevithick builds engines for high-pressure steam – every measurement is taken with dividers. He needs dividers that do not slip."),
  ("ms_e7_08_anchor", 7, "anchor_fluke", "navy_portsmouth", 2, False, 1.0,
   "Draggen für die Beiboote der Flotte", "Nach Trafalgar (1805) rüstet die Navy ihre Linienschiffe neu aus. Jedes Beiboot braucht einen Draggen – einen kleinen Anker mit vier Armen, sauber feuergeschweißt.",
   "Grapnels for the fleet's boats", "After Trafalgar (1805) the Navy refits its ships of the line. Every ship's boat needs a grapnel – a small four-armed anchor, cleanly forge-welded."),
@@ -151,8 +151,8 @@ MILESTONES = [
   "Radreifen für die ‚Locomotion‘", "Stephensons ‚Locomotion No. 1‘ hat die Eröffnungsfahrt hinter sich. Ihre Räder brauchen neue Reifen.",
   "Tyres for Locomotion", "Stephenson's Locomotion No. 1 has made the opening run. Its wheels need new tyres."),
  ("ms_e8_05_valves", 8, "safety_valve_lever", "stephenson_works", 6, True, 1.0,
-  "Sicherheitsventil-Hebel", "Ein Kessel ohne sicheres Ventil ist eine Bombe. Stephenson verlangt Präzision.",
-  "Safety-valve levers", "A boiler without a safe valve is a bomb. Stephenson demands precision."),
+  "Weichenhebel für die Liverpool & Manchester", "Auf der ersten Fernbahn müssen die Züge sicher das Gleis wechseln. Stephenson verlangt Weichenhebel, die genau einrasten.",
+  "Point levers for the Liverpool & Manchester", "On the first inter-city railway the trains must change tracks safely. Stephenson demands point levers that lock precisely."),
  ("ms_e8_06_springs", 8, "buffer_spring", "liverpool_manchester", 8, False, 1.0,
   "Pufferfedern für die Liverpool & Manchester", "1830 verbindet die erste Fernbahn zwei Städte. Ihre Wagen stoßen beim Anfahren hart aneinander.",
   "Buffer springs for the Liverpool & Manchester", "In 1830 the first inter-city railway links two towns. Its carriages bump hard when starting."),
@@ -175,8 +175,8 @@ MILESTONES = [
   "Gesenke für Nasmyths eigenen Hammer", "Nasmyth will zeigen, was sein Hammer kann – mit Gesenken aus Eurer Hand.",
   "Dies for Nasmyth's own hammer", "Nasmyth wants to show what his hammer can do – with dies from your hand."),
  ("ms_e9_04_paddles", 9, "paddle_arm", "great_western_ss", 8, False, 1.0,
-  "Schaufelradarme für einen Raddampfer", "Noch fahren die meisten Dampfer mit Schaufelrädern über den Atlantik.",
-  "Paddle arms for a paddle steamer", "Most steamers still cross the Atlantic with paddle wheels."),
+  "Bootsdavits für die Great Western", "Brunels Great Western (1838) überquert den Atlantik als Dampfer. An ihren Davits hängen die Rettungsboote – sie müssen jedes Wetter tragen.",
+  "Boat davits for the Great Western", "Brunel's Great Western (1838) crosses the Atlantic under steam. Her lifeboats hang from the davits – they must hold in any weather."),
  ("ms_e9_05_rattler", 9, "marine_piston_rod", "admiralty_steam", 1, True, 1.0,
   "Kolbenstange für die HMS Rattler", "Die Admiralität erprobt die Schiffsschraube an der HMS Rattler (1843).",
   "Piston rod for HMS Rattler", "The Admiralty tests the screw propeller on HMS Rattler (1843)."),

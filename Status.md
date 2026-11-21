@@ -86,7 +86,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 19 | Einstellungen: statt „Abbrechen“/„Speichern“ standen „Spielstand exportieren/importieren“ (brauchen wir nicht) | **umgesetzt** (Abbrechen [Esc] stellt den alten Stand wieder her, auch über X; Speichern [Enter]; Export/Import nur aus der Oberfläche entfernt) |
 | 6b | Nachtrag zu 6: mit Auftrag, aber ohne Werkstück in Arbeit, zeigte die Glutskala noch ein „allgemeines“ Zielfenster | **umgesetzt** (nur noch das Fenster des Werkstücks in Arbeit) |
 | 20 | Blasebalg der Lehm-Esse (Epoche 1) wirkt wie ein Sack/eine Vase | offen – Vorschlag: F1 neu mit klassischem Schmiedeblasebalg (zwei Bretter, Lederfalten, waagerecht, Zugstange/Hebel); Prompt nachschärfen |
-| 21 | Werkstücke der Epoche 5 (und später) teils unbekannte, abstrakte Maschinenteile | **Epoche 5 umgesetzt** (Kohlenschaufel, Schleusenkurbel, Pumpenschwengel; Ventilteil bleibt; Kolbenstange mit Kolben). **21.11.:** W7-7 Ankerarm → **Draggen**, W8-6 Pufferfeder als **Kegelfeder** (Prompt). Weitere Kandidaten (Bild entspricht dem Prompt, Gegenstand abstrakt): W6-9 Antriebswelle, W6-10 Kurbelwelle, W7-2 Kessel-Stehbolzen, W8-3 Sicherheitsventil-Hebel, W8-8 Kurbelachse, W9-3 Schaufelrad-Arm – Vorschläge im Chat, **Entscheidung offen** |
+| 21 | Werkstücke der Epoche 5 (und später) teils unbekannte, abstrakte Maschinenteile | **umgesetzt 21.11.** (Kennungen und Arbeitsgänge bleiben, Namen/Auftragstexte/Prompts neu): Epoche 5 Kohlenschaufel, Schleusenkurbel, Pumpenschwengel (Ventilteil bleibt, Kolbenstange mit Kolben); W7-7 Draggen, W7-2 **Stechzirkel** (statt Kessel-Stehbolzen), W8-3 **Weichenhebel** (statt Sicherheitsventil-Hebel), W8-6 Kegel-Pufferfeder, W9-3 **Bootsdavit** (statt Schaufelrad-Arm), W8-8 Kurbelachse mit Treibrädern. Große Wellen der Meisterstücke bleiben. Alte Bilder im Archiv |
 | 22 | Einrichtung Epoche 2–6 im Spiel (Lieferung 21.11.): Anordnung ist auf Epoche 1 abgestimmt – in anderen Räumen hängen Laterne/Regal ohne Balken in der Luft, Stücke am Rand abgeschnitten (E4/E6 Schild), in Epoche 5/6 teils hinter der Maschine | offen – Lage je Epoche festlegen (Wände, Balken, Maschine), „hängen“ nur wo ein Balken ist |
 
 ## Musik (Suno) – später
@@ -380,6 +380,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
   Seitenansicht); **ändern:** W5-1 (alter Prompt ohne Kolben), W9-3 (schräg, abstrakt), ML1 (Rad ohne Schaufeln, Riemen/Zahnräder →
   Prompt geschärft). W5-3/W5-4 kamen nach den alten Prompts (Balancier-/Schleusenbeschlag) → nicht importiert, im Archiv.
   W7-7 → Draggen, W8-6 → Kegel-Pufferfeder (Freigabe des Auftraggebers). Freistellen und Darstellung im Spiel geprüft.
+- 21.11.: Nr. 21 abgeschlossen (siehe Tabelle); Prompt-Generator bereinigt jetzt auch „von vorn“ + „Draufsicht“ (W7-2).
 
 ## Prüfen
 

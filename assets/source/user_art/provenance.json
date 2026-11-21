@@ -857,25 +857,10 @@
    "bewertung": "gut",
    "hinweis": "21.11.: Welle mit einer Kröpfung – entspricht dem Prompt, abstrakt (Kandidat Nr. 21)."
   },
-  "boiler_stay": {
-   "quelle": "Midjourney",
-   "bewertung": "gut",
-   "hinweis": "21.11.: dünner Bolzen – entspricht dem Prompt, abstrakt (Kandidat Nr. 21)."
-  },
-  "safety_valve_lever": {
-   "quelle": "Midjourney",
-   "bewertung": "gut",
-   "hinweis": "21.11.: Hebel mit Gabel und Auge – entspricht dem Prompt, abstrakt (Kandidat Nr. 21)."
-  },
   "crank_axle": {
    "quelle": "Midjourney",
-   "bewertung": "gut",
-   "hinweis": "21.11.: Achse mit zwei Kröpfungen – entspricht dem Prompt, abstrakt (Kandidat Nr. 21)."
-  },
-  "paddle_arm": {
-   "quelle": "Midjourney",
    "bewertung": "ändern",
-   "hinweis": "21.11.: schräg statt waagerecht; außerdem ein abstrakter Stab (Kandidat Nr. 21)."
+   "hinweis": "21.11.: Achse mit Kröpfungen entspricht dem alten Prompt, wirkt aber wie ein abstrakter Stab → neu mit den beiden Treibrädern (Radsatz), damit man die Lokomotivachse erkennt."
   },
   "piston_rod": {
    "quelle": "Midjourney",
@@ -915,6 +900,15 @@
   ],
   "lock_fitting": [
    "21.11.: Lieferung nach altem Prompt (Schleusenbeschlag) – Werkstück heißt jetzt Schleusenkurbel; im Archiv"
+  ],
+  "boiler_stay": [
+   "21.11.: Bild des früheren Werkstücks „Kessel-Stehbolzen“ – ersetzt durch ein erkennbares Werkstück (Nr. 21); im Archiv"
+  ],
+  "safety_valve_lever": [
+   "21.11.: Bild des früheren Werkstücks „Sicherheitsventil-Hebel“ – ersetzt durch ein erkennbares Werkstück (Nr. 21); im Archiv"
+  ],
+  "paddle_arm": [
+   "21.11.: Bild des früheren Werkstücks „Schaufelrad-Arm“ – ersetzt durch ein erkennbares Werkstück (Nr. 21); im Archiv"
   ]
  }
 }

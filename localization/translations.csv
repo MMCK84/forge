@@ -289,9 +289,9 @@ ITEM_BOILER_PLATE_PL,Kesselbleche,boiler plates
 ITEM_BOILER_RIVET,Kesselniete,boiler rivet
 ITEM_BOILER_RIVET_G,f,-
 ITEM_BOILER_RIVET_PL,Kesselnieten,boiler rivets
-ITEM_BOILER_STAY,Kessel-Stehbolzen,boiler stay
+ITEM_BOILER_STAY,Stechzirkel,pair of dividers
 ITEM_BOILER_STAY_G,m,-
-ITEM_BOILER_STAY_PL,Kessel-Stehbolzen,boiler stays
+ITEM_BOILER_STAY_PL,Stechzirkel,pairs of dividers
 ITEM_BRIDGE_RIVET,Brückenniete,bridge rivet
 ITEM_BRIDGE_RIVET_G,f,-
 ITEM_BRIDGE_RIVET_PL,Brückennieten,bridge rivets
@@ -412,9 +412,9 @@ ITEM_NAIL_PL,Nägel,nails
 ITEM_NAVVY_SPADE,Spaten,navvy's spade
 ITEM_NAVVY_SPADE_G,m,-
 ITEM_NAVVY_SPADE_PL,Spaten,navvies' spades
-ITEM_PADDLE_ARM,Schaufelrad-Arm,paddle-wheel arm
+ITEM_PADDLE_ARM,Bootsdavit,boat davit
 ITEM_PADDLE_ARM_G,m,-
-ITEM_PADDLE_ARM_PL,Schaufelrad-Arme,paddle-wheel arms
+ITEM_PADDLE_ARM_PL,Bootsdavits,boat davits
 ITEM_PALACE_BRACKET,Säulenkopf-Beschlag,column-head bracket
 ITEM_PALACE_BRACKET_G,m,-
 ITEM_PALACE_BRACKET_PL,Säulenkopf-Beschläge,column-head brackets
@@ -448,9 +448,9 @@ ITEM_REAPER_KNIFE_PL,Mähmesser,reaper knives
 ITEM_RUDDER_PINTLE,Ruderfingerling,rudder pintle
 ITEM_RUDDER_PINTLE_G,m,-
 ITEM_RUDDER_PINTLE_PL,Ruderfingerlinge,rudder pintles
-ITEM_SAFETY_VALVE_LEVER,Sicherheitsventil-Hebel,safety-valve lever
+ITEM_SAFETY_VALVE_LEVER,Weichenhebel,point lever
 ITEM_SAFETY_VALVE_LEVER_G,m,-
-ITEM_SAFETY_VALVE_LEVER_PL,Sicherheitsventil-Hebel,safety-valve levers
+ITEM_SAFETY_VALVE_LEVER_PL,Weichenhebel,point levers
 ITEM_SHIP_BOLT,Schiffsbolzen,ship's bolt
 ITEM_SHIP_BOLT_G,m,-
 ITEM_SHIP_BOLT_PL,Schiffsbolzen,ship's bolts
@@ -652,8 +652,8 @@ MS_MS_E7_05_PRECISION_TEXT,"Maudslay misst auf den Tausendstel Zoll. Wer für ih
 MS_MS_E7_05_PRECISION_TITLE,Präzisionsbolzen für Maudslay,Precision pins for Maudslay
 MS_MS_E7_06_SPADES_TEXT,Telfords Kanal quer durch die Highlands wird von tausenden Navvies gegraben – mit Euren Spaten.,Telford's canal across the Highlands is dug by thousands of navvies – with your spades.
 MS_MS_E7_06_SPADES_TITLE,Spaten für den Caledonian Canal,Spades for the Caledonian Canal
-MS_MS_E7_07_STAYS_TEXT,Trevithick arbeitet mit Dampf unter hohem Druck. Seine Kessel halten nur mit guten Stehbolzen.,Trevithick works with high-pressure steam. His boilers only hold with good stays.
-MS_MS_E7_07_STAYS_TITLE,Stehbolzen für Trevithicks Hochdruckkessel,Stays for Trevithick's high-pressure boiler
+MS_MS_E7_07_STAYS_TEXT,"Trevithick baut Maschinen für Dampf unter hohem Druck – jedes Maß wird mit dem Stechzirkel abgegriffen. Er braucht Zirkel, die nicht nachgeben.",Trevithick builds engines for high-pressure steam – every measurement is taken with dividers. He needs dividers that do not slip.
+MS_MS_E7_07_STAYS_TITLE,Stechzirkel für Trevithicks Zeichenbrett,Dividers for Trevithick's drawing board
 MS_MS_E7_08_ANCHOR_TEXT,"Nach Trafalgar (1805) rüstet die Navy ihre Linienschiffe neu aus. Jedes Beiboot braucht einen Draggen – einen kleinen Anker mit vier Armen, sauber feuergeschweißt.","After Trafalgar (1805) the Navy refits its ships of the line. Every ship's boat needs a grapnel – a small four-armed anchor, cleanly forge-welded."
 MS_MS_E7_08_ANCHOR_TITLE,Draggen für die Beiboote der Flotte,Grapnels for the fleet's boats
 MS_MS_E7_09_MENAI_TEXT,1819 beginnt Telford die Hängebrücke über die Menai-Straße. Ihre Ketten bestehen aus geschmiedeten Gliedern – Eures soll das erste sein.,In 1819 Telford begins the suspension bridge over the Menai Strait. Its chains are made of forged eyebars – yours shall be the first.
@@ -666,8 +666,8 @@ MS_MS_E8_03_HOOKS_TEXT,Zum ersten Mal reisen Menschen mit der Bahn. Ihre Wagen d
 MS_MS_E8_03_HOOKS_TITLE,Kupplungshaken für Personenwagen,Coupling hooks for passenger carriages
 MS_MS_E8_04_LOCOMOTION_TEXT,Stephensons ‚Locomotion No. 1‘ hat die Eröffnungsfahrt hinter sich. Ihre Räder brauchen neue Reifen.,Stephenson's Locomotion No. 1 has made the opening run. Its wheels need new tyres.
 MS_MS_E8_04_LOCOMOTION_TITLE,Radreifen für die ‚Locomotion‘,Tyres for Locomotion
-MS_MS_E8_05_VALVES_TEXT,Ein Kessel ohne sicheres Ventil ist eine Bombe. Stephenson verlangt Präzision.,A boiler without a safe valve is a bomb. Stephenson demands precision.
-MS_MS_E8_05_VALVES_TITLE,Sicherheitsventil-Hebel,Safety-valve levers
+MS_MS_E8_05_VALVES_TEXT,"Auf der ersten Fernbahn müssen die Züge sicher das Gleis wechseln. Stephenson verlangt Weichenhebel, die genau einrasten.",On the first inter-city railway the trains must change tracks safely. Stephenson demands point levers that lock precisely.
+MS_MS_E8_05_VALVES_TITLE,Weichenhebel für die Liverpool & Manchester,Point levers for the Liverpool & Manchester
 MS_MS_E8_06_SPRINGS_TEXT,1830 verbindet die erste Fernbahn zwei Städte. Ihre Wagen stoßen beim Anfahren hart aneinander.,In 1830 the first inter-city railway links two towns. Its carriages bump hard when starting.
 MS_MS_E8_06_SPRINGS_TITLE,Pufferfedern für die Liverpool & Manchester,Buffer springs for the Liverpool & Manchester
 MS_MS_E8_07_ROCKET_TEXT,Beim Rennen von Rainhill 1829 schlägt die ‚Rocket‘ alle Gegner. Ihre Treibstange muss genau sitzen.,At the Rainhill trials of 1829 Rocket beats all rivals. Its connecting rod must fit exactly.
@@ -682,8 +682,8 @@ MS_MS_E9_02_PALACE_TEXT,Paxtons Glashaus für die Weltausstellung 1851 wird in s
 MS_MS_E9_02_PALACE_TITLE,Säulenbeschläge für den Kristallpalast,Column brackets for the Crystal Palace
 MS_MS_E9_03_DIES_TEXT,"Nasmyth will zeigen, was sein Hammer kann – mit Gesenken aus Eurer Hand.",Nasmyth wants to show what his hammer can do – with dies from your hand.
 MS_MS_E9_03_DIES_TITLE,Gesenke für Nasmyths eigenen Hammer,Dies for Nasmyth's own hammer
-MS_MS_E9_04_PADDLES_TEXT,Noch fahren die meisten Dampfer mit Schaufelrädern über den Atlantik.,Most steamers still cross the Atlantic with paddle wheels.
-MS_MS_E9_04_PADDLES_TITLE,Schaufelradarme für einen Raddampfer,Paddle arms for a paddle steamer
+MS_MS_E9_04_PADDLES_TEXT,Brunels Great Western (1838) überquert den Atlantik als Dampfer. An ihren Davits hängen die Rettungsboote – sie müssen jedes Wetter tragen.,Brunel's Great Western (1838) crosses the Atlantic under steam. Her lifeboats hang from the davits – they must hold in any weather.
+MS_MS_E9_04_PADDLES_TITLE,Bootsdavits für die Great Western,Boat davits for the Great Western
 MS_MS_E9_05_RATTLER_TEXT,Die Admiralität erprobt die Schiffsschraube an der HMS Rattler (1843).,The Admiralty tests the screw propeller on HMS Rattler (1843).
 MS_MS_E9_05_RATTLER_TITLE,Kolbenstange für die HMS Rattler,Piston rod for HMS Rattler
 MS_MS_E9_06_CRANKS_TEXT,Die Flotte stellt auf Dampf um. Jede Maschine braucht schwere Kurbeln.,The fleet is turning to steam. Every engine needs heavy cranks.
