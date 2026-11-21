@@ -214,7 +214,12 @@ def main():
     if os.path.exists(find_src("title_art.png")):
         ti = Image.open(find_src("title_art.png")).convert("RGB")
         ti.thumbnail((1440, 1440))
-        ti.save(os.path.join(OUT, "title_art.png"), optimize=True)
+        ti.save(os.path.join(OUT, "title_art.jpg"), quality=88, optimize=True)
+        old_png = os.path.join(OUT, "title_art.png")
+        if os.path.exists(old_png):
+            os.remove(old_png)
+            if os.path.exists(old_png + ".import"):
+                os.remove(old_png + ".import")
     if os.path.exists(find_src("master_certificate.png")):
         save(_cutout(find_src("master_certificate.png")), "master_certificate.png", max_w=420)
     # Sterne (voll, leer), Sanduhr, Löschtrog, Victoria-Münzen (Midjourney, weiß)

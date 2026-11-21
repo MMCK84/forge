@@ -11,37 +11,85 @@ var _overlay_layer: Control
 var _notice: Label
 var _locale: String = ""
 var _needs_rebuild: bool = false
+var _art: TextureRect = null
+## Bildmitte des Titelbilds (Anteil von Breite/Höhe), die im Hochformat sichtbar bleiben soll: der Schmied
+const TITLE_FOCUS := Vector2(0.36, 0.5)
 
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = UIKit.theme()
 	_locale = TranslationServer.get_locale()
-	var title_art := Assets.user("title_art.png")
+	var title_art := Assets.user("title_art.jpg")
 	if title_art != null:
-		# Titelbild des Auftraggebers füllt den Bildschirm (Hochformat: mittlerer Ausschnitt)
-		var art := TextureRect.new()
-		art.texture = title_art
-		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-		art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(art)
+		# Titelbild des Auftraggebers füllt den Bildschirm; Ausschnitt auf den Schmied (TITLE_FOCUS)
+		_art = TextureRect.new()
+		_art.texture = title_art
+		_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		_art.stretch_mode = TextureRect.STRETCH_SCALE
+		_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var clip := Control.new()
+		clip.clip_contents = true
+		clip.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		clip.add_child(_art)
+		add_child(clip)
+		resized.connect(_place_art)
+		_place_art.call_deferred()
 	else:
 		var bg := Background.new()
 		add_child(bg)
 		bg.set_epoch(1, 1)
 	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.25 if title_art != null else 0.45)
+	dim.color = Color(0, 0, 0, 0.12 if title_art != null else 0.45)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(dim)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(center)
+	if title_art != null:
+		# Dunkle Verläufe oben (Titel) und unten (Knöpfe), die Mitte bleibt frei für das Bild
+		for top in [true, false]:
+			var g := Gradient.new()
+			g.set_color(0, Color(0, 0, 0, 0.7 if top else 0.0))
+			g.set_color(1, Color(0, 0, 0, 0.0 if top else 0.75))
+			var gt := GradientTexture2D.new()
+			gt.gradient = g
+			gt.fill_from = Vector2(0, 0)
+			gt.fill_to = Vector2(0, 1)
+			var gr := TextureRect.new()
+			gr.texture = gt
+			gr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			gr.stretch_mode = TextureRect.STRETCH_SCALE
+			gr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			gr.anchor_right = 1.0
+			gr.anchor_top = 0.0 if top else 0.5
+			gr.anchor_bottom = 0.22 if top else 1.0
+			add_child(gr)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 18)
-	center.add_child(col)
+	var head := col
+	if title_art != null:
+		# Titel oben, Knöpfe unten – dazwischen sieht man den Schmied
+		var page := VBoxContainer.new()
+		page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		page.offset_top = 40
+		page.offset_bottom = -36
+		add_child(page)
+		head = VBoxContainer.new()
+		head.add_theme_constant_override("separation", 10)
+		head.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		page.add_child(head)
+		var gap := Control.new()
+		gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		page.add_child(gap)
+		col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		col.add_theme_constant_override("separation", 14)
+		page.add_child(col)
+	else:
+		var center := CenterContainer.new()
+		center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		add_child(center)
+		center.add_child(col)
 	var title_tex := Assets.tex("ui/title.png")
 	if title_tex != null:
 		var tr_title := TextureRect.new()
@@ -50,20 +98,21 @@ func _ready() -> void:
 		tr_title.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		var tw := minf(660.0, float(title_tex.get_width()))
 		tr_title.custom_minimum_size = Vector2(tw, tw * title_tex.get_height() / title_tex.get_width())
-		col.add_child(tr_title)
+		head.add_child(tr_title)
 	else:
 		var title := UIKit.label(tr("GAME_TITLE"), 72, UIKit.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 		title.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
 		title.add_theme_constant_override("outline_size", 12)
-		col.add_child(title)
+		head.add_child(title)
 	var sub_l := UIKit.wrap_label(tr("GAME_SUBTITLE"), 26, UIKit.TEXT_LIGHT, 640.0)
 	sub_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub_l.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.03))
 	sub_l.add_theme_constant_override("outline_size", 6)
-	col.add_child(sub_l)
-	var spacer := Control.new()
-	spacer.custom_minimum_size.y = 30
-	col.add_child(spacer)
+	head.add_child(sub_l)
+	if title_art == null:
+		var spacer := Control.new()
+		spacer.custom_minimum_size.y = 30
+		col.add_child(spacer)
 	var has_save := SaveManager.has_save()
 	var cont := UIKit.button(tr("UI_CONTINUE_GAME"), _continue, Vector2(520, 76), 30)
 	cont.disabled = not has_save
@@ -89,6 +138,23 @@ func _ready() -> void:
 		cont.grab_focus.call_deferred()
 	# Musik erst nach dem ersten Bild erzeugen, damit das Menü sofort erscheint.
 	get_tree().create_timer(0.3).timeout.connect(_start_menu_music)
+
+
+## Titelbild füllt den Bildschirm (wie „cover“), Ausschnitt um TITLE_FOCUS statt um die Mitte.
+func _place_art() -> void:
+	if _art == null or _art.texture == null:
+		return
+	var w := size.x
+	var h := size.y
+	var tw := float(_art.texture.get_width())
+	var th := float(_art.texture.get_height())
+	var sc := maxf(w / tw, h / th)
+	var sz := Vector2(tw, th) * sc
+	var pos := Vector2(w, h) * 0.5 - TITLE_FOCUS * sz
+	pos.x = clampf(pos.x, w - sz.x, 0.0)
+	pos.y = clampf(pos.y, h - sz.y, 0.0)
+	_art.position = pos
+	_art.size = sz
 
 
 func _start_menu_music() -> void:

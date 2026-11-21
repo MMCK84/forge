@@ -178,8 +178,12 @@ func _masterpiece_row(box: VBoxContainer, j: JobInstance) -> void:
 	row.add_theme_constant_override("separation", 14)
 	if passed and j.part >= j.parts:
 		if Assets.user("master_certificate.png") != null:
-			row.add_child(UIKit.icon("ui/user/master_certificate.png", 110.0))
+			# Meisterbrief als Höhepunkt der Epoche: deutlich größer als die Siegel, neben dem Text
+			# (größer passt nicht, ohne dass Lohn und Knöpfe aus dem Fenster rutschen)
+			row.add_child(UIKit.icon("ui/user/master_certificate.png", 210.0))
 		else:
 			row.add_child(Seal.make(3, 72.0))
-	row.add_child(UIKit.wrap_label(text, 24 if passed else 22, col, 460))
+	# Mit Meisterbrief (210 px) bleibt für den Text weniger Breite, sonst wird das Fenster breiter
+	var text_w := 360.0 if row.get_child_count() > 0 and passed and j.part >= j.parts and Assets.user("master_certificate.png") != null else 460.0
+	row.add_child(UIKit.wrap_label(text, 24 if passed else 22, col, text_w))
 	box.add_child(row)

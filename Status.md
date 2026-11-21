@@ -48,11 +48,11 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
 | E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
 | F Kundenporträts | 20 | – | – | 34 optional |
-| G Oberfläche, Symbole, Store | 19 (alle Pflicht-Bilder bis auf U22/U23) | – | – | U22 Titelbild, U23 Meisterbrief (+2 optional) |
+| G Oberfläche, Symbole, Store | **alle** (U1–U23, auch U12 und U21 optional) | – | – | – |
 | H Werkstatt-Einrichtung | 6 (Epoche 1, E2-2) | 1 (E2-1 Kohlenkiste) | – | 43 |
 | I Rohformen | 8 (alle der Epoche 1) | – | – | 65 (+7 geteilt, kein eigenes Bild) |
 
-**Für Epoche 1 Alpha fehlen nur noch:** U22 Titelbild, U23 Meisterbrief (2 Bilder).
+**Alle Bilder für Epoche 1 sind da und gut (21.11.).** Nächster Schritt: Epoche 1 gemeinsam abnehmen.
 
 ## Musik (Suno) – später
 
@@ -82,7 +82,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 
 ## Offen / nächste Schritte
 
-1. **Epoche 1 Alpha:** Bilder U22, U23 einbinden und prüfen (`tools/audit_epoch1.tscn`); dann Epoche 1 abnehmen.
+1. **Epoche 1 Alpha: gemeinsam abnehmen** (alle Bilder da; Bestandsaufnahme `tools/audit_epoch1.tscn`). Noch offen: Musik, Klänge.
 2. Vor dem Export: Testmenü-Knöpfe nur in der Entwicklerfassung.
 3. Danach Epoche 2 ff. nach demselben Muster (Werkstücke, Rohformen, Einrichtung je Epoche); W2-7, W3-7 und ML1 ersetzen.
 4. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
@@ -307,6 +307,13 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   Rohformen übernehmen jetzt Maßstab und Lage des fertigen Stücks (vorher einzeln auf volle Größe gezogen) → sauberes
   Überblenden. Im Spiel geprüft (`rough_check`, alle 8 + Postpferd-Hufeisen). **Alle Rohformen der Epoche 1 fertig.**
   Tests 2182/0.
+- 21.11.: **Lieferung U21, U22, U23 – alle gut.** U22 Titelbild: stimmungsvoll, aber Schmied links und oberes Drittel nicht frei
+  → Hauptmenü neu aufgebaut: Bildausschnitt um den Schmied (`TITLE_FOCUS` in `main_menu.gd`), Titel oben auf dunklem Verlauf,
+  Knöpfe unten, dazwischen bleibt der Schmied sichtbar; Titelbild als JPG (370 KB statt 2,8 MB PNG). U23 Meisterbrief: in
+  der Abrechnung groß (210 px statt 110) neben dem Text, Text schmaler, damit das Fenster nicht breiter wird. U21 Doppelseite
+  liegt fürs Tablet bereit. Prompt U22: Schmied mittig, `LESSONS` ergänzt. Heft zählt bewertete Originale jetzt auch dann als
+  vorhanden, wenn das Spiel sie (noch) nicht nutzt (U12, U21 standen fälschlich als fehlend). Tests 2182/0, Spieltest 0 Probleme,
+  Bestandsaufnahme Epoche 1 neu aufgenommen. **Damit sind alle Bilder der Epoche 1 fertig.**
 
 ## Prüfen
 

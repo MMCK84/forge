@@ -17,11 +17,11 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 109 |
+| ✅ gut (Midjourney) | 113 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 167 |
-| ⬜ noch nicht vorhanden (optional) | 36 |
+| ⬜ noch nicht vorhanden | 165 |
+| ⬜ noch nicht vorhanden (optional) | 34 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
@@ -31,7 +31,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
-| G · Oberfläche, Symbole, Store | 19 | 0 | 0 | 2 | 2 |
+| G · Oberfläche, Symbole, Store | 23 | 0 | 0 | 0 | 0 |
 | H · Werkstatt-Einrichtung | 6 | 1 | 0 | 43 | 0 |
 | I · Rohformen für den Stufensprung | 8 | 0 | 0 | 65 | 0 |
 
@@ -83,6 +83,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Porträts | Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller | bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung |
 | 21.11. | Rohformen (Bereich I) | W1-1R mit fertigem Nagel als Bild-Prompt und `--iw 1.5` ergab wieder den fertigen Nagel (Kopf und Spitze) | Rohform = Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; was spätere Arbeitsgänge formen (Spitze, Kopf, Biegung, Löcher, Verdrillung) als `--no`; Bild-Prompt nur noch `--iw 0.5` |
 | 21.11. | Einrichtung, Behälter | E2-1 „Kohlenkiste mit Eisenbeschlag“ kam als Schatztruhe (gewölbter Deckel, Schlüsselschild, glänzende Kohle) | Behälter als schlichte offene Kiste/Kasten ohne Deckel beschreiben, `--no treasure chest, domed lid, lock, keyhole, ornament`, Kohle „matt“ |
+| 21.11. | Titelbild / Schlüsselbilder | U22: „oberes Drittel frei für den Titel“ ignoriert (Hammer oben), Schmied links statt mittig – im Hochformat abgeschnitten | Hauptfigur „centred in the middle third of the width“ verlangen; freie Titelfläche nicht verlassen – das Spiel legt den Titel auf einen dunklen Verlauf und wählt den Ausschnitt (TITLE_FOCUS) |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -1356,8 +1357,9 @@ Regler: **Square 1:1** · 17 Wörter · Datei `pointer_sheet`
 U11 — 2D game asset, antique brass indicator needle, fine clockwork pointer, ornate georgian style, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U12** – Pyrometer-Zifferblatt ohne Zeiger · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 48 Wörter · Datei `pyrometer_dial`
+**U12** – Pyrometer-Zifferblatt ohne Zeiger · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 48 Wörter · Datei `pyrometer_dial`  
+*21.11.: Halbkreis-Skala mit Mechanik (optional, derzeit nicht im Spiel verwendet).*
 ```
 U12 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks, antique clockwork style, dark iron base, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, needle, pointer, numbers, text, watermark, border, shadow, photo, 3d render
 ```
@@ -1418,20 +1420,23 @@ Regler: **Square 1:1** · 60 Wörter · Datei `seal_mastery_3`
 U20 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of shining gold with a small laurel wreath around the rim, embossed crossed hammers above a small anvil, three small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U21** – Auftragsbuch aufgeschlagen, Doppelseite (für das Tablet im Querformat, später) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Landscape 3:2** · 78 Wörter · Datei `ledger_spread`
+**U21** – Auftragsbuch aufgeschlagen, Doppelseite (für das Tablet im Querformat, später) · ✅ gut (Midjourney)  
+Regler: **Landscape 3:2** · 78 Wörter · Datei `ledger_spread`  
+*21.11.: aufgeschlagenes Auftragsbuch mit roter Doppellinie, Messingecken und Lesebändchen – für das Querformat (Tablet) später; noch nicht im Spiel.*
 ```
 U21 — 2D game asset, an 18th-century leather-bound ledger lying wide open, seen from directly above, landscape 3:2: two facing pages of aged cream parchment with a thin red double border line and faint stains, completely empty, a soft curved gutter in the middle, dark brown leather binding visible around the edges, small brass corner fittings, a red ribbon bookmark lying across the right page, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:2 --no writing, numbers, cast shadow, text, watermark, border, shadow, photo, 3d render
 ```
 
-**U22** – Titelbild für das Hauptmenü · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 95 Wörter · Datei `title_art`
+**U22** – Titelbild für das Hauptmenü · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 94 Wörter · Datei `title_art`  
+*21.11.: stimmungsvoll (Schmied mit erhobenem Hammer, glühendes Hufeisen, Funken, Feuerschein). Oberes Drittel nicht frei und Schmied links statt mittig – das Hauptmenü zeigt deshalb einen Ausschnitt um den Schmied (TITLE_FOCUS), Titel auf dunklem Verlauf oben, Knöpfe unten. Im Spiel als JPG (370 KB).*
 ```
-U22 — Square 1:1 key art illustration for a game title screen, an English village blacksmith around 1700 in a leather apron at his anvil, seen from the front at a slight distance, hammer raised, a glowing horseshoe on the anvil, a fan of bright sparks, the brick forge glowing behind him, warm firelight against deep dark brown shadows, the upper third of the image calm and dark (smoke-darkened oak beams) as free space for the game title, the important parts in the middle three quarters of the width, hand-painted 2D game art, dark ink outlines, painterly --ar 1:1 --no text, letters, border, numbers, watermark
+U22 — Square 1:1 key art illustration for a game title screen, an English village blacksmith around 1700 in a leather apron at his anvil, seen from the front at a slight distance, hammer raised, a glowing horseshoe on the anvil, a fan of bright sparks, the brick forge glowing behind him, warm firelight against deep dark brown shadows, the upper third of the image calm and dark (smoke-darkened oak beams) as free space for the game title, the blacksmith centred in the middle third of the width, hand-painted 2D game art, dark ink outlines, painterly --ar 1:1 --no text, letters, border, numbers, watermark
 ```
 
-**U23** – Meisterbrief (Abrechnung nach dem Meisterstück) · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 85 Wörter · Datei `master_certificate`
+**U23** – Meisterbrief (Abrechnung nach dem Meisterstück) · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4** · 85 Wörter · Datei `master_certificate`  
+*21.11.: Pergament mit Rolle, gestochener Rahmen mit Hämmern, Zangen und Eichenlaub, unleserliche Schreibschrift, rotes Zunftsiegel mit gekreuzten Hämmern – genau wie gewünscht. In der Abrechnung jetzt groß (210 px) neben dem Text.*
 ```
 U23 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, an engraved ornamental frame of hammers, tongs and oak leaves drawn on the paper, a few lines of illegible flourished script, at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, cast shadow, readable text, date, text, numbers, watermark, border, shadow, photo, 3d render
 ```

@@ -108,6 +108,8 @@ LESSONS = [
      "Rohform = Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; was spätere Arbeitsgänge formen (Spitze, Kopf, Biegung, Löcher, Verdrillung) als `--no`; Bild-Prompt nur noch `--iw 0.5`"),
     ("21.11.", "Einrichtung, Behälter", "E2-1 „Kohlenkiste mit Eisenbeschlag“ kam als Schatztruhe (gewölbter Deckel, Schlüsselschild, glänzende Kohle)",
      "Behälter als schlichte offene Kiste/Kasten ohne Deckel beschreiben, `--no treasure chest, domed lid, lock, keyhole, ornament`, Kohle „matt“"),
+    ("21.11.", "Titelbild / Schlüsselbilder", "U22: „oberes Drittel frei für den Titel“ ignoriert (Hammer oben), Schmied links statt mittig – im Hochformat abgeschnitten",
+     "Hauptfigur „centred in the middle third of the width“ verlangen; freie Titelfläche nicht verlassen – das Spiel legt den Titel auf einen dunklen Verlauf und wählt den Ausschnitt (TITLE_FOCUS)"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -260,12 +262,12 @@ def _prov(fname):
 
 
 def final_status(st, fname):
-    """Vier Stufen: noch nicht vorhanden · Gemini · Midjourney (ändern) · gut."""
-    if st in (NEED, ):
-        return NOT
-    if st == OPT:
-        return NOT_OPT
+    """Vier Stufen: noch nicht vorhanden · Gemini · Midjourney (ändern) · gut.
+    Ein bewertetes Midjourney-Original zählt auch dann als vorhanden, wenn das Spiel es (noch) nicht nutzt
+    oder unter anderem Namen ablegt (z. B. title_art.jpg, ledger_spread fürs Tablet)."""
     pv = _prov(fname)
+    if st in (NEED, OPT) and pv.get("quelle") != "Midjourney":
+        return NOT if st == NEED else NOT_OPT
     if pv.get("quelle") == "Midjourney":
         return GOOD if pv.get("bewertung") == "gut" else MJ_CHANGE
     return GEMINI
@@ -460,7 +462,7 @@ UI = [
     ("seal_mastery_2.png", "seal_mastery_2", "Meisterschafts-Siegel Silber", False, "2D game UI icon, a round guild seal medallion of bright polished silver, embossed crossed hammers above a small anvil, two small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art with dark ink outlines, square 1:1, isolated on pure flat white background, no text, no letters, no watermark"),
     ("seal_mastery_3.png", "seal_mastery_3", "Meisterschafts-Siegel Gold", False, "2D game UI icon, a round guild seal medallion of shining gold with a small laurel wreath around the rim, embossed crossed hammers above a small anvil, three small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art with dark ink outlines, square 1:1, isolated on pure flat white background, no text, no letters, no watermark"),
     ("ledger_spread.png", "ledger_spread", "Auftragsbuch aufgeschlagen, Doppelseite (für das Tablet im Querformat, später)", True, "2D game asset, an 18th-century leather-bound ledger lying wide open, seen from directly above, landscape 3:2: two facing pages of aged cream parchment with a thin red double border line and faint stains, completely empty (no writing, no numbers), a soft curved gutter in the middle, dark brown leather binding visible around the edges, small brass corner fittings, a red ribbon bookmark lying across the right page, hand-painted 2D game art with dark ink outlines, soft even lighting, no cast shadow, no text, no watermark, isolated on pure flat white background"),
-    ("title_art.png", "title_art", "Titelbild für das Hauptmenü", False, "Square 1:1 key art illustration for a game title screen, an English village blacksmith around 1700 in a leather apron at his anvil, seen from the front at a slight distance, hammer raised, a glowing horseshoe on the anvil, a fan of bright sparks, the brick forge glowing behind him, warm firelight against deep dark brown shadows, the upper third of the image calm and dark (smoke-darkened oak beams) as free space for the game title, the important parts in the middle three quarters of the width, hand-painted 2D game art with dark ink outlines and warm painterly textures, no text, no letters, no watermark, no border"),
+    ("title_art.png", "title_art", "Titelbild für das Hauptmenü", False, "Square 1:1 key art illustration for a game title screen, an English village blacksmith around 1700 in a leather apron at his anvil, seen from the front at a slight distance, hammer raised, a glowing horseshoe on the anvil, a fan of bright sparks, the brick forge glowing behind him, warm firelight against deep dark brown shadows, the upper third of the image calm and dark (smoke-darkened oak beams) as free space for the game title, the blacksmith centred in the middle third of the width, hand-painted 2D game art with dark ink outlines and warm painterly textures, no text, no letters, no watermark, no border"),
     ("master_certificate.png", "master_certificate", "Meisterbrief (Abrechnung nach dem Meisterstück)", False, "2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, an engraved ornamental frame of hammers, tongs and oak leaves drawn on the paper, a few lines of illegible flourished script, at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art with dark ink outlines, soft even lighting, no cast shadow, no readable text, no date, no watermark, isolated on pure flat white background, portrait 3:4"),
 ]
 

@@ -47,7 +47,7 @@ Epochenwechsel). Bilder in `user://audit_e1/`.
 
 ## Noch fehlende Bilder für Epoche 1 (Stand 21.11.)
 
-U22 Titelbild, U23 Meisterbrief. (Rohformen W1-1R bis W1-8R: alle geliefert und gut, 21.11.)
+Keine – alle Bilder der Epoche 1 sind geliefert und gut (Rohformen W1-1R bis W1-8R, U22 Titelbild, U23 Meisterbrief; 21.11.).
 
 ## Benötigte Bilder (Kürzel aus dem Prompt-Heft)
 
