@@ -1,4 +1,8 @@
 {
+ "BG0": {
+  "id": "background_0",
+  "dir": "backgrounds"
+ },
  "BG1": {
   "id": "background_1",
   "dir": "backgrounds"

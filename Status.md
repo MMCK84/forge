@@ -47,7 +47,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (1:1) | **10 (alle)** | – | – | – |
+| A Hintergründe (1:1) | **10 (BG1–BG10)** | – | – | BG0 Lehrwerkstatt (neu) |
 | B Essen (frontal) | **6 (alle)** | – | – | – |
 | C Amboss, Hämmer | **5 (alle)** | – | – | – |
 | D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
@@ -79,7 +79,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 12 | Anordnung der Einrichtung (Epoche 1, voll eingerichtet): Zangenbrett, Schild und Kohlekorb am Bildrand abgeschnitten; Schild und Laterne hängen in der Luft (Ketten enden am Putz); Größen uneinheitlich (Zangenbrett zu klein, Korb groß); Schleifstein hinter dem Hammerstiel; Zunfttafel und Schild auf derselben Seite; angeschnittener Kasten links unten prüfen. Vorschlag: alles ganz im Bild, Zangenbrett größer links neben dem Schornstein, Laterne und Schild an Ketten vom Balken, Korb neben der Esse, Schleifstein weg vom Hammer, Zunfttafel links; Größen an Amboss/Esse ausrichten; prüfen in Hochformat und breitem Fenster. **Nachtrag Auftraggeber: die Einrichtungsgegenstände wirken teils sehr klein** (Werkstücke in Esse/auf dem Amboss passen) → deutlich größer darstellen (Laterne, Zangenbrett, Schild etwa 1,5–2×), Maßstab Amboss/Esse | **umgesetzt für Epoche 1** (neue Lage und Größen in `furnish_view.gd`); übrige Epochen abstimmen, sobald ihre Einrichtungsbilder da sind (Balken/Wände unterscheiden sich) |
 | 13 | „Kein aktiver Auftrag“ (Statuszeile) zu klein | **umgesetzt** (Zeile 24 px, Epoche/Hammer 20 px, Hammername ungekürzt) |
 | 14 | Hinweis „Eure eigene Werkstatt“ erscheint schon vor dem Abschluss des letzten Lehrzeit-Auftrags (man könnte noch „Wiederholen“ wählen) | **umgesetzt** (Hinweise warten, bis fertiges Werkstück und Abrechnung vorbei sind) |
-| 15 | Sollte sich die eigene Werkstatt optisch von der Lehrwerkstatt unterscheiden? Dazu: Text sagt „jetzt seid Ihr Meister“, der Meisterbrief kommt aber erst am Ende der Epoche 1 | **Entscheidung offen** (Vorschläge im Chat) |
+| 15 | Eigene Werkstatt optisch von der Lehrwerkstatt unterscheiden; Text „jetzt seid Ihr Meister“ widerspricht dem Meisterbrief am Ende der Epoche 1 | **Entschieden 21.11.: alle drei** – (1) Text: nach der Lehrzeit Geselle, Meister erst mit dem Meisterbrief; (2) Lehrwerkstatt fertig eingerichtet, eigene Schmiede beginnt leer; (3) eigener Hintergrund **BG0** „Lehrwerkstatt des Meisters“ (Prompt im Heft) + kurzer Übergang „Eure eigene Schmiede“. Umsetzung im nächsten Durchgang (BG0 erscheint, sobald geliefert) |
 | 16 | Klick auf das Werkstück in der Esse legt es nicht auf den Amboss (Klickfläche des Ambosses liegt über dem Glutbett) | **umgesetzt** (Amboss nimmt Klicks auf Esse und Rohling-Stapel nicht mehr an; Spieltest klickt jetzt echt in die Esse) |
 | 17 | Abrechnung schließt auch mit der Leertaste – soll nur mit Enter | **umgesetzt** (Leertaste aus „ui_accept“ entfernt; Spieltest prüft es) |
 | 18 | Teilweise wird derselbe Auftrag mehrmals gleichzeitig angeboten | **umgesetzt** (Lehrzeit: nur ein Angebot – zwei gleiche aus dem Drehbuch waren keine Wahl; danach verschiedene Werkstücke je Angebot; Unit-Test) |
