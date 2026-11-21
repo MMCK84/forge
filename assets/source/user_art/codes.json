@@ -771,6 +771,22 @@
   "id": "master_certificate",
   "dir": ""
  },
+ "U24": {
+  "id": "guild_plaque_2",
+  "dir": ""
+ },
+ "U25": {
+  "id": "guild_plaque_3",
+  "dir": ""
+ },
+ "U26": {
+  "id": "guild_plaque_4",
+  "dir": ""
+ },
+ "U27": {
+  "id": "guild_plaque_5",
+  "dir": ""
+ },
  "E1-1": {
   "id": "furn_e1_fuel",
   "dir": "furnishings"

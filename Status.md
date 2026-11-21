@@ -53,7 +53,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
 | E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
 | F Kundenporträts | 20 | – | – | 34 optional |
-| G Oberfläche, Symbole, Store | **alle** (U1–U23, auch U12 und U21 optional) | – | – | – |
+| G Oberfläche, Symbole, Store | **alle** bis U23 (auch U12 und U21 optional) | – | – | U24–U27 Zunfttafeln (neu) |
 | H Werkstatt-Einrichtung | 6 (Epoche 1, E2-2) | 1 (E2-1 Kohlenkiste) | – | 43 |
 | I Rohformen | 8 (alle der Epoche 1) | – | – | 65 (+7 geteilt, kein eigenes Bild) |
 
@@ -74,7 +74,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | offen |
 | 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
 | 9 | Mit dem letzten Schlag erscheint sofort die Abrechnung – der Spieler sieht das fertige Werkstück nie (Bild wechselt erst mit dem Abschluss des letzten Arbeitsgangs von der Rohform zum fertigen Stück, siehe Beobachtung vom 21.11.). Vorschlag: fertiges Stück kurz (ca. 1,5 s) mit Aufblitzen auf dem Amboss zeigen, dann Abrechnung; Tippen überspringt | offen |
-| 10 | Unklares Schild an der Wand (brauner Kasten mit gelben Punkten): ist das „Zunftschild“ für den Ruf (ab 40 Sternen, 2–5 Punkte), Platzhalter-Zeichnung ohne Erklärung, konkurriert mit dem Einrichtungs-Schild E1-4. Vorschlag: 4 Midjourney-Tafeln (U24–U27) + Hinweis beim ersten Erscheinen + Tooltip + fester Platz; Alternative: entfernen | **Entscheidung offen** |
+| 10 | Unklares Schild an der Wand (brauner Kasten mit gelben Punkten): ist das „Zunftschild“ für den Ruf (ab 40 Sternen, 2–5 Punkte), Platzhalter-Zeichnung ohne Erklärung, konkurriert mit dem Einrichtungs-Schild E1-4. **Entschieden 21.11.: Zunfttafeln** – 4 Midjourney-Bilder U24–U27 (Prompts im Heft), Hinweis beim ersten Erscheinen, Tooltip (Rufstufe, Sterne bis zur nächsten), fester Platz ohne Überschneidung mit E1-4 | Prompts fertig, Umsetzung offen |
 
 ## Musik (Suno) – später
 

@@ -20,7 +20,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | ✅ gut (Midjourney) | 113 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 165 |
+| ⬜ noch nicht vorhanden | 169 |
 | ⬜ noch nicht vorhanden (optional) | 34 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -31,7 +31,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
-| G · Oberfläche, Symbole, Store | 23 | 0 | 0 | 0 | 0 |
+| G · Oberfläche, Symbole, Store | 23 | 0 | 0 | 4 | 0 |
 | H · Werkstatt-Einrichtung | 6 | 1 | 0 | 43 | 0 |
 | I · Rohformen für den Stufensprung | 8 | 0 | 0 | 65 | 0 |
 
@@ -115,13 +115,11 @@ Raw hält sich genauer an Vorgaben wie „genau von der Seite“, malt aber foto
 
 Erledigt: alle zehn Hintergründe (A), alle sechs Essen (B), Amboss und Hämmer (C), alle Maschinenteile (D).
 
-**Jetzt: Epoche 1 auf Alpha-Niveau** (Checkliste `docs/Alpha_Epoche1.md`) – in dieser Reihenfolge:
+Erledigt (21.11.): **alle Bilder der Epoche 1** – Einrichtung, Werkstücke, Rohformen W1-1R–W1-8R, Oberfläche U1–U23.
 
-1. **Einrichtung Epoche 1: E1-1 bis E1-5** – bisher sieht man grobe Platzhalter-Zeichnungen in der Werkstatt (der größte Schönheitsfehler).
-2. **Werkstücke Epoche 1: W1-4 bis W1-8** (Türangel, Sichel, Pflugschar, Schürhaken, Torriegel) – noch Gemini, passen im Stil nicht zu W1-1 bis W1-3.
-3. **Oberfläche: U1 Pergament, U2 Knöpfe, U3 Leisten, U4 Glut-Knopf, U5 Auftragsbuch-Seite** – sieht man auf jedem Bildschirm (Gemini → Midjourney).
-4. **U18–U20 Meisterschafts-Siegel**, **U6 Münzbeutel**, **U7 Münzen**, **U9 Wachssiegel**, **U13 Sterne**.
-5. **P1-4 Müller** (ändern), **U16 App-Icon**.
+**Jetzt:**
+
+1. **U24 Zunfttafel Ruf 2** (2 Sterne) – zuerst; dann **U25–U27** mit U24 als Bild-Prompt (`--iw 1`), damit alle vier Tafeln gleich aussehen. Ersetzt die gezeichnete Tafel mit den gelben Punkten.
 
 Danach:
 
@@ -1439,6 +1437,30 @@ Regler: **Portrait 3:4** · 85 Wörter · Datei `master_certificate`
 *21.11.: Pergament mit Rolle, gestochener Rahmen mit Hämmern, Zangen und Eichenlaub, unleserliche Schreibschrift, rotes Zunftsiegel mit gekreuzten Hämmern – genau wie gewünscht. In der Abrechnung jetzt groß (210 px) neben dem Text.*
 ```
 U23 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, an engraved ornamental frame of hammers, tongs and oak leaves drawn on the paper, a few lines of illegible flourished script, at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, cast shadow, readable text, date, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**U24** – Zunfttafel Ruf 2: Geachteter Schmied (2 Sterne) · ⬜ noch nicht vorhanden  
+Regler: **Landscape 2:1** · 82 Wörter · Datei `guild_plaque_2`
+```
+U24 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a rectangular wooden guild plaque of the English blacksmiths' guild, 18th century, to hang flat on a smithy wall, seen exactly from the front at eye level, dark oiled oak board, fixed with four hand-forged iron nails in the corners, a plain narrow brass edging, in a straight row across the middle: two five-pointed brass stars, hand-painted 2D game art, dark ink outlines, warm painterly texture, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, letters, writing, numbers, date, chains, hook, horseshoe, shadow, text, watermark, border, photo, 3d render
+```
+
+**U25** – Zunfttafel Ruf 3 (Bild-Prompt: U24 anhängen, --iw 1): Angesehener Meister (3 Sterne) · ⬜ noch nicht vorhanden  
+Regler: **Landscape 2:1** · 87 Wörter · Datei `guild_plaque_3`
+```
+U25 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a rectangular wooden guild plaque of the English blacksmiths' guild, 18th century, to hang flat on a smithy wall, seen exactly from the front at eye level, dark oiled oak board, fixed with four hand-forged iron nails in the corners, a plain narrow brass edging and small brass corner fittings, in a straight row across the middle: three five-pointed brass stars, hand-painted 2D game art, dark ink outlines, warm painterly texture, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, letters, writing, numbers, date, chains, hook, horseshoe, shadow, text, watermark, border, photo, 3d render
+```
+
+**U26** – Zunfttafel Ruf 4 (Bild-Prompt: U24 anhängen, --iw 1): Berühmter Meisterschmied (4 Sterne) · ⬜ noch nicht vorhanden  
+Regler: **Landscape 2:1** · 94 Wörter · Datei `guild_plaque_4`
+```
+U26 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a rectangular wooden guild plaque of the English blacksmiths' guild, 18th century, to hang flat on a smithy wall, seen exactly from the front at eye level, dark oiled oak board, fixed with four hand-forged iron nails in the corners, a brass frame with corner fittings and a small brass emblem of crossed hammers above the stars, in a straight row across the middle: four five-pointed brass stars, hand-painted 2D game art, dark ink outlines, warm painterly texture, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, letters, writing, numbers, date, chains, hook, horseshoe, shadow, text, watermark, border, photo, 3d render
+```
+
+**U27** – Zunfttafel Ruf 5 (Bild-Prompt: U24 anhängen, --iw 1): Legende der Zunft (5 Sterne) · ⬜ noch nicht vorhanden  
+Regler: **Landscape 2:1** · 97 Wörter · Datei `guild_plaque_5`
+```
+U27 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a rectangular wooden guild plaque of the English blacksmiths' guild, 18th century, to hang flat on a smithy wall, seen exactly from the front at eye level, dark oiled oak board, fixed with four hand-forged iron nails in the corners, a gilded carved frame with oak leaves, brass corner fittings and a brass emblem of crossed hammers above the stars, in a straight row across the middle: five five-pointed gilded stars, hand-painted 2D game art, dark ink outlines, warm painterly texture, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, letters, writing, numbers, date, chains, hook, horseshoe, shadow, text, watermark, border, photo, 3d render
 ```
 
 ## H · Werkstatt-Einrichtung (5 je Epoche)
