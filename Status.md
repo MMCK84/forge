@@ -69,7 +69,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 2 | Nicht alle Knöpfe haben eine Taste | umgesetzt |
 | 3 | P soll das Pausenmenü öffnen | umgesetzt (Personal → [H]) |
 | 4 | „Auftrag wiederholen“ als runder Pfeil | umgesetzt |
-| 5 | Geld „d“ unverständlich (für „dime“/„day“ gehalten) | **Entscheidung offen** |
+| 5 | Geld „d“ unverständlich (für „dime“/„day“ gehalten) | **entschieden 21.11.: A + B** – £ s d bleibt; beim ersten Lohn Hinweisfenster mit Erklärung (12 d = 1 s, 20 s = 1 £, d = Penny/denarius), Tooltip an der Geldanzeige, Start „£0“ statt „0d“; dazu Münzsymbole (Gold/Silber/Kupfer mit Zahl) bei der großen Summe in Statuszeile und Abrechnung – „wir scheuen keinen Aufwand“ |
 | 6 | Ohne aktiven Auftrag ist schon ein Temperatur-Zielfenster auf der Glutskala eingezeichnet – irritierend | offen |
 | 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | offen |
 | 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
@@ -105,7 +105,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 1. **Epoche 1 Alpha: gemeinsam abnehmen** (alle Bilder da; Bestandsaufnahme `tools/audit_epoch1.tscn`). Noch offen: Musik, Klänge.
 2. Vor dem Export: Testmenü-Knöpfe nur in der Entwicklerfassung.
 3. Danach Epoche 2 ff. nach demselben Muster (Werkstücke, Rohformen, Einrichtung je Epoche); W2-7, W3-7 und ML1 ersetzen.
-4. **Geldanzeige £ s d** verständlicher machen (Entscheidung offen, 21.11.).
+4. **Geldanzeige £ s d** verständlicher machen (entschieden: Erklärung + Tooltip + Münzsymbole, siehe Anmerkungen Nr. 5).
 5. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
    angebotene Sprachen (Deutsch/Englisch) und/oder Gestaltung der Oberfläche.
 5. **Musik (Suno)** – später.
@@ -342,8 +342,8 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
   2. **Tasten für alle Knöpfe**, wo es sinnvoll ist (Belegung siehe „Fertig“); Ausnahmen bewusst (siehe dort).
   3. **P = Pausenmenü** (öffnet und schließt; Esc weiterhin); Personal dafür auf **[H]** (Helfer / englisch „hands“).
   4. **Auftrag wiederholen** als Pfeil-Symbol ↻ (eigenes Symbol `ui/icon_repeat.png`, Text im Tooltip) – spart Platz.
-  5. **Geldanzeige „d“** (Auftraggeber dachte an „dime“/„day“): d = Penny (lat. denarius), £sd bis 1971; **offen zur
-     Entscheidung** (Vorschläge im Chat): Erklärung beim ersten Lohn + Tooltip, Münzsymbole statt Buchstaben oder ausgeschrieben.
+  5. **Geldanzeige „d“** (Auftraggeber dachte an „dime“/„day“): d = Penny (lat. denarius), £sd bis 1971. **Entschieden:**
+     £ s d behalten + Erklärung beim ersten Lohn + Tooltip, ergänzt um Münzsymbole bei Statuszeile und Abrechnung.
   Tests 2182/0, Spieltest 0 Probleme, Bestandsaufnahme Epoche 1 geprüft.
 
 ## Prüfen
