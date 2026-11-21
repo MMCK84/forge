@@ -47,14 +47,14 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
-| A Hintergründe (1:1) | **10 (BG1–BG10)** | – | – | BG0 Lehrwerkstatt (neu) |
-| B Essen (frontal) | **6 (alle)** | – | – | – |
-| C Amboss, Hämmer | **5 (alle)** | – | – | – |
+| A Hintergründe (1:1) | **11 (BG0–BG10)** | – | – | – |
+| B Essen (frontal) | 5 | 1 (F1: neu ohne Blasebalg) | – | – |
+| C Amboss, Hämmer, Blasebalg | 5 | – | – | BB beweglicher Blasebalg (neu) |
 | D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
 | E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
-| F Kundenporträts | 20 | – | – | 34 optional |
+| F Kundenporträts | 20 | Blasebalg Epoche 1: der gezeichnete, pumpende Blasebalg links neben der Lehm-Esse wirkt wie ein Kasten. **Soll bleiben** (bringt Leben ins Bild), aber schöner werden | **Entschieden 21.11.:** eigenes Bild **BB** für den beweglichen Blasebalg + **F1 neu ohne eingemalten Blasebalg** (Prompts im Heft). Import und Anzeige vorbereitet (BB hat Vorrang vor dem Platzhalter); Lage wird bei der Lieferung abgestimmt |
 | G Oberfläche, Symbole, Store | **alle** bis U23 (auch U12 und U21 optional) | – | – | U24–U27 Zunfttafeln (neu) |
-| H Werkstatt-Einrichtung | 6 (Epoche 1, E2-2) | 1 (E2-1 Kohlenkiste) | – | 43 |
+| H Werkstatt-Einrichtung | 18 (Epoche 1; E2-2–E2-5; E3-1, E3-4; E4-1, E4-4; E5-1–E5-4; E6-2) | 8 (E2-1, E3-5, E4-2, E4-5, E5-5, E6-1, E6-4, E6-5) | – | 24 (E3-2, E3-3, E4-3, E6-3, Epoche 7–10) |
 | I Rohformen | 8 (alle der Epoche 1) | – | – | 65 (+7 geteilt, kein eigenes Bild) |
 
 **Alle Bilder für Epoche 1 sind da und gut (21.11.).** Nächster Schritt: Epoche 1 gemeinsam abnehmen.
@@ -84,6 +84,10 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 17 | Abrechnung schließt auch mit der Leertaste – soll nur mit Enter | **umgesetzt** (Leertaste aus „ui_accept“ entfernt; Spieltest prüft es) |
 | 18 | Teilweise wird derselbe Auftrag mehrmals gleichzeitig angeboten | **umgesetzt** (Lehrzeit: nur ein Angebot – zwei gleiche aus dem Drehbuch waren keine Wahl; danach verschiedene Werkstücke je Angebot; Unit-Test) |
 | 19 | Einstellungen: statt „Abbrechen“/„Speichern“ standen „Spielstand exportieren/importieren“ (brauchen wir nicht) | **umgesetzt** (Abbrechen [Esc] stellt den alten Stand wieder her, auch über X; Speichern [Enter]; Export/Import nur aus der Oberfläche entfernt) |
+| 6b | Nachtrag zu 6: mit Auftrag, aber ohne Werkstück in Arbeit, zeigte die Glutskala noch ein „allgemeines“ Zielfenster | **umgesetzt** (nur noch das Fenster des Werkstücks in Arbeit) |
+| 20 | Blasebalg der Lehm-Esse (Epoche 1) wirkt wie ein Sack/eine Vase | offen – Vorschlag: F1 neu mit klassischem Schmiedeblasebalg (zwei Bretter, Lederfalten, waagerecht, Zugstange/Hebel); Prompt nachschärfen |
+| 21 | Werkstücke der Epoche 5 (und später) teils unbekannte, abstrakte Maschinenteile | **Epoche 5 entschieden 21.11.:** Balancierbeschlag → Kohlenschaufel, Schleusenbeschlag → Schleusenkurbel, Pumpengestänge → Pumpenschwengel (Kennungen und Arbeitsgänge bleiben → Spielstände/Balancing unverändert; Auftragstexte angepasst); Ventilteil bleibt („sieht ganz nett aus“); Kolbenstange mit Kolbenscheibe im Bild. Epochen 6–10: Vorschlagsliste folgt |
+| 22 | Einrichtung Epoche 2–6 im Spiel (Lieferung 21.11.): Anordnung ist auf Epoche 1 abgestimmt – in anderen Räumen hängen Laterne/Regal ohne Balken in der Luft, Stücke am Rand abgeschnitten (E4/E6 Schild), in Epoche 5/6 teils hinter der Maschine | offen – Lage je Epoche festlegen (Wände, Balken, Maschine), „hängen“ nur wo ein Balken ist |
 
 ## Musik (Suno) – später
 
@@ -361,6 +365,15 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
   Kapitel, Leertaste nur Hammer. Prüfwerkzeuge: Spieltest klickt echt in die Esse und prüft die Leertaste in der Abrechnung;
   Bestandsaufnahme mit Hinweis „Geld“, Kapitelübersicht und fertigem Werkstück. Tests 2275/0, Spieltest 0 Probleme,
   Durchspiel-Test (Seeds 3, 7) ohne Probleme, 13,9 h.
+- 21.11.: **Lieferung BG0 und Einrichtung Epoche 2–6 (21 Bilder).** Gut: BG0 Lehrwerkstatt, E2-3–E2-5, E3-1, E3-4, E4-1, E4-4,
+  E5-1–E5-4, E6-2. **Ändern:** E3-5, E4-5, E6-5 (Sturm-/Petroleumlampen mit Glaskolben – erst ab ~1850), E4-5 und E5-5 (mehrere
+  Varianten in einem Bild), E4-2 (Spieße statt Zangen), E6-1 (wirkt wie Backofen), E6-4 (leerer Schrank statt Kontor). Prompts
+  nachgeschärft, `LESSONS` ergänzt (Lampen bis ~1850, „one single object“ in allen Einrichtungs-Prompts, Format je Stück).
+  Import: Einrichtung mit getöntem Grund (Creme, Graubeige) wird jetzt sauber freigestellt, heller Bodenschatten entfernt.
+  Im Spiel geprüft (`rough_check --furn=2..6`): Anordnung je Epoche noch offen (Nr. 22). Glutskala: kein allgemeines Zielfenster mehr.
+- 21.11.: Rohlinge kosten weiterhin nichts (nur Ausschuss) – Entscheidung des Auftraggebers. Epoche 5: neue Werkstücke W5-3/4/8
+  und Kolbenstange mit Kolbenscheibe (Prompts in `PROMPTS_Werkstuecke.md`, Heft neu); Text des Wasserrad-Meilensteins an die
+  Maschinensteuerung angepasst (Tippen/Halten statt „schlägt automatisch“). Beweglicher Blasebalg neben der Lehm-Esse kurz entfernt und auf Wunsch wiederhergestellt (soll schöner werden, Nr. 20).
 
 ## Prüfen
 

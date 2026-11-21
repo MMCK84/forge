@@ -126,6 +126,18 @@ func _furn_shot(e: int) -> void:
 		gm.advance_epoch()
 		await wait(0.3)
 		await close_overlays()
+	# Esse und Maschine der Epoche wie im Spiel (sonst stünde überall die Lehm-Esse)
+	var forge_id: String = {1: "", 2: "forge_brick", 3: "forge_double_bellows", 4: "forge_double_bellows", 5: "forge_coke", 6: "forge_coke",
+		7: "forge_coke", 8: "forge_welding_furnace", 9: "forge_welding_furnace", 10: "forge_siemens"}[e]
+	if forge_id != "":
+		gm.debug_add_money(5000000)
+		gm.buy_forge(forge_id)
+	var mach: String = {5: "machine_water_helve", 6: "machine_steam_helve", 9: "machine_nasmyth", 10: "machine_great_steam_hammer"}.get(e, "")
+	if mach != "":
+		gm.debug_add_money(50000000)
+		gm.buy_machine(mach)
+	if e >= 4:
+		gm.debug_add_money(5000000)
 	var stars := int(_arg("stars", "-1"))
 	if stars >= 0:
 		gm.stats["stars_total"] = stars

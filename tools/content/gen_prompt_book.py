@@ -110,6 +110,12 @@ LESSONS = [
      "Behälter als schlichte offene Kiste/Kasten ohne Deckel beschreiben, `--no treasure chest, domed lid, lock, keyhole, ornament`, Kohle „matt“"),
     ("21.11.", "Titelbild / Schlüsselbilder", "U22: „oberes Drittel frei für den Titel“ ignoriert (Hammer oben), Schmied links statt mittig – im Hochformat abgeschnitten",
      "Hauptfigur „centred in the middle third of the width“ verlangen; freie Titelfläche nicht verlassen – das Spiel legt den Titel auf einen dunklen Verlauf und wählt den Ausschnitt (TITLE_FOCUS)"),
+    ("21.11.", "Lampen und Laternen bis ~1850", "E3-5, E4-5, E6-5 kamen als Petroleum-/Sturmlaternen mit Glaskolben bzw. Glaszylinder (erst ab ~1850)",
+     "Kerze hinter flachen Glas- oder Hornscheiben bzw. offene Tüllenlampe beschreiben; `--no glass globe, glass chimney, kerosene lamp, hurricane lantern, fuel tank`"),
+    ("21.11.", "Einrichtung", "E4-5 und E5-5 kamen als mehrere Varianten in einem Bild (zwei Regale, fünf Stapel)",
+     "„one single object only (no variations, no second version)“ in allen Einrichtungs-Prompts; Format nach dem Objekt wählen (liegender Stapel: 2:1)"),
+    ("21.11.", "Einrichtung", "E6-1 Koksbunker sah aus wie ein Backofen (Gewölbe, Tür), E6-4 Kontor als leerer Schrank, E4-2 Zangen wie Spieße",
+     "Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`)"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -399,13 +405,14 @@ BACKGROUNDS = {
 
 ## Offene Schmiede-Esse (Stufe 1–4): Midjourney macht aus „hearth with hood“ sonst einen Backofen
 OPEN_HEARTH = "open waist-high hearth table, coals lying openly on top, hood above with a clear gap (no oven, no dome, no arch over the fire)"
-BELLOWS = "a teardrop-shaped leather bellows with wooden boards on a stand (no cannon)"
+BELLOWS = "a classic blacksmith's bellows lying horizontally on a low wooden stand: two pear-shaped wooden boards with pleated dark leather between them, a long wooden lever handle, an iron nozzle pointing into the hearth (no cannon, not a sack, not a vase, not standing upright)"
 
 FORGE_TAIL = ("front view from slightly above (no perspective), wide glowing coal bed, a flat band across about two thirds of the width, "
               "hood and chimney centred and fully visible, level bottom edge (no floor), hand-painted 2D game art, dark ink outlines, "
               "nothing in front, the chimney top is clean (no smoke, no flames, no people), isolated on pure flat white background, wide 2:1")
 FORGES = [
-    ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left " + BELLOWS + ", orange glowing charcoal fire"),
+    # F1 ohne eingemalten Blasebalg: der bewegliche Blasebalg (BB) steht im Spiel links daneben (Anmerkung 20, 21.11.)
+    ("forge_clay", "Lehm-Esse (Stufe 1, Epoche 1) – ohne Blasebalg, der bewegliche Blasebalg BB steht daneben", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, a short iron blast pipe (tuyère) entering the hearth from the left side, nothing to the left of the hearth (no bellows, no bench), orange glowing charcoal fire"),
     ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left " + BELLOWS + ", bright orange coal fire"),
     ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever (no cannon, no sack), hot yellow-orange coal fire"),
     ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's forge, " + OPEN_HEARTH + ", built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire"),
@@ -475,7 +482,7 @@ UI = [
 ]
 
 # H Werkstatt-Einrichtung (scripts/furnishings.gd): je Epoche fünf Stücke, freigestellt
-FURN_TAIL = ("single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, "
+FURN_TAIL = ("one single object only (no variations, no second version), straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, "
              "fully inside the frame (no people), isolated on pure flat white background")
 def _furn_tail(desc):
     """Runde Teile in Seitenansicht: dann auch der Schluss „side view“ (kein Widerspruch zu „from the side“).
@@ -485,6 +492,8 @@ def _furn_tail(desc):
     return FURN_TAIL.replace("straight front view", "straight side view") if "from the side" in desc else FURN_TAIL
 
 
+# Format je Stück, wo das Objekt nicht zum Platz-Format passt (E5-5: liegender Stapel im Hochformat → Midjourney malte fünf Stapel)
+FURN_FORMAT_OVERRIDE = {(5, "light"): "landscape 2:1"}
 FURN_FORMAT = {"fuel": "square 1:1", "tools": "portrait 3:4", "bench": "landscape 3:2", "trade": "landscape 3:2", "light": "portrait 1:2"}
 FURN_SLOT_DE = {"fuel": "Brennstoff", "tools": "Werkzeugwand", "bench": "Werkbank", "trade": "Kundschaft", "light": "Licht und Lager"}
 FURN_DESC = {
@@ -502,22 +511,22 @@ FURN_DESC = {
         "tools": "a square cast-iron swage block with many holes and shaped grooves standing on a wooden stand",
         "bench": "a tarred oak workbench with a vice and a row of files, around 1740",
         "trade": "a wooden notice board with pinned paper orders and an anchor emblem, around 1740 (blank papers)",
-        "light": "a brass and copper ship's lantern with glass panes"},
-    4: {"fuel": "a timber bin filled with grey coke, around 1755",
-        "tools": "a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755",
+        "light": "a square brass ship's lantern with flat glass panes, a pierced conical top and a ring, a candle inside, around 1740, no glass globe, not a kerosene lamp, not a hurricane lantern, no fuel tank"},
+    4: {"fuel": "a timber bin filled with light grey porous coke (not black coal), around 1755",
+        "tools": "a wall rack with a long row of slender two-legged blacksmith's tongs hanging jaws up, for knife blades, Sheffield around 1755, clearly tongs with two handles each",
         "bench": "a Sheffield grinding trough around 1755: large sandstone grindstone on an iron axle resting in bearings on a heavy timber frame, lower part of the stone in a water trough, leather belt from a pulley on the axle to a drive shaft, mechanically correct, slight three-quarter view at eye level",
         "trade": "a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755 (no lettering)",
-        "light": "a row of three small brass oil lamps on a wooden shelf"},
+        "light": "one wooden wall shelf with three small open brass spout oil lamps with a burning wick, around 1755, no glass chimney, no glass globe, not a kerosene lamp"},
     5: {"fuel": "a small four-wheeled wooden coal tub full of coal seen exactly from the side, the wheels as perfect circles, around 1780",
         "tools": "a wooden tool wall with set hammers, flatters and swages on pegs, around 1780",
         "bench": "a wooden treadle lathe seen exactly from the side, its flywheel a perfect circle, with a foot pedal, around 1780",
         "trade": "a tall wooden writing desk with an open leather order book and a quill, around 1780 (blank pages)",
-        "light": "a stack of wrought-iron bars and plates on timber bearers"},
-    6: {"fuel": "a brick coke bunker with a wooden hatch, ironworks around 1790",
+        "light": "one single stack of wrought-iron bars and plates lying on two timber bearers, seen from the front"},
+    6: {"fuel": "an open-topped rectangular bay of low brick walls heaped with light grey porous coke, a wooden board in front, ironworks around 1790, not an oven, no arch, no dome, no door",
         "tools": "a set of iron swages and dies arranged on a wooden rack, around 1790",
         "bench": "a long workbench with two vices and iron tools, around 1790",
-        "trade": "a small wooden counting-house booth with a sloped desk and ledgers, around 1790 (no people)",
-        "light": "a row of three hanging oil lamps on an iron bar"},
+        "trade": "a small wooden counting-house booth: a sloped writing desk on legs with an open ledger, stacked ledgers on a shelf above, a low wooden half-wall around it, around 1790, no cabinet doors, no wardrobe (blank pages, no people)",
+        "light": "a row of three hanging candle lanterns with flat glass panes on an iron bar, around 1790, no glass globe, not a kerosene lamp, not a hurricane lantern"},
     7: {"fuel": "a wooden coal hoist with a rope, pulley and a coal bucket, London around 1810",
         "tools": "a wall board with iron templates, gauges and squares, engineering works around 1810",
         "bench": "a cast-iron workbench with a vice and a brass bench micrometer, around 1810",
@@ -657,6 +666,14 @@ def main():
     c = [block("Amboss auf Eichenklotz (alle Epochen)", "2D game sprite asset, heavy 18th-century cast iron anvil mounted on a thick oak wood stump, blacksmith equipment, side-view orthographic perspective, horn pointing to the right, crisp clean edges, isolated on white background, game art", add(status("anvil.png")), "anvil", code="AN", section="C")]
     for k, (hid, title, desc) in enumerate(HAMMERS, start=1):
         c.append(block(title, f"2D game asset, {desc}, {HAMMER_TAIL}", add(status(hid + ".png")), hid, code=f"H{k}", section="C"))
+    # Beweglicher Blasebalg neben der Lehm-Esse (das Spiel lässt ihn pumpen: senkrecht gestaucht, beim Aufheizen schneller)
+    c.append(block("Beweglicher Blasebalg neben der Lehm-Esse (Epoche 1, pumpt im Spiel)",
+                   "2D game asset, a classic early-18th-century blacksmith's hand bellows in a flat side view (orthographic, no perspective), "
+                   "lying horizontally: two pear-shaped wooden boards one above the other with pleated dark leather between them, the wide end "
+                   "on the left with a short wooden lever handle, the narrow end on the right ending in an iron nozzle pointing straight to the "
+                   "right, brass studs along the leather, hand-painted 2D game art, dark ink outlines, warm painterly texture, no stand, no bench, "
+                   "no shadow, not standing upright, not a sack, not a vase, isolated on pure flat white background, landscape 2:1",
+                   add(status("bellows.png")), "bellows", code="BB", section="C"))
     sections.append(("C · Amboss und Hämmer",
                      "Hämmer in reiner Seitenansicht: Kopf links senkrecht, Bahn unten, Stiel waagerecht nach rechts.", c))
     # D Maschinen
@@ -723,7 +740,7 @@ def main():
             fid = f"furn_e{e}_{slot}"
             st = add(HAVE if have(fid + ".png") else NEED)
             h_parts.append(block(f"{FURN_SLOT_DE[slot]}: {FURN_NAMES_DE[e][slot]}",
-                                 f"2D game asset, {FURN_DESC[e][slot]}, {_furn_tail(FURN_DESC[e][slot])}, {FURN_FORMAT[slot]}", st, fid, code=f"E{e}-{k}", section="H"))
+                                 f"2D game asset, {FURN_DESC[e][slot]}, {_furn_tail(FURN_DESC[e][slot])}, {FURN_FORMAT_OVERRIDE.get((e, slot), FURN_FORMAT[slot])}", st, fid, code=f"E{e}-{k}", section="H"))
     sections.append(("H · Werkstatt-Einrichtung (5 je Epoche)",
                      "Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager). "
                      "Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; "

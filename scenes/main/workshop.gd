@@ -570,7 +570,8 @@ func _update_scale_and_progress(j: JobInstance) -> void:
 		return
 	var f: int = sim.focus_piece()
 	glow_scale.burn = sim.burn_temp()
-	glow_scale.window = sim.step_window(f) if f >= 0 else HeatModel.window(gm.cfg, j.is_precision())
+	# Zielfenster nur für ein Werkstück in Arbeit – kein „allgemeines“ Fenster (Anmerkung des Auftraggebers, 21.11.)
+	glow_scale.window = sim.step_window(f) if f >= 0 else Vector2(-1, -1)
 	glow_scale.window_label = ""
 	step_marks.steps = j.steps
 	step_marks.current = sim.step_index(f) if f >= 0 else -1

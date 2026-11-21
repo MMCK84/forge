@@ -87,6 +87,10 @@
   "id": "hammer_crucible",
   "dir": "tools"
  },
+ "BB": {
+  "id": "bellows",
+  "dir": "tools"
+ },
  "M1": {
   "id": "water_wheel",
   "dir": "machines"

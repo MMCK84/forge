@@ -39,12 +39,12 @@ ITEMS = [
 
  ("piston_rod", 5, 1.4, "normal", "rod", False, "Kolbenstange", "Kolbenstangen", "f", "piston rod", "piston rods"),
  ("valve_part", 5, 0.9, "normal", "valve", True, "Ventilteil", "Ventilteile", "n", "valve part", "valve parts"),
- ("beam_strap", 5, 1.3, "normal", "bracket", True, "Balancierbeschlag", "Balancierbeschläge", "m", "beam-engine strap", "beam-engine straps"),
- ("lock_fitting", 5, 1.1, "normal", "hinge", True, "Schleusenbeschlag", "Schleusenbeschläge", "m", "lock-gate fitting", "lock-gate fittings"),
+ ("beam_strap", 5, 1.3, "normal", "bracket", True, "Kohlenschaufel", "Kohlenschaufeln", "f", "coal shovel", "coal shovels"),  # Kennung bleibt (Spielstände); bis 21.11. Balancierbeschlag
+ ("lock_fitting", 5, 1.1, "normal", "hinge", True, "Schleusenkurbel", "Schleusenkurbeln", "f", "lock windlass", "lock windlasses"),  # bis 21.11. Schleusenbeschlag
  ("miners_pick", 5, 1.0, "harden", "pick", True, "Keilhaue", "Keilhauen", "f", "miner's pick", "miner's picks"),
  ("drill_steel", 5, 0.9, "harden", "tool", True, "Bohreisen", "Bohreisen", "n", "drill steel", "drill steels"),
  ("conveyor_chain", 5, 1.2, "weld", "chain", True, "Förderkette", "Förderketten", "f", "winding chain", "winding chains"),
- ("pump_rod", 5, 1.3, "weld", "rod", True, "Pumpengestänge", "Pumpengestänge", "n", "pump rod", "pump rods"),
+ ("pump_rod", 5, 1.3, "weld", "rod", True, "Pumpenschwengel", "Pumpenschwengel", "m", "pump handle", "pump handles"),  # bis 21.11. Pumpengestänge
 
  ("boiler_rivet", 6, 0.8, "normal", "rivet", True, "Kesselniete", "Kesselnieten", "f", "boiler rivet", "boiler rivets"),
  ("boiler_plate", 6, 1.2, "normal", "plate", True, "Kesselblech", "Kesselbleche", "n", "boiler plate", "boiler plates"),
@@ -188,8 +188,8 @@ MILESTONES = [
   "Ironwork for HMS Victory", "A ship of the line has been on the stocks at Chatham since 1759 – she is to be launched in 1765. Your ironwork will sail with her. Next, a water-powered hammer mill beckons."),
 
  ("ms_e5_01_waterwheel", 5, "beam_strap", "ironmaster_coalbrookdale", 4, False, 1.0,
-  "Beschläge für das Wasserrad", "Euer neues Hammerwerk braucht ein verlässliches Wasserrad. Spart auf einen Wasser-Schwanzhammer – er schlägt automatisch mit, solange ein Werkstück auf dem Amboss liegt.",
-  "Fittings for the water-wheel", "Your new hammer mill needs a reliable water-wheel. Save up for a water-powered helve hammer – it strikes on its own while a piece lies on the anvil."),
+  "Kohlenschaufeln für das Hammerwerk", "Euer neues Hammerwerk frisst Kohle – die Heizer brauchen kräftige Schaufeln. Spart auf einen Wasser-Schwanzhammer: Das Wasserrad schlägt für Euch – Tippen gibt einen Schlag, Halten schlägt fortlaufend.",
+  "Coal shovels for the hammer mill", "Your new hammer mill devours coal – the stokers need sturdy shovels. Save up for a water-powered helve hammer: the water-wheel strikes for you – tap for one blow, hold for a steady beat."),
  ("ms_e5_02_picks", 5, "miners_pick", "mine_cornwall", 6, False, 1.0,
   "Keilhauen für eine Zinngrube in Cornwall", "Tief unter der Erde zählt jedes Werkzeug. Gehärtet müssen sie sein.",
   "Picks for a Cornish tin mine", "Deep underground every tool counts. They must be hardened."),
@@ -203,14 +203,14 @@ MILESTONES = [
   "Ventilteile für eine Grubenpumpe", "Die alte Newcomen-Pumpe schluckt Kohle wie ein Drache. Präzise Ventile sollen helfen.",
   "Valve parts for a mine pump", "The old Newcomen pump swallows coal like a dragon. Precise valves should help."),
  ("ms_e5_06_canal", 5, "lock_fitting", "canal_company", 6, False, 1.0,
-  "Schleusenbeschläge für den neuen Kanal", "Der Kanalbau verbindet die Gruben mit den Städten. Jede Schleuse braucht Eure Beschläge.",
-  "Lock-gate fittings for the new canal", "The canal links the mines with the towns. Every lock needs your fittings."),
+  "Schleusenkurbeln für den neuen Kanal", "Der Kanalbau verbindet die Gruben mit den Städten. Jeder Schiffer braucht eine Kurbel, um die Schleusentore zu öffnen.",
+  "Lock windlasses for the new canal", "The canal links the mines with the towns. Every boatman needs a windlass to open the lock gates."),
  ("ms_e5_07_bridge", 5, "chisel", "ironmaster_coalbrookdale", 6, False, 1.0,
   "Werkzeug für den Bau der Eisenbrücke", "Bei Coalbrookdale entsteht eine Brücke ganz aus Gusseisen (1779). Die Teile werden gegossen – aber die Monteure brauchen geschmiedetes Werkzeug.",
   "Tools for building the Iron Bridge", "At Coalbrookdale a bridge made entirely of cast iron is rising (1779). The parts are cast – but the erectors need forged tools."),
  ("ms_e5_08_pump_rods", 5, "pump_rod", "mine_cornwall", 2, False, 1.0,
-  "Pumpengestänge für eine Grube", "Das Gestänge reicht hundert Klafter in die Tiefe – jede Schweißung muss sitzen.",
-  "Pump rods for a mine", "The rods reach a hundred fathoms down – every weld must hold."),
+  "Pumpenschwengel für die Bergleute", "Wo die Dampfpumpe nicht hinreicht, pumpen die Bergleute von Hand – jede Schweißung am Schwengel muss sitzen.",
+  "Pump handles for the miners", "Where the steam pump cannot reach, the miners pump by hand – every weld on the handle must hold."),
  ("ms_e5_09_wedgwood", 5, "file", "wedgwood_etruria", 4, True, 1.0,
   "Werkzeug für die Töpferei in Etruria", "Josiah Wedgwood misst die Hitze seiner Öfen mit einem neuen Pyrometer (1782). Zum Dank schenkt er Euch eins für die Werkstatt.",
   "Tools for the Etruria pottery", "Josiah Wedgwood measures the heat of his kilns with a new pyrometer (1782). As thanks he gives you one for your workshop."),

@@ -73,7 +73,7 @@ Danach wird der Kern eingefroren.
 | 2 | 3 Kutschbeschläge, Hemmschuh | 4 Radreifen für die Postkutsche |
 | 3 | 3 Kettenglieder, Festmacherring (geschweißt) | Ankerschaft (geschweißt) |
 | 4 | 2 Federn (gehärtet), 2 Ladeketten (geschweißt) | 6 Lafettenbeschläge für die Victory (präzise) |
-| 5 | 2 Ventilteile, Pumpengestänge | Kolbenstange (präzise) |
+| 5 | 2 Ventilteile, Pumpenschwengel | Kolbenstange (präzise) |
 | 6 | 4 Kesselnieten, Blattfeder (gehärtet) | Antriebswelle (großes Stück) |
 | 7 | 4 Blockrollen-Bolzen (präzise) | Brückenglied der Menai-Brücke |
 | 8 | 2 Kupplungshaken, 2 Pufferfedern | Kurbelachse (präzise) |
