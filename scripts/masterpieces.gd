@@ -23,7 +23,7 @@ const PARTS := {
 	"ms_e3_08_anchor": [["chain_link", 3, false], ["mooring_ring", 1, false]],
 	# Epoche 4: Stahl und Härten, Präzision – Federn und Kette für die Victory
 	"ms_e4_09_victory": [["spring", 2, false], ["cargo_chain", 2, false]],
-	# Epoche 5: Maschine – Ventilteile und Pumpenstange für die Dampfmaschine
+	# Epoche 5: Maschine – Ventilteile und Pumpenschwengel, dann die Kolbenstange für die Dampfmaschine
 	"ms_e5_10_piston": [["valve_part", 2, false], ["pump_rod", 1, false]],
 	# Epoche 6: Große Schmiedestücke – Nieten und Blattfeder für das Eisenwerk
 	"ms_e6_11_ironworks": [["boiler_rivet", 4, false], ["leaf_spring", 1, false]],

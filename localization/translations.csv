@@ -274,9 +274,9 @@ ITEM_BARREL_HOOP_PL,Fassreifen,barrel hoops
 ITEM_BAYONET,Bajonett,bayonet
 ITEM_BAYONET_G,n,-
 ITEM_BAYONET_PL,Bajonette,bayonets
-ITEM_BEAM_STRAP,Balancierbeschlag,beam-engine strap
-ITEM_BEAM_STRAP_G,m,-
-ITEM_BEAM_STRAP_PL,Balancierbeschläge,beam-engine straps
+ITEM_BEAM_STRAP,Kohlenschaufel,coal shovel
+ITEM_BEAM_STRAP_G,f,-
+ITEM_BEAM_STRAP_PL,Kohlenschaufeln,coal shovels
 ITEM_BLOCK_PIN,Blockrollen-Bolzen,pulley-block pin
 ITEM_BLOCK_PIN_G,m,-
 ITEM_BLOCK_PIN_PL,Blockrollen-Bolzen,pulley-block pins
@@ -388,9 +388,9 @@ ITEM_LATHE_TOOL_PL,Drehmeißel,lathe tools
 ITEM_LEAF_SPRING,Blattfeder,leaf spring
 ITEM_LEAF_SPRING_G,f,-
 ITEM_LEAF_SPRING_PL,Blattfedern,leaf springs
-ITEM_LOCK_FITTING,Schleusenbeschlag,lock-gate fitting
-ITEM_LOCK_FITTING_G,m,-
-ITEM_LOCK_FITTING_PL,Schleusenbeschläge,lock-gate fittings
+ITEM_LOCK_FITTING,Schleusenkurbel,lock windlass
+ITEM_LOCK_FITTING_G,f,-
+ITEM_LOCK_FITTING_PL,Schleusenkurbeln,lock windlasses
 ITEM_LOCO_TYRE,Lokomotiv-Radreifen,locomotive tyre
 ITEM_LOCO_TYRE_G,m,-
 ITEM_LOCO_TYRE_PL,Lokomotiv-Radreifen,locomotive tyres
@@ -433,9 +433,9 @@ ITEM_PRESS_SCREW_PL,Pressenspindeln,press screws
 ITEM_PROPELLER_SHAFT,Schraubenwelle,propeller shaft
 ITEM_PROPELLER_SHAFT_G,f,-
 ITEM_PROPELLER_SHAFT_PL,Schraubenwellen,propeller shafts
-ITEM_PUMP_ROD,Pumpengestänge,pump rod
-ITEM_PUMP_ROD_G,n,-
-ITEM_PUMP_ROD_PL,Pumpengestänge,pump rods
+ITEM_PUMP_ROD,Pumpenschwengel,pump handle
+ITEM_PUMP_ROD_G,m,-
+ITEM_PUMP_ROD_PL,Pumpenschwengel,pump handles
 ITEM_RABBLE,Puddelkrücke,puddling rabble
 ITEM_RABBLE_G,f,-
 ITEM_RABBLE_PL,Puddelkrücken,puddling rabbles
@@ -598,8 +598,8 @@ MS_MS_E4_08_HOOPS_TEXT,Der Bristoler Kaufmann erinnert sich an Euch und bestellt
 MS_MS_E4_08_HOOPS_TITLE,Fassreifen für Rumfässer,Hoops for rum barrels
 MS_MS_E4_09_VICTORY_TEXT,In Chatham liegt seit 1759 ein Linienschiff auf Kiel – 1765 soll es vom Stapel laufen. Eure Beschläge fahren mit. Danach lockt ein Hammerwerk mit Wasserrad.,"A ship of the line has been on the stocks at Chatham since 1759 – she is to be launched in 1765. Your ironwork will sail with her. Next, a water-powered hammer mill beckons."
 MS_MS_E4_09_VICTORY_TITLE,Eisenbeschläge für die HMS Victory,Ironwork for HMS Victory
-MS_MS_E5_01_WATERWHEEL_TEXT,"Euer neues Hammerwerk braucht ein verlässliches Wasserrad. Spart auf einen Wasser-Schwanzhammer – er schlägt automatisch mit, solange ein Werkstück auf dem Amboss liegt.",Your new hammer mill needs a reliable water-wheel. Save up for a water-powered helve hammer – it strikes on its own while a piece lies on the anvil.
-MS_MS_E5_01_WATERWHEEL_TITLE,Beschläge für das Wasserrad,Fittings for the water-wheel
+MS_MS_E5_01_WATERWHEEL_TEXT,"Euer neues Hammerwerk frisst Kohle – die Heizer brauchen kräftige Schaufeln. Spart auf einen Wasser-Schwanzhammer: Das Wasserrad schlägt für Euch – Tippen gibt einen Schlag, Halten schlägt fortlaufend.","Your new hammer mill devours coal – the stokers need sturdy shovels. Save up for a water-powered helve hammer: the water-wheel strikes for you – tap for one blow, hold for a steady beat."
+MS_MS_E5_01_WATERWHEEL_TITLE,Kohlenschaufeln für das Hammerwerk,Coal shovels for the hammer mill
 MS_MS_E5_02_PICKS_TEXT,Tief unter der Erde zählt jedes Werkzeug. Gehärtet müssen sie sein.,Deep underground every tool counts. They must be hardened.
 MS_MS_E5_02_PICKS_TITLE,Keilhauen für eine Zinngrube in Cornwall,Picks for a Cornish tin mine
 MS_MS_E5_03_DRILLS_TEXT,Die Zeche treibt neue Strecken vor. Sie braucht Bohreisen – und zwar viele.,The colliery is driving new roadways. It needs drill steels – and plenty of them.
@@ -608,12 +608,12 @@ MS_MS_E5_04_CONVEYOR_TEXT,Mit dieser Kette wird die Kohle aus der Tiefe gezogen.
 MS_MS_E5_04_CONVEYOR_TITLE,Förderkette für den Schacht,Winding chain for the shaft
 MS_MS_E5_05_VALVES_TEXT,Die alte Newcomen-Pumpe schluckt Kohle wie ein Drache. Präzise Ventile sollen helfen.,The old Newcomen pump swallows coal like a dragon. Precise valves should help.
 MS_MS_E5_05_VALVES_TITLE,Ventilteile für eine Grubenpumpe,Valve parts for a mine pump
-MS_MS_E5_06_CANAL_TEXT,Der Kanalbau verbindet die Gruben mit den Städten. Jede Schleuse braucht Eure Beschläge.,The canal links the mines with the towns. Every lock needs your fittings.
-MS_MS_E5_06_CANAL_TITLE,Schleusenbeschläge für den neuen Kanal,Lock-gate fittings for the new canal
+MS_MS_E5_06_CANAL_TEXT,"Der Kanalbau verbindet die Gruben mit den Städten. Jeder Schiffer braucht eine Kurbel, um die Schleusentore zu öffnen.",The canal links the mines with the towns. Every boatman needs a windlass to open the lock gates.
+MS_MS_E5_06_CANAL_TITLE,Schleusenkurbeln für den neuen Kanal,Lock windlasses for the new canal
 MS_MS_E5_07_BRIDGE_TEXT,Bei Coalbrookdale entsteht eine Brücke ganz aus Gusseisen (1779). Die Teile werden gegossen – aber die Monteure brauchen geschmiedetes Werkzeug.,At Coalbrookdale a bridge made entirely of cast iron is rising (1779). The parts are cast – but the erectors need forged tools.
 MS_MS_E5_07_BRIDGE_TITLE,Werkzeug für den Bau der Eisenbrücke,Tools for building the Iron Bridge
-MS_MS_E5_08_PUMP_RODS_TEXT,Das Gestänge reicht hundert Klafter in die Tiefe – jede Schweißung muss sitzen.,The rods reach a hundred fathoms down – every weld must hold.
-MS_MS_E5_08_PUMP_RODS_TITLE,Pumpengestänge für eine Grube,Pump rods for a mine
+MS_MS_E5_08_PUMP_RODS_TEXT,"Wo die Dampfpumpe nicht hinreicht, pumpen die Bergleute von Hand – jede Schweißung am Schwengel muss sitzen.","Where the steam pump cannot reach, the miners pump by hand – every weld on the handle must hold."
+MS_MS_E5_08_PUMP_RODS_TITLE,Pumpenschwengel für die Bergleute,Pump handles for the miners
 MS_MS_E5_09_WEDGWOOD_TEXT,Josiah Wedgwood misst die Hitze seiner Öfen mit einem neuen Pyrometer (1782). Zum Dank schenkt er Euch eins für die Werkstatt.,Josiah Wedgwood measures the heat of his kilns with a new pyrometer (1782). As thanks he gives you one for your workshop.
 MS_MS_E5_09_WEDGWOOD_TITLE,Werkzeug für die Töpferei in Etruria,Tools for the Etruria pottery
 MS_MS_E5_10_PISTON_TEXT,Boulton & Watt bauen die Maschine der Zukunft. Die Kolbenstange muss makellos sein. Danach bietet man Euch die Beteiligung an einem Eisenwerk an.,Boulton & Watt are building the engine of the future. The piston rod must be flawless. Afterwards you are offered a share in an ironworks.

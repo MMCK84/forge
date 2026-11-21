@@ -116,8 +116,6 @@ LESSONS = [
      "„one single object only (no variations, no second version)“ in allen Einrichtungs-Prompts; Format nach dem Objekt wählen (liegender Stapel: 2:1)"),
     ("21.11.", "Einrichtung", "E6-1 Koksbunker sah aus wie ein Backofen (Gewölbe, Tür), E6-4 Kontor als leerer Schrank, E4-2 Zangen wie Spieße",
      "Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`)"),
-    ("21.11.", "Essen (Blasebalg)", "F1: „teardrop-shaped bellows on a stand“ ergab einen aufrecht stehenden dunklen Sack, der wie eine Vase wirkt",
-     "Blasebalg waagerecht liegend mit zwei birnenförmigen Brettern, Lederfalten, Hebel und Düse beschreiben; `not a sack, not a vase, not standing upright`"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]

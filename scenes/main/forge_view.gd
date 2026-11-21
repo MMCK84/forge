@@ -175,18 +175,12 @@ func _draw_textured(body: Texture2D) -> void:
 
 
 ## Essen-Grafik des Auftraggebers: Glut ist eingemalt, darüber flackert nur der Feuerschein.
-## Die Lehmesse hat keinen eigenen Blasebalg – dann pumpt der gerenderte daneben.
+## Alle Essen-Bilder haben ihren Blasebalg eingemalt – der frühere gezeichnete, pumpende Platzhalter-Blasebalg links
+## neben der Lehm-Esse ist entfernt (Anmerkung des Auftraggebers, 21.11.: „nicht schön“, wirkte wie ein Kasten).
 func _draw_user(d: Dictionary) -> void:
 	var flick := 0.8 + 0.2 * sin(_t * 7.0) * sin(_t * 3.1)
 	if heating:
 		flick += 0.15
-	if tier == 1:
-		var bel := Assets.tex("tools/bellows.png")
-		if bel != null:
-			var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
-			draw_set_transform(Vector2(-150, 470), 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
-			draw_texture(bel, Vector2(0, -bel.get_height() * 0.5))
-			draw_set_transform(Vector2.ZERO)
 	draw_texture(Assets.user(str(d["file"])), d["origin"])
 	var glow := Assets.tex("environment/fire_glow.png")
 	if glow != null:

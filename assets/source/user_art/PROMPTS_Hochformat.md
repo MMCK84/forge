@@ -17,8 +17,8 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 125 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 11 |
+| ✅ gut (Midjourney) | 126 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 10 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
 | ⬜ noch nicht vorhanden | 150 |
 | ⬜ noch nicht vorhanden (optional) | 34 |
@@ -26,7 +26,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
 | A · Werkstatt-Hintergründe | 11 | 0 | 0 | 0 | 0 |
-| B · Essen | 5 | 1 | 0 | 0 | 0 |
+| B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
@@ -87,7 +87,6 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 21.11. | Lampen und Laternen bis ~1850 | E3-5, E4-5, E6-5 kamen als Petroleum-/Sturmlaternen mit Glaskolben bzw. Glaszylinder (erst ab ~1850) | Kerze hinter flachen Glas- oder Hornscheiben bzw. offene Tüllenlampe beschreiben; `--no glass globe, glass chimney, kerosene lamp, hurricane lantern, fuel tank` |
 | 21.11. | Einrichtung | E4-5 und E5-5 kamen als mehrere Varianten in einem Bild (zwei Regale, fünf Stapel) | „one single object only (no variations, no second version)“ in allen Einrichtungs-Prompts; Format nach dem Objekt wählen (liegender Stapel: 2:1) |
 | 21.11. | Einrichtung | E6-1 Koksbunker sah aus wie ein Backofen (Gewölbe, Tür), E6-4 Kontor als leerer Schrank, E4-2 Zangen wie Spieße | Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`) |
-| 21.11. | Essen (Blasebalg) | F1: „teardrop-shaped bellows on a stand“ ergab einen aufrecht stehenden dunklen Sack, der wie eine Vase wirkt | Blasebalg waagerecht liegend mit zwei birnenförmigen Brettern, Lederfalten, Hebel und Düse beschreiben; `not a sack, not a vase, not standing upright` |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -220,9 +219,9 @@ BG10 — Square 2D game background, hand-painted, dark ink outlines. Evening but
 
 Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.
 
-**F1** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**F1** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · ✅ gut (Midjourney)  
 Regler: **Landscape 2:1** · 144 Wörter · Datei `forge_clay`  
-*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend. 21.11.: Blasebalg wirkt wie ein aufrecht stehender Sack/eine Vase (Auftraggeber) → neu mit klassischem, waagerecht liegendem Blasebalg; Prompt geschärft.*
+*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend.*
 ```
 F1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a classic blacksmith's bellows lying horizontally on a low wooden stand: two pear-shaped wooden boards with pleated dark leather between them, a long wooden lever handle, an iron nozzle pointing into the hearth (not a sack, not a vase, not standing upright), orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, cannon, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -629,9 +628,9 @@ W4-8 — 2D game asset, a single forged barrel hoop: thin flat iron band forming
 ### Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
 
 **W5-1** – Kolbenstange · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 74 Wörter · Datei `piston_rod`
+Regler: **Square 1:1** · 84 Wörter · Datei `piston_rod`
 ```
-W5-1 — 2D game asset, a single forged piston rod for a steam engine: long perfectly straight round iron rod, a forged flat crosshead eye at the left end and a tapered end with a cotter slot at the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W5-1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged piston rod with its piston: long perfectly straight round iron rod, a thick round flat piston disc forged onto the left end (seen edge-on from the side), a forged crosshead eye at the right end, horizontal, seen from the side, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W5-2** – Ventilteil · ⬜ noch nicht vorhanden  
@@ -640,16 +639,16 @@ Regler: **Square 1:1** · 74 Wörter · Datei `valve_part`
 W5-2 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-engine valve: round flat valve disc with a bevelled rim on the left and a straight round valve stem pointing to the right, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W5-3** – Balancierbeschlag · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 71 Wörter · Datei `beam_strap`
+**W5-3** – Kohlenschaufel · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `beam_strap`
 ```
-W5-3 — 2D game asset, a single forged strap for a beam engine: heavy flat iron band bent into a long U-shape lying on its side, with two rectangular cotter slots through both legs near the open end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W5-3 — 2D game asset, a single forged coal shovel head of the 1780s: broad, slightly dished rectangular iron blade with low raised sides and a straight front edge, a short tapering socket at the back for a wooden handle, the socket pointing to the right, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no handle, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W5-4** – Schleusenbeschlag · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 65 Wörter · Datei `lock_fitting`
+**W5-4** – Schleusenkurbel · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 71 Wörter · Datei `lock_fitting`
 ```
-W5-4 — 2D game asset, a single forged canal lock-gate fitting: heavy flat iron collar band bent into a rectangular U-shape with two long straight arms, each arm with three bolt holes, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W5-4 — 2D game asset, a single forged canal lock windlass: an L-shaped iron crank, the short arm ending in a square socket eye that fits the gate spindle, the long arm ending in a round hand grip, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W5-5** – Keilhaue · ⬜ noch nicht vorhanden  
@@ -670,10 +669,10 @@ Regler: **Square 1:1** · 64 Wörter · Datei `conveyor_chain`
 W5-7 — 2D game asset, a short length of heavy flat-link winding chain for a mine shaft: five flat forged iron plate links connected by round pins, laid out straight and horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W5-8** – Pumpengestänge · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 76 Wörter · Datei `pump_rod`
+**W5-8** – Pumpenschwengel · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 69 Wörter · Datei `pump_rod`
 ```
-W5-8 — 2D game asset, a single section of forged pump rod for a Cornish mine pump: long square iron rod with a flat forked strap joint and two bolt holes at the left end and a plain square end on the right, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W5-8 — 2D game asset, a single forged hand-pump handle: a long, gently curved iron lever, a flat fork with two pivot holes at the left end, the right end thickened into a rounded hand grip, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
@@ -2020,9 +2019,9 @@ W4-8R — 2D game asset, the raw iron for a barrel hoop right after the first fo
 ### Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
 
 **W5-1R** – Kolbenstange – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 70 Wörter · Datei `piston_rod_rough`
+Regler: **Square 1:1** · 79 Wörter · Datei `piston_rod_rough`
 ```
-W5-1R — 2D game asset, the raw iron for a piston rod right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the piston rod in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
+W5-1R — Flat orthographic side elevation, like a technical drawing. 2D game asset, the raw iron for a piston rod right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the piston rod in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
 **W5-2R** – Ventilteil – Rohform · ⬜ noch nicht vorhanden  
@@ -2031,16 +2030,16 @@ Regler: **Square 1:1** · 78 Wörter · Datei `valve_part_rough`
 W5-2R — Flat orthographic side elevation, like a technical drawing. 2D game asset, the raw iron for a valve part right after the first forging step, only thickened at one end by upsetting, same position and orientation as the valve part in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, holes, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W5-3R** – Balancierbeschlag – Rohform · ⬜ noch nicht vorhanden  
+**W5-3R** – Kohlenschaufel – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 68 Wörter · Datei `beam_strap_rough`
 ```
-W5-3R — 2D game asset, the raw iron for a beam-engine strap right after the first forging step, only hammered flat, same position and orientation as the beam-engine strap in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, holes, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
+W5-3R — 2D game asset, the raw iron for a coal shovel right after the first forging step, only hammered flat, same position and orientation as the coal shovel in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, holes, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W5-4R** – Schleusenbeschlag – Rohform · ⬜ noch nicht vorhanden  
+**W5-4R** – Schleusenkurbel – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 68 Wörter · Datei `lock_fitting_rough`
 ```
-W5-4R — 2D game asset, the raw iron for a lock-gate fitting right after the first forging step, only hammered flat, same position and orientation as the lock-gate fitting in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no holes, curves, loops, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
+W5-4R — 2D game asset, the raw iron for a lock windlass right after the first forging step, only hammered flat, same position and orientation as the lock windlass in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no holes, curves, loops, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
 **W5-5R** – Keilhaue – Rohform · ⬜ noch nicht vorhanden  
@@ -2057,10 +2056,10 @@ W5-6R — 2D game asset, the raw iron for a drill steel right after the first fo
 
 **W5-7R** – Förderkette – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Kettenglied (W3-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
-**W5-8R** – Pumpengestänge – Rohform · ⬜ noch nicht vorhanden  
+**W5-8R** – Pumpenschwengel – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 70 Wörter · Datei `pump_rod_rough`
 ```
-W5-8R — 2D game asset, the raw iron for a pump rod right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the pump rod in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
+W5-8R — 2D game asset, the raw iron for a pump handle right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the pump handle in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
 ### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)

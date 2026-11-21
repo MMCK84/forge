@@ -206,9 +206,9 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 
 ## Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
 
-**beam_strap** – Balancierbeschlag
+**beam_strap** – Kohlenschaufel
 ```
-2D game asset, a single forged strap for a beam engine: heavy flat iron band bent into a long U-shape lying on its side, with two rectangular cotter slots through both legs near the open end, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged coal shovel head of the 1780s: broad, slightly dished rectangular iron blade with low raised sides and a straight front edge, a short tapering socket at the back for a wooden handle (no handle), the socket pointing to the right, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **conveyor_chain** – Förderkette
@@ -221,9 +221,9 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 2D game asset, a single forged rock drill steel for mining: long octagonal steel bar with a wide chisel-shaped bit on the right and a flat striking end on the left, horizontal, dark grey unheated forged steel with a slightly brighter bit, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
-**lock_fitting** – Schleusenbeschlag
+**lock_fitting** – Schleusenkurbel
 ```
-2D game asset, a single forged canal lock-gate fitting: heavy flat iron collar band bent into a rectangular U-shape with two long straight arms, each arm with three bolt holes, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged canal lock windlass: an L-shaped iron crank, the short arm ending in a square socket eye that fits the gate spindle, the long arm ending in a round hand grip, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **miners_pick** – Keilhaue
@@ -233,12 +233,12 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 
 **piston_rod** – Kolbenstange
 ```
-2D game asset, a single forged piston rod for a steam engine: long perfectly straight round iron rod, a forged flat crosshead eye at the left end and a tapered end with a cotter slot at the right end, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged piston rod with its piston: long perfectly straight round iron rod, a thick round flat piston disc forged onto the left end (seen edge-on from the side), a forged crosshead eye at the right end, horizontal, seen from the side, dark grey unheated wrought iron, 18th-century British blacksmith work, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
-**pump_rod** – Pumpengestänge
+**pump_rod** – Pumpenschwengel
 ```
-2D game asset, a single section of forged pump rod for a Cornish mine pump: long square iron rod with a flat forked strap joint and two bolt holes at the left end and a plain square end on the right, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged hand-pump handle: a long, gently curved iron lever, a flat fork with two pivot holes at the left end, the right end thickened into a rounded hand grip, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **valve_part** – Ventilteil
