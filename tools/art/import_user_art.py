@@ -100,10 +100,15 @@ def main():
     # 1 Pergament mit Messingecken (schwarzer Hintergrund, verbrannte Ränder weich)
     a = load("panel_parchment.webp")
     lum = a.mean(axis=2)
-    bg = flood_bg(lum < 28)
+    # Midjourney (21.11.): schwarzer Grund mit leichtem Verlauf – dunkles Grau zählt mit
+    bg = flood_bg(lum < 60)
     img = to_rgba(a, bg.astype(np.float32), 1.5)
     al = np.asarray(img).copy()
     al[..., 3] = np.where(bg, np.clip((lum - 8) / 30, 0, 1) * 255, al[..., 3])
+    # Auf den deckenden Teil zuschneiden (sonst bleibt oben/seitlich ein halbdurchsichtiger Rand,
+    # und die Fenstertitel säßen auf dem Messingrahmen)
+    ys, xs = np.where(al[..., 3] > 128)
+    al = al[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
     save(Image.fromarray(al), "panel_parchment.png", max_w=900)
 
     # 2 Glut-Knopf (gemaltes Schachbrett)
@@ -115,7 +120,9 @@ def main():
     # 3 Holzrahmen mit Eisenplatte (gemaltes Schachbrett)
     a = load("frame_wood_iron.webp")
     sat = a.max(axis=2) - a.min(axis=2)
-    bg = flood_bg((sat < 14) & (a.mean(axis=2) > 150))
+    white = (sat < 14) & (a.mean(axis=2) > 150)
+    # Midjourney-Rahmen (21.11.) ist innen offen: die weiße Innenfläche ebenfalls freistellen
+    bg = flood_bg(white) | enclosed(white, 20000)
     save(to_rgba(a, bg.astype(np.float32)), "frame_wood_iron.png", max_w=700)
 
     # 4 Pyrometer (weiß); eingeschlossene weiße Flächen im Bogen ebenfalls entfernen
@@ -132,7 +139,9 @@ def main():
 
     # 6 Leder-Messing-Knöpfe (weiß): 4 Varianten
     a = load("buttons_leather_brass.webp")
-    bg = flood_bg(a.min(axis=2) > 238)
+    # Midjourney (21.11.): heller Schlagschatten um die Knöpfe – hellgrau zählt mit zum Hintergrund
+    sat = a.max(axis=2) - a.min(axis=2)
+    bg = flood_bg((a.min(axis=2) > 200) & (sat < 30))
     for k, piece in enumerate(objects(to_rgba(a, bg.astype(np.float32)))[:4], start=1):
         save(piece, f"card_{k}.png", max_h=520)
 
@@ -378,7 +387,10 @@ def _cutout(path):
     a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
     sat = a.max(axis=2) - a.min(axis=2)
     white = (a.min(axis=2) > 215) & (sat < 28)
-    bg = flood_bg(white)
+    # Eingeschlossene Flächen (Henkel, Aufhängung, zwischen Beinen) nur bei reinem Weiß freistellen,
+    # damit helle Teile des Objekts (Schleifstein, Glas) bleiben
+    pure = (a.min(axis=2) > 238) & (sat < 12)
+    bg = flood_bg(white) | enclosed(pure, 1500)
     solid = ~bg
     lab, n = ndimage.label(solid)
     if n > 1:
@@ -528,7 +540,9 @@ def item_sprite(path, item_id):
     a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
     sat = a.max(axis=2) - a.min(axis=2)
     white = (a.min(axis=2) > 215) & (sat < 25)
-    bg = flood_bg(white) | enclosed(white, 20)
+    # Grauer Grund mit Verlauf (Midjourney, Ecken dunkler): helles Grau vom Rand aus ebenfalls Hintergrund
+    grey = (a.mean(axis=2) > 175) & (sat < 18)
+    bg = flood_bg(white | grey) | enclosed(white, 20)
     # Nur das Werkstück behalten: freistehende Reste (z. B. Kontur eines Sticker-Rands) entfernen
     lab, n = ndimage.label(~bg)
     if n > 1:
@@ -562,7 +576,17 @@ def derived():
     # HUD-Leiste aus dem Holz-Eisen-Rahmen, Rand ca. 25 px
     fr = Image.open(os.path.join(OUT, "frame_wood_iron.png"))
     s = 0.36
-    save(fr.resize((int(fr.width * s), int(fr.height * s)), Image.LANCZOS), "hud_bar.png")
+    fr = fr.resize((int(fr.width * s), int(fr.height * s)), Image.LANCZOS)
+    # Offene Mitte des Rahmens dunkel füllen (die Leiste trägt Text): durchsichtige Pixel, die nicht vom Rand
+    # aus erreichbar sind, bekommen dunkles Holz
+    al = np.asarray(fr)[..., 3]
+    inside = ~flood_bg(al < 40) & (al < 250)
+    if inside.sum() > 0.2 * al.size:
+        fill = Image.new("RGBA", fr.size, (0, 0, 0, 0))
+        fa = np.asarray(fill).copy()
+        fa[inside] = (43, 30, 21, 240)
+        fr = Image.alpha_composite(Image.fromarray(fa), fr)
+    save(fr, "hud_bar.png")
     # Großer HAMMERN-Knopf: Glut-Knopf im Originalformat (Hammer im Zahnrad), 2x Anzeigegröße
     em = Image.open(os.path.join(OUT, "button_ember.png"))
     w = 440

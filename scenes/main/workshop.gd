@@ -283,6 +283,11 @@ func _make_ember_hammer() -> bool:
 	btn_hammer.tooltip_text = tr("UI_BTN_HAMMER")
 	btn_hammer.custom_minimum_size = Vector2(262, 136)
 	btn_hammer.position = Vector2(404, 218)
+	# Runder Glut-Knopf (Midjourney, 21.11.): quadratisch, damit er nicht zum Oval gestreckt wird
+	var tn: Texture2D = Assets.user("ember_normal.png")
+	if tn != null and absf(float(tn.get_width()) / float(tn.get_height()) - 1.0) < 0.15:
+		btn_hammer.custom_minimum_size = Vector2(136, 136)
+		btn_hammer.position = Vector2(467, 214)
 	btn_hammer.size = btn_hammer.custom_minimum_size
 	hammer_label = UIKit.label(_hammer_text(), 20, UIKit.TEXT_LIGHT, HORIZONTAL_ALIGNMENT_CENTER)
 	hammer_label.position = Vector2(385, 352)
