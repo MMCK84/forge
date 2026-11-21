@@ -17,10 +17,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 103 |
+| ✅ gut (Midjourney) | 109 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 180 |
+| ⬜ noch nicht vorhanden | 167 |
 | ⬜ noch nicht vorhanden (optional) | 36 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -33,7 +33,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
 | G · Oberfläche, Symbole, Store | 19 | 0 | 0 | 2 | 2 |
 | H · Werkstatt-Einrichtung | 6 | 1 | 0 | 43 | 0 |
-| I · Rohformen für den Stufensprung | 2 | 0 | 0 | 78 | 0 |
+| I · Rohformen für den Stufensprung | 8 | 0 | 0 | 65 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
 
@@ -1769,7 +1769,7 @@ E10-5 — Flat orthographic front elevation, like a technical drawing. 2D game a
 
 ## I · Rohformen für den Stufensprung (je Werkstück eine)
 
-Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsgang die **Rohform** und am Ende das fertige Werkstück. Kürzel = Kürzel des fertigen Werkstücks mit „R“ (W1-2R ist die Rohform von W1-2). **Wichtig:** Das fertige Werkstück als **Bild-Prompt** anhängen (Bild in die Prompt-Leiste ziehen), der Prompt endet schon mit `--iw 0.5` – so bleiben Lage und Blickrichtung ungefähr gleich, ohne dass Midjourney das fertige Stück kopiert (mit `--iw 1.5` kam bei W1-1R einfach wieder der fertige Nagel). Die Rohform zeigt den Stand **nach dem ersten Arbeitsgang**; was die späteren Arbeitsgänge erst formen (Spitze, Kopf, Biegung, Löcher, Verdrillung), steht ausdrücklich als Verbot im Prompt. Kommt trotzdem ein zu fertiges Stück: im Midjourney-Editor am fertigen Bild die Teile wegradieren und neu füllen lassen. Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist; zuerst Epoche 1 zur Probe.
+Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsgang die **Rohform** und am Ende das fertige Werkstück. Kürzel = Kürzel des fertigen Werkstücks mit „R“ (W1-2R ist die Rohform von W1-2). **Wichtig:** Das fertige Werkstück als **Bild-Prompt** anhängen (Bild in die Prompt-Leiste ziehen), der Prompt endet schon mit `--iw 0.5` – so bleiben Lage und Blickrichtung ungefähr gleich, ohne dass Midjourney das fertige Stück kopiert (mit `--iw 1.5` kam bei W1-1R einfach wieder der fertige Nagel). Die Rohform zeigt den Stand **nach dem ersten Arbeitsgang**; was die späteren Arbeitsgänge erst formen (Spitze, Kopf, Biegung, Löcher, Verdrillung), steht ausdrücklich als Verbot im Prompt. Kommt trotzdem ein zu fertiges Stück: im Midjourney-Editor am fertigen Bild die Teile wegradieren und neu füllen lassen. Grundsatz (Auftraggeber, 21.11.): **jedes Werkstück eine eigene Rohform** – nur wo der Stand nach dem ersten Arbeitsgang gleich ist und ein eigenes Bild nichts bringt, teilen sich Werkstücke eine (z. B. alle Ketten die des Kettenglieds); diese sind unten vermerkt, Tabelle `ROUGH_SHARED` in `scripts/assets.gd`. Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist.
 
 ### Epoche 1 – Die Dorfschmiede (1700–1715)
 
@@ -1782,43 +1782,49 @@ W1-1R — 2D game asset, a long straight square iron rod drawn out by hammering,
 
 **W1-2R** – Hufeisen – Rohform · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 65 Wörter · Datei `horseshoe_rough`  
-*21.11.: gestreckter Flachstab, leicht gebogen, ohne Nagellöcher – im Spiel klar vom Rohling und vom Hufeisen zu unterscheiden.*
+*21.11.: gestreckter Flachstab, leicht gebogen, ohne Nagellöcher – im Spiel klar vom Rohling und vom Hufeisen zu unterscheiden. Gilt auch für: Postpferd-Hufeisen.*
 ```
 W1-2R — 2D game asset, a flat iron bar drawn out by hammering, still almost straight, only very slightly curved like a shallow arch, lying horizontally across the centre, both ends blunt, not yet bent into a U, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no nail holes, fullered groove, horseshoe shape, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-3R** – Haken – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 59 Wörter · Datei `hook_rough`
+**W1-3R** – Haken – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 59 Wörter · Datei `hook_rough`  
+*21.11.: gerader Rundstab, senkrecht, beide Enden stumpf – aus ihm wird im Spiel der S-Haken.*
 ```
 W1-3R — 2D game asset, a round iron rod drawn out by hammering, still straight, standing upright in the centre along the long axis of the S-hook, both ends blunt and thick, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no points, curls, S shape, hook, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-4R** – Türangel – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 54 Wörter · Datei `door_hinge_rough`
+**W1-4R** – Türangel – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 54 Wörter · Datei `door_hinge_rough`  
+*21.11.: flaches Band ohne Öse, Löcher und Spitze, Lage wie die Türangel.*
 ```
 W1-4R — 2D game asset, a long flat iron strap hammered flat, lying horizontally where the hinge lies in the reference, both ends plain and roughly rounded, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no rolled loop, knuckle, nail holes, spear tip, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-5R** – Sichel – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 58 Wörter · Datei `sickle_rough`
+**W1-5R** – Sichel – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 58 Wörter · Datei `sickle_rough`  
+*21.11.: dicker, leicht gekrümmter Stab mit Angel; Angel lag rechts statt links – der Import spiegelt das Bild (ROUGH_MIRROR).*
 ```
 W1-5R — 2D game asset, a thick iron bar drawn out by hammering with a short tang at one end, lying diagonally, only slightly curved, not yet flattened into a blade, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no thin cutting edge, crescent shape, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-6R** – Pflugschar – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 60 Wörter · Datei `ploughshare_rough`
+**W1-6R** – Pflugschar – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 60 Wörter · Datei `ploughshare_rough`  
+*21.11.: grobe Dreiecksplatte mit Zunder und Dellen; Umriss fast wie die fertige Schar – der Sprung zeigt sich vor allem an der Oberfläche (rau → glatt), das entspricht dem Arbeitsgang Glätten.*
 ```
 W1-6R — 2D game asset, a thick flat iron plate roughly hammered out into a triangle, ragged uneven edges, deep hammer dents, the short socket stub at the left still flat and unbent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no smooth surface, sharp edge, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-7R** – Schürhaken – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 57 Wörter · Datei `fire_poker_rough`
+**W1-7R** – Schürhaken – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 57 Wörter · Datei `fire_poker_rough`  
+*21.11.: gerader Stab mit Ring, ohne Verdrillung und Haken; deckt sich in der Lage mit dem Schürhaken.*
 ```
 W1-7R — 2D game asset, a long straight square iron rod drawn out by hammering, lying horizontally, with a roughly bent ring at the right end, the left end blunt, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no twisted section, spiral, hooked tip, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-8R** – Torriegel – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 51 Wörter · Datei `gate_latch_rough`
+**W1-8R** – Torriegel – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 51 Wörter · Datei `gate_latch_rough`  
+*21.11.: gerader Flachstab ohne Schnecke, Löcher, Zierblech und Krampe. Sehr ähnlich wie die Türangel-Rohform – gewollt, beide sind nach dem Flachschlagen ein Band.*
 ```
 W1-8R — 2D game asset, a straight flat iron bar hammered flat, lying horizontally like the latch bar in the reference, both ends plain, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curled scroll, nail holes, decorative leaf work, keeper, staple, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
@@ -1849,11 +1855,7 @@ Regler: **Square 1:1** · 73 Wörter · Datei `lantern_bracket_rough`
 W2-4R — 2D game asset, the raw iron for a lantern bracket right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the lantern bracket in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no twisted section, curves, loops, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W2-5R** – Postpferd-Hufeisen – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `post_horseshoe_rough`
-```
-W2-5R — 2D game asset, the raw iron for a post-horse shoe right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the post-horse shoe in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, holes, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W2-5R** – Postpferd-Hufeisen – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Hufeisen (W1-2R), gleicher Stand nach dem ersten Arbeitsgang*
 
 **W2-6R** – Schlagbaumbeschlag – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 70 Wörter · Datei `turnpike_fitting_rough`
@@ -1949,11 +1951,7 @@ Regler: **Square 1:1** · 72 Wörter · Datei `file_rough`
 W4-6R — 2D game asset, the raw iron for a file right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the file in the reference, still far from the finished shape, not yet hammered flat, crude and unfinished, uneven hammer marks, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W4-7R** – Ladekette – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `cargo_chain_rough`
-```
-W4-7R — 2D game asset, the raw iron for a cargo chain right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the cargo chain in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W4-7R** – Ladekette – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Kettenglied (W3-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
 **W4-8R** – Fassreifen – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 68 Wörter · Datei `barrel_hoop_rough`
@@ -1999,11 +1997,7 @@ Regler: **Square 1:1** · 70 Wörter · Datei `drill_steel_rough`
 W5-6R — 2D game asset, the raw iron for a drill steel right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the drill steel in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no sharp point, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W5-7R** – Förderkette – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `conveyor_chain_rough`
-```
-W5-7R — 2D game asset, the raw iron for a winding chain right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the winding chain in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W5-7R** – Förderkette – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Kettenglied (W3-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
 **W5-8R** – Pumpengestänge – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 70 Wörter · Datei `pump_rod_rough`
@@ -2037,11 +2031,7 @@ Regler: **Square 1:1** · 73 Wörter · Datei `tie_rod_rough`
 W6-4R — 2D game asset, the raw iron for a tie rod right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the tie rod in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W6-5R** – Ankerkette – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `ship_chain_rough`
-```
-W6-5R — 2D game asset, the raw iron for a anchor cable right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the anchor cable in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W6-5R** – Ankerkette – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Kettenglied (W3-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
 **W6-6R** – Drehmeißel – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 74 Wörter · Datei `lathe_tool_rough`
@@ -2143,17 +2133,9 @@ Regler: **Square 1:1** · 70 Wörter · Datei `safety_valve_lever_rough`
 W8-3R — 2D game asset, the raw iron for a safety-valve lever right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the safety-valve lever in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no holes, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W8-4R** – Kupplungskette – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `coupling_chain_rough`
-```
-W8-4R — 2D game asset, the raw iron for a coupling chain right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the coupling chain in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W8-4R** – Kupplungskette – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Kettenglied (W3-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
-**W8-5R** – Lokomotiv-Radreifen – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `loco_tyre_rough`
-```
-W8-5R — 2D game asset, the raw iron for a locomotive tyre right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the locomotive tyre in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W8-5R** – Lokomotiv-Radreifen – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Radreifen (W2-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
 **W8-6R** – Pufferfeder – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 82 Wörter · Datei `buffer_spring_rough`
@@ -2255,11 +2237,7 @@ Regler: **Square 1:1** · 71 Wörter · Datei `steel_tyre_rough`
 W10-5R — 2D game asset, the raw iron for a steel tyre right after the first forging step, only with roughly punched holes, same position and orientation as the steel tyre in the reference, still far from the finished shape, not yet drawn out, crude and unfinished, uneven hammer marks, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W10-6R** – Geschützring – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `gun_hoop_rough`
-```
-W10-6R — 2D game asset, the raw iron for a gun hoop right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the gun hoop in the reference, still far from the finished shape, not yet bent, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no curves, loops, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
-```
+**W10-6R** – Geschützring – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von Radreifen (W2-1R), gleicher Stand nach dem ersten Arbeitsgang*
 
 **W10-7R** – Panzerplatte – Rohform · ⬜ noch nicht vorhanden  
 Regler: **Square 1:1** · 73 Wörter · Datei `armour_plate_rough`

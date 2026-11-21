@@ -322,6 +322,14 @@ def _item_steps(iid):
     return re.findall(r'"id": "([a-z_]+)"', txt)
 
 
+def rough_shared():
+    """Geteilte Rohformen aus scripts/assets.gd (ROUGH_SHARED): Werkstück → Werkstück mit dem Bild."""
+    with open(os.path.join(ROOT, "scripts", "assets.gd"), encoding="utf-8") as fh:
+        txt = fh.read()
+    m = re.search(r"const ROUGH_SHARED := \{(.*?)\}", txt, re.S)
+    return dict(re.findall(r'"([a-z_0-9]+)": "([a-z_0-9]+)"', m.group(1))) if m else {}
+
+
 def rough_desc(iid, name_en):
     if iid in ROUGH_DESC:
         return ROUGH_DESC[iid]
@@ -708,6 +716,15 @@ def main():
 
     # I Rohformen (Stufensprung): je Werkstück ein halb geschmiedeter Zwischenstand
     i_parts = []
+    shared = rough_shared()
+    names_de = {it[0]: it[6] for it in ITEMS}
+    codes_by_item = {}
+    for ep in range(1, 11):
+        n = 0
+        for it in ITEMS:
+            if it[1] == ep and it[0] != "blank":
+                n += 1
+                codes_by_item[it[0]] = f"W{ep}-{n}"
     for ep in range(1, 11):
         i_parts.append(f"### Epoche {ep} – {EPOCH_NAMES[ep]}\n")
         n = 0
@@ -721,14 +738,24 @@ def main():
             view = "seen from the side, horizontal" if ("from the side" in final or "side view" in final) else "top-down view, lying flat"
             prompt = (f"2D game asset, {rough_desc(iid, it[9])}, crude and unfinished, uneven hammer marks, "
                       f"{metal} with fresh forge scale, {view}, centred with wide margin, metal only, cold, pure flat white background, square 1:1")
+            if iid in shared:
+                src = shared[iid]
+                i_parts.append(f"**W{ep}-{n}R** – {it[6]} – Rohform · *kein eigenes Bild nötig: nutzt die Rohform von "
+                               f"{names_de.get(src, src)} ({codes_by_item.get(src, src)}R), gleicher Stand nach dem ersten Arbeitsgang*\n")
+                continue
+            users = [names_de.get(k, k) for k, v in shared.items() if v == iid]
+            note = ("Gilt auch für: " + ", ".join(users) + ".") if users else ""
             st = add(HAVE if have(f"item_{iid}_rough.png") else NEED)
-            i_parts.append(block(f"{it[6]} – Rohform", prompt, st, f"{iid}_rough", code=f"W{ep}-{n}R", section="E"))
+            i_parts.append(block(f"{it[6]} – Rohform", prompt, st, f"{iid}_rough", note=note, code=f"W{ep}-{n}R", section="E"))
     sections.append(("I · Rohformen für den Stufensprung (je Werkstück eine)",
                      "Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsgang die **Rohform** und am Ende das "
                      "fertige Werkstück. Kürzel = Kürzel des fertigen Werkstücks mit „R“ (W1-2R ist die Rohform von W1-2). "
                      "**Wichtig:** Das fertige Werkstück als **Bild-Prompt** anhängen (Bild in die Prompt-Leiste ziehen), der Prompt endet "
                      "schon mit `--iw 0.5` – so bleiben Lage und Blickrichtung ungefähr gleich, ohne dass Midjourney das fertige Stück kopiert (mit `--iw 1.5` kam bei W1-1R einfach wieder der fertige Nagel). Die Rohform zeigt den Stand **nach dem ersten Arbeitsgang**; was die späteren Arbeitsgänge erst formen (Spitze, Kopf, Biegung, Löcher, Verdrillung), steht ausdrücklich als Verbot im Prompt. Kommt trotzdem ein zu fertiges Stück: im Midjourney-Editor am fertigen Bild die Teile wegradieren und neu füllen lassen. "
-                     "Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist; zuerst Epoche 1 zur Probe.", i_parts))
+                     "Grundsatz (Auftraggeber, 21.11.): **jedes Werkstück eine eigene Rohform** – nur wo der Stand nach dem ersten Arbeitsgang "
+                     "gleich ist und ein eigenes Bild nichts bringt, teilen sich Werkstücke eine (z. B. alle Ketten die des Kettenglieds); "
+                     "diese sind unten vermerkt, Tabelle `ROUGH_SHARED` in `scripts/assets.gd`. "
+                     "Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist.", i_parts))
 
     def counts(txt):
         n_opt = txt.count(NOT_OPT)

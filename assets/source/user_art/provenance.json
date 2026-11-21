@@ -544,6 +544,36 @@
    "quelle": "Midjourney",
    "bewertung": "ändern",
    "hinweis": "21.11.: wirkt wie eine Schatztruhe (gewölbter Deckel, verziertes Schlüsselschild, glänzende Kohle) – im Spiel liest man „Piratenschatz“. Prompt jetzt: offene Kohlenkiste aus Brettern ohne Deckel und Schloss, matte Kohle, Schaufel steckt darin."
+  },
+  "hook_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: gerader Rundstab, senkrecht, beide Enden stumpf – aus ihm wird im Spiel der S-Haken."
+  },
+  "door_hinge_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: flaches Band ohne Öse, Löcher und Spitze, Lage wie die Türangel."
+  },
+  "sickle_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: dicker, leicht gekrümmter Stab mit Angel; Angel lag rechts statt links – der Import spiegelt das Bild (ROUGH_MIRROR)."
+  },
+  "ploughshare_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: grobe Dreiecksplatte mit Zunder und Dellen; Umriss fast wie die fertige Schar – der Sprung zeigt sich vor allem an der Oberfläche (rau → glatt), das entspricht dem Arbeitsgang Glätten."
+  },
+  "fire_poker_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: gerader Stab mit Ring, ohne Verdrillung und Haken; deckt sich in der Lage mit dem Schürhaken."
+  },
+  "gate_latch_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: gerader Flachstab ohne Schnecke, Löcher, Zierblech und Krampe. Sehr ähnlich wie die Türangel-Rohform – gewollt, beide sind nach dem Flachschlagen ein Band."
   }
  },
  "abgelehnt": {

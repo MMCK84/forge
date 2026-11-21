@@ -202,3 +202,20 @@ func test_tutorial_offers() -> void:
 	assert_eq(gm.job_offers.size(), 3, "ohne Lehrzeit-Hilfe drei Angebote")
 	assert_true(not gm.sim.force_enabled, "ohne Lehrzeit-Hilfe: Schlagstärke zählt in den ersten Aufträgen nicht")
 	gm.end_session()
+
+
+func test_rough_shared_targets() -> void:
+	# Geteilte Rohformen: beide Werkstücke gibt es, gleiche Grundform, Ziel teilt nicht selbst weiter
+	const Assets = preload("res://scripts/assets.gd")
+	var ids := {}
+	for f in DirAccess.get_files_at("res://data/items"):
+		if f.ends_with(".tres"):
+			ids[f.get_basename()] = load("res://data/items/" + f)
+	for k in Assets.ROUGH_SHARED:
+		var target: String = Assets.ROUGH_SHARED[k]
+		assert_true(ids.has(k) and ids.has(target), "Rohform geteilt: %s → %s (beide vorhanden)" % [k, target])
+		if ids.has(k) and ids.has(target):
+			assert_true(ids[k].shape == ids[target].shape, "gleiche Grundform %s / %s" % [k, target])
+			assert_true(str(ids[k].steps[0].get("id", "")) == str(ids[target].steps[0].get("id", "")), "gleicher erster Arbeitsgang %s / %s" % [k, target])
+		assert_true(not Assets.ROUGH_SHARED.has(target), "%s teilt nicht selbst weiter" % target)
+	assert_true(Assets.rough_tex("post_horseshoe") != null, "Postpferd-Hufeisen nutzt die Hufeisen-Rohform")

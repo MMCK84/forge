@@ -95,7 +95,7 @@ func _draw() -> void:
 	if item_t != null and blank_t != null:
 		var s := size_px * 1.3
 		var r := Rect2(Vector2(-s, -s) * 0.5, Vector2(s, s))
-		var rough_t := Assets.item_tex(item_id + "_rough") if rough_from < 0.999 else null
+		var rough_t := Assets.rough_tex(item_id) if rough_from < 0.999 else null
 		if rough_t != null:
 			# Rohling → (erster Arbeitsgang fertig) Rohform → fertiges Werkstück
 			if a < rough_from - 0.0001:
