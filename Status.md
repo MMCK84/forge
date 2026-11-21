@@ -122,7 +122,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
    Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
 6a. **Epoche 1 auf Alpha-Niveau** (Wunsch des Auftraggebers, 21.11.): Checkliste, Befunde und benötigte Bilder in
-   `docs/Alpha_Epoche1.md`; Prüfwerkzeug `tools/audit_epoch1.tscn` (alle 38 Bildschirme). Bilder der Epoche 1 vollständig (21.11.); offen: Musik Epoche 1; Tastenkürzel nur am Rechner; Testmenü nur in der Entwicklerfassung.
+   `docs/Alpha_Epoche1.md`; Prüfwerkzeug `tools/audit_epoch1.tscn` (alle 38 Bildschirme). Bilder der Epoche 1 vollständig (21.11.); Musik kommt später (Wunsch des Auftraggebers); offen: Tastenkürzel nur am Rechner; Testmenü nur in der Entwicklerfassung.
 7. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – gemeinsam festlegen; zu klären, was genau
    gemeint ist: Wortwahl und Anrede der Texte (bisher historisches „Ihr“), angebotene Spielsprachen (bisher Deutsch/Englisch)
    und/oder die gestalterische Sprache der Oberfläche (Pergament, Leder, Messing).
