@@ -648,7 +648,9 @@ func _hammer_press() -> void:
 	if sim.machine_commanded():
 		sim.command_machine_blow()
 		sim.machine_hold = true
-	_hold_active = true
+	# Fortlaufend hämmern (Gedrückthalten) erst mit dem Lehrling: Er schlägt im Takt weiter.
+	# Maschinen lassen sich unabhängig davon immer halten.
+	_hold_active = GameManager.can_hold_hammer()
 	_hold_timer = 0.0
 
 

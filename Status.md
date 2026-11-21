@@ -317,7 +317,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Shop [S], Personal [P], Statistik [T] – neu –, Sanft [←], Mittel [↓], Fest [→], HAMMERN [Leertaste], Rohling [R], Umlegen [E],
   Abschrecken [Q], Menü [Esc]); auf Handy/Tablet nie (die Übersetzung entfernt sie beim Laden und macht aus „Klickt“ „Tippt“;
   Test am Rechner mit `-- --touch`). **Hammer in Ruhelage** lehnt am Horn statt vor dem aufheizenden Werkstück zu stehen.
-  Offen zur Entscheidung: Dauerschlag (Halten) als erlernte Fähigkeit.
+- 21.11.: **Dauerschlag an den Lehrling gebunden** (Entscheidung des Auftraggebers: „dann schlägt jemand anderer“): Bis zum
+  Lehrling (Epoche 2) gibt jeder Druck auf HAMMERN/Leertaste genau einen Schlag; mit dem Lehrling hämmert Gedrückthalten
+  fortlaufend (Hinweisfenster beim Einstellen, Beschreibung im Personal-Fenster, Kapitelübergang Epoche 2, Lehrzeit-Text).
+  Maschinen lassen sich unabhängig davon immer halten. Tests 2153/0, Spieltest 0 Probleme.
 
 ## Prüfen
 

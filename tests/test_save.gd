@@ -346,3 +346,16 @@ func test_masterpiece() -> void:
 	gm.load_from_dict(SaveManagerScript.migrate(JSON.parse_string(JSON.stringify(d))))
 	assert_eq(int(gm.masterpiece_progress.get(fm.id, 0)), 1, "Teil-Fortschritt gespeichert")
 	gm.end_session()
+
+
+func test_hold_needs_apprentice() -> void:
+	var gm = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("GameManager")
+	if gm == null:
+		return
+	gm.new_game()
+	assert_true(not gm.can_hold_hammer(), "ohne Lehrling kein fortlaufendes Hämmern")
+	gm.debug_set_epoch(2, 0.1)
+	gm.total_pence += 100000
+	gm.hire("staff_apprentice")
+	assert_true(gm.can_hold_hammer(), "mit Lehrling: Gedrückthalten hämmert fortlaufend")
+	gm.end_session()

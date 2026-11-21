@@ -857,6 +857,8 @@ func hire(id: String) -> bool:
 	hired_ids.append(id)
 	if id == "staff_journeyman":
 		request_hint("journeyman")
+	if id == "staff_apprentice":
+		request_hint("apprentice_hold")
 	_after_purchase()
 	return true
 
@@ -1187,6 +1189,11 @@ func item_name(item_id: String, plural: bool = false) -> String:
 ## Sterne, die die Zunft für den aktuellen Teil eines Meisterstücks verlangt.
 func masterpiece_required_stars(ms_id: String) -> int:
 	return Masterpieces.required_stars(int(masterpiece_fails.get(ms_id, 0)))
+
+
+## Fortlaufendes Hämmern durch Gedrückthalten: erst mit dem Lehrling (er schlägt im Takt weiter).
+func can_hold_hammer() -> bool:
+	return hired_ids.has("staff_apprentice")
 
 
 ## Meisterschaft eines Werkstücks (0 = keine, 1 Bronze, 2 Silber, 3 Gold).

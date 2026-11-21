@@ -67,7 +67,7 @@ EPOCH_1_INTRO,"Landwirtschaft und Alltag: Nägel, Hufeisen, Haken, Türangeln, S
 EPOCH_1_NAME,Die Dorfschmiede,The Village Smithy
 EPOCH_2_INTRO,"Ihr habt die Schmiede an der Poststraße gepachtet. Kutscher und Postmeister brauchen Radreifen, Achsen und Beschläge – oft gleich mehrere Stück und manchmal in Eile. Eine Ziegel-Esse mit zwei Plätzen und ein Lehrling helfen dabei.","You have leased the smithy on the post road. Coachmen and postmasters need tyres, axles and fittings – often several at once, and sometimes in a hurry. A brick forge with two places and an apprentice will help."
 EPOCH_2_NAME,Kutschen & Handelswege,Coaches & Trade Roads
-EPOCH_2_NEW,"Mengenaufträge: mehrere Stücke auf einmal, dazu die Ziegel-Esse mit zwei Plätzen | Der Lehrling legt Stücke für Euch um | Mittlere Schlagstärke | Eilaufträge mit Zeitlimit (ab der Mitte des Kapitels)","Bulk orders: several pieces at once, with the brick forge holding two | The apprentice moves pieces for you | Medium blow force | Rush orders with a time limit (from the middle of the chapter)"
+EPOCH_2_NEW,"Mengenaufträge: mehrere Stücke auf einmal, dazu die Ziegel-Esse mit zwei Plätzen | Der Lehrling schlägt im Takt mit (Gedrückthalten) und legt Stücke für Euch um | Mittlere Schlagstärke | Eilaufträge mit Zeitlimit (ab der Mitte des Kapitels)","Bulk orders: several pieces at once, with the brick forge holding two | The apprentice keeps the rhythm (hold to hammer) and moves pieces for you | Medium blow force | Rush orders with a time limit (from the middle of the chapter)"
 EPOCH_2_TEASER,"Die Mautstraßen werden ausgebaut, Postkutschen rollen durchs Land. Eine Schmiede an der Poststraße wartet auf Euch.",The turnpikes are spreading and mail coaches roll across the land. A smithy on the post road awaits you.
 EPOCH_3_INTRO,"Eure neue Werkstatt liegt am Hafen. Ketten, Anker und Bootshaken müssen feuergeschweißt werden: Bei halber Arbeit braucht das Eisen Weißglut (1200–1300 °C). Ein Zuschläger mit dem Vorschlaghammer beschleunigt die Arbeit.","Your new workshop lies on the harbour. Chains, anchors and boathooks must be forge-welded: halfway through, the iron needs white heat (1200–1300 °C). A striker with a sledgehammer speeds up the work."
 EPOCH_3_NAME,Hafen & Royal Navy,Harbour & Royal Navy
@@ -214,6 +214,8 @@ HAMMER_CROSS_PEEN,Kreuzschlaghammer,Cross-peen hammer
 HAMMER_CRUCIBLE,Gussstahl-Hammer (Tiegelstahl),Crucible-steel hammer
 HAMMER_HAND,Handhammer,Hand hammer
 HAMMER_STEEL_FACED,Hammer mit verstählter Bahn,Steel-faced hammer
+HINT_APPRENTICE_HOLD_TEXT,"Ab jetzt schlägt Euer Lehrling im Takt mit: Haltet HAMMERN gedrückt [Leertaste], dann hämmert er fortlaufend weiter, solange Ihr haltet. Außerdem legt er Werkstücke für Euch um und Rohlinge ein.",From now on your apprentice keeps the rhythm: hold HAMMER [Space] and he keeps striking for as long as you hold it. He also moves pieces for you and loads blanks.
+HINT_APPRENTICE_HOLD_TITLE,Euer Lehrling,Your apprentice
 HINT_BIG_TEXT,Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – haltet HAMMERN gedrückt und das Eisen in der richtigen Hitze.,Too heavy for the hand hammer: your blows count only 25 %. The machine does most of the work – you keep the iron at the right heat.
 HINT_BIG_TITLE,Großschmiedestück,Heavy forging
 HINT_FORCE_MEDIUM_TEXT,"In der neuen Werkstatt verlangen Breiten, Spitzen und Abschroten mittlere Schläge – nicht mehr die volle Wucht.","In the new workshop, spreading, pointing and cutting need medium blows – no longer full force."
@@ -737,7 +739,7 @@ SET_TIP,Trinkgeld,Tip
 SET_WAGE,Lohn,Pay
 SET_WAGE_OF,Lohn {who},Wage {who}
 STAFF_APPRENTICE,Lehrling,Apprentice
-STAFF_APPRENTICE_DESC,"Legt Werkstücke automatisch um: vom Amboss in die Esse, wenn sie abkühlen; zurück auf den Amboss, wenn sie heiß genug sind. Legt auch Rohlinge ein. Schwellen einstellbar.","Moves pieces automatically: from the anvil into the fire when they cool, back onto the anvil when hot enough. Also loads blanks. Thresholds adjustable."
+STAFF_APPRENTICE_DESC,"Schlägt im Takt mit: Haltet HAMMERN gedrückt, dann hämmert er fortlaufend weiter. Legt außerdem Werkstücke um (vom Amboss in die Esse, wenn sie abkühlen; zurück auf den Amboss, wenn sie heiß genug sind) und legt Rohlinge ein. Schwellen einstellbar.","Keeps the rhythm: hold HAMMER and he keeps striking continuously. Also moves pieces (from the anvil into the fire when they cool, back onto the anvil when hot enough) and loads blanks. Thresholds adjustable."
 STAFF_JOURNEYMAN,Geselle,Journeyman
 STAFF_JOURNEYMAN_DESC,Bearbeitet im Hintergrund eigene Standardaufträge mit 25 % der Referenzleistung – auch während Ihr nicht spielt (bis zu 8 Stunden).,Works his own standard orders in the background at 25 % of the reference output – even while you are not playing (up to 8 hours).
 STAFF_STOKER,Heizer,Stoker
@@ -788,7 +790,7 @@ TEST_START,Anfang,Start
 TEST_TITLE,Testmenü,Test menu
 TUT_BUY_HAMMER,Gut verdient! Kauft im Shop [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
 TUT_COLD,Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!,Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!
-TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste – gedrückt halten schlägt fortlaufend.,Forge! Click the anvil or press the space bar – hold it down for continuous blows.
+TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste – jeder Schlag einzeln.,Forge! Click the anvil or press the space bar – one blow at a time.
 TUT_LOAD,Legt den Rohling in die Esse: Klickt auf den Rohling-Stapel oder drückt [R].,Put the blank into the fire: click the stack of blanks or press [R].
 TUT_OPEN_BOOK,Öffnet das Auftragsbuch [J] und nehmt einen Auftrag an.,Open the order book [J] and accept an order.
 TUT_SKIP,Überspringen,Skip
