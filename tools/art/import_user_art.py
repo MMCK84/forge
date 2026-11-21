@@ -510,6 +510,10 @@ def tool_import():
         return
     lines = ["## Automatisch erzeugt von tools/art/import_user_art.py – nicht von Hand ändern.",
              "## Amboss: Mitte (x) und Oberkante (y) der Bahn. Hämmer: Griffpunkt, Mitte der Bahn, Richtung Kopf→Bahn (90° = unten).", ""]
+    # Beweglicher Blasebalg (BB) neben der Lehm-Esse: freigestellt, Breite 260 px (das Spiel staucht ihn zum Pumpen)
+    bp = os.path.join(tdir, "bellows.png")
+    if os.path.exists(bp):
+        save(_cutout(bp), "bellows.png", max_w=260)
     p = os.path.join(tdir, "anvil.png")
     if os.path.exists(p):
         img = _cutout(p)

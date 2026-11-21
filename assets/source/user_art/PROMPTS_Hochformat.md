@@ -17,17 +17,17 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 126 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 10 |
+| ✅ gut (Midjourney) | 125 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 11 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 150 |
+| ⬜ noch nicht vorhanden | 151 |
 | ⬜ noch nicht vorhanden (optional) | 34 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
 | A · Werkstatt-Hintergründe | 11 | 0 | 0 | 0 | 0 |
-| B · Essen | 6 | 0 | 0 | 0 | 0 |
-| C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
+| B · Essen | 5 | 1 | 0 | 0 | 0 |
+| C · Amboss und Hämmer | 5 | 0 | 0 | 1 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
@@ -219,11 +219,11 @@ BG10 — Square 2D game background, hand-painted, dark ink outlines. Evening but
 
 Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.
 
-**F1** – Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1) · ✅ gut (Midjourney)  
-Regler: **Landscape 2:1** · 144 Wörter · Datei `forge_clay`  
-*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend.*
+**F1** – Lehm-Esse (Stufe 1, Epoche 1) – ohne Blasebalg, der bewegliche Blasebalg BB steht daneben · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Landscape 2:1** · 119 Wörter · Datei `forge_clay`  
+*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend. 21.11.: neu ohne eingemalten Blasebalg – der bewegliche Blasebalg (BB, eigenes Bild) steht im Spiel links daneben (Entscheidung des Auftraggebers).*
 ```
-F1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left a classic blacksmith's bellows lying horizontally on a low wooden stand: two pear-shaped wooden boards with pleated dark leather between them, a long wooden lever handle, an iron nozzle pointing into the hearth (not a sack, not a vase, not standing upright), orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, cannon, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
+F1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, a short iron blast pipe (tuyère) entering the hearth from the left side, nothing to the left of the hearth, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, bellows, bench, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **F2** – Ziegel-Esse (Stufe 2, Epoche 2) · ✅ gut (Midjourney)  
@@ -298,6 +298,12 @@ Regler: **Landscape 2:1** · 93 Wörter · Datei `hammer_crucible`
 *20.11.: Gussstahl mit Messingzwinge und Endkappe, reine Seitenansicht, Bahn unten – genau wie gewünscht. Fotorealistisch statt gezeichnet; im Spiel klein, fällt kaum auf.*
 ```
 H4 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a high-quality late-18th-century crucible steel blacksmith's hammer in flat side view (orthographic), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, engraving, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**BB** – Beweglicher Blasebalg neben der Lehm-Esse (Epoche 1, pumpt im Spiel) · ⬜ noch nicht vorhanden  
+Regler: **Landscape 2:1** · 96 Wörter · Datei `bellows`
+```
+BB — Flat orthographic side elevation, like a technical drawing. 2D game asset, a classic early-18th-century blacksmith's hand bellows in a flat side view (orthographic), lying horizontally: two pear-shaped wooden boards one above the other with pleated dark leather between them, the wide end on the left with a short wooden lever handle, the narrow end on the right ending in an iron nozzle pointing straight to the right, brass studs along the leather, hand-painted 2D game art, dark ink outlines, warm painterly texture, not standing upright, not a sack, not a vase, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, stand, bench, shadow, text, numbers, watermark, border, photo, 3d render
 ```
 
 ## D · Maschinen (Einzelteile für die Animation)

@@ -182,10 +182,13 @@ func _draw_user(d: Dictionary) -> void:
 	if heating:
 		flick += 0.15
 	if tier == 1:
-		var bel := Assets.tex("tools/bellows.png")
+		# Bild des Auftraggebers (BB) hat Vorrang vor dem alten Platzhalter; Lage wird bei der Lieferung abgestimmt
+		var user_bel := Assets.user("bellows.png")
+		var bel: Texture2D = user_bel if user_bel != null else Assets.tex("tools/bellows.png")
 		if bel != null:
 			var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
-			draw_set_transform(Vector2(-150, 470), 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
+			var at := Vector2(-110, 470) if user_bel != null else Vector2(-150, 470)
+			draw_set_transform(at, 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
 			draw_texture(bel, Vector2(0, -bel.get_height() * 0.5))
 			draw_set_transform(Vector2.ZERO)
 	draw_texture(Assets.user(str(d["file"])), d["origin"])

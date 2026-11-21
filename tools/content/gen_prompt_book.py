@@ -411,7 +411,8 @@ FORGE_TAIL = ("front view from slightly above (no perspective), wide glowing coa
               "hood and chimney centred and fully visible, level bottom edge (no floor), hand-painted 2D game art, dark ink outlines, "
               "nothing in front, the chimney top is clean (no smoke, no flames, no people), isolated on pure flat white background, wide 2:1")
 FORGES = [
-    ("forge_clay", "Lehm-Esse mit Handblasebalg (Stufe 1, Epoche 1)", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, on the left " + BELLOWS + ", orange glowing charcoal fire"),
+    # F1 ohne eingemalten Blasebalg: der bewegliche Blasebalg (BB) steht im Spiel links daneben (Anmerkung 20, 21.11.)
+    ("forge_clay", "Lehm-Esse (Stufe 1, Epoche 1) – ohne Blasebalg, der bewegliche Blasebalg BB steht daneben", "a small rustic early-18th-century village forge, " + OPEN_HEARTH + ", built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, a short iron blast pipe (tuyère) entering the hearth from the left side, nothing to the left of the hearth (no bellows, no bench), orange glowing charcoal fire"),
     ("forge_brick", "Ziegel-Esse (Stufe 2, Epoche 2)", "a smith's forge of the 1720s, " + OPEN_HEARTH + ", built of red brick bound with iron straps, a brick hood and a square brick chimney, on the left " + BELLOWS + ", bright orange coal fire"),
     ("forge_double_bellows", "Esse mit Doppelblasebalg (Stufe 3, Epoche 3)", "a large smith's forge of the 1740s, " + OPEN_HEARTH + ", built of brick and stone, a wide brick hood bound with iron bands, on the left two identical teardrop bellows stacked one above the other, worked by one long lever (no cannon, no sack), hot yellow-orange coal fire"),
     ("forge_coke", "Koks-Esse mit Zylindergebläse (Stufe 4, Epoche 5)", "a long late-18th-century coke-fired smith's forge, " + OPEN_HEARTH + ", built of cast-iron plates and firebrick, a riveted iron hood and a round iron chimney, on the left an upright cast-iron blowing cylinder with an air pipe into the hearth, brilliant yellow-white coke fire"),
@@ -665,6 +666,14 @@ def main():
     c = [block("Amboss auf Eichenklotz (alle Epochen)", "2D game sprite asset, heavy 18th-century cast iron anvil mounted on a thick oak wood stump, blacksmith equipment, side-view orthographic perspective, horn pointing to the right, crisp clean edges, isolated on white background, game art", add(status("anvil.png")), "anvil", code="AN", section="C")]
     for k, (hid, title, desc) in enumerate(HAMMERS, start=1):
         c.append(block(title, f"2D game asset, {desc}, {HAMMER_TAIL}", add(status(hid + ".png")), hid, code=f"H{k}", section="C"))
+    # Beweglicher Blasebalg neben der Lehm-Esse (das Spiel lässt ihn pumpen: senkrecht gestaucht, beim Aufheizen schneller)
+    c.append(block("Beweglicher Blasebalg neben der Lehm-Esse (Epoche 1, pumpt im Spiel)",
+                   "2D game asset, a classic early-18th-century blacksmith's hand bellows in a flat side view (orthographic, no perspective), "
+                   "lying horizontally: two pear-shaped wooden boards one above the other with pleated dark leather between them, the wide end "
+                   "on the left with a short wooden lever handle, the narrow end on the right ending in an iron nozzle pointing straight to the "
+                   "right, brass studs along the leather, hand-painted 2D game art, dark ink outlines, warm painterly texture, no stand, no bench, "
+                   "no shadow, not standing upright, not a sack, not a vase, isolated on pure flat white background, landscape 2:1",
+                   add(status("bellows.png")), "bellows", code="BB", section="C"))
     sections.append(("C · Amboss und Hämmer",
                      "Hämmer in reiner Seitenansicht: Kopf links senkrecht, Bahn unten, Stiel waagerecht nach rechts.", c))
     # D Maschinen
