@@ -42,6 +42,8 @@ var anvil_view: AnvilView
 var trough_view: TroughView
 var machine_view: MachineView
 var furnish_view: FurnishView
+var plaque: TextureRect
+const PLAQUE_W := 250.0
 var streak_view: StreakView
 var glow_scale: GlowScale
 var hud: Hud
@@ -99,6 +101,13 @@ func _ready() -> void:
 	# Ganz hinten (vor dem Hintergrund): die Einrichtung der Werkstatt
 	furnish_view = FurnishView.new()
 	stage.add_child(furnish_view)
+	# Zunfttafel für den Ruf (Bilder U24–U27 des Auftraggebers): über der Esse, Tooltip mit Rufstufe
+	plaque = TextureRect.new()
+	plaque.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	plaque.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	plaque.mouse_filter = Control.MOUSE_FILTER_PASS
+	plaque.visible = false
+	stage.add_child(plaque)
 	machine_view = MachineView.new()
 	machine_view.position = MACHINE_POS
 	machine_view.size = Vector2(1020, 330)
@@ -176,11 +185,15 @@ func _ready() -> void:
 	buttons.size = Vector2(330, 170)
 	buttons.add_theme_constant_override("separation", 6)
 	controls.add_child(buttons)
-	btn_load = UIKit.button(tr("UI_BTN_LOAD"), _on_raw_clicked, Vector2(330, 52), 22)
+	# Nur so breit wie nötig (Wunsch des Auftraggebers, 21.11.), linksbündig
+	btn_load = UIKit.button(tr("UI_BTN_LOAD"), _on_raw_clicked, Vector2(250, 54), 22)
+	btn_load.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	buttons.add_child(btn_load)
-	btn_move = UIKit.button(tr("UI_BTN_MOVE"), _on_move, Vector2(330, 52), 22)
+	btn_move = UIKit.button(tr("UI_BTN_MOVE"), _on_move, Vector2(250, 54), 22)
+	btn_move.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	buttons.add_child(btn_move)
-	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(330, 52), 22)
+	btn_quench = UIKit.button(tr("UI_BTN_QUENCH"), _on_quench, Vector2(250, 54), 22)
+	btn_quench.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	buttons.add_child(btn_quench)
 	# Schlagstärke: drei Knöpfe über dem Hammer
 	force_row = HBoxContainer.new()
@@ -191,10 +204,14 @@ func _ready() -> void:
 	controls.add_child(force_row)
 	var group := ButtonGroup.new()
 	for lvl in 3:
-		var fb := UIKit.button(tr("FORCE_%d" % lvl), _set_force.bind(lvl), Vector2(106, 46), 19)
-		# Schmaler Innenrand, damit „Sanft [←]“ in den kleinen Knopf passt
+		var fb := UIKit.button(tr("FORCE_%d" % lvl), _set_force.bind(lvl), Vector2(106, 50), 19)
+		# Schmaler Innenrand, damit „Sanft [←]“ in den kleinen Knopf passt. Stil aus dem Spiel-Theme holen –
+		# der Knopf hängt hier noch nicht im Baum (sonst kämen die flachen Godot-Kästen ohne Rahmen)
+		var th := UIKit.theme()
 		for st in ["normal", "hover", "pressed", "disabled", "hover_pressed"]:
-			var sb: StyleBox = fb.get_theme_stylebox(st)
+			var sb: StyleBox = th.get_stylebox(st, "Button") if th.has_stylebox(st, "Button") else null
+			if st == "hover_pressed" and sb == null:
+				sb = th.get_stylebox("pressed", "Button") if th.has_stylebox("pressed", "Button") else null
 			if sb != null:
 				var c: StyleBox = sb.duplicate()
 				c.content_margin_left = 6
@@ -209,7 +226,7 @@ func _ready() -> void:
 	btn_hammer = UIKit.button(_hammer_text(), Callable(), Vector2(330, 168), 30)
 	btn_hammer.button_down.connect(_hammer_press)
 	btn_hammer.button_up.connect(_hammer_release)
-	btn_hammer.position = Vector2(370, 218)
+	btn_hammer.position = Vector2(370, 222)
 	btn_hammer.custom_minimum_size = Vector2(330, 130)
 	btn_hammer.size = btn_hammer.custom_minimum_size
 	controls.add_child(btn_hammer)
@@ -267,6 +284,7 @@ func _connect_hud() -> void:
 	hud.open_stats.connect(_open_if_free.bind("res://scenes/ui/stats_panel.gd"))
 	hud.open_menu.connect(_open_pause)
 	hud.open_epoch.connect(_open_epoch_offer)
+	hud.open_chapter.connect(_open_if_free.bind("res://scenes/ui/chapter_panel.gd"))
 
 
 func _open_if_free(path: String) -> void:
@@ -320,7 +338,27 @@ func _place_forge() -> void:
 	forge_view.position = Vector2(FORGE_X, floor_y + 40.0 - bottom)
 	forge_view.raw_rect = Rect2(RAW_STACK.position - forge_view.position, RAW_STACK.size)
 	forge_view.size = Vector2(920, RAW_STACK.end.y - forge_view.position.y + 10.0)
+	_update_anvil_exclude()
 	_place_smoke()
+
+
+## Klickflächen der Esse (Plätze, Rohling-Stapel), die hinter dem Amboss-Rechteck liegen, für den Amboss
+## ausnehmen – bis knapp über die Ambossbahn, damit das Werkstück auf dem Amboss weiter zum Amboss gehört.
+func _update_anvil_exclude() -> void:
+	if anvil_view == null or forge_view == null:
+		return
+	var face_y := anvil_point().y - 22.0
+	var rects: Array = []
+	var all: Array = [Rect2(forge_view.position + forge_view.raw_rect.position, forge_view.raw_rect.size)]
+	for i in forge_view.slots:
+		var r: Rect2 = forge_view.slot_rect(i)
+		all.append(Rect2(forge_view.position + r.position, r.size))
+	for r in all:
+		var rr: Rect2 = r
+		if rr.position.y < face_y:
+			rr.size.y = minf(rr.size.y, face_y - rr.position.y)
+		rects.append(Rect2(rr.position - anvil_view.position, rr.size))
+	anvil_view.exclude_rects = rects
 
 
 ## Rauch aus dem Schornstein der jeweiligen Esse (schmal bei den Essen des Auftraggebers).
@@ -411,6 +449,7 @@ func raw_point() -> Vector2:
 func _process(delta: float) -> void:
 	var gm := GameManager
 	var sim = gm.sim
+	_tick_showcase(delta)
 	_pulse_force(delta)
 	if _hold_active and Overlay.open_count == 0:
 		_hold_timer += delta
@@ -425,7 +464,9 @@ func _process(delta: float) -> void:
 	elif stage.position != _stage_base:
 		stage.position = _stage_base
 	var j: JobInstance = gm.active_job
-	forge_view.slots = sim.slot_count
+	if forge_view.slots != sim.slot_count:
+		forge_view.slots = sim.slot_count
+		_update_anvil_exclude()
 	forge_view.selected_slot = sim.selected_slot
 	forge_view.raw_count = sim.raw_count()
 	forge_view.heating = false
@@ -517,6 +558,7 @@ func _update_scale_and_progress(j: JobInstance) -> void:
 	glow_scale.pyrometer = gm.has_pyrometer()
 	if j == null:
 		glow_scale.temp = -1.0
+		glow_scale.window = Vector2(-1, -1)
 		glow_scale.weld_window = Vector2(-1, -1)
 		glow_scale.quench_window = Vector2(-1, -1)
 		glow_scale.window_label = ""
@@ -595,6 +637,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.is_echo():
 		return
+	# Fertiges Werkstück wird gezeigt: Tippen/Klicken irgendwo überspringt zur Abrechnung
+	if _showcase != null and ((event is InputEventMouseButton and event.pressed) or (event is InputEventScreenTouch and event.pressed)):
+		_end_showcase()
+		get_viewport().set_input_as_handled()
+		return
 	var sim = GameManager.sim
 	if event.is_action_pressed("hammer"):
 		_hammer_press()
@@ -629,6 +676,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		open_overlay("res://scenes/ui/staff_panel.gd")
 	elif event.is_action_pressed("open_stats"):
 		open_overlay("res://scenes/ui/stats_panel.gd")
+	elif event.is_action_pressed("open_chapter"):
+		open_overlay("res://scenes/ui/chapter_panel.gd")
 	elif event.is_action_pressed("pause"):
 		_open_pause()
 	elif event.is_action_pressed("test_menu") and GameManager.test_tools_enabled():
@@ -642,6 +691,9 @@ func _unhandled_input(event: InputEvent) -> void:
 ## der Spieler damit ebenso: Tippen ein Maschinenschlag, Halten fortlaufend, Loslassen hält sie an.
 func _hammer_press() -> void:
 	if Overlay.open_count > 0:
+		return
+	if _showcase != null:
+		_end_showcase()
 		return
 	_do_hit()
 	var sim = GameManager.sim
@@ -952,9 +1004,66 @@ func _open_epoch_offer() -> void:
 	overlay_layer.add_child(p)
 
 
+## Nach dem letzten Schlag liegt das fertige Werkstück kurz auf dem Amboss (mit Aufblitzen wie beim
+## Stufensprung), erst dann kommt die Abrechnung (Wunsch des Auftraggebers, 21.11.). Tippen/Leertaste überspringt.
+const SHOWCASE_TIME := 1.6
+var _showcase: Node2D = null
+var _showcase_report: Dictionary = {}
+var _showcase_left: float = 0.0
+var _settlement_open: bool = false
+
+
 func _on_settlement(report: Dictionary) -> void:
 	_hold_active = false
+	GameManager.sim.machine_hold = false
+	var j: JobInstance = report.get("job", null)
+	if j == null or _showcase != null:
+		_open_settlement(report)
+		return
+	var last: JobInstance.Piece = j.pieces[j.pieces.size() - 1] if not j.pieces.is_empty() else null
+	var v := PieceView.new()
+	var item: ItemData = GameManager.items.get(j.template_id, null)
+	v.shape = item.shape if item != null else "bar"
+	v.item_id = j.template_id
+	v.rough_from = 1.0
+	v.size_px = 220.0
+	v.position = anvil_point()
+	v.target_pos = anvil_point()
+	pieces_layer.add_child(v)
+	v.update_state(last.temp if last != null else 20.0, 1.0, 0.0, false, "")
+	v.step = 0
+	v.set_step(1)
+	_showcase = v
+	_showcase_report = report
+	_showcase_left = SHOWCASE_TIME
+
+
+func _tick_showcase(delta: float) -> void:
+	if _showcase == null:
+		return
+	_showcase_left -= delta
+	if _showcase_left <= 0.0:
+		_end_showcase()
+
+
+func _end_showcase() -> void:
+	if _showcase == null:
+		return
+	_showcase.queue_free()
+	_showcase = null
+	var r := _showcase_report
+	_showcase_report = {}
+	_open_settlement(r)
+
+
+func _open_settlement(report: Dictionary) -> void:
+	_settlement_open = true
 	var p = load("res://scenes/ui/settlement_panel.gd").new()
+	# Auch beim Schließen über „X“ Hinweise wieder freigeben
+	p.closed.connect(func() -> void:
+		if _settlement_open:
+			_settlement_open = false
+			_show_next_hint.call_deferred())
 	p.report = report
 	p.continue_pressed.connect(_after_settlement)
 	p.menu_pressed.connect(func(r: Dictionary) -> void:
@@ -969,6 +1078,7 @@ func _on_settlement(report: Dictionary) -> void:
 
 
 func _after_settlement(report: Dictionary) -> void:
+	_settlement_open = false
 	if bool(report.get("game_done", false)):
 		var p = load("res://scenes/ui/epoch_panel.gd").new()
 		p.mode = "finale"
@@ -976,6 +1086,9 @@ func _after_settlement(report: Dictionary) -> void:
 		overlay_layer.add_child(p)
 	elif bool(report.get("epoch_done", false)):
 		_open_epoch_offer()
+	# Nach dem ersten Lohn: englisches Geld erklären (£ s d, Münzen in der Statusleiste)
+	if int(report.get("net", 0)) > 0 and not GameManager.seen_hints.has("money"):
+		_queue_hint("money")
 	_show_next_hint()
 
 
@@ -988,6 +1101,10 @@ func _queue_hint(id: String) -> void:
 
 func _show_next_hint() -> void:
 	if _hint_open or _hint_queue.is_empty():
+		return
+	# Hinweise warten, bis fertiges Werkstück und Abrechnung vorbei sind (sonst kam z. B. „eigene Werkstatt“
+	# schon vor dem Abschluss des letzten Lehrzeit-Auftrags – Anmerkung des Auftraggebers, 21.11.)
+	if _showcase != null or _settlement_open:
 		return
 	var id: String = _hint_queue.pop_front()
 	if GameManager.seen_hints.has(id):
@@ -1019,6 +1136,7 @@ func _on_state_changed() -> void:
 	var f := gm.current_forge()
 	forge_view.tier = f.tier
 	_place_forge()
+	_update_plaque()
 	anvil_view.hammer_id = gm.current_hammer().id
 	anvil_view.queue_redraw()
 	_place_smoke()
@@ -1032,6 +1150,41 @@ func _on_state_changed() -> void:
 	hud.refresh()
 	SoundManager.update_ambience()
 	SoundManager.play_music_for_epoch(gm.current_epoch)
+
+
+## Zunfttafel je Rufstufe (2–5) über der Esse, neben dem Schornstein; erscheint nur mit Bild des Auftraggebers.
+func _update_plaque() -> void:
+	var lvl := _rep_level()
+	var tex: Texture2D = Assets.user("guild_plaque_%d.png" % lvl) if lvl >= 2 else null
+	plaque.visible = tex != null
+	if tex == null:
+		return
+	plaque.texture = tex
+	var h := PLAQUE_W * tex.get_height() / maxf(1.0, tex.get_width())
+	var top := forge_view.position.y + float(forge_view.user_forge().get("origin", Vector2(0, 118)).y)
+	# Mittig über der Esse zwischen Laterne und Schild; liegt der Schornstein darunter, zur Seite ausweichen
+	var chimney_x := forge_view.position.x + forge_view.smoke_point().x
+	var cx := 610.0
+	if absf(chimney_x - cx) < PLAQUE_W * 0.5 + 40.0:
+		cx = chimney_x - PLAQUE_W * 0.5 - 70.0 if chimney_x > 700.0 else chimney_x + PLAQUE_W * 0.5 + 70.0
+	plaque.size = Vector2(PLAQUE_W, h)
+	plaque.position = Vector2(cx - PLAQUE_W * 0.5, maxf(330.0, minf(top - 70.0 - h, Background.floor_y_for(GameManager.current_epoch) - 420.0 - h)))
+	plaque.tooltip_text = _plaque_tip()
+	# Erste Tafel: kurz erklären, was sie bedeutet
+	if not GameManager.seen_hints.has("reputation"):
+		_queue_hint("reputation")
+
+
+func _plaque_tip() -> String:
+	var gm := GameManager
+	var stars := int(gm.stats.get("stars_total", 0))
+	var steps := [[40, "REP_2"], [120, "REP_3"], [300, "REP_4"], [600, "REP_5"]]
+	var tip := tr("UI_PLAQUE_TIP").format({"title": tr(gm.reputation_title_key()), "stars": stars})
+	for st in steps:
+		if stars < int(st[0]):
+			tip += "\n" + tr("UI_PLAQUE_NEXT").format({"next": tr(str(st[1])), "n": int(st[0]) - stars})
+			break
+	return tip
 
 
 func _rep_level() -> int:

@@ -191,10 +191,18 @@ func test_tutorial_offers() -> void:
 		assert_eq(gm.job_offers[0].template_id, script[n], "Lehrzeit Auftrag %d nach Drehbuch" % (n + 1))
 		gm.accept_offer(0)
 		gm.debug_finish_job()
-		if n == 0:
-			assert_eq(gm.job_offers.size(), 2, "danach zwei Angebote")
+		if n < script.size() - 1:
+			assert_eq(gm.job_offers.size(), 1, "Lehrzeit: immer genau ein Angebot (keine zwei gleichen)")
 	assert_true(gm.force_counts() and gm.sim.force_enabled, "nach der Lehrzeit zählt die Schlagstärke")
 	assert_eq(gm.job_offers.size(), 3, "nach der Lehrzeit drei Angebote")
+	# Keine doppelten Werkstücke unter den Angeboten (über viele Neuwürfe)
+	for k in 30:
+		var seen := {}
+		for o in gm.job_offers:
+			assert_true(not seen.has(o.template_id), "Angebote mit verschiedenen Werkstücken (%s)" % o.template_id)
+			seen[o.template_id] = true
+		gm.reroll_available_at = 0
+		gm.reroll_offers()
 	# Lehrzeit-Hilfe übersprungen: Schlagstärke zählt in den ersten Aufträgen trotzdem nicht
 	gm.new_game()
 	gm.mark_hint_seen("tutorial_done")

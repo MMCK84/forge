@@ -32,6 +32,8 @@ static func format_lsd(pence: int, locale: String = "") -> String:
 		parts.append("£" + ps)
 	if shillings > 0:
 		parts.append(str(shillings) + "s")
+	if v == 0:
+		return "£0"
 	if d > 0 or parts.is_empty():
 		parts.append(str(d) + "d")
 	var s := " ".join(parts)

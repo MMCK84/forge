@@ -3,6 +3,7 @@ extends "res://scenes/ui/overlay.gd"
 
 const Economy = preload("res://scripts/economy.gd")
 const Assets = preload("res://scripts/assets.gd")
+const MoneyView = preload("res://scenes/ui/money_view.gd")
 const JobBook = preload("res://scenes/ui/job_book.gd")
 const Mastery = preload("res://scripts/mastery.gd")
 const Seal = preload("res://scenes/ui/mastery_seal.gd")
@@ -72,8 +73,11 @@ func build(box: VBoxContainer) -> void:
 	box.add_child(grid)
 	box.add_child(UIKit.hsep())
 	var net_row := HBoxContainer.new()
-	net_row.add_child(UIKit.label(tr("SET_NET") + ": " + Economy.format_lsd(int(report["net"])), 32, UIKit.GREEN))
-	net_row.add_child(_coins(int(report["net"])))
+	net_row.add_theme_constant_override("separation", 10)
+	net_row.add_child(UIKit.label(tr("SET_NET") + ":", 32, UIKit.GREEN))
+	var mv := MoneyView.new(32, UIKit.GREEN)
+	mv.set_pence(int(report["net"]))
+	net_row.add_child(mv)
 	box.add_child(net_row)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_END

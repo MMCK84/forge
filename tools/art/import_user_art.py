@@ -220,6 +220,10 @@ def main():
             os.remove(old_png)
             if os.path.exists(old_png + ".import"):
                 os.remove(old_png + ".import")
+    # Zunfttafeln je Rufstufe (U24–U27)
+    for lvl in (2, 3, 4, 5):
+        if os.path.exists(find_src("guild_plaque_%d.png" % lvl)):
+            save(_cutout(find_src("guild_plaque_%d.png" % lvl)), "guild_plaque_%d.png" % lvl, max_w=540)
     if os.path.exists(find_src("master_certificate.png")):
         save(_cutout(find_src("master_certificate.png")), "master_certificate.png", max_w=420)
     # Sterne (voll, leer), Sanduhr, Löschtrog, Victoria-Münzen (Midjourney, weiß)
@@ -658,9 +662,10 @@ def item_sprite(path, item_id):
 
 def derived():
     """Für Godot vorbereitete Varianten (StyleBoxTexture zeichnet Ränder 1:1, daher vorskalieren)."""
-    # Standardknopf aus Lederkarte 1: verkleinert, Rand ca. 24 px
+    # Standardknopf aus Lederkarte 1: verkleinert, Messingrand oben ca. 13 px, unten ca. 15 px (vorher 0.3 → Rand über
+    # 20 px: bei 52–64 px hohen Knöpfen lag die Schrift auf dem Rahmen und wirkte durchgestrichen)
     card = Image.open(os.path.join(OUT, "card_1.png"))
-    s = 0.3
+    s = 0.18
     btn = card.resize((int(card.width * s), int(card.height * s)), Image.LANCZOS)
     states(btn, "btn")
     # HUD-Leiste aus dem Holz-Eisen-Rahmen, Rand ca. 25 px

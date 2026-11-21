@@ -150,8 +150,10 @@ func _draw_code() -> void:
 
 
 ## Zunftschild je nach Ruf (kosmetische Belohnung), oben rechts an der Wand
+## Ersetzt durch die Zunfttafel (Bilder des Auftraggebers, workshop.gd _update_plaque) – die gezeichnete
+## Tafel ohne Erklärung bleibt aus (Entscheidung des Auftraggebers, 21.11.).
 func _draw_reputation_sign() -> void:
-	if reputation_level >= 2:
+	if false and reputation_level >= 2:
 		var sp := Vector2(880, 300)
 		draw_rect(Rect2(sp.x - 70, sp.y, 140, 70), Color("6b4a2f"))
 		draw_rect(Rect2(sp.x - 70, sp.y, 140, 70), Color("b08d57"), false, 4.0)

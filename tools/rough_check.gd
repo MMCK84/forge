@@ -126,6 +126,10 @@ func _furn_shot(e: int) -> void:
 		gm.advance_epoch()
 		await wait(0.3)
 		await close_overlays()
+	var stars := int(_arg("stars", "-1"))
+	if stars >= 0:
+		gm.stats["stars_total"] = stars
+		gm.state_changed.emit()
 	for sl in ["fuel", "tools", "bench", "trade", "light"]:
 		gm.debug_add_money(gm.furnish_price(sl))
 		gm.buy_furnishing(sl)

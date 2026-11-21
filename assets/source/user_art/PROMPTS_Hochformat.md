@@ -20,12 +20,12 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | ✅ gut (Midjourney) | 113 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 169 |
+| ⬜ noch nicht vorhanden | 170 |
 | ⬜ noch nicht vorhanden (optional) | 34 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
-| A · Werkstatt-Hintergründe | 10 | 0 | 0 | 0 | 0 |
+| A · Werkstatt-Hintergründe | 10 | 0 | 0 | 1 | 0 |
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
@@ -119,7 +119,8 @@ Erledigt (21.11.): **alle Bilder der Epoche 1** – Einrichtung, Werkstücke, Ro
 
 **Jetzt:**
 
-1. **U24 Zunfttafel Ruf 2** (2 Sterne) – zuerst; dann **U25–U27** mit U24 als Bild-Prompt (`--iw 1`), damit alle vier Tafeln gleich aussehen. Ersetzt die gezeichnete Tafel mit den gelben Punkten.
+1. **BG0 Lehrwerkstatt des Meisters** – die Werkstatt der Lehrzeit (danach zieht man in die eigene Dorfschmiede BG1). BG1 als Stil-Referenz anhängen, gleiche Bodenhöhe wie BG1; 1:1, Upscale 2×.
+2. **U24 Zunfttafel Ruf 2** (2 Sterne) – zuerst; dann **U25–U27** mit U24 als Bild-Prompt (`--iw 1`), damit alle vier Tafeln gleich aussehen. Ersetzt die gezeichnete Tafel mit den gelben Punkten.
 
 Danach:
 
@@ -133,6 +134,12 @@ Danach:
 Esse, Amboss und Maschinen stellt das Spiel davor – der Raum bleibt leer. Wand-Boden-Kante bei etwa 55–60 % der Höhe, unteres Drittel ruhig und dunkel (Bedienelemente).
 
 **Format 1:1 (Regler: Square 1:1), danach Upscale 2× (Subtle) und erst das vergrößerte Bild (2048 × 2048) schicken** – ohne Upscale sind es nur 1024 × 1024. Ein Bild für beide Ausrichtungen: Im Hochformat nimmt das Spiel den mittleren 3:4-Ausschnitt (die äußeren Achtel links und rechts fallen weg) und verlängert den dunklen Boden nach unten; im Querformat (Tablet, später) die volle Breite. Deshalb gehören Fenster und alles Wichtige in die mittleren drei Viertel. Mindestgröße nach dem Upscale: 1440 × 1440 Pixel. Hilfreich: die Vorlage `assets/source/user_art/vorlagen/bildaufbau_hintergrund.png` (1:1) als **Bild-Prompt** vor den Text setzen (nicht als Stil-Referenz) und ein gelungenes Midjourney-Bild als Stil-Referenz. Ich messe die Kante bei jedem Bild aus (50–70 % geht; liegt sie tiefer, schneidet der Import oben Decke ab).
+
+**BG0** – Lehrwerkstatt des Meisters (Lehrzeit, vor der eigenen Dorfschmiede) · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 124 Wörter · Datei `background_0`
+```
+BG0 — Square 2D game background, hand-painted, dark ink outlines. Evening but well lit, warm orange firelight glowing on the centre of the back wall. Empty room seen from a high viewpoint: ceiling beams at the top, the floor fills the lower half of the image and reaches the bottom edge. Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. Props only at the far left and right edges. Master smith's workshop in an English market town around 1700, richer than a village smithy: dressed stone lower wall, half-timbered upper wall, clean flagstone floor. Through the small window: market square with a stone cross. Edges: neatly racked tools, shelf with finished ironwork --ar 1:1 --no forge, fire, fireplace, flames, anvil, machine, people, daylight beam, second window, text, numbers, watermark, black band, border
+```
 
 **BG1** – Die Dorfschmiede (1700–1715) · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 111 Wörter · Datei `background_1`  

@@ -381,6 +381,9 @@ BG_HEAD = ("Square 2D game background, hand-painted, dark ink outlines. Evening 
            "Only one small window, just below the beams, left of centre. The centre of the back wall is free of posts and windows. "
            "Props only at the far left and right edges. ")
 BG_TAIL = "No forge, no fire, no fireplace, no flames, no anvil, no machine, no people, no daylight beam, no second window."
+MASTER_SHOP = ("Master smith's workshop in an English market town around 1700, richer than a village smithy: dressed stone "
+               "lower wall, half-timbered upper wall, clean flagstone floor. Through the small window: market square with a stone cross. "
+               "Edges: neatly racked tools, shelf with finished ironwork. ")
 BACKGROUNDS = {
     1: "English village smithy around 1700: half-timbered wall with whitewashed daub, earth floor with straw. Through the small window: green fields, hedge, church tower. Edges: tongs rack, horseshoes on a beam. ",
     2: "Roadside smithy on an English coaching road around 1725: rough grey stone wall, timber beams, worn flagstones. Through the small window: dirt road with a stagecoach. Edges: spare coach wheel, harness on pegs. ",
@@ -623,6 +626,12 @@ def main():
 
     # A Hintergründe
     a = []
+    # BG0: Lehrwerkstatt des Meisters (nur Lehrzeit) – größer und eingerichteter als die eigene Dorfschmiede (BG1);
+    # gleiche Blickrichtung und Bodenhöhe, damit Esse und Amboss gleich stehen (Entscheidung des Auftraggebers, 21.11.)
+    st = add(status("background_0.jpg"))
+    a.append(block("Lehrwerkstatt des Meisters (Lehrzeit, vor der eigenen Dorfschmiede)", BG_HEAD + MASTER_SHOP + BG_TAIL, st,
+                   "background_0", "Wie BG1 aufbauen (gleiche Höhe der Wand-Boden-Kante, ca. 70 %), aber reicher: das ist die Werkstatt, "
+                   "in der man lernt. BG1 als Stil-Referenz verwenden, damit Licht und Malweise gleich bleiben.", code="BG0", section="A"))
     for e in range(1, 11):
         st = add(status(f"background_{e}.jpg"))
         a.append(block(EPOCH_NAMES[e], BG_HEAD + BACKGROUNDS[e] + BG_TAIL, st, f"background_{e}", code=f"BG{e}", section="A"))
@@ -826,7 +835,8 @@ def main():
               "Erledigt: alle zehn Hintergründe (A), alle sechs Essen (B), Amboss und Hämmer (C), alle Maschinenteile (D).", "",
               "Erledigt (21.11.): **alle Bilder der Epoche 1** – Einrichtung, Werkstücke, Rohformen W1-1R–W1-8R, Oberfläche U1–U23.", "",
               "**Jetzt:**", "",
-              "1. **U24 Zunfttafel Ruf 2** (2 Sterne) – zuerst; dann **U25–U27** mit U24 als Bild-Prompt (`--iw 1`), damit alle vier Tafeln gleich aussehen. Ersetzt die gezeichnete Tafel mit den gelben Punkten.", "",
+              "1. **BG0 Lehrwerkstatt des Meisters** – die Werkstatt der Lehrzeit (danach zieht man in die eigene Dorfschmiede BG1). BG1 als Stil-Referenz anhängen, gleiche Bodenhöhe wie BG1; 1:1, Upscale 2×.",
+              "2. **U24 Zunfttafel Ruf 2** (2 Sterne) – zuerst; dann **U25–U27** mit U24 als Bild-Prompt (`--iw 1`), damit alle vier Tafeln gleich aussehen. Ersetzt die gezeichnete Tafel mit den gelben Punkten.", "",
               "Danach:", "",
               "1. **Werkstücke** der übrigen Epochen (E) – Standard-Modus mit Stil-Referenz (nicht Raw).",
               "2. **Löschtrog** (U15) für Epoche 4 und die Einrichtung der übrigen Epochen (H).",
