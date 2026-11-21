@@ -17,10 +17,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 64 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
+| ✅ gut (Midjourney) | 69 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 18 |
-| ⬜ noch nicht vorhanden | 118 |
+| ⬜ noch nicht vorhanden | 112 |
 | ⬜ noch nicht vorhanden (optional) | 38 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -29,7 +29,7 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
-| E · Werkstücke | 11 | 1 | 5 | 64 | 0 |
+| E · Werkstücke | 16 | 2 | 5 | 58 | 0 |
 | F · Kundenporträts | 19 | 1 | 0 | 0 | 34 |
 | G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 4 | 4 |
 | H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
@@ -74,6 +74,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | alle Frontal-/Seitenansichten | Midjourney malt freigestellte Objekte häufig perspektivisch, obwohl „front view“ im Prompt steht | Ansicht ganz an den Anfang: „Flat orthographic front/side elevation, like a technical drawing“ + `--no perspective, isometric view, three-quarter view, angled view, vanishing point`; dazu ein gelungenes frontales Bild (auch das alte Gemini-Bild) als **Bild-Prompt** mit `--iw 1` – das überträgt die Blickrichtung am zuverlässigsten |
 | 20.11. | Maschinenteile | neuer Hammerbalken mit Lager am Ende (statt bei einem Drittel), neues Gestell mit mittigem Lagerbock | historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt |
 | 20.11. | Werkstücke | Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten | Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst) |
+| 21.11. | Werkstücke | Ruderfingerling (W3-7) kam als dünner, schräger Spieß ohne Bandeisen und Bolzenlöcher; eine Schere kam mit Fingerringen statt als Federschere | Form mit einem bekannten Umriss beschreiben („shaped like a capital letter L turned on its side“), Verwechslungen ausdrücklich ausschließen („not a thin spike, not diagonal“, „no finger rings, not scissors“) |
 | 20.11. | Porträts | Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller | bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung |
 
 ## Midjourney-Einstellungen (Version 8.2)
@@ -509,40 +510,46 @@ Regler: **Square 1:1** · 62 Wörter · Datei `chain_link`
 W3-1 — 2D game asset, a single large forged oval chain link made from thick round bar, a visible forge-weld seam on one long side, empty in the middle, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-2** – Ankerschaft · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 75 Wörter · Datei `anchor_shank`
+**W3-2** – Ankerschaft · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 75 Wörter · Datei `anchor_shank`  
+*21.11.: Schaft mit Ring links und Kreuzblock rechts – wie gewünscht. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 W3-2 — 2D game asset, a single forged ship's anchor shank without arms: long thick square iron bar, a forged ring eye at the left end, a thickened square crown block at the right end where the anchor arms would be welded, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-3** – Bootshaken · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter · Datei `boathook`
+**W3-3** – Bootshaken · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter · Datei `boathook`  
+*21.11.: Tülle, Haken und Spitze – wie gewünscht. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 W3-3 — 2D game asset, a single forged boathook head without pole: a straight pointed spike on the right with one backward-curving hook beside it, and a conical open socket on the left, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-4** – Festmacherring · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 64 Wörter · Datei `mooring_ring`
+**W3-4** – Festmacherring · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter · Datei `mooring_ring`  
+*21.11.: Ring mit U-Krampe und zwei Spitzen – wie gewünscht (stehend statt liegend, unkritisch). Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 W3-4 — 2D game asset, a single heavy forged mooring ring: thick round-section iron ring, empty in the middle, held by a short U-shaped staple with two pointed spikes at the bottom, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-5** – Schiffsbolzen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 67 Wörter · Datei `ship_bolt`
+**W3-5** – Schiffsbolzen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 67 Wörter · Datei `ship_bolt`  
+*21.11.: Bolzen mit Rundkopf und Splintschlitz – wie gewünscht. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 W3-5 — 2D game asset, a single forged ship's bolt: long round iron rod with a domed head at the left end and a narrow slot for a forelock wedge near the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-6** – Lafettenbeschlag · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 76 Wörter · Datei `carriage_fitting`
+**W3-6** – Lafettenbeschlag · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 76 Wörter · Datei `carriage_fitting`  
+*21.11.: Lafettenbeschlag als Schildzapfen-Deckel (capsquare) mit Scharnierauge – historisch passend. Fotorealistisch auf grauem Grund, Import stellt sauber frei.*
 ```
 W3-6 — 2D game asset, a single forged gun-carriage fitting (cap square): heavy flat iron band bent into a half-round arch in the middle, a hinge eye at the left end and a slotted tab with two bolt holes at the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-7** – Ruderfingerling · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 81 Wörter · Datei `rudder_pintle`
+**W3-7** – Ruderfingerling · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 103 Wörter · Datei `rudder_pintle`  
+*21.11.: falsches Objekt – dünner, schräger Spieß mit Knopf statt L-förmigem Bandeisen mit Bolzenlöchern und Zapfen; Prompt jetzt mit „L-förmig“ und Ausschlüssen.*
 ```
-W3-7 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged rudder pintle for a sailing ship: long flat iron strap with four bolt holes, at the left end bent into a thick round pin pointing downwards at a right angle, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W3-7 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single L-shaped forged rudder pintle for a sailing ship: a long flat iron strap with four round bolt holes lying exactly horizontal, and at its left end a short thick round pin pointing straight down at a right angle, shaped like a capital letter L turned on its side, not a thin spike, not diagonal, seen from the side, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 4 – Stahl & Tuch (1750–1765)
@@ -554,9 +561,9 @@ W4-1 — 2D game asset, a single forged spindle for a spinning machine: long thi
 ```
 
 **W4-2** – Tuchschere · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 74 Wörter · Datei `cloth_shears`
+Regler: **Square 1:1** · 79 Wörter · Datei `cloth_shears`
 ```
-W4-2 — 2D game asset, a single pair of large forged cloth shears of the spring type: two long straight steel blades joined at the left end by a U-shaped bow spring, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, pivot screw, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W4-2 — 2D game asset, a single pair of large forged cloth shears of the spring type: two long straight steel blades joined at the left end by a U-shaped bow spring like sheep shears, not scissors, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, pivot screw, finger rings, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W4-3** – Messerklinge · ⬜ noch nicht vorhanden  

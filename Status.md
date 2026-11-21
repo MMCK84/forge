@@ -272,6 +272,11 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Werkstück auf dem Amboss; Werkstück auf dem Amboss größer; Bildausschnitt im Epochenwechsel; mehr Rand unten in Fenstern;
   Meisterstück-Kennzeichnung. Prompt-Heft: neue Reihenfolge „Jetzt: Epoche 1 auf Alpha-Niveau“.
   Schlagserie zählt Maschinenschläge weiter mit (Wunsch des Auftraggebers; bei Bedarf später kürzen).
+- 21.11.: **Lieferung W3-2 bis W3-8** (erste Lieferung per GitHub Desktop). Gut: Ankerschaft, Bootshaken, Festmacherring,
+  Schiffsbolzen, Lafettenbeschlag (W3-2–6). **Ändern:** Ruderfingerling W3-7 (dünner schräger Spieß statt L-förmigem
+  Bandeisen mit Zapfen) – bis zum Ersatz im Spiel. **W3-8** (Schere mit Fingerringen) hat kein passendes Kürzel – liegt
+  weiter im Eingang; vermutlich W4-2 Tuchschere, die aber als Federschere ohne Fingerringe gedacht ist. Prompts für
+  W3-7 und W4-2 nachgeschärft, Erkenntnis in `LESSONS`. Import, Heft neu erzeugt.
 
 ## Prüfen
 

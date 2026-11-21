@@ -154,7 +154,7 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 
 **rudder_pintle** – Ruderfingerling
 ```
-2D game asset, a single forged rudder pintle for a sailing ship: long flat iron strap with four bolt holes, at the left end bent into a thick round pin pointing downwards at a right angle, seen from the side, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single L-shaped forged rudder pintle for a sailing ship: a long flat iron strap with four round bolt holes lying exactly horizontal, and at its left end a short thick round pin pointing straight down at a right angle, shaped like a capital letter L turned on its side, not a thin spike, not diagonal, seen from the side, dark grey unheated wrought iron, 18th-century British blacksmith work, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **ship_bolt** – Schiffsbolzen
@@ -181,7 +181,7 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 
 **cloth_shears** – Tuchschere
 ```
-2D game asset, a single pair of large forged cloth shears of the spring type: two long straight steel blades joined at the left end by a U-shaped bow spring, no pivot screw, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single pair of large forged cloth shears of the spring type: two long straight steel blades joined at the left end by a U-shaped bow spring like sheep shears, no pivot screw, no finger rings, not scissors, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **file** – Feile

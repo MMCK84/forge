@@ -394,6 +394,36 @@
    "quelle": "Midjourney",
    "bewertung": "ändern",
    "hinweis": "20.11.: wirkt wie eine Frau mit Haube, nicht fröhlich, kaum Mehl – neu mit „(a man)“, breitem Lächeln und Mehlstaub."
+  },
+  "anchor_shank": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Schaft mit Ring links und Kreuzblock rechts – wie gewünscht. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "boathook": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Tülle, Haken und Spitze – wie gewünscht. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "mooring_ring": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Ring mit U-Krampe und zwei Spitzen – wie gewünscht (stehend statt liegend, unkritisch). Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "ship_bolt": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Bolzen mit Rundkopf und Splintschlitz – wie gewünscht. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "carriage_fitting": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Lafettenbeschlag als Schildzapfen-Deckel (capsquare) mit Scharnierauge – historisch passend. Fotorealistisch auf grauem Grund, Import stellt sauber frei."
+  },
+  "rudder_pintle": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: falsches Objekt – dünner, schräger Spieß mit Knopf statt L-förmigem Bandeisen mit Bolzenlöchern und Zapfen; Prompt jetzt mit „L-förmig“ und Ausschlüssen."
   }
  },
  "abgelehnt": {
