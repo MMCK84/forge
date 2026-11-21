@@ -104,6 +104,8 @@ LESSONS = [
      "Form mit einem bekannten Umriss beschreiben („shaped like a capital letter L turned on its side“), Verwechslungen ausdrücklich ausschließen („not a thin spike, not diagonal“, „no finger rings, not scissors“)"),
     ("20.11.", "Porträts", "Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller",
      "bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung"),
+    ("21.11.", "Rohformen (Bereich I)", "W1-1R mit fertigem Nagel als Bild-Prompt und `--iw 1.5` ergab wieder den fertigen Nagel (Kopf und Spitze)",
+     "Rohform = Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; was spätere Arbeitsgänge formen (Spitze, Kopf, Biegung, Löcher, Verdrillung) als `--no`; Bild-Prompt nur noch `--iw 0.5`"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -272,6 +274,64 @@ CODES = {}
 DEST = {"A": "backgrounds", "B": "forges", "C": "tools", "D": "machines", "E": "items", "F": "portraits", "G": "", "H": "furnishings"}
 
 
+# Rohformen (Bereich I): Stand nach dem ersten Arbeitsgang, Rest ausdrücklich verboten.
+# Epoche 1 von Hand beschrieben (Lage wie das fertige Bild), sonst aus den Arbeitsgängen in data/items/<id>.tres.
+ROUGH_DESC = {
+    "nail": "a long straight square iron rod drawn out by hammering, lying horizontally like the nail in the reference, "
+            "both ends still blunt and square-cut, only a slightly thicker rough stub at the left end, no sharp point, no tapered tip, no nail head",
+    "horseshoe": "a flat iron bar drawn out by hammering, still almost straight, only very slightly curved like a shallow arch, "
+                 "lying horizontally across the centre, both ends blunt, not yet bent into a U, no nail holes, no fullered groove, no horseshoe shape",
+    "hook": "a round iron rod drawn out by hammering, still straight, standing upright in the centre along the long axis of the S-hook, "
+            "both ends blunt and thick, no points, no curls, no S shape, no hook",
+    "door_hinge": "a long flat iron strap hammered flat, lying horizontally where the hinge lies in the reference, both ends plain and roughly rounded, "
+                  "no rolled loop, no knuckle, no nail holes, no spear tip, no decoration",
+    "sickle": "a thick iron bar drawn out by hammering with a short tang at one end, lying diagonally, only slightly curved, "
+              "not yet flattened into a blade, no thin cutting edge, no crescent shape",
+    "ploughshare": "a thick flat iron plate roughly hammered out into a triangle, ragged uneven edges, deep hammer dents, "
+                   "the short socket stub at the left still flat and unbent, no smooth surface, no sharp edge",
+    "fire_poker": "a long straight square iron rod drawn out by hammering, lying horizontally, with a roughly bent ring at the right end, "
+                  "the left end blunt, no twisted section, no spiral, no hooked tip",
+    "gate_latch": "a straight flat iron bar hammered flat, lying horizontally like the latch bar in the reference, both ends plain, "
+                  "no curled scroll, no nail holes, no decorative leaf work, no keeper, no staple",
+}
+STEP_DONE = {"draw": "drawn out longer and thinner by hammering", "flatten": "hammered flat", "upset": "thickened at one end by upsetting",
+             "cut": "cut to length", "bend": "bent roughly into shape", "point": "with a rough point", "punch": "with roughly punched holes",
+             "twist": "roughly twisted", "planish": "roughly smoothed"}
+STEP_TODO = {"draw": "not yet drawn out", "flatten": "not yet hammered flat", "upset": "no thickened head, no collar",
+             "cut": "ends not yet trimmed", "bend": "not yet bent, no curves, no loops", "point": "no sharp point",
+             "punch": "no holes", "twist": "no twisted section", "planish": "no smooth surface, no polish"}
+
+
+def _item_material(iid):
+    try:
+        with open(os.path.join(ROOT, "data", "items", f"{iid}.tres"), encoding="utf-8") as fh:
+            m = re.search(r'^material = "([a-z]+)"', fh.read(), re.M)
+    except OSError:
+        return ""
+    return m.group(1) if m else ""
+
+
+def _item_steps(iid):
+    try:
+        with open(os.path.join(ROOT, "data", "items", f"{iid}.tres"), encoding="utf-8") as fh:
+            txt = fh.read()
+    except OSError:
+        return []
+    return re.findall(r'"id": "([a-z_]+)"', txt)
+
+
+def rough_desc(iid, name_en):
+    if iid in ROUGH_DESC:
+        return ROUGH_DESC[iid]
+    steps = _item_steps(iid)
+    if not steps:
+        return f"a rough half-forged {name_en}, the basic shape only, ends not yet finished, no holes, no decoration"
+    todo = ", ".join(STEP_TODO[x] for x in dict.fromkeys(steps[1:]) if x in STEP_TODO)
+    return (f"the raw iron for a {name_en} right after the first forging step, only {STEP_DONE.get(steps[0], 'roughly forged')}, "
+            f"same position and orientation as the {name_en} in the reference, still far from the finished shape"
+            + (f", {todo}" if todo else "") + ", no decoration")
+
+
 def block(title, prompt, st, fname, note="", code=None, section=""):
     st = final_status(st, fname)
     pv_note = _prov(fname).get("hinweis", "")
@@ -282,7 +342,7 @@ def block(title, prompt, st, fname, note="", code=None, section=""):
     mj = f"{code} — " + midjourney(shorten(prompt))
     if fname.endswith("_rough"):
         # Rohform: das fertige Werkstück als Bild-Prompt anhängen, damit Größe und Lage gleich bleiben
-        mj += " --iw 1.5"
+        mj += " --iw 0.5"
     m = re.search(r"--ar (\d+):(\d+)", mj)
     w, h = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
     slider = ("Portrait" if w < h else "Landscape" if w > h else "Square") + f" {w}:{h}"
@@ -655,11 +715,9 @@ def main():
             iid = it[0]
             n += 1
             final = item_prompts.get(iid, ("", ""))[1].lower()
-            metal = "dark grey forged steel" if "steel" in final and "wrought iron" not in final else "dark grey wrought iron"
+            metal = "dark grey forged steel" if _item_material(iid) == "steel" else "dark grey wrought iron"
             view = "seen from the side, horizontal" if ("from the side" in final or "side view" in final) else "top-down view, lying flat"
-            prompt = (f"2D game asset, a rough half-forged {it[9]}: the same object as in the reference image, at the same size, position "
-                      f"and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, "
-                      f"cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, "
+            prompt = (f"2D game asset, {rough_desc(iid, it[9])}, crude and unfinished, uneven hammer marks, "
                       f"{metal} with fresh forge scale, {view}, centred with wide margin, metal only, cold, pure flat white background, square 1:1")
             st = add(HAVE if have(f"item_{iid}_rough.png") else NEED)
             i_parts.append(block(f"{it[6]} – Rohform", prompt, st, f"{iid}_rough", code=f"W{ep}-{n}R", section="E"))
@@ -667,7 +725,7 @@ def main():
                      "Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsgang die **Rohform** und am Ende das "
                      "fertige Werkstück. Kürzel = Kürzel des fertigen Werkstücks mit „R“ (W1-2R ist die Rohform von W1-2). "
                      "**Wichtig:** Das fertige Werkstück als **Bild-Prompt** anhängen (Bild in die Prompt-Leiste ziehen), der Prompt endet "
-                     "schon mit `--iw 1.5` – so bleiben Größe, Lage und Blickrichtung gleich, und das Spiel kann sauber überblenden. "
+                     "schon mit `--iw 0.5` – so bleiben Lage und Blickrichtung ungefähr gleich, ohne dass Midjourney das fertige Stück kopiert (mit `--iw 1.5` kam bei W1-1R einfach wieder der fertige Nagel). Die Rohform zeigt den Stand **nach dem ersten Arbeitsgang**; was die späteren Arbeitsgänge erst formen (Spitze, Kopf, Biegung, Löcher, Verdrillung), steht ausdrücklich als Verbot im Prompt. Kommt trotzdem ein zu fertiges Stück: im Midjourney-Editor am fertigen Bild die Teile wegradieren und neu füllen lassen. "
                      "Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist; zuerst Epoche 1 zur Probe.", i_parts))
 
     def counts(txt):

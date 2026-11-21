@@ -70,7 +70,8 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 - **Perspektive:** Esse, Amboss, Hämmer, Maschinen und Werkstücke streng flach (Ansicht ganz vorn im Prompt, --no-Liste);
   **Einrichtung darf leicht dreiviertel sein** (steht im perspektivisch gemalten Raum); Mechanik Bauteil für Bauteil beschreiben.
 - **Zeitbezug:** typische moderne Verwechslungen ausdrücklich ausschließen (z. B. Sturmlaterne, Doppeladler).
-- **Rohformen:** fertiges Werkstück als Bild-Prompt anhängen (`--iw 1.5` steht im Prompt).
+- **Rohformen:** Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; spätere Formen (Spitze, Kopf, Biegung, Löcher)
+  als `--no`. Fertiges Werkstück als Bild-Prompt nur schwach (`--iw 0.5`), sonst kopiert Midjourney das fertige Stück.
 - **Hintergründe 1:1**, Upscale 2× vor dem Schicken; Wand-Boden-Kante je Epoche in `USER_FLOOR_Y`.
 - Originale liegen im Repository unter `assets/source/user_art/` (z. B. Werkstücke in `items/<id>.png`).
 
@@ -280,6 +281,11 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   Maschinen lassen sich unabhängig davon immer halten. Tests 2153/0, Spieltest 0 Probleme.
 - 21.11.: Neue Sitzung auf `claude/sharp-rubin-jfnibw`; Godot 4.7.2 installiert, Unit-Tests grün (2153/0). Eingang leer –
   warte auf W1-1R bis W1-8R, U22, U23.
+- 21.11.: **W1-1R (Probe) abgelehnt:** Mit dem Nagel als Bild-Prompt und `--iw 1.5` kam wieder der fertige Nagel (Kopf, Spitze) –
+  im Spiel wäre kein Stufensprung zu sehen. Rohform-Prompts neu: Stand **nach dem ersten Arbeitsgang** (Nagel: gestreckter
+  Vierkantstab, stumpf, ohne Kopf und Spitze), Epoche 1 von Hand beschrieben, übrige Epochen aus den Arbeitsgängen in
+  `data/items/*.tres`; was spätere Gänge formen, steht als `--no`; `--iw 0.5`; Material aus den Spieldaten (Sichel Eisen).
+  `LESSONS` ergänzt, Heft neu erzeugt.
 
 ## Prüfen
 
