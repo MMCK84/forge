@@ -312,6 +312,12 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   (W…R, mit Bild-Prompt `--iw 1.5`), **U22 Titelbild**, **U23 Meisterbrief**. Spiel: Werkstück zeigt nach dem ersten
   Arbeitsgang die Rohform (falls vorhanden), Hauptmenü nutzt das Titelbild, Abrechnung den Meisterbrief; Import für beide.
   **W3-8 → W4-2 Tuchschere** (Schneiderschere, Prompt angepasst). Musik später.
+- 21.11.: **Wünsche des Auftraggebers:** „Laden“ heißt auch im Deutschen **Shop**; Schlagstärke **Sanft – Mittel – Fest**
+  (alle Hinweise angepasst; englisch Soft/Medium/Firm). **Tastenhinweise:** am Rechner an jedem Knopf mit Taste (Aufträge [J],
+  Shop [S], Personal [P], Statistik [T] – neu –, Sanft [←], Mittel [↓], Fest [→], HAMMERN [Leertaste], Rohling [R], Umlegen [E],
+  Abschrecken [Q], Menü [Esc]); auf Handy/Tablet nie (die Übersetzung entfernt sie beim Laden und macht aus „Klickt“ „Tippt“;
+  Test am Rechner mit `-- --touch`). **Hammer in Ruhelage** lehnt am Horn statt vor dem aufheizenden Werkstück zu stehen.
+  Offen zur Entscheidung: Dauerschlag (Halten) als erlernte Fähigkeit.
 
 ## Prüfen
 

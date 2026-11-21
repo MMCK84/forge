@@ -136,7 +136,7 @@ func _setup_input() -> void:
 		"hammer": [KEY_SPACE], "move_piece": [KEY_E], "load_raw": [KEY_R],
 		"select_1": [KEY_1], "select_2": [KEY_2], "select_3": [KEY_3],
 		"quench": [KEY_Q], "open_jobs": [KEY_J], "open_shop": [KEY_S],
-		"open_staff": [KEY_P], "pause": [KEY_ESCAPE], "test_menu": [KEY_F12],
+		"open_staff": [KEY_P], "open_stats": [KEY_T], "pause": [KEY_ESCAPE], "test_menu": [KEY_F12],
 	}
 	for action in keys:
 		if InputMap.has_action(action):

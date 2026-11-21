@@ -98,14 +98,14 @@ func _ready() -> void:
 	var nav := HBoxContainer.new()
 	nav.add_theme_constant_override("separation", 8)
 	_nav.add_child(nav)
-	var specs := [["UI_JOB_BOOK_SHORT", open_jobs], ["UI_SHOP", open_shop], ["UI_STAFF", open_staff], ["UI_STATS", open_stats]]
+	var specs := [["NAV_JOBS", open_jobs], ["NAV_SHOP", open_shop], ["NAV_STAFF", open_staff], ["NAV_STATS", open_stats]]
 	for sp in specs:
 		var sig: Signal = sp[1]
 		var b := UIKit.button(tr(str(sp[0])), func() -> void: sig.emit(), Vector2(0, 56), 21)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.clip_text = true
 		nav.add_child(b)
-		if sp[0] == "UI_STAFF":
+		if sp[0] == "NAV_STAFF":
 			_staff_btn = b
 	GameManager.pence_changed.connect(_on_pence)
 	# Keine Tastaturfokus-Übernahme: die Leertaste soll immer hämmern, nicht Knöpfe auslösen.

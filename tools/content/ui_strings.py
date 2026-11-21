@@ -34,7 +34,11 @@ t("UI_OFFLINE_EARNINGS", "Während Eurer Abwesenheit ({t}) hat der Geselle {m} v
 # HUD
 t("UI_JOB_BOOK", "Auftragsbuch", "Order book")
 t("UI_JOB_BOOK_SHORT", "Aufträge", "Orders")
-t("UI_SHOP", "Laden", "Shop")
+t("UI_SHOP", "Shop", "Shop")
+t("NAV_JOBS", "Aufträge [J]", "Orders [J]")
+t("NAV_SHOP", "Shop [S]", "Shop [S]")
+t("NAV_STAFF", "Personal [P]", "Staff [P]")
+t("NAV_STATS", "Statistik [T]", "Statistics [T]")
 t("UI_STAFF", "Personal", "Staff")
 t("UI_STATS", "Statistik", "Statistics")
 t("UI_NEXT_EPOCH", "Neuer Standort!", "New premises!")
@@ -45,7 +49,7 @@ t("UI_RAW_STACK", "Rohlinge", "Blanks")
 t("UI_TROUGH", "Löschtrog [Q]", "Quench trough [Q]")
 t("UI_BTN_LOAD", "Rohling einlegen [R]", "Load blank [R]")
 t("UI_BTN_MOVE", "Umlegen [E]", "Move piece [E]")
-t("UI_BTN_HAMMER", "HAMMERN – Klick / Leertaste", "HAMMER – click / space")
+t("UI_BTN_HAMMER", "HAMMERN [Leertaste]", "HAMMER [Space]")
 t("UI_BTN_QUENCH", "Abschrecken [Q]", "Quench [Q]")
 t("UI_PIECE_INFO", "Stück {i}/{n} · {p} %", "Piece {i}/{n} · {p} %")
 t("UI_JOB_INFO", "Auftrag {p} % fertig", "Order {p} % complete")
@@ -125,7 +129,7 @@ t("UI_FORGE_BURN_NOTE", "Achtung: Ab der Esse mit Doppelblasebalg liegt die Höc
 t("UI_MACHINE_INFO", "Schlagkraft {p} · {h} Schläge/s", "Striking power {p} · {h} blows/s")
 t("UI_MACHINE_COST", "Betriebskosten {c} je Minute", "running cost {c} per minute")
 t("UI_MACHINE_WATER", "Leistung schwankt mit dem Wasserstand (60–100 %)", "output varies with the water level (60–100 %)")
-t("UI_MACHINE_NOTE", "Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur schwer, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.", "You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike heavy only, steam hammers with the chosen force. Only one machine is active at a time.")
+t("UI_MACHINE_NOTE", "Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur fest, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.", "You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike firm only, steam hammers with the chosen force. Only one machine is active at a time.")
 t("UI_BUY", "Kaufen", "Buy")
 t("UI_EQUIP", "Benutzen", "Use")
 t("UI_EQUIPPED", "In Gebrauch", "In use")
@@ -316,7 +320,7 @@ t("TUT_TAKE", "Jetzt! Klickt auf das glühende Werkstück, um es auf den Amboss 
 t("TUT_HAMMER", "Schmiedet! Klickt auf den Amboss oder drückt die Leertaste – gedrückt halten schlägt fortlaufend.", "Forge! Click the anvil or press the space bar – hold it down for continuous blows.")
 t("TUT_TOO_COLD_SOON", "Das Eisen kühlt ab – unter Kirschrot wirken die Schläge schwächer. Zurück in die Esse [E]!", "The iron is cooling – below cherry red your blows are weaker. Back into the fire [E]!")
 t("TUT_COLD", "Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!", "Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!")
-t("TUT_BUY_HAMMER", "Gut verdient! Kauft im Laden [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.", "Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.")
+t("TUT_BUY_HAMMER", "Gut verdient! Kauft im Shop [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.", "Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.")
 # Hinweise zu neuen Mechaniken
 H = {
  "welcome": ("Willkommen in der Dorfschmiede", "Ein Werkstück wird in mehreren Hitzen fertig: in der Esse aufheizen, auf dem Amboss schmieden, solange es glüht, zurück ins Feuer, wieder schmieden. Das Timing zwischen Esse und Amboss ist Eure wichtigste Fertigkeit.\n\nZu kalt (unter 400 °C) beschädigt das Eisen, zu heiß (über 1100 °C) ebenso – über 1300 °C verbrennt es.",
@@ -331,8 +335,8 @@ H = {
           "Forge welding", "Halfway through, progress pauses: strike 6 blows at white heat (1200–1300 °C). Blows outside don't count – and the iron suffers at this heat, so be quick and precise!"),
  "harden": ("Härten", "Ist das Stück fertig geschmiedet, zieht Ihr es in den Löschtrog [Q]. Bewertet wird die Temperatur beim Abschrecken: 760–840 °C ist richtig, darüber droht ein Härteriss, darunter bleibt es zu weich. Zu kalt? Einfach nachheizen.",
             "Hardening", "Once the piece is fully forged, put it into the quench trough [Q]. The temperature when quenching counts: 760–840 °C is right; hotter risks a quench crack, cooler leaves it too soft. Too cold? Just reheat it."),
- "machine": ("Maschinenbetrieb", "Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur schwer und ruht in leichten Arbeitsgängen.",
-             "Machine power", "You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes heavy only and rests during light steps."),
+ "machine": ("Maschinenbetrieb", "Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur fest und ruht in sanften Arbeitsgängen.",
+             "Machine power", "You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes firm only and rests during soft steps."),
  "big": ("Großschmiedestück", "Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. Den Großteil leistet die Maschine – haltet HAMMERN gedrückt und das Eisen in der richtigen Hitze.",
          "Heavy forging", "Too heavy for the hand hammer: your blows count only 25 %. The machine does most of the work – you keep the iron at the right heat."),
  "journeyman": ("Der Geselle", "Euer Geselle arbeitet im Hintergrund eigene Aufträge ab – auch wenn das Spiel geschlossen ist (bis zu 8 Stunden).",
@@ -389,17 +393,17 @@ t("TEST_NEW_GAME", "Neues Spiel starten", "Start a new game")
 S["TYPE_PRECISION"] = ("Präzision (enges Fenster)", "Precision (narrow window)")
 S["HINT_PRECISION_TEXT"] = ("Hier zählt nur, was Ihr in der Mitte des Zielfensters schmiedet: Jedes Fenster ist auf seine mittleren 60 % verengt. Drei Sterne bringen 25 % Trinkgeld.", "Only what you forge in the middle of the target window counts here: every window is narrowed to its central 60 %. Three stars earn a 25 % tip.")
 # Schlagstärke
-t("FORCE_0", "Leicht", "Light")
-t("FORCE_1", "Mittel", "Medium")
-t("FORCE_2", "Schwer", "Heavy")
-t("FORCE_0_LC", "leicht", "light")
+t("FORCE_0", "Sanft [←]", "Soft [←]")
+t("FORCE_1", "Mittel [↓]", "Medium [↓]")
+t("FORCE_2", "Fest [→]", "Firm [→]")
+t("FORCE_0_LC", "sanft", "soft")
 t("FORCE_1_LC", "mittel", "medium")
-t("FORCE_2_LC", "schwer", "heavy")
-t("UI_FORCE_TIP", "Schlagstärke (Pfeiltasten ↑ / ↓)", "Blow strength (arrow keys ↑ / ↓)")
+t("FORCE_2_LC", "fest", "firm")
+t("UI_FORCE_TIP", "Schlagstärke (Pfeiltasten ← ↓ →)", "Blow strength (arrow keys ← ↓ →)")
 t("FX_TOO_HARD", "Zu fest!", "Too hard!")
 t("FX_TOO_SOFT", "Zu sanft!", "Too soft!")
 t("HINT_FORCE_TITLE", "Schlagstärke", "Blow strength")
-t("HINT_FORCE_TEXT", "Ab jetzt zählt auch, wie fest Ihr zuschlagt. Über dem Hammer-Knopf wählt Ihr Leicht oder Schwer (am Rechner auch mit den Pfeiltasten ↑ und ↓).\\n\\nStrecken, Breiten, Anspitzen, Stauchen und Lochen brauchen schwere Schläge, Biegen, Verdrehen und Schlichten leichte. Neben dem Zielfenster seht Ihr, was der aktuelle Arbeitsgang verlangt.\\n\\nZu sanft kostet Zeit – zu fest beschädigt das Werkstück.", "From now on it also matters how hard you strike. Above the hammer button choose Light or Heavy (arrow keys ↑ and ↓ on a computer).\\n\\nDrawing out, spreading, pointing, upsetting and punching need heavy blows; bending, twisting and planishing need light ones. Next to the target window you can see what the current step requires.\\n\\nToo soft costs time – too hard damages the piece.")
+t("HINT_FORCE_TEXT", "Ab jetzt zählt auch, wie fest Ihr zuschlagt. Über dem Hammer-Knopf wählt Ihr Sanft oder Fest (am Rechner auch mit den Pfeiltasten ← und →).\\n\\nStrecken, Breiten, Anspitzen, Stauchen und Lochen brauchen feste Schläge, Biegen, Verdrehen und Schlichten sanfte. Neben dem Zielfenster seht Ihr, was der aktuelle Arbeitsgang verlangt.\\n\\nZu sanft kostet Zeit – zu fest beschädigt das Werkstück.", "From now on it also matters how hard you strike. Above the hammer button choose Soft or Firm (arrow keys ← and → on a computer).\\n\\nDrawing out, spreading, pointing, upsetting and punching need firm blows; bending, twisting and planishing need soft ones. Next to the target window you can see what the current step requires.\\n\\nToo soft costs time – too hard damages the piece.")
 t("HINT_FORCE_MEDIUM_TITLE", "Mittlere Schläge", "Medium blows")
 t("HINT_FORCE_MEDIUM_TEXT", "In der neuen Werkstatt verlangen Breiten, Spitzen und Abschroten mittlere Schläge – nicht mehr die volle Wucht.", "In the new workshop, spreading, pointing and cutting need medium blows – no longer full force.")
 t("UI_STEAM_WAITS", "Dampfhammer wartet – Schlagstärke zu hoch", "Steam hammer waiting – blow too heavy")
@@ -431,6 +435,6 @@ for _e, _body in _re.findall(r"^\t(\d+): \{(.*?)\},$", _src, _re.S | _re.M):
 t("UI_SETTLE_MENU", "Menü", "Menu")
 t("UI_REPEAT_JOB", "Auftrag wiederholen", "Repeat order")
 t("HINT_FURNISH_INTRO_TITLE", "Eure eigene Werkstatt", "Your own workshop")
-t("HINT_FURNISH_INTRO_TEXT", "Die Lehrzeit ist vorbei – jetzt seid Ihr Meister in Eurer eigenen Schmiede. Im Laden [S] findet Ihr ganz oben die Einrichtung: fünf Stücke, die Euch die Arbeit erleichtern, vom Holzkohlekorb bis zur Talglaterne. Ist alles eingerichtet, zahlt die Zunft eine Prämie.", "Your apprenticeship is over – now you are master of your own smithy. At the top of the shop [S] you will find the fittings: five pieces that make your work easier, from the charcoal basket to the tallow lantern. Once everything is fitted out, the guild pays a bonus.")
+t("HINT_FURNISH_INTRO_TEXT", "Die Lehrzeit ist vorbei – jetzt seid Ihr Meister in Eurer eigenen Schmiede. Im Shop [S] findet Ihr ganz oben die Einrichtung: fünf Stücke, die Euch die Arbeit erleichtern, vom Holzkohlekorb bis zur Talglaterne. Ist alles eingerichtet, zahlt die Zunft eine Prämie.", "Your apprenticeship is over – now you are master of your own smithy. At the top of the shop [S] you will find the fittings: five pieces that make your work easier, from the charcoal basket to the tallow lantern. Once everything is fitted out, the guild pays a bonus.")
 t("HINT_STEAM_HAMMER_TITLE", "Am Steuerhebel", "At the control lever")
-t("HINT_STEAM_HAMMER_TEXT", "Den Dampfhammer bedient Ihr selbst – wie der Hammerführer am Steuerhebel: Tippt auf HAMMERN (oder die Leertaste) für einen Schlag, haltet gedrückt, damit er fortlaufend schlägt. Loslassen hält ihn an. Die Wucht wählt Ihr wie gewohnt mit Leicht, Mittel und Schwer.", "You work the steam hammer yourself – like the hammer driver at the control lever: tap HAMMER (or the space bar) for one blow, hold it for continuous blows. Let go to stop it. Choose the force as usual with Light, Medium and Heavy.")
+t("HINT_STEAM_HAMMER_TEXT", "Den Dampfhammer bedient Ihr selbst – wie der Hammerführer am Steuerhebel: Tippt auf HAMMERN (oder die Leertaste) für einen Schlag, haltet gedrückt, damit er fortlaufend schlägt. Loslassen hält ihn an. Die Wucht wählt Ihr wie gewohnt mit Sanft, Mittel und Fest.", "You work the steam hammer yourself – like the hammer driver at the control lever: tap HAMMER (or the space bar) for one blow, hold it for continuous blows. Let go to stop it. Choose the force as usual with Soft, Medium and Firm.")

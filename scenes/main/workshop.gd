@@ -184,14 +184,22 @@ func _ready() -> void:
 	buttons.add_child(btn_quench)
 	# Schlagstärke: drei Knöpfe über dem Hammer
 	force_row = HBoxContainer.new()
-	force_row.position = Vector2(385, 166)
-	force_row.size = Vector2(300, 46)
+	force_row.position = Vector2(370, 166)
+	force_row.size = Vector2(330, 46)
 	force_row.add_theme_constant_override("separation", 4)
 	force_row.tooltip_text = tr("UI_FORCE_TIP")
 	controls.add_child(force_row)
 	var group := ButtonGroup.new()
 	for lvl in 3:
-		var fb := UIKit.button(tr("FORCE_%d" % lvl), _set_force.bind(lvl), Vector2(97, 46), 19)
+		var fb := UIKit.button(tr("FORCE_%d" % lvl), _set_force.bind(lvl), Vector2(106, 46), 19)
+		# Schmaler Innenrand, damit „Sanft [←]“ in den kleinen Knopf passt
+		for st in ["normal", "hover", "pressed", "disabled", "hover_pressed"]:
+			var sb: StyleBox = fb.get_theme_stylebox(st)
+			if sb != null:
+				var c: StyleBox = sb.duplicate()
+				c.content_margin_left = 6
+				c.content_margin_right = 6
+				fb.add_theme_stylebox_override(st, c)
 		fb.toggle_mode = true
 		fb.button_group = group
 		fb.focus_mode = Control.FOCUS_NONE
@@ -299,12 +307,10 @@ func _make_ember_hammer() -> bool:
 	return true
 
 
-## Kurzer Text für den Hammer-Knopf (ohne Tastenhinweis auf Touch-Geräten).
+## Text unter dem Hammer-Knopf.
 func _hammer_text() -> String:
-	var t := tr("UI_BTN_HAMMER")
-	if DisplayServer.is_touchscreen_available() or OS.has_feature("mobile"):
-		return t.get_slice(" – ", 0)
-	return t
+	# Tastenhinweise blendet die Übersetzung auf Handy und Tablet selbst aus (Localization.touch_text)
+	return tr("UI_BTN_HAMMER")
 
 
 ## Esse an die Wand-Boden-Kante des Hintergrunds stellen; Rohling-Stapel bleibt vor dem Amboss.
@@ -600,10 +606,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		_on_raw_clicked()
 	elif event.is_action_pressed("quench"):
 		_on_quench()
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_LEFT:
+		_set_force(0)
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_RIGHT:
+		_set_force(2)
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_DOWN:
+		if not _medium_hidden():
+			_set_force(1)
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_UP:
 		_set_force(sim.force + 1)
-	elif event is InputEventKey and event.pressed and event.keycode == KEY_DOWN:
-		_set_force(sim.force - 1)
 	elif event.is_action_pressed("select_1"):
 		sim.selected_slot = 0
 	elif event.is_action_pressed("select_2"):
@@ -616,6 +627,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		open_overlay("res://scenes/ui/shop.gd")
 	elif event.is_action_pressed("open_staff") and GameManager.current_epoch >= 2:
 		open_overlay("res://scenes/ui/staff_panel.gd")
+	elif event.is_action_pressed("open_stats"):
+		open_overlay("res://scenes/ui/stats_panel.gd")
 	elif event.is_action_pressed("pause"):
 		_open_pause()
 	elif event.is_action_pressed("test_menu") and GameManager.test_tools_enabled():

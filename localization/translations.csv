@@ -108,12 +108,12 @@ FEE_6,Beteiligung an einem Eisenwerk,A share in an ironworks
 FEE_7,Pacht einer Maschinenschmiede in Lambeth,Lease of an engineering smithy in Lambeth
 FEE_8,Eine Schmiede bei Robert Stephenson & Co. in Newcastle,A smithy at Robert Stephenson & Co. in Newcastle
 FEE_9,Partnerschaft mit der Bridgewater Foundry in Patricroft,Partnership with the Bridgewater Foundry at Patricroft
-FORCE_0,Leicht,Light
-FORCE_0_LC,leicht,light
-FORCE_1,Mittel,Medium
+FORCE_0,Sanft [←],Soft [←]
+FORCE_0_LC,sanft,soft
+FORCE_1,Mittel [↓],Medium [↓]
 FORCE_1_LC,mittel,medium
-FORCE_2,Schwer,Heavy
-FORCE_2_LC,schwer,heavy
+FORCE_2,Fest [→],Firm [→]
+FORCE_2_LC,fest,firm
 FORGE_BRICK,Ziegel-Esse,Brick forge
 FORGE_CLAY,Lehm-Esse mit Handblasebalg,Clay forge with hand bellows
 FORGE_COKE,Koks-Esse mit Zylindergebläse,Coke forge with blowing cylinders
@@ -218,9 +218,9 @@ HINT_BIG_TEXT,Zu schwer für den Handhammer: Eure Schläge wirken nur zu 25 %. D
 HINT_BIG_TITLE,Großschmiedestück,Heavy forging
 HINT_FORCE_MEDIUM_TEXT,"In der neuen Werkstatt verlangen Breiten, Spitzen und Abschroten mittlere Schläge – nicht mehr die volle Wucht.","In the new workshop, spreading, pointing and cutting need medium blows – no longer full force."
 HINT_FORCE_MEDIUM_TITLE,Mittlere Schläge,Medium blows
-HINT_FORCE_TEXT,"Ab jetzt zählt auch, wie fest Ihr zuschlagt. Über dem Hammer-Knopf wählt Ihr Leicht oder Schwer (am Rechner auch mit den Pfeiltasten ↑ und ↓).\n\nStrecken, Breiten, Anspitzen, Stauchen und Lochen brauchen schwere Schläge, Biegen, Verdrehen und Schlichten leichte. Neben dem Zielfenster seht Ihr, was der aktuelle Arbeitsgang verlangt.\n\nZu sanft kostet Zeit – zu fest beschädigt das Werkstück.","From now on it also matters how hard you strike. Above the hammer button choose Light or Heavy (arrow keys ↑ and ↓ on a computer).\n\nDrawing out, spreading, pointing, upsetting and punching need heavy blows; bending, twisting and planishing need light ones. Next to the target window you can see what the current step requires.\n\nToo soft costs time – too hard damages the piece."
+HINT_FORCE_TEXT,"Ab jetzt zählt auch, wie fest Ihr zuschlagt. Über dem Hammer-Knopf wählt Ihr Sanft oder Fest (am Rechner auch mit den Pfeiltasten ← und →).\n\nStrecken, Breiten, Anspitzen, Stauchen und Lochen brauchen feste Schläge, Biegen, Verdrehen und Schlichten sanfte. Neben dem Zielfenster seht Ihr, was der aktuelle Arbeitsgang verlangt.\n\nZu sanft kostet Zeit – zu fest beschädigt das Werkstück.","From now on it also matters how hard you strike. Above the hammer button choose Soft or Firm (arrow keys ← and → on a computer).\n\nDrawing out, spreading, pointing, upsetting and punching need firm blows; bending, twisting and planishing need soft ones. Next to the target window you can see what the current step requires.\n\nToo soft costs time – too hard damages the piece."
 HINT_FORCE_TITLE,Schlagstärke,Blow strength
-HINT_FURNISH_INTRO_TEXT,"Die Lehrzeit ist vorbei – jetzt seid Ihr Meister in Eurer eigenen Schmiede. Im Laden [S] findet Ihr ganz oben die Einrichtung: fünf Stücke, die Euch die Arbeit erleichtern, vom Holzkohlekorb bis zur Talglaterne. Ist alles eingerichtet, zahlt die Zunft eine Prämie.","Your apprenticeship is over – now you are master of your own smithy. At the top of the shop [S] you will find the fittings: five pieces that make your work easier, from the charcoal basket to the tallow lantern. Once everything is fitted out, the guild pays a bonus."
+HINT_FURNISH_INTRO_TEXT,"Die Lehrzeit ist vorbei – jetzt seid Ihr Meister in Eurer eigenen Schmiede. Im Shop [S] findet Ihr ganz oben die Einrichtung: fünf Stücke, die Euch die Arbeit erleichtern, vom Holzkohlekorb bis zur Talglaterne. Ist alles eingerichtet, zahlt die Zunft eine Prämie.","Your apprenticeship is over – now you are master of your own smithy. At the top of the shop [S] you will find the fittings: five pieces that make your work easier, from the charcoal basket to the tallow lantern. Once everything is fitted out, the guild pays a bonus."
 HINT_FURNISH_INTRO_TITLE,Eure eigene Werkstatt,Your own workshop
 HINT_FURNISH_TEXT,"Euer erstes Einrichtungsstück steht! Jedes der fünf Stücke hilft auf seine Weise – und wenn die Werkstatt vollständig eingerichtet ist, zahlt die Zunft eine Prämie.","Your first fitting is in place! Each of the five pieces helps in its own way – and once the workshop is fully fitted out, the guild pays a bonus."
 HINT_FURNISH_TITLE,Einrichtung,Fittings
@@ -228,7 +228,7 @@ HINT_HARDEN_TEXT,"Ist das Stück fertig geschmiedet, zieht Ihr es in den Löscht
 HINT_HARDEN_TITLE,Härten,Hardening
 HINT_JOURNEYMAN_TEXT,Euer Geselle arbeitet im Hintergrund eigene Aufträge ab – auch wenn das Spiel geschlossen ist (bis zu 8 Stunden).,Your journeyman works his own orders in the background – even while the game is closed (up to 8 hours).
 HINT_JOURNEYMAN_TITLE,Der Geselle,The journeyman
-HINT_MACHINE_TEXT,"Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur schwer und ruht in leichten Arbeitsgängen.","You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes heavy only and rests during light steps."
+HINT_MACHINE_TEXT,"Eure Maschine bedient Ihr wie den Hammer: Tippt auf HAMMERN (oder die Leertaste) für einen Maschinenschlag, haltet gedrückt, damit sie fortlaufend schlägt – zusätzlich zu Euren eigenen Schlägen. Loslassen hält sie an. Sie arbeitet auf Werkstücken ab 400 °C; der Schwanzhammer schlägt nur fest und ruht in sanften Arbeitsgängen.","You work your machine like the hammer: tap HAMMER (or the space bar) for one machine blow, hold it for continuous blows – in addition to your own. Let go to stop it. It works on pieces of 400 °C or hotter; the helve hammer strikes firm only and rests during soft steps."
 HINT_MACHINE_TITLE,Maschinenbetrieb,Machine power
 HINT_MASTERPIECE_TEXT,"Am Ende jedes Kapitels steht ein Meisterstück: ein großer Auftrag aus mehreren Teilen, der alles verlangt, was Ihr in dieser Werkstatt gelernt habt. Die Zunft prüft jeden Teil und verlangt mindestens zwei Sterne – sonst wird er neu geschmiedet. Erst mit dem Meisterbrief geht es weiter.",Every chapter ends with a masterpiece: a large commission in several parts that demands everything you have learned in this workshop. The guild inspects every part and demands at least two stars – otherwise it must be forged again. Only with the master's certificate can you move on.
 HINT_MASTERPIECE_TITLE,Das Meisterstück,The masterpiece
@@ -240,7 +240,7 @@ HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet.
 HINT_QUANTITY_TITLE,Mengenauftrag,Quantity order
 HINT_RUSH_TEXT,Die Sanduhr läuft ab Annahme. Pünktlich gibt es 50 % mehr Lohn; verspätet nur die Hälfte und kein Trinkgeld.,The hourglass runs from acceptance. On time pays 50 % more; late pays only half and no tip.
 HINT_RUSH_TITLE,Eilauftrag,Rush order
-HINT_STEAM_HAMMER_TEXT,"Den Dampfhammer bedient Ihr selbst – wie der Hammerführer am Steuerhebel: Tippt auf HAMMERN (oder die Leertaste) für einen Schlag, haltet gedrückt, damit er fortlaufend schlägt. Loslassen hält ihn an. Die Wucht wählt Ihr wie gewohnt mit Leicht, Mittel und Schwer.","You work the steam hammer yourself – like the hammer driver at the control lever: tap HAMMER (or the space bar) for one blow, hold it for continuous blows. Let go to stop it. Choose the force as usual with Light, Medium and Heavy."
+HINT_STEAM_HAMMER_TEXT,"Den Dampfhammer bedient Ihr selbst – wie der Hammerführer am Steuerhebel: Tippt auf HAMMERN (oder die Leertaste) für einen Schlag, haltet gedrückt, damit er fortlaufend schlägt. Loslassen hält ihn an. Die Wucht wählt Ihr wie gewohnt mit Sanft, Mittel und Fest.","You work the steam hammer yourself – like the hammer driver at the control lever: tap HAMMER (or the space bar) for one blow, hold it for continuous blows. Let go to stop it. Choose the force as usual with Soft, Medium and Firm."
 HINT_STEAM_HAMMER_TITLE,Am Steuerhebel,At the control lever
 HINT_STEEL_TEXT,"Stahl wird kühler geschmiedet als Schmiedeeisen: Alle Zielfenster liegen 50 °C tiefer, und Stahl verbrennt schon ab 1250 °C. Lasst ihn nicht zu lange im Feuer!","Steel is forged cooler than wrought iron: every target window lies 50 °C lower, and steel burns from 1250 °C. Don't leave it in the fire too long!"
 HINT_STEEL_TITLE,Stahl,Steel
@@ -688,6 +688,10 @@ MS_MS_E9_08_TUG_OF_WAR_TEXT,Die Rattler zieht im Tauziehen den Raddampfer Alecto
 MS_MS_E9_08_TUG_OF_WAR_TITLE,Rad gegen Schraube (1845),Paddle against screw (1845)
 MS_MS_E9_09_GREAT_BRITAIN_TEXT,Brunels eisernes Schiff ist das größte der Welt und fährt mit Schraube. Ihre Welle schmiedet nur der Dampfhammer – unter Eurer Führung.,Brunel's iron ship is the largest in the world and driven by a screw. Only the steam hammer can forge its shaft – under your direction.
 MS_MS_E9_09_GREAT_BRITAIN_TITLE,Schraubenwelle für die SS Great Britain,Propeller shaft for the SS Great Britain
+NAV_JOBS,Aufträge [J],Orders [J]
+NAV_SHOP,Shop [S],Shop [S]
+NAV_STAFF,Personal [P],Staff [P]
+NAV_STATS,Statistik [T],Statistics [T]
 QUALITY_FINE_-,Feiner,Fine
 QUALITY_FINE_F,Feine,Fine
 QUALITY_FINE_M,Feiner,Fine
@@ -782,7 +786,7 @@ TEST_SLOT_INFO,"Platz {i}: Epoche {e}, Auftrag {n}, {m} – {date}","Slot {i}: e
 TEST_SPEED,Spieltempo:,Game speed:
 TEST_START,Anfang,Start
 TEST_TITLE,Testmenü,Test menu
-TUT_BUY_HAMMER,Gut verdient! Kauft im Laden [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
+TUT_BUY_HAMMER,Gut verdient! Kauft im Shop [S] den Kreuzschlaghammer – er schlägt mehr als doppelt so kräftig.,Well earned! Buy the cross-peen hammer in the shop [S] – it strikes more than twice as hard.
 TUT_COLD,Zu kalt! Kalte Schläge bringen nichts und beschädigen das Gefüge. Zurück ins Feuer [E]!,Too cold! Cold blows achieve nothing and damage the iron. Back into the fire [E]!
 TUT_HAMMER,Schmiedet! Klickt auf den Amboss oder drückt die Leertaste – gedrückt halten schlägt fortlaufend.,Forge! Click the anvil or press the space bar – hold it down for continuous blows.
 TUT_LOAD,Legt den Rohling in die Esse: Klickt auf den Rohling-Stapel oder drückt [R].,Put the blank into the fire: click the stack of blanks or press [R].
@@ -805,7 +809,7 @@ UI_ACTIVATE,Aktivieren,Activate
 UI_ACTIVE,Aktiv,Active
 UI_ACTIVE_JOB,Aktiver Auftrag,Active order
 UI_APPRENTICE_THRESHOLDS,Schwellen des Lehrlings,Apprentice thresholds
-UI_BTN_HAMMER,HAMMERN – Klick / Leertaste,HAMMER – click / space
+UI_BTN_HAMMER,HAMMERN [Leertaste],HAMMER [Space]
 UI_BTN_LOAD,Rohling einlegen [R],Load blank [R]
 UI_BTN_MOVE,Umlegen [E],Move piece [E]
 UI_BTN_QUENCH,Abschrecken [Q],Quench [Q]
@@ -829,7 +833,7 @@ UI_EXPORT_SAVE,Spielstand exportieren,Export saved game
 UI_FINALE_TEXT,"Vom Dorfschmied mit Handhammer und Lehm-Esse zum Herrn eines Stahlwerks mit Dampfhammer: 180 Jahre Schmiedekunst liegen hinter Euch, Euer Lebenswerk ist vollbracht. Die Werkstatt steht Euch weiter offen – im Freien Spiel kommen endlos neue Aufträge.","From village smith with a hand hammer and clay forge to master of a steelworks with a steam hammer: 180 years of smithing lie behind you, your life's work is done. The workshop remains open – in free play, new orders keep coming."
 UI_FINALE_TITLE,Euer eigenes Eisenwerk,Your own ironworks
 UI_FLASH_EFFECTS,Funken- und Blitzeffekte,Spark and flash effects
-UI_FORCE_TIP,Schlagstärke (Pfeiltasten ↑ / ↓),Blow strength (arrow keys ↑ / ↓)
+UI_FORCE_TIP,Schlagstärke (Pfeiltasten ← ↓ →),Blow strength (arrow keys ← ↓ →)
 UI_FORGE_BURN_NOTE,"Achtung: Ab der Esse mit Doppelblasebalg liegt die Höchsttemperatur über der Verbrennungsgrenze (1300 °C). Bleibt ein Werkstück zu lange im Feuer, verbrennt es.","Careful: from the double-bellows forge upwards, the maximum temperature lies above the burning point (1300 °C). Leave a piece in the fire too long and it burns."
 UI_FORGE_INFO,{k} °C/s · bis {t} °C · {s} Plätze,{k} °C/s · up to {t} °C · {s} places
 UI_FREE_PLAY_NOTE,Freies Spiel: Die Aufträge gehen endlos weiter.,Free play: orders continue endlessly.
@@ -855,7 +859,7 @@ UI_MACHINE_COST,Betriebskosten {c} je Minute,running cost {c} per minute
 UI_MACHINE_FORCE,schlägt mit der gewählten Schlagstärke,strikes with the chosen blow strength
 UI_MACHINE_HEAVY,schlägt nur schwer,strikes heavy blows only
 UI_MACHINE_INFO,Schlagkraft {p} · {h} Schläge/s,Striking power {p} · {h} blows/s
-UI_MACHINE_NOTE,"Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur schwer, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.","You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike heavy only, steam hammers with the chosen force. Only one machine is active at a time."
+UI_MACHINE_NOTE,"Maschinen bedient Ihr wie den Hammer: Tippen = ein Maschinenschlag, Halten = fortlaufend – zusätzlich zu Euren eigenen Schlägen, auf Werkstücken ab 400 °C. Schwanzhämmer schlagen nur fest, Dampfhämmer mit der gewählten Stärke. Es ist immer nur eine Maschine aktiv.","You work machines like the hammer: tap = one machine blow, hold = continuous – in addition to your own blows, on pieces of 400 °C or hotter. Helve hammers strike firm only, steam hammers with the chosen force. Only one machine is active at a time."
 UI_MACHINE_WATER,Leistung schwankt mit dem Wasserstand (60–100 %),output varies with the water level (60–100 %)
 UI_MASTERY_NEXT,Meisterschaft: {n}/{t} Aufträge bis zum {level},Mastery: {n}/{t} orders to the {level}
 UI_MASTERY_OFFER,{level} – Lohn +{p} %,{level} – wage +{p} %
@@ -900,7 +904,7 @@ UI_SETTINGS,Einstellungen,Settings
 UI_SETTLEMENT,Abrechnung,Settlement
 UI_SETTLE_MENU,Menü,Menu
 UI_SFX_VOLUME,Effekte,Effects
-UI_SHOP,Laden,Shop
+UI_SHOP,Shop,Shop
 UI_SHOW_CELSIUS,Temperatur in °C anzeigen,Show temperature in °C
 UI_STAFF,Personal,Staff
 UI_STAFF_NOTE,"Lehrling und Zuschläger arbeiten nur, solange das Spiel läuft. Ihre Löhne werden bei Auftragsabschluss abgezogen.",Apprentice and striker only work while the game is running. Their wages are deducted when an order is completed.
