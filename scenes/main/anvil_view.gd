@@ -46,6 +46,20 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 
+## Flächen (lokal), die nicht zum Amboss gehören: Plätze in der Esse und der Rohling-Stapel liegen im Bild
+## teils hinter dem Amboss-Rechteck – Klicks dort gehen an die Esse (sonst wurde aus „Umlegen“ ein Schlag).
+var exclude_rects: Array = []
+
+
+func _has_point(point: Vector2) -> bool:
+	if not Rect2(Vector2.ZERO, size).has_point(point):
+		return false
+	for r in exclude_rects:
+		if (r as Rect2).has_point(point):
+			return false
+	return true
+
+
 func _gui_input(event: InputEvent) -> void:
 	var mb := event as InputEventMouseButton
 	if mb != null and mb.button_index == MOUSE_BUTTON_LEFT:

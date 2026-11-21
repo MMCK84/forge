@@ -3,6 +3,7 @@ extends Control
 ## mit Stückzahl, Sternen-Vorschau und Eil-Zeit) und untere Navigationsleiste.
 
 const UIKit = preload("res://scenes/ui/ui_kit.gd")
+const MoneyView = preload("res://scenes/ui/money_view.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Assets = preload("res://scripts/assets.gd")
 
@@ -12,8 +13,9 @@ signal open_staff()
 signal open_stats()
 signal open_menu()
 signal open_epoch()
+signal open_chapter()
 
-var _money: Label
+var _money  # MoneyView: Betrag mit Münzsymbolen
 var _hammer: Label
 var _epoch: Label
 var _staff_btn: Button
@@ -48,7 +50,7 @@ func _ready() -> void:
 	r1.add_theme_constant_override("separation", 10)
 	rows.add_child(r1)
 	r1.add_child(UIKit.icon("ui/user/coin_pouch.png" if Assets.user("coin_pouch.png") != null else "ui/icon_coin.png", 46))
-	_money = UIKit.label("", 30, UIKit.GOLD)
+	_money = MoneyView.new(30, UIKit.GOLD)
 	r1.add_child(_money)
 	_delta_label = UIKit.label("", 20, UIKit.TEXT_LIGHT)
 	_delta_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -58,26 +60,30 @@ func _ready() -> void:
 	r1.add_child(UIKit.button(tr("UI_MENU"), func() -> void: open_menu.emit(), Vector2(0, 50), 20))
 	var r2 := HBoxContainer.new()
 	rows.add_child(r2)
-	_epoch = UIKit.label("", 18, UIKit.BRASS_LIGHT)
+	_epoch = UIKit.label("", 20, UIKit.BRASS_LIGHT)
+	# Epochenname öffnet die Kapitelübersicht (Tippen/Klicken, am Rechner auch [K])
+	_epoch.mouse_filter = Control.MOUSE_FILTER_STOP
+	_epoch.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_epoch.gui_input.connect(func(ev: InputEvent) -> void:
+		if (ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and ev.pressed):
+			open_chapter.emit())
 	_epoch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_epoch.clip_text = true
 	_epoch.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	r2.add_child(_epoch)
-	_hammer = UIKit.label("", 18, UIKit.TEXT_LIGHT)
-	_hammer.custom_minimum_size.x = 150
+	_hammer = UIKit.label("", 20, UIKit.TEXT_LIGHT)
+	# Hammername immer ganz zeigen (der Epochenname wird bei Platzmangel gekürzt)
 	_hammer.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_hammer.clip_text = true
-	_hammer.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	r2.add_child(_hammer)
 	var r3 := HBoxContainer.new()
 	r3.add_theme_constant_override("separation", 10)
 	rows.add_child(r3)
-	_job = UIKit.label("", 20, UIKit.TEXT_LIGHT)
+	_job = UIKit.label("", 24, UIKit.TEXT_LIGHT)
 	_job.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_job.clip_text = true
 	_job.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	r3.add_child(_job)
-	_job_info = UIKit.label("", 20, UIKit.BRASS_LIGHT)
+	_job_info = UIKit.label("", 24, UIKit.BRASS_LIGHT)
 	r3.add_child(_job_info)
 	_stars = Control.new()
 	_stars.custom_minimum_size = Vector2(92, 30)
@@ -85,7 +91,7 @@ func _ready() -> void:
 	r3.add_child(_stars)
 	_hourglass = UIKit.icon("ui/user/icon_hourglass.png" if Assets.user("icon_hourglass.png") != null else "ui/icon_hourglass.png", 30)
 	r3.add_child(_hourglass)
-	_timer = UIKit.label("", 20, UIKit.TEXT_LIGHT)
+	_timer = UIKit.label("", 24, UIKit.TEXT_LIGHT)
 	_timer.custom_minimum_size.x = 70
 	_timer.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	r3.add_child(_timer)
@@ -132,7 +138,7 @@ func _unfocus_buttons(n: Node) -> void:
 
 
 func _on_pence(_total: int, delta: int) -> void:
-	_money.text = Economy.format_lsd(GameManager.total_pence)
+	_money.set_pence(GameManager.total_pence)
 	if delta != 0:
 		_delta_label.text = ("+" if delta > 0 else "") + Economy.format_lsd(delta)
 		_delta_label.add_theme_color_override("font_color", UIKit.GOLD if delta > 0 else Color("e07a5f"))
@@ -141,12 +147,12 @@ func _on_pence(_total: int, delta: int) -> void:
 
 func refresh() -> void:
 	var gm := GameManager
-	_money.text = Economy.format_lsd(gm.total_pence)
+	_money.set_pence(gm.total_pence)
 	var h := gm.current_hammer()
 	var lvl: int = gm.hammer_level(h.id)
 	_hammer.text = tr(h.name_key) + (" +%d" % lvl if lvl > 0 else "")
-	_epoch.text = "%s (%s)" % [gm.epoch_name(), gm.EPOCH_YEARS[gm.current_epoch - 1]]
-	_epoch.tooltip_text = tr(gm.reputation_title_key())
+	_epoch.text = "%s (%s) ›%s" % [gm.epoch_name(), gm.EPOCH_YEARS[gm.current_epoch - 1], UIKit.key_hint("K")]
+	_epoch.tooltip_text = tr("UI_CHAPTER") + " · " + tr(gm.reputation_title_key())
 	_staff_btn.disabled = gm.current_epoch < 2
 	_epoch_btn.visible = gm.can_advance_epoch()
 

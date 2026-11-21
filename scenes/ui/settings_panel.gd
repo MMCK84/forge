@@ -1,9 +1,14 @@
 extends "res://scenes/ui/overlay.gd"
 ## Einstellungen (6.3, 9.2): Lautstärken, Sprache, Temperatur in °C, Halten-Modus,
-## Bildschirmwackeln, Blitzeffekte, Vollbild, Tutorial, Spielstand-Export/-Import (7.4).
+## Bildschirmwackeln, Blitzeffekte, Vollbild, Tutorial. Änderungen wirken sofort zur Probe; „Speichern“ übernimmt sie,
+## „Abbrechen“ (auch Esc und X) stellt den vorherigen Stand wieder her (Wunsch des Auftraggebers, 21.11.).
+## Spielstand-Export/-Import nicht mehr in der Oberfläche (nur für die Browserfassung gedacht; Funktionen bleiben).
 
 const Localization = preload("res://scripts/localization.gd")
 var _file_dialog: FileDialog
+## Einstellungen beim Öffnen (für „Abbrechen“)
+var _orig: Dictionary = {}
+var _saved: bool = false
 
 
 func _init() -> void:
@@ -12,6 +17,8 @@ func _init() -> void:
 
 
 func build(box: VBoxContainer) -> void:
+	if _orig.is_empty():
+		_orig = GameManager.settings.duplicate(true)
 	var s: Dictionary = GameManager.settings
 	box.add_child(_slider("UI_SFX_VOLUME", float(s.get("sfx_volume", 0.8)), "sfx_volume"))
 	box.add_child(_slider("UI_MUSIC_VOLUME", float(s.get("music_volume", 0.6)), "music_volume"))
@@ -37,11 +44,31 @@ func build(box: VBoxContainer) -> void:
 	box.add_child(_check("UI_TUTORIAL", "tutorial"))
 	box.add_child(UIKit.hsep())
 	var row := HBoxContainer.new()
-	row.add_child(UIKit.button(tr("UI_EXPORT_SAVE"), _export, Vector2(280, 60), 22))
-	row.add_child(UIKit.button(tr("UI_IMPORT_SAVE"), _import, Vector2(280, 60), 22))
+	row.alignment = BoxContainer.ALIGNMENT_END
+	row.add_theme_constant_override("separation", 12)
+	row.add_child(UIKit.button(tr("UI_CANCEL") + UIKit.key_hint("Esc"), close, Vector2(240, 60), 22))
+	row.add_child(set_default(UIKit.button(tr("UI_SAVE"), _save, Vector2(240, 60), 22)))
 	box.add_child(row)
-	if OS.has_feature("web"):
-		box.add_child(UIKit.wrap_label(tr("UI_EXPORT_NOTE"), 20, UIKit.INK_LIGHT, UIKit.CW))
+
+
+func _save() -> void:
+	_saved = true
+	if GameManager.in_game:
+		SaveManager.save_game()
+	close()
+
+
+## Schließen ohne „Speichern“ (Abbrechen, Esc, X): vorherigen Stand wiederherstellen.
+func close() -> void:
+	if not _saved and not _orig.is_empty():
+		for k in _orig:
+			if GameManager.settings.get(k) != _orig[k]:
+				GameManager.settings[k] = _orig[k]
+		for k in GameManager.settings.keys():
+			if not _orig.has(k):
+				GameManager.settings.erase(k)
+		GameManager.apply_settings()
+	super.close()
 
 
 func _slider(key: String, value: float, setting: String) -> HBoxContainer:

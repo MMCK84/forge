@@ -132,11 +132,17 @@ func _index_catalog() -> void:
 
 
 func _setup_input() -> void:
+	# Leertaste ist nur der Hammer: Godot löst sonst auch den Knopf mit Fokus aus (z. B. „Weiter“ in der
+	# Abrechnung – Anmerkung des Auftraggebers, 21.11.). Bestätigen nur mit Enter.
+	for ev in InputMap.action_get_events("ui_accept"):
+		var k := ev as InputEventKey
+		if k != null and (k.keycode == KEY_SPACE or k.physical_keycode == KEY_SPACE):
+			InputMap.action_erase_event("ui_accept", ev)
 	var keys := {
 		"hammer": [KEY_SPACE], "move_piece": [KEY_E], "load_raw": [KEY_R],
 		"select_1": [KEY_1], "select_2": [KEY_2], "select_3": [KEY_3],
 		"quench": [KEY_Q], "open_jobs": [KEY_J], "open_shop": [KEY_S],
-		"open_staff": [KEY_H], "open_stats": [KEY_T], "pause": [KEY_P, KEY_ESCAPE], "test_menu": [KEY_F12],
+		"open_staff": [KEY_H], "open_stats": [KEY_T], "open_chapter": [KEY_K], "pause": [KEY_P, KEY_ESCAPE], "test_menu": [KEY_F12],
 	}
 	for action in keys:
 		if InputMap.has_action(action):
@@ -451,8 +457,19 @@ func _estimate(j: JobInstance) -> float:
 	return ReferencePlayer.estimate_job(cfg, j, current_setup())
 
 
+## Gewürfeltes Angebot – möglichst mit einem anderen Werkstück als die übrigen Angebote und der laufende Auftrag
+## (Anmerkung des Auftraggebers, 21.11.: derselbe Auftrag wurde teils mehrmals angeboten).
 func _make_generated_offer() -> JobInstance:
+	var taken := {}
+	for o in job_offers:
+		taken[o.template_id] = true
+	if active_job != null:
+		taken[active_job.template_id] = true
 	var j := generator.generate(current_epoch, jobs_completed_in_epoch, free_play, _gen_ctx())
+	for attempt in 24:
+		if not taken.has(j.template_id):
+			break
+		j = generator.generate(current_epoch, jobs_completed_in_epoch, free_play, _gen_ctx())
 	_finalize_offer(j)
 	return j
 
@@ -506,10 +523,10 @@ func refresh_offers() -> void:
 
 
 ## Anzahl der Angebote im Auftragsbuch (Kundschafts-Platz der Einrichtung: eines mehr).
-## In der Lehrzeit: beim allerersten Auftrag genau eines, danach zwei.
+## In der Lehrzeit genau eines (das Drehbuch gibt den Auftrag vor – zwei gleiche Angebote wären keine Wahl).
 func offers_count() -> int:
 	if in_tutorial():
-		return 1 if jobs_completed_in_epoch == 0 else 2
+		return 1
 	var n: int = furnish_effects()["offers_count"]
 	return n if n > 0 else cfg.offers_count
 

@@ -26,7 +26,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   im Takt mit“). Alle Maschinen (Schwanz- und Dampfhämmer): Tippen = ein Schlag, Halten = fortlaufend, Loslassen = Stopp.
   Tastenhinweise **am Rechner an jedem Knopf, auf Handy/Tablet nie** (Übersetzung entfernt sie, „Klickt“ → „Tippt“;
   Test am Rechner mit `-- --touch`). **Tastenbelegung (21.11.):** Aufträge [J], Shop [S], Personal [H], Statistik [T],
-  Pausenmenü [P] (auch Esc), HAMMERN [Leertaste], Rohling [R], Umlegen [E], Abschrecken [Q], Sanft/Mittel/Fest [←][↓][→].
+  Pausenmenü [P] (auch Esc), Kapitelübersicht [K], HAMMERN [Leertaste – nur Hammer, bestätigt nie einen Knopf], Rohling [R], Umlegen [E], Abschrecken [Q], Sanft/Mittel/Fest [←][↓][→].
   In jedem Fenster: **Esc schließt**, **Enter = Hauptknopf** („Verstanden“, „Weiter“, „Fortsetzen“), die Fenster-Taste
   schließt ihr Fenster wieder; Auftragsbuch: Annehmen [1]–[3], Neue Angebote [N]; Abrechnung: Weiter [Enter], Wiederholen
   ↻ [R], Menü [P]. Bewusst ohne Taste: „Überspringen“ der Lehrzeit (kein versehentliches Überspringen), Rückfragen-Bestätigung
@@ -69,14 +69,21 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 2 | Nicht alle Knöpfe haben eine Taste | umgesetzt |
 | 3 | P soll das Pausenmenü öffnen | umgesetzt (Personal → [H]) |
 | 4 | „Auftrag wiederholen“ als runder Pfeil | umgesetzt |
-| 5 | Geld „d“ unverständlich (für „dime“/„day“ gehalten) | **entschieden 21.11.: A + B** – £ s d bleibt; beim ersten Lohn Hinweisfenster mit Erklärung (12 d = 1 s, 20 s = 1 £, d = Penny/denarius), Tooltip an der Geldanzeige, Start „£0“ statt „0d“; dazu Münzsymbole (Gold/Silber/Kupfer mit Zahl) bei der großen Summe in Statuszeile und Abrechnung – „wir scheuen keinen Aufwand“ |
-| 6 | Ohne aktiven Auftrag ist schon ein Temperatur-Zielfenster auf der Glutskala eingezeichnet – irritierend | offen |
-| 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | offen |
-| 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
-| 9 | Mit dem letzten Schlag erscheint sofort die Abrechnung – der Spieler sieht das fertige Werkstück nie (Bild wechselt erst mit dem Abschluss des letzten Arbeitsgangs von der Rohform zum fertigen Stück, siehe Beobachtung vom 21.11.). Vorschlag: fertiges Stück kurz (ca. 1,5 s) mit Aufblitzen auf dem Amboss zeigen, dann Abrechnung; Tippen überspringt | offen |
-| 10 | Unklares Schild an der Wand (brauner Kasten mit gelben Punkten): ist das „Zunftschild“ für den Ruf (ab 40 Sternen, 2–5 Punkte), Platzhalter-Zeichnung ohne Erklärung, konkurriert mit dem Einrichtungs-Schild E1-4. **Entschieden 21.11.: Zunfttafeln** – 4 Midjourney-Bilder U24–U27 (Prompts im Heft), Hinweis beim ersten Erscheinen, Tooltip (Rufstufe, Sterne bis zur nächsten), fester Platz ohne Überschneidung mit E1-4 | Prompts fertig, Umsetzung offen |
-| 11 | Übersicht, wie weit man in der Epoche ist (Frage des Auftraggebers). Heute nur „Aufträge in dieser Epoche n / 30“ klein im Auftragsbuch. Vorschlag: schmale Fortschrittsleiste in der Statuszeile mit Meilenstein-Marken und Meisterstück-Siegel am Ende; Antippen öffnet eine Kapitelübersicht (Meilensteine mit Kunde, Werkstück, Stand: erledigt / verfügbar / ab Auftrag N; Meisterstück mit Vorarbeiten), Taste [K]; Wort „Kapitel“ statt „Level“. **Entschieden 21.11.: nur die Kapitelübersicht** (keine Leiste in der Statuszeile); öffnen über den Epochennamen in der Statuszeile und Taste [K] | offen |
-| 12 | Anordnung der Einrichtung (Epoche 1, voll eingerichtet): Zangenbrett, Schild und Kohlekorb am Bildrand abgeschnitten; Schild und Laterne hängen in der Luft (Ketten enden am Putz); Größen uneinheitlich (Zangenbrett zu klein, Korb groß); Schleifstein hinter dem Hammerstiel; Zunfttafel und Schild auf derselben Seite; angeschnittener Kasten links unten prüfen. Vorschlag: alles ganz im Bild, Zangenbrett größer links neben dem Schornstein, Laterne und Schild an Ketten vom Balken, Korb neben der Esse, Schleifstein weg vom Hammer, Zunfttafel links; Größen an Amboss/Esse ausrichten; prüfen in Hochformat und breitem Fenster. **Nachtrag Auftraggeber: die Einrichtungsgegenstände wirken teils sehr klein** (Werkstücke in Esse/auf dem Amboss passen) → deutlich größer darstellen (Laterne, Zangenbrett, Schild etwa 1,5–2×), Maßstab Amboss/Esse | offen |
+| 5 | Geld „d“ unverständlich (für „dime“/„day“ gehalten) | **umgesetzt** (Münzsymbole in Statuszeile und Abrechnung, Tooltip, „£0“, Hinweis „Englisches Geld“ nach dem ersten Lohn) |
+| 6 | Ohne aktiven Auftrag ist schon ein Temperatur-Zielfenster auf der Glutskala eingezeichnet – irritierend | **umgesetzt** |
+| 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | **umgesetzt** (Knopfrahmen schmaler: Import-Maßstab 0.18, Schrift liegt ganz auf dem Leder; Knöpfe 250 statt 330 px) |
+| 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | **umgesetzt** (Stil aus dem Spiel-Theme – vorher fehlte er, weil der Knopf beim Bau noch nicht im Baum hing) |
+| 9 | Mit dem letzten Schlag erscheint sofort die Abrechnung – der Spieler sieht das fertige Werkstück nie (Bild wechselt erst mit dem Abschluss des letzten Arbeitsgangs von der Rohform zum fertigen Stück, siehe Beobachtung vom 21.11.). Vorschlag: fertiges Stück kurz (ca. 1,5 s) mit Aufblitzen auf dem Amboss zeigen, dann Abrechnung; Tippen überspringt | **umgesetzt** (1,6 s, Tippen/Klicken/Leertaste überspringt) |
+| 10 | Unklares Schild an der Wand (brauner Kasten mit gelben Punkten): ist das „Zunftschild“ für den Ruf (ab 40 Sternen, 2–5 Punkte), Platzhalter-Zeichnung ohne Erklärung, konkurriert mit dem Einrichtungs-Schild E1-4. **Entschieden 21.11.: Zunfttafeln** – 4 Midjourney-Bilder U24–U27 (Prompts im Heft), Hinweis beim ersten Erscheinen, Tooltip (Rufstufe, Sterne bis zur nächsten), fester Platz ohne Überschneidung mit E1-4 | **eingebaut** – erscheint automatisch, sobald U24–U27 geliefert sind (über der Esse, Tooltip, Hinweis „Die Zunft ehrt Euch“); gezeichnete Tafel entfernt |
+| 11 | Übersicht, wie weit man in der Epoche ist (Frage des Auftraggebers). Heute nur „Aufträge in dieser Epoche n / 30“ klein im Auftragsbuch. Vorschlag: schmale Fortschrittsleiste in der Statuszeile mit Meilenstein-Marken und Meisterstück-Siegel am Ende; Antippen öffnet eine Kapitelübersicht (Meilensteine mit Kunde, Werkstück, Stand: erledigt / verfügbar / ab Auftrag N; Meisterstück mit Vorarbeiten), Taste [K]; Wort „Kapitel“ statt „Level“. **Entschieden 21.11.: nur die Kapitelübersicht** (keine Leiste in der Statuszeile); öffnen über den Epochennamen in der Statuszeile und Taste [K] | **umgesetzt** (Fenster „Kapitel n: …“ mit Meilensteinen, Stand und Meisterstück-Vorarbeiten; Epochenname in der Statuszeile oder [K]) |
+| 12 | Anordnung der Einrichtung (Epoche 1, voll eingerichtet): Zangenbrett, Schild und Kohlekorb am Bildrand abgeschnitten; Schild und Laterne hängen in der Luft (Ketten enden am Putz); Größen uneinheitlich (Zangenbrett zu klein, Korb groß); Schleifstein hinter dem Hammerstiel; Zunfttafel und Schild auf derselben Seite; angeschnittener Kasten links unten prüfen. Vorschlag: alles ganz im Bild, Zangenbrett größer links neben dem Schornstein, Laterne und Schild an Ketten vom Balken, Korb neben der Esse, Schleifstein weg vom Hammer, Zunfttafel links; Größen an Amboss/Esse ausrichten; prüfen in Hochformat und breitem Fenster. **Nachtrag Auftraggeber: die Einrichtungsgegenstände wirken teils sehr klein** (Werkstücke in Esse/auf dem Amboss passen) → deutlich größer darstellen (Laterne, Zangenbrett, Schild etwa 1,5–2×), Maßstab Amboss/Esse | **umgesetzt für Epoche 1** (neue Lage und Größen in `furnish_view.gd`); übrige Epochen abstimmen, sobald ihre Einrichtungsbilder da sind (Balken/Wände unterscheiden sich) |
+| 13 | „Kein aktiver Auftrag“ (Statuszeile) zu klein | **umgesetzt** (Zeile 24 px, Epoche/Hammer 20 px, Hammername ungekürzt) |
+| 14 | Hinweis „Eure eigene Werkstatt“ erscheint schon vor dem Abschluss des letzten Lehrzeit-Auftrags (man könnte noch „Wiederholen“ wählen) | **umgesetzt** (Hinweise warten, bis fertiges Werkstück und Abrechnung vorbei sind) |
+| 15 | Sollte sich die eigene Werkstatt optisch von der Lehrwerkstatt unterscheiden? Dazu: Text sagt „jetzt seid Ihr Meister“, der Meisterbrief kommt aber erst am Ende der Epoche 1 | **Entscheidung offen** (Vorschläge im Chat) |
+| 16 | Klick auf das Werkstück in der Esse legt es nicht auf den Amboss (Klickfläche des Ambosses liegt über dem Glutbett) | **umgesetzt** (Amboss nimmt Klicks auf Esse und Rohling-Stapel nicht mehr an; Spieltest klickt jetzt echt in die Esse) |
+| 17 | Abrechnung schließt auch mit der Leertaste – soll nur mit Enter | **umgesetzt** (Leertaste aus „ui_accept“ entfernt; Spieltest prüft es) |
+| 18 | Teilweise wird derselbe Auftrag mehrmals gleichzeitig angeboten | **umgesetzt** (Lehrzeit: nur ein Angebot – zwei gleiche aus dem Drehbuch waren keine Wahl; danach verschiedene Werkstücke je Angebot; Unit-Test) |
+| 19 | Einstellungen: statt „Abbrechen“/„Speichern“ standen „Spielstand exportieren/importieren“ (brauchen wir nicht) | **umgesetzt** (Abbrechen [Esc] stellt den alten Stand wieder her, auch über X; Speichern [Enter]; Export/Import nur aus der Oberfläche entfernt) |
 
 ## Musik (Suno) – später
 
@@ -349,6 +356,11 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
   5. **Geldanzeige „d“** (Auftraggeber dachte an „dime“/„day“): d = Penny (lat. denarius), £sd bis 1971. **Entschieden:**
      £ s d behalten + Erklärung beim ersten Lohn + Tooltip, ergänzt um Münzsymbole bei Statuszeile und Abrechnung.
   Tests 2182/0, Spieltest 0 Probleme, Bestandsaufnahme Epoche 1 geprüft.
+- 21.11.: **Anmerkungen 5–19 umgesetzt** (außer 15, Entscheidung offen) – Einzelheiten in der Tabelle oben. Neu: `scenes/ui/money_view.gd`
+  (Betrag mit Münzen), `scenes/ui/chapter_panel.gd` (Kapitelübersicht), Zunfttafel in `workshop.gd` (`_update_plaque`), Tasten [K]
+  Kapitel, Leertaste nur Hammer. Prüfwerkzeuge: Spieltest klickt echt in die Esse und prüft die Leertaste in der Abrechnung;
+  Bestandsaufnahme mit Hinweis „Geld“, Kapitelübersicht und fertigem Werkstück. Tests 2275/0, Spieltest 0 Probleme,
+  Durchspiel-Test (Seeds 3, 7) ohne Probleme, 13,9 h.
 
 ## Prüfen
 
@@ -356,6 +368,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 
 - Unit-Tests: `godot --headless --path . res://tests/run_tests.tscn`
 - Spieltest: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn`
+- Rohformen/Einrichtung/Zunfttafel: `res://tools/rough_check.tscn -- --items=… --furn=1,2 --stars=50` (mit xvfb-run wie unten)
 - Bestandsaufnahme Epoche 1 (alle Bildschirme): `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/audit_epoch1.tscn`
 - Stufensprung/Rohformen und Einrichtung: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/rough_check.tscn -- --items=nail,horseshoe --furn=2` (Bilder in `user://rough_check/`)
 - Durchspiel-Test (ganzes Spiel, Epoche für Epoche): `godot --headless --path . res://tools/full_playthrough.tscn -- --seed=7`

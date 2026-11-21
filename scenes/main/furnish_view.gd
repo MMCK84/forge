@@ -7,13 +7,16 @@ extends Control
 const Assets = preload("res://scripts/assets.gd")
 const Furnishings = preload("res://scripts/furnishings.gd")
 
-## Lage je Platz: Mitte unten des Stücks (x, Abstand zur Wand-Boden-Kante) und Größe
+## Lage je Platz: Mitte unten des Stücks (x, Abstand zur Wand-Boden-Kante) und Größe.
+## Neu geordnet 21.11. (Wunsch des Auftraggebers): alles ganz im Bild, etwa 1,5× größer, Laterne und Schild hängen
+## an Ketten vom Wandbalken (Epoche 1: Balken-Unterkante y 480 = Kante − 573), Zangenbrett links unter dem Fenster,
+## Schleifstein nicht hinter dem Hammerstiel. Hängende Stücke („hang“) werden oben bündig gezeichnet.
 const LAYOUT := {
-	"tools": {"x": 78.0, "dy": -60.0, "size": Vector2(140, 200)},
-	"trade": {"x": 975.0, "dy": -300.0, "size": Vector2(170, 110)},
-	"light": {"x": 800.0, "dy": -430.0, "size": Vector2(60, 110)},
-	"fuel": {"x": 1012.0, "dy": 45.0, "size": Vector2(130, 105)},
-	"bench": {"x": 905.0, "dy": 175.0, "size": Vector2(250, 185)},
+	"tools": {"x": 185.0, "dy": -173.0, "size": Vector2(230, 300)},
+	"trade": {"x": 940.0, "dy": -408.0, "size": Vector2(240, 165), "hang": true},
+	"light": {"x": 420.0, "dy": -403.0, "size": Vector2(90, 170), "hang": true},
+	"fuel": {"x": 975.0, "dy": 48.0, "size": Vector2(150, 120)},
+	"bench": {"x": 942.0, "dy": 218.0, "size": Vector2(260, 195)},
 }
 
 var epoch: int = 1
@@ -75,7 +78,8 @@ func _draw() -> void:
 			if tex != null:
 				var k := minf(rr.size.x / tex.get_width(), rr.size.y / tex.get_height())
 				var ts := Vector2(tex.get_width(), tex.get_height()) * k
-				draw_texture_rect(tex, Rect2(rr.position.x + (rr.size.x - ts.x) * 0.5, rr.end.y - ts.y, ts.x, ts.y), false)
+				var ty := rr.position.y if bool(LAYOUT[slot].get("hang", false)) else rr.end.y - ts.y
+				draw_texture_rect(tex, Rect2(rr.position.x + (rr.size.x - ts.x) * 0.5, ty, ts.x, ts.y), false)
 			else:
 				_draw_placeholder(slot, rr, false)
 			draw_set_transform(Vector2.ZERO)

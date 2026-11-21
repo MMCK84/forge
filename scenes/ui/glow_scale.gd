@@ -37,8 +37,10 @@ func _draw() -> void:
 	draw_rect(bar, Color("b08d57"), false, 3.0)
 	# Gefahrenzone (Verbrennen)
 	draw_rect(Rect2(_x(burn, bar), bar.position.y, bar.end.x - _x(burn, bar), bar.size.y), Color(0.6, 0, 0, 0.3))
-	_bracket(window, bar, Color("f3e7cf"), 0)
-	if window_label != "":
+	# Ohne aktiven Auftrag kein Zielfenster (window.x < 0)
+	if window.x >= 0.0:
+		_bracket(window, bar, Color("f3e7cf"), 0)
+	if window_label != "" and window.x >= 0.0:
 		var wx := _x(window.x, bar)
 		draw_string(Assets.ui_font(), Vector2(wx + 4, bar.position.y - 10), window_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("f3e7cf"))
 	if weld_window.x >= 0.0:

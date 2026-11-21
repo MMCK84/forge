@@ -11,10 +11,10 @@ Fest vorgegeben statt gewürfelt, ein Stück, Standardauftrag, einfache Qualitä
 | Auftrag | Werkstück | Arbeitsgänge | Was der Spieler lernt | Angebote |
 |---|---|---|---|---|
 | 1 | Haken | Biegen | Einlegen, auf Kirschrot warten, schmieden, abliefern – ein Zielfenster, niedrige Hitze | **1** |
-| 2 | Nagel | Anspitzen | ein zweites, heißeres Zielfenster | 2 |
-| 3 | Nagel | Strecken → Anspitzen | zwei Arbeitsgänge nacheinander, zurück in die Esse | 2 |
-| 4 | Hufeisen | Strecken → Biegen | großer Hitzeunterschied zwischen den Arbeitsgängen | 2 |
-| 5 | Hufeisen | Strecken → Biegen → Lochen | ein vollständiges Werkstück | 2 |
+| 2 | Nagel | Anspitzen | ein zweites, heißeres Zielfenster | 1 |
+| 3 | Nagel | Strecken → Anspitzen | zwei Arbeitsgänge nacheinander, zurück in die Esse | 1 |
+| 4 | Hufeisen | Strecken → Biegen | großer Hitzeunterschied zwischen den Arbeitsgängen | 1 |
+| 5 | Hufeisen | Strecken → Biegen → Lochen | ein vollständiges Werkstück | 1 |
 
 Nach dem ersten Lohn: Kreuzschlaghammer kaufen (Lehrzeit-Hinweis). Nach Auftrag 5: Hinweis auf die
 **Einrichtung der Werkstatt**, danach **Schlagstärke** (Hinweisfenster), ab jetzt drei Angebote und
@@ -42,6 +42,8 @@ eines Kapitels.
 
 1. **Lehrzeit nach Drehbuch** (Tabelle oben) statt gewürfelter Aufträge; erster Auftrag mit nur einem
    Angebot, danach zwei. Lehrzeit und „nur Standardaufträge“ einheitlich 5 Aufträge.
+   **Geändert 21.11.:** in der ganzen Lehrzeit nur ein Angebot – zwei Angebote aus demselben Drehbuch-Schritt waren
+   derselbe Auftrag (Anmerkung des Auftraggebers). Danach haben alle Angebote verschiedene Werkstücke.
 2. **Sichel aus Eisen statt Stahl:** Stahl kam bisher schon in Epoche 1 (Sichel, auch als Meilenstein) –
    jetzt wie im Kapitel vorgesehen erst in Epoche 4 „Stahl & Tuch“.
 3. **Epoche 2 entzerrt:** Sie brachte Zweiplatz-Esse, Mengen, Eilaufträge, mittlere Schläge und Lehrling

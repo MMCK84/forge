@@ -40,7 +40,16 @@ func check(cond: bool, msg: String) -> void:
 		problems.append(msg)
 
 
+## Fertiges Werkstück auf dem Amboss überspringen (sonst kommt die Abrechnung erst nach 1,6 s).
+func finish_showcase() -> void:
+	var w := workshop()
+	if w != null and w.has_method("_end_showcase"):
+		w.call("_end_showcase")
+		await wait(0.4)
+
+
 func close_overlays() -> void:
+	await finish_showcase()
 	var layer := _overlay_layer()
 	if layer == null:
 		return
@@ -58,6 +67,18 @@ func _overlay_layer() -> Node:
 	if l == null:
 		l = cur.get("_overlay_layer")
 	return l
+
+
+## Linksklick an eine Bildschirmposition (wie der Spieler).
+func click_at(pos: Vector2) -> void:
+	for pressed in [true, false]:
+		var ev := InputEventMouseButton.new()
+		ev.button_index = MOUSE_BUTTON_LEFT
+		ev.pressed = pressed
+		ev.position = pos
+		ev.global_position = pos
+		get_viewport().push_input(ev, true)
+		await get_tree().process_frame
 
 
 func workshop() -> Node:
@@ -125,8 +146,22 @@ func _run() -> void:
 	Engine.time_scale = 6.0
 	await run_until(func() -> bool: return gm.active_job.pieces[0].temp >= sim.step_window(0).y - 10.0, 30.0)
 	Engine.time_scale = 1.0
-	sim.move_slot_to_anvil(0)
+	# Echter Mausklick auf das Werkstück in der Esse: muss es auf den Amboss legen (nicht hämmern)
+	var hits_before := int(gm.stats.get("hits", 0))
+	var fv = workshop().forge_view
+	var cpos: Vector2 = fv.get_global_transform_with_canvas() * fv.slot_center(0)
+	var mm := InputEventMouseMotion.new()
+	mm.position = cpos
+	mm.global_position = cpos
+	get_viewport().push_input(mm, true)
+	await get_tree().process_frame
+	await click_at(cpos)
 	await wait(0.6)
+	check(sim.anvil >= 0, "Klick auf das Werkstück in der Esse legt es auf den Amboss")
+	check(int(gm.stats.get("hits", 0)) == hits_before, "Klick in die Esse zählt nicht als Hammerschlag")
+	if sim.anvil < 0:
+		sim.move_slot_to_anvil(0)
+		await wait(0.6)
 	var done := false
 	var hits := 0
 	for k in 400:
@@ -162,6 +197,19 @@ func _run() -> void:
 	Engine.time_scale = 1.0
 	await wait(0.5)
 	check(done or gm.active_job == null, "Erster Auftrag abgeschlossen (%d Schläge)" % hits)
+	await shot("werkstueck_fertig")
+	await finish_showcase()
+	# Leertaste darf die Abrechnung nicht schließen (nur Enter)
+	var n_before := _overlay_layer().get_child_count()
+	for pressed in [true, false]:
+		var kev := InputEventKey.new()
+		kev.keycode = KEY_SPACE
+		kev.physical_keycode = KEY_SPACE
+		kev.pressed = pressed
+		get_viewport().push_input(kev, true)
+		await get_tree().process_frame
+	await wait(0.3)
+	check(_overlay_layer().get_child_count() == n_before and n_before > 0, "Leertaste schließt die Abrechnung nicht")
 	await shot("abrechnung")
 	await close_overlays()
 	check(gm.total_pence > 0, "Lohn gutgeschrieben: " + gm.format_money(gm.total_pence))
@@ -326,6 +374,7 @@ func _epoch_scene(e: int) -> void:
 	await wait(0.3)
 	check(gm.active_job == null, "Epoche %d: Auftrag '%s' abgeschlossen" % [e, want])
 	if e == 4:
+		await finish_showcase()
 		await shot("abrechnung_haerten")
 	await close_overlays()
 

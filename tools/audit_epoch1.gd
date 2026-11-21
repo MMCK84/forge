@@ -92,6 +92,8 @@ func _run_audit() -> void:
 		_hit_right()
 		await wait(0.14)
 	await wait(0.6)
+	await shot("werkstueck_fertig")
+	await finish_showcase()
 	await shot("abrechnung_erster_auftrag")
 	await close_overlays()
 	await wait(0.4)
@@ -113,6 +115,7 @@ func _run_audit() -> void:
 		await wait(0.4)
 		if not mastery_shot and int(gm.stats.get("jobs_completed", 0)) == 3:
 			mastery_shot = true
+			await finish_showcase()
 			await shot("abrechnung_erstes_siegel")
 		await close_overlays()
 		await close_overlays()
@@ -135,7 +138,7 @@ func _run_audit() -> void:
 	await close_overlays()
 
 	for pair in [["steps", "arbeitsgaenge"], ["mastery", "meisterschaft"], ["furnish_intro", "einrichtung"], ["force", "schlagstaerke"],
-			["precision", "praezision"], ["masterpiece", "meisterstueck"]]:
+			["precision", "praezision"], ["masterpiece", "meisterstueck"], ["money", "geld"]]:
 		await hint(pair[0], pair[1])
 
 	workshop().call("open_overlay", "res://scenes/ui/job_book.gd")
@@ -162,7 +165,7 @@ func _run_audit() -> void:
 	await close_overlays()
 	await shot("werkstatt_eingerichtet")
 	for path in ["res://scenes/ui/staff_panel.gd", "res://scenes/ui/stats_panel.gd", "res://scenes/ui/pattern_book.gd",
-			"res://scenes/ui/pause_menu.gd", "res://scenes/ui/settings_panel.gd"]:
+			"res://scenes/ui/pause_menu.gd", "res://scenes/ui/settings_panel.gd", "res://scenes/ui/chapter_panel.gd"]:
 		workshop().call("open_overlay", path)
 		await wait(0.5)
 		await shot("fenster_" + path.get_file().get_basename())
@@ -185,11 +188,13 @@ func _run_audit() -> void:
 	await shot("werkstatt_meisterstueck")
 	gm.debug_finish_job()
 	await wait(0.5)
+	await finish_showcase()
 	await shot("abrechnung_meisterstueck_teil")
 	await close_overlays()
 	gm.accept_offer(0)
 	gm.debug_finish_job()
 	await wait(0.5)
+	await finish_showcase()
 	await shot("abrechnung_meisterbrief")
 	await close_overlays()
 	await wait(0.6)

@@ -8,7 +8,7 @@ var cfg: BalanceConfig = Catalog.BALANCE
 
 func test_format_lsd_table() -> void:
 	# Tabelle aus Lastenheft 2.2
-	assert_eq(Economy.format_lsd(0, "de"), "0d")
+	assert_eq(Economy.format_lsd(0, "de"), "£0", "null als £0 (nicht „0d“)")
 	assert_eq(Economy.format_lsd(6, "de"), "6d")
 	assert_eq(Economy.format_lsd(120, "de"), "10s")
 	assert_eq(Economy.format_lsd(126, "de"), "10s 6d")

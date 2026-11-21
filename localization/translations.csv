@@ -236,10 +236,14 @@ HINT_MASTERPIECE_TEXT,"Am Ende jedes Kapitels steht ein Meisterstück: ein groß
 HINT_MASTERPIECE_TITLE,Das Meisterstück,The masterpiece
 HINT_MASTERY_TEXT,"Euer erstes Siegel! Wer ein Werkstück immer wieder schmiedet, erhält Bronze-, Silber- und Goldsiegel – und für dieses Werkstück jedes Mal mehr Lohn. Alle Werkstücke und Siegel findet Ihr im Musterbuch (Statistik).","Your first seal! Forge a piece again and again to earn bronze, silver and gold seals – and a higher wage for that piece each time. All pieces and seals are in the pattern book (statistics)."
 HINT_MASTERY_TITLE,Meisterschaft,Mastery
+HINT_MONEY_TEXT,"Euer Lohn wird in Pfund, Shilling und Pence gezahlt, geschrieben £ s d. Das d steht für Penny – vom lateinischen denarius.\n\n12 Pence sind ein Shilling, 20 Shilling ein Pfund. „£1 6s 6d“ heißt also: ein Pfund, sechs Shilling und sechs Pence.\n\nOben in der Statusleiste zeigen die Münzen Euren Besitz: Gold = Pfund, Silber = Shilling, Kupfer = Pence.","Your wages are paid in pounds, shillings and pence, written £ s d. The d stands for penny – from the Latin denarius.\n\n12 pence make a shilling, 20 shillings a pound. So “£1 6s 6d” means one pound, six shillings and six pence.\n\nAt the top of the screen the coins show what you own: gold = pounds, silver = shillings, copper = pence."
+HINT_MONEY_TITLE,Englisches Geld,English money
 HINT_PRECISION_TEXT,"Hier zählt nur, was Ihr in der Mitte des Zielfensters schmiedet: Jedes Fenster ist auf seine mittleren 60 % verengt. Drei Sterne bringen 25 % Trinkgeld.",Only what you forge in the middle of the target window counts here: every window is narrowed to its central 60 %. Three stars earn a 25 % tip.
 HINT_PRECISION_TITLE,Präzisionsauftrag,Precision order
 HINT_QUANTITY_TEXT,"Mehrere Stücke: Jedes wird einzeln erhitzt und geschmiedet. Nutzt alle Plätze der Esse, damit die nächsten Stücke schon heizen, während Ihr schmiedet.\n\nWird das Stück auf dem Amboss zu kalt, tauscht Ihr es mit [E] oder per Klick auf ein heißes Stück in der Esse.","Several pieces: each is heated and forged on its own. Use every place in the forge so the next pieces are heating while you work.\n\nWhen the piece on the anvil gets too cold, swap it with [E] or by clicking a hot piece in the forge."
 HINT_QUANTITY_TITLE,Mengenauftrag,Quantity order
+HINT_REPUTATION_TEXT,"Euer Ruf wächst: Für alle Sterne, die Ihr gesammelt habt, hat Euch die Zunft eine Tafel geschickt – sie hängt jetzt über der Esse. Mit jeder neuen Rufstufe kommt ein Stern hinzu, bis zur „Legende der Zunft“.","Your reputation grows: for all the stars you have earned, the guild has sent you a plaque – it now hangs above the forge. Each new rank adds a star, up to “Legend of the guild”."
+HINT_REPUTATION_TITLE,Die Zunft ehrt Euch,The guild honours you
 HINT_RUSH_TEXT,Die Sanduhr läuft ab Annahme. Pünktlich gibt es 50 % mehr Lohn; verspätet nur die Hälfte und kein Trinkgeld.,The hourglass runs from acceptance. On time pays 50 % more; late pays only half and no tip.
 HINT_RUSH_TITLE,Eilauftrag,Rush order
 HINT_STEAM_HAMMER_TEXT,"Den Dampfhammer bedient Ihr selbst – wie der Hammerführer am Steuerhebel: Tippt auf HAMMERN (oder die Leertaste) für einen Schlag, haltet gedrückt, damit er fortlaufend schlägt. Loslassen hält ihn an. Die Wucht wählt Ihr wie gewohnt mit Sanft, Mittel und Fest.","You work the steam hammer yourself – like the hammer driver at the control lever: tap HAMMER (or the space bar) for one blow, hold it for continuous blows. Let go to stop it. Choose the force as usual with Soft, Medium and Firm."
@@ -817,6 +821,13 @@ UI_BTN_MOVE,Umlegen [E],Move piece [E]
 UI_BTN_QUENCH,Abschrecken [Q],Quench [Q]
 UI_BUY,Kaufen,Buy
 UI_CANCEL,Abbrechen,Cancel
+UI_CHAPTER,Kapitelübersicht,Chapter overview
+UI_CHAPTER_DONE,erledigt,done
+UI_CHAPTER_LATER,nach {n} Aufträgen (noch {left}),after {n} orders ({left} to go)
+UI_CHAPTER_MP_PARTS,Vorarbeiten: {parts} · Hauptstück: {main} · erledigt {k} von {n} Teilen,Preparatory work: {parts} · Main piece: {main} · {k} of {n} parts done
+UI_CHAPTER_NOW,jetzt im Auftragsbuch,now in the order book
+UI_CHAPTER_PROGRESS,Meilensteine: {done} von {total} · Aufträge in dieser Epoche: {n} / {jobs},Milestones: {done} of {total} · Orders this era: {n} / {jobs}
+UI_CHAPTER_TITLE,Kapitel {n}: {name},Chapter {n}: {name}
 UI_CLOSE,Schließen,Close
 UI_CONTINUE,Weiter,Continue
 UI_CONTINUE_GAME,Fortsetzen,Continue
@@ -868,6 +879,7 @@ UI_MASTERY_OFFER,{level} – Lohn +{p} %,{level} – wage +{p} %
 UI_MAXED,Höchststufe,Maximum
 UI_MENU,Menü [P],Menu [P]
 UI_MISSING,Es fehlen noch {m}.,You still need {m}.
+UI_MONEY_TIP,"Englisches Geld: Pfund (£, Gold), Shilling (s, Silber), Pence (d, Kupfer – von lat. denarius). 12 d = 1 s, 20 s = 1 £.","English money: pounds (£, gold), shillings (s, silver), pence (d, copper – from Latin denarius). 12 d = 1 s, 20 s = £1."
 UI_MUSIC_VOLUME,Musik,Music
 UI_NEW_GAME,Neues Spiel,New game
 UI_NEW_GAME_WARNING,"Es gibt bereits einen Spielstand. Ein neues Spiel überschreibt ihn (der alte bleibt als Sicherung erhalten, bis zum nächsten Speichern). Fortfahren?",A saved game already exists. A new game will overwrite it (the old one is kept as a backup until the next save). Continue?
@@ -883,6 +895,8 @@ UI_PATTERN_TIP,{n} Aufträge · {level},{n} orders · {level}
 UI_PAUSE,Pause,Paused
 UI_PAY_AND_MOVE,Gebühr zahlen & umziehen,Pay the fee & move
 UI_PIECE_INFO,Stück {i}/{n} · {p} %,Piece {i}/{n} · {p} %
+UI_PLAQUE_NEXT,Nächste Stufe „{next}“ in {n} Sternen,Next rank “{next}” in {n} stars
+UI_PLAQUE_TIP,Zunfttafel: {title} ({stars} Sterne gesammelt),Guild plaque: {title} ({stars} stars earned)
 UI_PURSE,Münzbeutel,Purse
 UI_QUANTITY,Menge ×{n},Quantity ×{n}
 UI_QUENCH_INFO,bereit zum Abschrecken,ready to quench
@@ -892,6 +906,7 @@ UI_REPEAT_JOB,Auftrag wiederholen,Repeat order
 UI_REROLL,Neue Angebote,New offers
 UI_REROLL_WAIT,Neue Angebote in {s} s,New offers in {s} s
 UI_RESUME,Fortsetzen,Resume
+UI_SAVE,Speichern,Save
 UI_SAVE_AND_QUIT,Speichern & zum Hauptmenü,Save & main menu
 UI_SAVE_CORRUPT,Der Spielstand ist beschädigt und konnte nicht geladen werden. Bitte beginnt ein neues Spiel.,The saved game is damaged and could not be loaded. Please start a new game.
 UI_SAVE_NEWER,Der Spielstand stammt aus einer neueren Spielversion und kann nicht geladen werden. Die Datei bleibt unverändert.,The saved game comes from a newer version of the game and cannot be loaded. The file is left unchanged.

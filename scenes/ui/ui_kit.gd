@@ -86,7 +86,13 @@ static func theme() -> Theme:
 	t.set_color("font_disabled_color", "Button", Color("8a8172"))
 	t.set_color("font_focus_color", "Button", Color.WHITE)
 	for st in ["normal", "hover", "pressed", "disabled"]:
-		var sb := _tex_box("ui/user/btn_%s.png" % st, 20.0, 24.0, 10.0)
+		# Messingrand oben 13, unten 16, seitlich 14 px (Bild aus dem Import, Maßstab 0.18): Schrift liegt ganz auf dem Leder
+		var sb := _tex_box("ui/user/btn_%s.png" % st, 14.0, 20.0, 10.0)
+		if sb != null:
+			sb.texture_margin_top = 13.0
+			sb.texture_margin_bottom = 16.0
+			sb.content_margin_top = 9.0
+			sb.content_margin_bottom = 12.0
 		if sb == null:
 			sb = _tex_box("ui/button_%s.png" % st, 16.0, 20.0, 8.0)
 		if sb != null:
