@@ -12,7 +12,7 @@ Epochenwechsel). Bilder in `user://audit_e1/`.
 
 | # | Kriterium | Stand |
 |---|---|---|
-| 1 | Alle Grafiken von Epoche 1 aus Midjourney und mit „gut“ bewertet, keine Platzhalter-Zeichnungen sichtbar | offen – Bilder siehe unten |
+| 1 | Alle Grafiken von Epoche 1 aus Midjourney und mit „gut“ bewertet, keine Platzhalter-Zeichnungen sichtbar | erledigt (21.11.) |
 | 2 | Alle Menüs und Fenster im selben Stil (Pergament, Leder, Messing), nichts im Godot-Standardlook | erledigt (Häkchen und Regler neu) |
 | 3 | Keine bekannten Fehler in Epoche 1 | erledigt (Durchspiel-Test, Bestandsaufnahme) |
 | 4 | Texte geprüft (Rechtschreibung, Anrede „Ihr“, passend zu dem, was man gerade sieht) | erledigt für alle Hinweise der Epoche 1 |

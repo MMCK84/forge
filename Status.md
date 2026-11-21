@@ -122,8 +122,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
    Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
 6a. **Epoche 1 auf Alpha-Niveau** (Wunsch des Auftraggebers, 21.11.): Checkliste, Befunde und benötigte Bilder in
-   `docs/Alpha_Epoche1.md`; Prüfwerkzeug `tools/audit_epoch1.tscn` (alle 38 Bildschirme). Offen: Bilder E1-1–5, W1-4–8,
-   U1–U7, U9, U13, U18–U20, P1-4, U16; Musik Epoche 1; Tastenkürzel nur am Rechner; Testmenü nur in der Entwicklerfassung.
+   `docs/Alpha_Epoche1.md`; Prüfwerkzeug `tools/audit_epoch1.tscn` (alle 38 Bildschirme). Bilder der Epoche 1 vollständig (21.11.); offen: Musik Epoche 1; Tastenkürzel nur am Rechner; Testmenü nur in der Entwicklerfassung.
 7. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – gemeinsam festlegen; zu klären, was genau
    gemeint ist: Wortwahl und Anrede der Texte (bisher historisches „Ihr“), angebotene Spielsprachen (bisher Deutsch/Englisch)
    und/oder die gestalterische Sprache der Oberfläche (Pergament, Leder, Messing).
@@ -306,6 +305,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   P1-4. **Ändern:** U9 linkes Siegel (Doppeladler statt Monogramm GR) – bisheriges George-III-Siegel bleibt; Prompt geschärft.
   Import für Sterne, Sanduhr, Löschtrog, Victoria-Münzen, Zeiger, Banner und hellgrauen Grund bei Siegeln erweitert.
   Noch Gemini: App-Icon (U16), Ladenbild Wasser-Schwanzhammer (ML1).
+- 21.11.: **Ersatzbilder:** E1-5 Laterne (Blechlaterne mit Kerze), W1-6 Pflugschar (asymmetrisch), U9 Wachssiegel (GR mit Krone,
+  Admiralitätsanker) und U16 App-Icon – alle gut und eingebunden (App-Icon in `store/` und `icon.png`). Damit sind alle Bilder
+  der Epoche 1 und die ganze Oberfläche von Midjourney und abgenommen; noch Gemini: nur das Ladenbild Wasser-Schwanzhammer (ML1).
 
 ## Prüfen
 

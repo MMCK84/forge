@@ -144,8 +144,8 @@
   },
   "ploughshare": {
    "quelle": "Midjourney",
-   "bewertung": "ändern",
-   "hinweis": "21.11.: symmetrisch wie eine Kelle/Speerspitze statt asymmetrischer Schar mit Flügel. Bis zum Ersatz im Spiel."
+   "bewertung": "gut",
+   "hinweis": "21.11.: zweite Fassung: asymmetrische Schar mit gerader Oberkante, geschwungener Schneide und Tülle."
   },
   "gate_latch": {
    "quelle": "Midjourney",
@@ -197,8 +197,8 @@
   },
   "wax_seals": {
    "quelle": "Midjourney",
-   "bewertung": "ändern",
-   "hinweis": "21.11.: rechts Admiralitätsanker – gut; links Doppeladler statt Monogramm GR (George III). Bis zum Ersatz bleibt das bisherige George-III-Siegel."
+   "bewertung": "gut",
+   "hinweis": "21.11.: zweite Fassung: links Monogramm GR mit Krone (George III), rechts Admiralitätsanker, ohne Jahreszahl."
   },
   "seal_victoria": {
    "quelle": "Midjourney",
@@ -216,7 +216,9 @@
    "hinweis": "21.11.: Halbkreis-Skala mit Mechanik (optional, derzeit nicht im Spiel verwendet)."
   },
   "app_icon": {
-   "quelle": "Gemini"
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Hammer schlägt auf glühendes Hufeisen, Funkenregen, warmes Licht – klar und kräftig, auch klein gut lesbar."
   },
   "store_banner": {
    "quelle": "Midjourney",
@@ -480,8 +482,8 @@
   },
   "furn_e1_light": {
    "quelle": "Midjourney",
-   "bewertung": "ändern",
-   "hinweis": "21.11.: Sturmlaterne mit Glaszylinder – gibt es erst ab etwa 1850; gewünscht ist eine Blechlaterne mit Hornscheiben und Kerze. Bis zum Ersatz im Spiel."
+   "bewertung": "gut",
+   "hinweis": "21.11.: zweite Fassung: Blechlaterne mit Kerze und Hornscheiben an Ring und Haken – zeitgemäß."
   },
   "coins_victoria": {
    "quelle": "Midjourney",

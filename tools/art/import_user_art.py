@@ -188,11 +188,10 @@ def main():
     bg = flood_bg(((a.min(axis=2) > 238)) | ((a.min(axis=2) > 195) & (sat < 22)))
     seals = objects(to_rgba(a, bg.astype(np.float32)))
     # Reihenfolge der Objekte: (Zeile, x) – Gemini-Blatt oben: Victoria, George III, Admiralty; unten: Louis XV, Russland.
-    # Midjourney-Blatt (21.11.): links George III, rechts Admiralität – das linke zeigt einen Doppeladler statt des
-    # Monogramms GR und wird nicht übernommen (bisheriges Siegel bleibt, bis Ersatz kommt)
+    # Midjourney-Blatt (21.11.): links George III (Monogramm GR mit Krone), rechts Admiralität
     names = {0: "seal_victoria.png", 1: "seal_george_iii.png", 2: "seal_admiralty.png"}
     if len(seals) == 2:
-        names = {1: "seal_admiralty.png"}
+        names = {0: "seal_george_iii.png", 1: "seal_admiralty.png"}
     for k, piece in enumerate(seals):
         if k in names:
             save(piece, names[k], max_w=160)

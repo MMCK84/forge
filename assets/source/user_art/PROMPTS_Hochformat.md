@@ -17,9 +17,9 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 95 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 5 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 2 |
+| ✅ gut (Midjourney) | 99 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
 | ⬜ noch nicht vorhanden | 103 |
 | ⬜ noch nicht vorhanden (optional) | 36 |
 
@@ -29,10 +29,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
-| E · Werkstücke | 20 | 3 | 0 | 58 | 0 |
+| E · Werkstücke | 21 | 2 | 0 | 58 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
-| G · Oberfläche, Symbole, Store | 17 | 1 | 1 | 0 | 2 |
-| H · Werkstatt-Einrichtung | 4 | 1 | 0 | 45 | 0 |
+| G · Oberfläche, Symbole, Store | 19 | 0 | 0 | 0 | 2 |
+| H · Werkstatt-Einrichtung | 5 | 0 | 0 | 45 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
 
@@ -438,9 +438,9 @@ Regler: **Square 1:1** · 71 Wörter · Datei `sickle`
 W1-5 — 2D game asset, a single hand-forged sickle blade without handle: wide crescent-shaped thin steel blade with a smooth ground inner edge and a short pointed bare tang on the left, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-6** – Pflugschar · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**W1-6** – Pflugschar · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 94 Wörter · Datei `ploughshare`  
-*21.11.: symmetrisch wie eine Kelle/Speerspitze statt asymmetrischer Schar mit Flügel. Bis zum Ersatz im Spiel.*
+*21.11.: zweite Fassung: asymmetrische Schar mit gerader Oberkante, geschwungener Schneide und Tülle.*
 ```
 W1-6 — 2D game asset, a single hand-forged ploughshare for a wooden plough: an asymmetric triangular iron share, the top side a straight thick landside, the lower side a long curved cutting edge sweeping back into a wing, sharp point on the right, a short socket with two bolt holes on the left, not a trowel, not a spearhead, not symmetric, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1331,9 +1331,9 @@ Regler: **Square 1:1** · 39 Wörter · Datei `coins_victoria`
 U8 — Set of 3 antique British coins of Queen Victoria from the 1850s, one gold sovereign, one silver shilling, one bronze penny, game item icons, top-down view, crisp hand-painted 2D game art, thin dark outlines, on pure flat white background --ar 1:1 --no text other than the coin legends, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U9** – Wachssiegel George III und Admiralität · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**U9** – Wachssiegel George III und Admiralität · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 39 Wörter · Datei `wax_seals`  
-*21.11.: rechts Admiralitätsanker – gut; links Doppeladler statt Monogramm GR (George III). Bis zum Ersatz bleibt das bisherige George-III-Siegel.*
+*21.11.: zweite Fassung: links Monogramm GR mit Krone (George III), rechts Admiralitätsanker, ohne Jahreszahl.*
 ```
 U9 — Two red wax seals side by side: left the royal cipher of King George III as the crowned monogram GR, right the fouled anchor of the Admiralty, game badge icons, hand-painted 2D game art, on pure flat white background --ar 1:1 --no eagle, coat of arms, date, year, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1379,8 +1379,9 @@ Regler: **Landscape 2:1** · 65 Wörter · Datei `trough`
 U15 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, standing on two short trestles, a thin strip of dark water visible along the top edge, shown in a flat straight front view at eye level, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, steam, tools, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U16** – App-Icon · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 64 Wörter · Datei `app_icon`
+**U16** – App-Icon · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter · Datei `app_icon`  
+*21.11.: Hammer schlägt auf glühendes Hufeisen, Funkenregen, warmes Licht – klar und kräftig, auch klein gut lesbar.*
 ```
 U16 — Square 1:1 mobile game app icon, a heavy blacksmith's hammer striking a glowing orange-hot horseshoe on the face of a dark iron anvil, a burst of bright sparks, warm firelight against a deep dark brown background, bold simple shapes and strong contrast that stay readable at very small size, hand-painted 2D game art, dark ink outlines, subject centred and filling most of the square --ar 1:1 --no text, letters, border, rounded corners, numbers, watermark
 ```
@@ -1453,9 +1454,9 @@ Regler: **Landscape 3:2** · 57 Wörter · Datei `furn_e1_trade`
 E1-4 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**E1-5** – Licht und Lager: Talglaterne · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**E1-5** – Licht und Lager: Talglaterne · ✅ gut (Midjourney)  
 Regler: **Portrait 1:2** · 71 Wörter · Datei `furn_e1_light`  
-*21.11.: Sturmlaterne mit Glaszylinder – gibt es erst ab etwa 1850; gewünscht ist eine Blechlaterne mit Hornscheiben und Kerze. Bis zum Ersatz im Spiel.*
+*21.11.: zweite Fassung: Blechlaterne mit Kerze und Hornscheiben an Ring und Haken – zeitgemäß.*
 ```
 E1-5 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small square punched-tin candle lantern with horn panes and a ring on top, a tallow candle inside, hanging from an iron hook, around 1700, not a kerosene lamp, not a hurricane lantern, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, glass globe, text, numbers, watermark, border, shadow, photo, 3d render
 ```
