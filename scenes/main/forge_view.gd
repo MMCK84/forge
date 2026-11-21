@@ -177,21 +177,30 @@ func _draw_textured(body: Texture2D) -> void:
 ## Essen-Grafik des Auftraggebers: Glut ist eingemalt, darüber flackert nur der Feuerschein.
 ## Neben der Lehm-Esse pumpt ein beweglicher Blasebalg (bringt Leben ins Bild – soll bleiben, aber schöner werden:
 ## Anmerkung 20 des Auftraggebers, 21.11.).
+## Linke Unterkante des beweglichen Blasebalgs auf der Bank der Lehm-Esse (lokal; aus forge_clay vermessen)
+const BELLOWS_SEAT := Vector2(25, 419)
+
+
 func _draw_user(d: Dictionary) -> void:
 	var flick := 0.8 + 0.2 * sin(_t * 7.0) * sin(_t * 3.1)
 	if heating:
 		flick += 0.15
-	if tier == 1:
-		# Bild des Auftraggebers (BB) hat Vorrang vor dem alten Platzhalter; Lage wird bei der Lieferung abgestimmt
-		var user_bel := Assets.user("bellows.png")
-		var bel: Texture2D = user_bel if user_bel != null else Assets.tex("tools/bellows.png")
+	var user_bel := Assets.user("bellows.png") if tier == 1 else null
+	if tier == 1 and user_bel == null:
+		var bel := Assets.tex("tools/bellows.png")
 		if bel != null:
 			var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
-			var at := Vector2(-110, 470) if user_bel != null else Vector2(-150, 470)
-			draw_set_transform(at, 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
+			draw_set_transform(Vector2(-150, 470), 0.0, Vector2(1.0, 0.75 + 0.35 * pump))
 			draw_texture(bel, Vector2(0, -bel.get_height() * 0.5))
 			draw_set_transform(Vector2.ZERO)
 	draw_texture(Assets.user(str(d["file"])), d["origin"])
+	# Beweglicher Blasebalg (Bild BB) liegt auf der Bank links der Lehm-Esse, Düse zum Herd; er pumpt (senkrecht
+	# gestaucht, Unterkante bleibt auf der Sitzfläche) – beim Aufheizen schneller. Er verdeckt den eingemalten Sack.
+	if user_bel != null:
+		var pump := 0.5 + 0.5 * sin(_t * (5.0 if heating else 1.5))
+		draw_set_transform(BELLOWS_SEAT, 0.0, Vector2(1.0, 0.94 + 0.12 * pump))
+		draw_texture(user_bel, Vector2(0, -user_bel.get_height()))
+		draw_set_transform(Vector2.ZERO)
 	var glow := Assets.tex("environment/fire_glow.png")
 	if glow != null:
 		var bed: Vector2 = d["bed"]

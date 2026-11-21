@@ -116,6 +116,8 @@ LESSONS = [
      "„one single object only (no variations, no second version)“ in allen Einrichtungs-Prompts; Format nach dem Objekt wählen (liegender Stapel: 2:1)"),
     ("21.11.", "Einrichtung", "E6-1 Koksbunker sah aus wie ein Backofen (Gewölbe, Tür), E6-4 Kontor als leerer Schrank, E4-2 Zangen wie Spieße",
      "Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`)"),
+    ("21.11.", "Werkstücke", "W9-1 Brückenniete kam trotz „seen from the side“ immer von oben – im selben Prompt stand „top-down view, lying flat“ (auch bei drei weiteren Prompts der Epochen 7–10)",
+     "Der Generator entfernt bei Seitenansicht jede Draufsicht-Angabe und setzt „seen exactly from the side (not from above)“ und die Seitenansicht an den Anfang"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -200,9 +202,16 @@ def view_first(prompt):
     if "white background" not in prompt or "game background" in prompt:
         return prompt
     low = prompt.lower()
+    side = "side view" in low or "from the side" in low or "side elevation" in low
+    # Widerspruch „from the side“ + „top-down/lying flat“ (W9-1 kam deshalb immer von oben): Seitenansicht gewinnt
+    if side and ("from directly above" in low or "top-down" in low):
+        for t in ("viewed from directly above, lying flat, ", "top-down view, lying flat, ", "viewed from directly above, ", "top-down view, "):
+            prompt = prompt.replace(t, "")
+        prompt = prompt.replace("seen from the side, horizontal", "seen exactly from the side (not from above), horizontal")
+        low = prompt.lower()
     if "from directly above" in low or "top-down" in low:
         return prompt
-    if "side view" in low or "from the side" in low or "side elevation" in low:
+    if side:
         lead = "Flat orthographic side elevation, like a technical drawing"
     elif "front view" in low or "from the front" in low or "front elevation" in low:
         lead = "Flat orthographic front elevation, like a technical drawing"
