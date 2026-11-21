@@ -17,11 +17,11 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 69 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 18 |
-| ⬜ noch nicht vorhanden | 112 |
-| ⬜ noch nicht vorhanden (optional) | 38 |
+| ✅ gut (Midjourney) | 95 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 5 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 2 |
+| ⬜ noch nicht vorhanden | 103 |
+| ⬜ noch nicht vorhanden (optional) | 36 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
@@ -29,10 +29,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
-| E · Werkstücke | 16 | 2 | 5 | 58 | 0 |
-| F · Kundenporträts | 19 | 1 | 0 | 0 | 34 |
-| G · Oberfläche, Symbole, Store | 0 | 0 | 12 | 4 | 4 |
-| H · Werkstatt-Einrichtung | 0 | 0 | 0 | 50 | 0 |
+| E · Werkstücke | 20 | 3 | 0 | 58 | 0 |
+| F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
+| G · Oberfläche, Symbole, Store | 17 | 1 | 1 | 0 | 2 |
+| H · Werkstatt-Einrichtung | 4 | 1 | 0 | 45 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
 
@@ -76,6 +76,8 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 20.11. | Werkstücke | Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten | Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst) |
 | 21.11. | Einrichtung | Schleifstein (E1-3) in strenger Seitenansicht: technischer Unsinn – Kurbel auf der Steinfläche, Lagerbock vor dem Stein, Achse ohne Lager; in reiner Seitenansicht liegen Achse und Lager hinter dem Stein, Midjourney erfindet dann etwas | Mechanik mit Achse (Schleifstein, Schleifbank) Bauteil für Bauteil beschreiben (Achse durch die Mitte, Achsenden in Lagerböcken auf den Seitenholmen, Stein taucht in den Trog, Kurbel am Achsende, „mechanically correct“) und eine **leichte Dreiviertelansicht** erlauben – die Einrichtung steht im Raum, der selbst perspektivisch gemalt ist; flach bleiben nur Esse, Amboss, Hämmer, Maschinen und Werkstücke |
 | 21.11. | Einrichtung | Schleifstein (E1-3) kam immer perspektivisch: Der Prompt verlangte zugleich „orthographic front elevation“ und „front view from slightly above“ – das „von oben“ erzeugt die Schrägsicht | „from slightly above“ aus allen Einrichtungs-Prompts entfernt („front view at eye level“); runde Teile (Schleifstein, Räder, Schwungrad) „seen exactly from the side so that … is a perfect circle“ wie beim Wasserrad (M1), das so sofort flach kam; hilft das nicht: M1 als Bild-Prompt mit `--iw 0.5` anhängen |
+| 21.11. | Siegel | Wachssiegel George III (U9) kam als Doppeladler – das ist ein ausländisches Wappen | Motiv als Buchstaben-Monogramm beschreiben („crowned monogram GR“) und „no eagle, no coat of arms“ ergänzen |
+| 21.11. | Einrichtung/Werkstücke | Talglaterne (E1-5) kam als Sturmlaterne mit Glaszylinder (ab etwa 1850); Pflugschar (W1-6) kam symmetrisch wie eine Kelle | Zeittypische Form genau benennen und die naheliegende moderne Verwechslung ausschließen („no glass globe, not a kerosene lamp, not a hurricane lantern“; „not a trowel, not a spearhead, not symmetric“) |
 | 21.11. | Werkstücke | Ruderfingerling (W3-7) kam als dünner, schräger Spieß ohne Bandeisen und Bolzenlöcher; eine Schere kam mit Fingerringen statt als Federschere | Form mit einem bekannten Umriss beschreiben („shaped like a capital letter L turned on its side“), Verwechslungen ausdrücklich ausschließen („not a thin spike, not diagonal“, „no finger rings, not scissors“) |
 | 20.11. | Porträts | Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller | bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung |
 
@@ -422,32 +424,37 @@ Regler: **Square 1:1** · 61 Wörter · Datei `hook`
 W1-3 — 2D game asset, a single hand-forged S-shaped hanging hook made from round bar, pointed tip on the lower curve, small curled scroll on the upper end, upright, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-4** – Türangel · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 73 Wörter · Datei `door_hinge`
+**W1-4** – Türangel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 73 Wörter · Datei `door_hinge`  
+*21.11.: Bandscharnier mit Rolle und Speerspitze, Nagellöcher.*
 ```
 W1-4 — 2D game asset, a single hand-forged strap hinge for a cottage door: long flat tapering iron strap with three round nail holes, a rolled eye at the left end and a spade-shaped decorative tip at the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-5** – Sichel · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 71 Wörter · Datei `sickle`
+**W1-5** – Sichel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 71 Wörter · Datei `sickle`  
+*21.11.: Sichelblatt mit eingerollter Angel – liest sich klar als Sichel.*
 ```
 W1-5 — 2D game asset, a single hand-forged sickle blade without handle: wide crescent-shaped thin steel blade with a smooth ground inner edge and a short pointed bare tang on the left, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-6** – Pflugschar · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 66 Wörter · Datei `ploughshare`
+**W1-6** – Pflugschar · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 94 Wörter · Datei `ploughshare`  
+*21.11.: symmetrisch wie eine Kelle/Speerspitze statt asymmetrischer Schar mit Flügel. Bis zum Ersatz im Spiel.*
 ```
-W1-6 — 2D game asset, a single hand-forged ploughshare: flat, slightly curved triangular iron blade with a sharp point on the right and a short socket with two bolt holes on the left, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W1-6 — 2D game asset, a single hand-forged ploughshare for a wooden plough: an asymmetric triangular iron share, the top side a straight thick landside, the lower side a long curved cutting edge sweeping back into a wing, sharp point on the right, a short socket with two bolt holes on the left, not a trowel, not a spearhead, not symmetric, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-7** – Schürhaken · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 75 Wörter · Datei `fire_poker`
+**W1-7** – Schürhaken · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 75 Wörter · Datei `fire_poker`  
+*21.11.: Schürhaken mit tordiertem Schaft und Ringgriff.*
 ```
 W1-7 — 2D game asset, a single hand-forged fireplace poker: long round iron bar with a small hooked side spur at the tip, a twisted section near the handle and a closed ring loop as handle, horizontal with the tip on the right, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W1-8** – Torriegel · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 66 Wörter · Datei `gate_latch`
+**W1-8** – Torriegel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter · Datei `gate_latch`  
+*21.11.: Torriegel mit Schnecke, Zierblech und Krampe.*
 ```
 W1-8 — 2D game asset, a single hand-forged gate latch: flat iron latch bar with a curled thumb lever at one end and a small decorative scrolled back plate with two nail holes, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -941,9 +948,9 @@ Regler: **Portrait 4:5** · 57 Wörter · Datei `portrait_farmer_hollow`
 P1-3 — 2D game asset, a head-and-shoulders portrait of a weathered English farmer (a man) of about 1710, grey hair tied back, linen smock, broad-brimmed straw hat, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**P1-4** – the miller of Upton (Epoche 1–2) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**P1-4** – the miller of Upton (Epoche 1–2) · ✅ gut (Midjourney)  
 Regler: **Portrait 4:5** · 58 Wörter · Datei `portrait_miller_upton`  
-*20.11.: wirkt wie eine Frau mit Haube, nicht fröhlich, kaum Mehl – neu mit „(a man)“, breitem Lächeln und Mehlstaub.*
+*21.11.: fröhlicher, mehlbestäubter Müller mit Mütze – etwas karikiert, passt aber zur Rolle.*
 ```
 P1-4 — 2D game asset, a head-and-shoulders portrait of a cheerful, plump village miller (a man) of about 1710, broad smile, flour-dusted face and clothes, white linen cap, in an oval gilt wooden frame, hand-painted 2D game art, dark ink outlines, painterly, friendly but serious expression, plain dark background inside the frame, on pure flat white background outside the frame --ar 4:5 --no text, name plate, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1268,69 +1275,79 @@ P10-6 — 2D game asset, a head-and-shoulders portrait of a young bicycle maker 
 
 Spieltitel und Schriften kommen aus Schriftarten (kein Bild nötig); Glühskala, Fortschritt und Partikel zeichnet das Spiel selbst.
 
-**U1** – Pergament mit Messingecken (alle Fenster) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 30 Wörter · Datei `panel_parchment`
+**U1** – Pergament mit Messingecken (alle Fenster) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 30 Wörter · Datei `panel_parchment`  
+*21.11.: Pergament mit Messingecken auf Schwarz; Import stellt den leichten Verlauf mit frei.*
 ```
 U1 — 2D game asset, UI panel frame, aged 18th-century parchment paper texture, worn burned edges, brass metal corner protectors, georgian style craftsmanship, clean flat view, high detail, isolated on black background --ar 1:1 --no shadows, text, numbers, watermark
 ```
 
-**U2** – Leder-Messing-Knöpfe (alle Knöpfe) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 24 Wörter · Datei `buttons_leather_brass`
+**U2** – Leder-Messing-Knöpfe (alle Knöpfe) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 24 Wörter · Datei `buttons_leather_brass`  
+*21.11.: fünf Leder-Messing-Knöpfe; heller Schlagschatten wird beim Import entfernt.*
 ```
 U2 — Set of 4 game UI buttons, 18th-century georgian style, polished brass with dark leather inlay, blank rectangular icons, flat design, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U3** – Holzrahmen mit Eisenplatte (Status- und Navigationsleiste) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 39 Wörter · Datei `frame_wood_iron`
+**U3** – Holzrahmen mit Eisenplatte (Status- und Navigationsleiste) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 39 Wörter · Datei `frame_wood_iron`  
+*21.11.: Holzrahmen mit Eisenecken, innen offen – der Import füllt die Mitte der Leiste dunkel.*
 ```
 U3 — Flat orthographic front elevation, like a technical drawing. 2D UI window frame, 18th-century forge workshop style, dark oak wood frame with brass rivets and iron fittings, game interface panel, front view, orthographic projection, clean edges, isolated on white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, 3d perspective, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U4** – Glut-Knopf HAMMERN · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 43 Wörter · Datei `button_ember`
+**U4** – Glut-Knopf HAMMERN · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 43 Wörter · Datei `button_ember`  
+*21.11.: runder Glut-Knopf mit gekreuztem Hammer und Zange (ohne Zahnrad) – das Spiel zeigt ihn quadratisch.*
 ```
 U4 — 2D game UI button, forged dark iron plate with glowing orange ember cracks, heavy brass border, a simple embossed symbol of a blacksmith hammer crossed with forge tongs in the middle, early 18th-century village smithy style, flat orthographic view, isolated on white background --ar 1:1 --no gear, cogwheel, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U5** – Auftragsbuch-Seite · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Portrait 3:4** · 77 Wörter · Datei `ledger_page`
+**U5** – Auftragsbuch-Seite (Hochformat) · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4** · 87 Wörter · Datei `ledger_page`  
+*21.11.: Einzelseite mit Lederrücken, Seitenstapel links und Lesebändchen; Schreibfläche im Spiel neu vermessen.*
 ```
-U5 — 2D game asset, a single page of an 18th-century leather-bound ledger book seen from directly above, aged cream parchment with faint brown ruled lines and soft stains, completely empty page, the dark brown leather binding and a few page edges visible along the left side, small brass corner fittings on the right corners, a red ribbon bookmark hanging out at the bottom, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no writing, numbers, cast shadow, text, watermark, border, shadow, photo, 3d render
+U5 — 2D game asset, an 18th-century leather-bound ledger lying open, seen from directly above, portrait orientation 3:4: the right-hand page fully visible, aged cream parchment with a thin red double border line and faint stains, completely empty, along the left side the curved gutter and a narrow strip of the left-hand page with stacked page edges, dark brown leather binding, small brass corner fittings, a red ribbon bookmark hanging out at the bottom, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no writing, numbers, cast shadow, text, watermark, border, shadow, photo, 3d render
 ```
 
-**U6** – Münzbeutel (Geldanzeige) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 24 Wörter · Datei `coin_pouch`
+**U6** – Münzbeutel (Geldanzeige) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 24 Wörter · Datei `coin_pouch`  
+*21.11.: Lederbeutel mit Münzen, leichter Bodenschatten.*
 ```
 U6 — 2D game asset icon, 18th-century leather coin pouch tied with string, filled with old British silver shillings and copper pence, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U7** – Münzen George III: Guinee, Shilling, Halfpenny · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 27 Wörter · Datei `coins`
+**U7** – Münzen George III: Guinee, Shilling, Halfpenny · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 27 Wörter · Datei `coins`  
+*21.11.: Guinee, Shilling und Halfpenny (George III).*
 ```
 U7 — Set of 3 antique British coins of George III, one gold guinea, one silver shilling, one copper halfpenny, game item icons, top-down view, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U8** – Münzen Victoria: Sovereign, Shilling, Penny (für Epoche 9–10) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 39 Wörter · Datei `coins_victoria`
+**U8** – Münzen Victoria: Sovereign, Shilling, Penny (für Epoche 9–10) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 39 Wörter · Datei `coins_victoria`  
+*21.11.: Sovereign, Shilling, Penny mit Victoria; Umschriften erfunden – im Spiel zu klein, um aufzufallen.*
 ```
 U8 — Set of 3 antique British coins of Queen Victoria from the 1850s, one gold sovereign, one silver shilling, one bronze penny, game item icons, top-down view, crisp hand-painted 2D game art, thin dark outlines, on pure flat white background --ar 1:1 --no text other than the coin legends, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U9** – Wachssiegel George III und Admiralität · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 32 Wörter · Datei `wax_seals`
+**U9** – Wachssiegel George III und Admiralität · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 39 Wörter · Datei `wax_seals`  
+*21.11.: rechts Admiralitätsanker – gut; links Doppeladler statt Monogramm GR (George III). Bis zum Ersatz bleibt das bisherige George-III-Siegel.*
 ```
-U9 — Set of red wax seals with royal stamp emblems: one with the royal cipher of King George III, one with the anchor of the Admiralty, game badge icons, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
+U9 — Two red wax seals side by side: left the royal cipher of King George III as the crowned monogram GR, right the fouled anchor of the Admiralty, game badge icons, hand-painted 2D game art, on pure flat white background --ar 1:1 --no eagle, coat of arms, date, year, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U10** – Wachssiegel Victoria (Meilensteine ab Epoche 9) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
+**U10** – Wachssiegel Victoria (Meilensteine ab Epoche 9) · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 26 Wörter · Datei `seal_victoria`  
-*Trägt die falsche Jahreszahl „1775“ (Victoria regierte ab 1837).*
+*21.11.: VR-Monogramm mit Krone, ohne Jahreszahl.*
 ```
 U10 — Red wax seal with the royal cipher of Queen Victoria (VR) and a crown, game badge icon, hand-painted 2D game art, on pure flat white background --ar 1:1 --no date, year, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U11** – Pyrometer-Zeiger · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 17 Wörter · Datei `pointer_sheet`
+**U11** – Pyrometer-Zeiger · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 17 Wörter · Datei `pointer_sheet`  
+*21.11.: Zierzeiger aus Messing; Import dreht ihn waagerecht und legt die Nabe fest.*
 ```
 U11 — 2D game asset, antique brass indicator needle, fine clockwork pointer, ornate georgian style, isolated on white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1341,20 +1358,23 @@ Regler: **Square 1:1** · 48 Wörter · Datei `pyrometer_dial`
 U12 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks, antique clockwork style, dark iron base, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, needle, pointer, numbers, text, watermark, border, shadow, photo, 3d render
 ```
 
-**U13** – Sterne für die Bewertung (voll und leer) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 36 Wörter · Datei `stars`
+**U13** – Sterne für die Bewertung (voll und leer) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 36 Wörter · Datei `stars`  
+*21.11.: goldener und leerer Eisenstern.*
 ```
 U13 — 2D game UI icons, two five-pointed stars side by side: one polished gold star with a brass rim, one empty dark iron star outline, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U14** – Sanduhr (Eilaufträge) · ⬜ noch nicht vorhanden (optional)  
-Regler: **Square 1:1** · 35 Wörter · Datei `hourglass`
+**U14** – Sanduhr (Eilaufträge) · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 35 Wörter · Datei `hourglass`  
+*21.11.: Sanduhr aus Messing und Holz.*
 ```
 U14 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, an 18th-century brass and wood hourglass with golden sand, front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U15** – Löschtrog (ab Epoche 4) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 2:1** · 65 Wörter · Datei `trough`
+**U15** – Löschtrog (ab Epoche 4) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 65 Wörter · Datei `trough`  
+*21.11.: Löschtrog aus Eichendauben mit Eisenbändern auf kurzen Füßen – frontal, wie gewünscht.*
 ```
 U15 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, standing on two short trestles, a thin strip of dark water visible along the top edge, shown in a flat straight front view at eye level, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, steam, tools, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1365,28 +1385,38 @@ Regler: **Square 1:1** · 64 Wörter · Datei `app_icon`
 U16 — Square 1:1 mobile game app icon, a heavy blacksmith's hammer striking a glowing orange-hot horseshoe on the face of a dark iron anvil, a burst of bright sparks, warm firelight against a deep dark brown background, bold simple shapes and strong contrast that stay readable at very small size, hand-painted 2D game art, dark ink outlines, subject centred and filling most of the square --ar 1:1 --no text, letters, border, rounded corners, numbers, watermark
 ```
 
-**U17** – Store-Banner (Google Play 1024 × 500) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Landscape 2:1** · 69 Wörter · Datei `store_banner`
+**U17** – Store-Banner (Google Play 1024 × 500) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 69 Wörter · Datei `store_banner`  
+*21.11.: Schmiede bei Nacht, Amboss und Funken rechts, links Platz für den Titel.*
 ```
 U17 — Wide 2:1 banner illustration for a mobile game, interior of an 18th-century English smithy at night lit only by forge fire, on the right half a blacksmith's anvil with a glowing horseshoe and a raised hammer with sparks flying, a brick forge glowing in the background, the left half is calm, dark and empty for a title to be added later, hand-painted 2D game art, dark ink outlines, painterly --ar 2:1 --no people, text, letters, numbers, watermark
 ```
 
-**U18** – Meisterschafts-Siegel Bronze · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 54 Wörter · Datei `seal_mastery_1`
+**U18** – Meisterschafts-Siegel Bronze · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 54 Wörter · Datei `seal_mastery_1`  
+*21.11.: Bronzesiegel mit Hämmern, Amboss und einem Stern.*
 ```
 U18 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of warm brown polished bronze, embossed crossed hammers above a small anvil, one small star below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U19** – Meisterschafts-Siegel Silber · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 53 Wörter · Datei `seal_mastery_2`
+**U19** – Meisterschafts-Siegel Silber · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 53 Wörter · Datei `seal_mastery_2`  
+*21.11.: Silbersiegel mit zwei Sternen.*
 ```
 U19 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of bright polished silver, embossed crossed hammers above a small anvil, two small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**U20** – Meisterschafts-Siegel Gold · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 60 Wörter · Datei `seal_mastery_3`
+**U20** – Meisterschafts-Siegel Gold · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 60 Wörter · Datei `seal_mastery_3`  
+*21.11.: Goldsiegel mit Lorbeer und drei Sternen.*
 ```
 U20 — Flat orthographic front elevation, like a technical drawing. 2D game UI icon, a round guild seal medallion of shining gold with a small laurel wreath around the rim, embossed crossed hammers above a small anvil, three small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, letters, numbers, watermark, border, shadow, photo, 3d render
+```
+
+**U21** – Auftragsbuch aufgeschlagen, Doppelseite (für das Tablet im Querformat, später) · ⬜ noch nicht vorhanden (optional)  
+Regler: **Landscape 3:2** · 78 Wörter · Datei `ledger_spread`
+```
+U21 — 2D game asset, an 18th-century leather-bound ledger lying wide open, seen from directly above, landscape 3:2: two facing pages of aged cream parchment with a thin red double border line and faint stains, completely empty, a soft curved gutter in the middle, dark brown leather binding visible around the edges, small brass corner fittings, a red ribbon bookmark lying across the right page, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:2 --no writing, numbers, cast shadow, text, watermark, border, shadow, photo, 3d render
 ```
 
 ## H · Werkstatt-Einrichtung (5 je Epoche)
@@ -1395,34 +1425,39 @@ Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeug
 
 ### Epoche 1 – Die Dorfschmiede (1700–1715)
 
-**E1-1** – Brennstoff: Holzkohlekorb · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 50 Wörter · Datei `furn_e1_fuel`
+**E1-1** – Brennstoff: Holzkohlekorb · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 50 Wörter · Datei `furn_e1_fuel`  
+*21.11.: Weidenkorb mit Holzkohle.*
 ```
 E1-1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a woven wicker basket full of charcoal, early 18th-century English village smithy, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**E1-2** – Werkzeugwand: Zangenbrett · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 56 Wörter · Datei `furn_e1_tools`
+**E1-2** – Werkzeugwand: Zangenbrett · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4** · 56 Wörter · Datei `furn_e1_tools`  
+*21.11.: Zangenbrett mit Zangen und Hämmern an der Kordel.*
 ```
 E1-2 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**E1-3** – Werkbank: Schleifstein mit Kurbel · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 75 Wörter · Datei `furn_e1_bench`
+**E1-3** – Werkbank: Schleifstein mit Kurbel · ✅ gut (Midjourney)  
+Regler: **Landscape 3:2** · 75 Wörter · Datei `furn_e1_bench`  
+*21.11.: Schleifstein mit Lagerböcken, Achse und Kurbel – leichte Dreiviertelansicht (für die Einrichtung so gewollt), wirkt im Raum natürlich.*
 ```
 E1-3 — 2D game asset, a hand-cranked smithy grindstone around 1700: thick sandstone wheel on an iron axle, the axle ends resting in bearings on top of a four-legged oak trestle frame, lower part of the stone dipping into a water trough, crank handle on the axle end, mechanically correct, slight three-quarter view at eye level, single object, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**E1-4** – Kundschaft: Bemaltes Brett mit Hufeisen über dem Tor · ⬜ noch nicht vorhanden  
-Regler: **Landscape 3:2** · 57 Wörter · Datei `furn_e1_trade`
+**E1-4** – Kundschaft: Bemaltes Brett mit Hufeisen über dem Tor · ✅ gut (Midjourney)  
+Regler: **Landscape 3:2** · 57 Wörter · Datei `furn_e1_trade`  
+*21.11.: Holzschild mit Hufeisen an zwei Ketten.*
 ```
 E1-4 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**E1-5** – Licht und Lager: Talglaterne · ⬜ noch nicht vorhanden  
-Regler: **Portrait 1:2** · 51 Wörter · Datei `furn_e1_light`
+**E1-5** – Licht und Lager: Talglaterne · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Portrait 1:2** · 71 Wörter · Datei `furn_e1_light`  
+*21.11.: Sturmlaterne mit Glaszylinder – gibt es erst ab etwa 1850; gewünscht ist eine Blechlaterne mit Hornscheiben und Kerze. Bis zum Ersatz im Spiel.*
 ```
-E1-5 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small tin tallow lantern with horn panes, hanging from an iron hook, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
+E1-5 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small square punched-tin candle lantern with horn panes and a ring on top, a tallow candle inside, hanging from an iron hook, around 1700, not a kerosene lamp, not a hurricane lantern, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, glass globe, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 2 – Kutschen & Handelswege (1715–1735)

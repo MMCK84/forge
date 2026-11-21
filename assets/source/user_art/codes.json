@@ -759,6 +759,10 @@
   "id": "seal_mastery_3",
   "dir": ""
  },
+ "U21": {
+  "id": "ledger_spread",
+  "dir": ""
+ },
  "E1-1": {
   "id": "furn_e1_fuel",
   "dir": "furnishings"

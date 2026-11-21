@@ -10,7 +10,7 @@ const Assets = preload("res://scripts/assets.gd")
 ## Kunden der Marine bekommen das Admiralitätssiegel
 const NAVY := ["navy_board", "dockyard_chatham", "harbourmaster", "shipwright_portsmouth"]
 ## Beschreibbarer Bereich der Buchseite (Anteile der Grafik ledger_page.png)
-const PAGE_RECT := Rect2(0.205, 0.05, 0.735, 0.85)
+const PAGE_RECT := Rect2(0.21, 0.065, 0.675, 0.77)
 const BOOK_MAX_W := 700.0
 
 var _reroll_btn: Button

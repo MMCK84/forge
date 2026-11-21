@@ -100,10 +100,15 @@ def main():
     # 1 Pergament mit Messingecken (schwarzer Hintergrund, verbrannte Ränder weich)
     a = load("panel_parchment.webp")
     lum = a.mean(axis=2)
-    bg = flood_bg(lum < 28)
+    # Midjourney (21.11.): schwarzer Grund mit leichtem Verlauf – dunkles Grau zählt mit
+    bg = flood_bg(lum < 60)
     img = to_rgba(a, bg.astype(np.float32), 1.5)
     al = np.asarray(img).copy()
     al[..., 3] = np.where(bg, np.clip((lum - 8) / 30, 0, 1) * 255, al[..., 3])
+    # Auf den deckenden Teil zuschneiden (sonst bleibt oben/seitlich ein halbdurchsichtiger Rand,
+    # und die Fenstertitel säßen auf dem Messingrahmen)
+    ys, xs = np.where(al[..., 3] > 128)
+    al = al[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
     save(Image.fromarray(al), "panel_parchment.png", max_w=900)
 
     # 2 Glut-Knopf (gemaltes Schachbrett)
@@ -115,24 +120,48 @@ def main():
     # 3 Holzrahmen mit Eisenplatte (gemaltes Schachbrett)
     a = load("frame_wood_iron.webp")
     sat = a.max(axis=2) - a.min(axis=2)
-    bg = flood_bg((sat < 14) & (a.mean(axis=2) > 150))
+    white = (sat < 14) & (a.mean(axis=2) > 150)
+    # Midjourney-Rahmen (21.11.) ist innen offen: die weiße Innenfläche ebenfalls freistellen
+    bg = flood_bg(white) | enclosed(white, 20000)
     save(to_rgba(a, bg.astype(np.float32)), "frame_wood_iron.png", max_w=700)
 
     # 4 Pyrometer (weiß); eingeschlossene weiße Flächen im Bogen ebenfalls entfernen
-    a = load("pyrometer.webp")
+    a = load("pyrometer_dial.png" if os.path.exists(find_src("pyrometer_dial.png")) else "pyrometer.webp")
     white = a.min(axis=2) > 232
     bg = flood_bg(white) | enclosed(white, 400)
     save(to_rgba(a, bg.astype(np.float32)), "pyrometer_dial.png", max_w=700)
 
     # 5 Zeiger: einzelnen Zeiger aus dem Sheet (oben links), Durchbrüche freistellen
-    a = load("pointer_sheet.webp")[95:200, 30:360]
-    white = a.min(axis=2) > 225
-    bg = flood_bg(white) | enclosed(white, 30)
-    save(to_rgba(a, bg.astype(np.float32)), "pyrometer_needle.png")
+    a = load("pointer_sheet.webp")
+    if a.shape[0] == a.shape[1]:
+        # Midjourney (21.11.): einzelner Zeiger senkrecht, Zierkopf oben, Spitze unten → waagerecht drehen
+        # (Spitze rechts) und so einpassen, dass die Nabe bei (100, 48) liegt wie bisher (glow_scale.gd)
+        white = (a.min(axis=2) > 215) & ((a.max(axis=2) - a.min(axis=2)) < 28)
+        nd = to_rgba(a, (flood_bg(white) | enclosed(white, 30)).astype(np.float32))
+        nd = nd.crop(nd.getbbox()).rotate(90, expand=True)
+        al = np.asarray(nd)[..., 3] > 100
+        cols = al.sum(axis=0)
+        left = cols[: int(len(cols) * 0.4)]
+        hub = int(np.argmax(left))
+        scale = 230.0 / max(1, nd.width - hub)
+        nd = nd.resize((max(1, int(nd.width * scale)), max(1, int(nd.height * scale))), Image.LANCZOS)
+        hub = int(hub * scale)
+        rows = np.where((np.asarray(nd)[..., 3] > 100).any(axis=1))[0]
+        cy = int((rows[0] + rows[-1]) / 2)
+        canvas = Image.new("RGBA", (330, 96), (0, 0, 0, 0))
+        canvas.alpha_composite(nd, (100 - hub, 48 - cy)) if 100 - hub >= 0 and 48 - cy >= 0 else canvas.paste(nd, (100 - hub, 48 - cy), nd)
+        save(canvas, "pyrometer_needle.png")
+    else:
+        a = a[95:200, 30:360]
+        white = a.min(axis=2) > 225
+        bg = flood_bg(white) | enclosed(white, 30)
+        save(to_rgba(a, bg.astype(np.float32)), "pyrometer_needle.png")
 
     # 6 Leder-Messing-Knöpfe (weiß): 4 Varianten
     a = load("buttons_leather_brass.webp")
-    bg = flood_bg(a.min(axis=2) > 238)
+    # Midjourney (21.11.): heller Schlagschatten um die Knöpfe – hellgrau zählt mit zum Hintergrund
+    sat = a.max(axis=2) - a.min(axis=2)
+    bg = flood_bg((a.min(axis=2) > 200) & (sat < 30))
     for k, piece in enumerate(objects(to_rgba(a, bg.astype(np.float32)))[:4], start=1):
         save(piece, f"card_{k}.png", max_h=520)
 
@@ -154,11 +183,16 @@ def main():
 
     # 10 Wachssiegel (weiß): nur die historisch passenden (George III, Admiralität)
     a = load("wax_seals.webp")
-    bg = flood_bg(a.min(axis=2) > 238)
+    sat = a.max(axis=2) - a.min(axis=2)
+    # Midjourney (21.11.): hellgrauer Grund mit Schatten – hellgrau zählt mit
+    bg = flood_bg(((a.min(axis=2) > 238)) | ((a.min(axis=2) > 195) & (sat < 22)))
     seals = objects(to_rgba(a, bg.astype(np.float32)))
-    by_pos = sorted(seals, key=lambda p: 0)
-    # Reihenfolge der Objekte: (Zeile, x) – oben: Victoria, George III, Admiralty; unten: Louis XV, Russland
+    # Reihenfolge der Objekte: (Zeile, x) – Gemini-Blatt oben: Victoria, George III, Admiralty; unten: Louis XV, Russland.
+    # Midjourney-Blatt (21.11.): links George III, rechts Admiralität – das linke zeigt einen Doppeladler statt des
+    # Monogramms GR und wird nicht übernommen (bisheriges Siegel bleibt, bis Ersatz kommt)
     names = {0: "seal_victoria.png", 1: "seal_george_iii.png", 2: "seal_admiralty.png"}
+    if len(seals) == 2:
+        names = {1: "seal_admiralty.png"}
     for k, piece in enumerate(seals):
         if k in names:
             save(piece, names[k], max_w=160)
@@ -174,8 +208,26 @@ def main():
         name = "seal_mastery_%d" % k
         if os.path.exists(find_src(name + ".png")):
             a = load(name + ".png")
-            bg = flood_bg(a.min(axis=2) > 238)
+            sat = a.max(axis=2) - a.min(axis=2)
+            bg = flood_bg((a.min(axis=2) > 205) & (sat < 25))
             save(to_rgba(a, bg.astype(np.float32)), name + ".png", max_w=160)
+    # Sterne (voll, leer), Sanduhr, Löschtrog, Victoria-Münzen (Midjourney, weiß)
+    if os.path.exists(find_src("stars.png")):
+        a = load("stars.png")
+        sat = a.max(axis=2) - a.min(axis=2)
+        white = (a.min(axis=2) > 215) & (sat < 28)
+        pieces = objects(to_rgba(a, (flood_bg(white) | enclosed(white, 200)).astype(np.float32)))
+        for piece, name in zip(pieces, ["star_full.png", "star_empty.png"]):
+            save(piece, name, max_w=96)
+    for src, name, mw in (("hourglass.png", "icon_hourglass.png", 96), ("trough.png", "trough.png", 420)):
+        if os.path.exists(find_src(src)):
+            save(_cutout(find_src(src)), name, max_w=mw)
+    if os.path.exists(find_src("coins_victoria.png")):
+        a = load("coins_victoria.png")
+        sat = a.max(axis=2) - a.min(axis=2)
+        pieces = [p for p in objects(to_rgba(a, flood_bg((a.min(axis=2) > 200) & (sat < 30)).astype(np.float32))) if p.height > 150]
+        for piece, name in zip(pieces, ["coin_victoria_sovereign.png", "coin_victoria_shilling.png", "coin_victoria_penny.png"]):
+            save(piece, name, max_w=128)
     # 11 Amboss und 14 Hämmer (Midjourney, weiß): assets/source/user_art/tools/ – vermessen nach scripts/user_tool_meta.gd
     tool_import()
 
@@ -245,7 +297,7 @@ def main():
     icon.resize((512, 512), Image.LANCZOS).save(os.path.join(store, "app_icon_512.png"))
     icon.resize((256, 256), Image.LANCZOS).save(os.path.join(ROOT, "icon.png"))
     # Store-Banner (Google Play Feature Graphic 1024 × 500)
-    banner_src = os.path.join(store, "store_banner_source.jpg")
+    banner_src = find_src("store_banner.png") if os.path.exists(find_src("store_banner.png")) else os.path.join(store, "store_banner_source.jpg")
     if os.path.exists(banner_src):
         b = Image.open(banner_src).convert("RGB")
         h = int(round(b.width * 500 / 1024))
@@ -378,7 +430,10 @@ def _cutout(path):
     a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
     sat = a.max(axis=2) - a.min(axis=2)
     white = (a.min(axis=2) > 215) & (sat < 28)
-    bg = flood_bg(white)
+    # Eingeschlossene Flächen (Henkel, Aufhängung, zwischen Beinen) nur bei reinem Weiß freistellen,
+    # damit helle Teile des Objekts (Schleifstein, Glas) bleiben
+    pure = (a.min(axis=2) > 238) & (sat < 12)
+    bg = flood_bg(white) | enclosed(pure, 1500)
     solid = ~bg
     lab, n = ndimage.label(solid)
     if n > 1:
@@ -528,7 +583,9 @@ def item_sprite(path, item_id):
     a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
     sat = a.max(axis=2) - a.min(axis=2)
     white = (a.min(axis=2) > 215) & (sat < 25)
-    bg = flood_bg(white) | enclosed(white, 20)
+    # Grauer Grund mit Verlauf (Midjourney, Ecken dunkler): helles Grau vom Rand aus ebenfalls Hintergrund
+    grey = (a.mean(axis=2) > 175) & (sat < 18)
+    bg = flood_bg(white | grey) | enclosed(white, 20)
     # Nur das Werkstück behalten: freistehende Reste (z. B. Kontur eines Sticker-Rands) entfernen
     lab, n = ndimage.label(~bg)
     if n > 1:
@@ -562,7 +619,17 @@ def derived():
     # HUD-Leiste aus dem Holz-Eisen-Rahmen, Rand ca. 25 px
     fr = Image.open(os.path.join(OUT, "frame_wood_iron.png"))
     s = 0.36
-    save(fr.resize((int(fr.width * s), int(fr.height * s)), Image.LANCZOS), "hud_bar.png")
+    fr = fr.resize((int(fr.width * s), int(fr.height * s)), Image.LANCZOS)
+    # Offene Mitte des Rahmens dunkel füllen (die Leiste trägt Text): durchsichtige Pixel, die nicht vom Rand
+    # aus erreichbar sind, bekommen dunkles Holz
+    al = np.asarray(fr)[..., 3]
+    inside = ~flood_bg(al < 40) & (al < 250)
+    if inside.sum() > 0.2 * al.size:
+        fill = Image.new("RGBA", fr.size, (0, 0, 0, 0))
+        fa = np.asarray(fill).copy()
+        fa[inside] = (43, 30, 21, 240)
+        fr = Image.alpha_composite(Image.fromarray(fa), fr)
+    save(fr, "hud_bar.png")
     # Großer HAMMERN-Knopf: Glut-Knopf im Originalformat (Hammer im Zahnrad), 2x Anzeigegröße
     em = Image.open(os.path.join(OUT, "button_ember.png"))
     w = 440

@@ -290,6 +290,22 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   im Spiel: wirkt im perspektivisch gemalten Raum natürlich. **Offen zur Entscheidung:** E1-3 mit leichter Dreiviertel-
   ansicht (Empfehlung) oder streng flach mit anderem Stück; U5 Auftragsbuch als aufgeschlagenes Buch (Hochformat: rechte
   Seite ganz, links Falz und Streifen der linken Seite; Tablet: echte Doppelseite).
+- 21.11.: **Lieferung Epoche 1 und Oberfläche (Midjourney):** E1-1–5, W1-4–8, U1–U7 eingebaut. **Gut:** Kohlekorb, Zangenbrett,
+  Schleifstein (leichte Dreiviertelansicht, wie vereinbart), Schild, Türangel, Sichel, Schürhaken, Torriegel, Pergament,
+  Knöpfe, Leiste, runder Glut-Knopf (Hammer und Zange), Auftragsbuch-Seite, Münzbeutel, Münzen. **Ändern:** E1-5 Laterne
+  (Sturmlaterne mit Glaszylinder erst ab ~1850 → Blechlaterne mit Hornscheiben) und W1-6 Pflugschar (symmetrisch wie eine
+  Kelle) – Prompts nachgeschärft, `LESSONS` ergänzt. U5 jetzt als aufgeschlagenes Buch formuliert, neu **U21** Doppelseite
+  fürs Tablet (optional). W3-8 (Schere) weiter ohne passendes Kürzel im Eingang.
+  Import angepasst: Pergament auf den deckenden Teil zugeschnitten (Fenstertitel saßen auf dem Rahmen), heller Schatten um
+  die Knöpfe, innen offene Leiste dunkel gefüllt, eingeschlossene weiße Flächen der Einrichtung (Henkel, Aufhängung),
+  grauer Verlauf bei Werkstücken (Schürhaken). Spiel: runder Glut-Knopf quadratisch, Schreibfläche der Buchseite neu
+  vermessen, Kaufen-Knöpfe im Laden einheitlich hoch.
+- 21.11.: **Lieferung U8–U20 und P1-4 (Midjourney).** Gut: Victoria-Münzen (ab Epoche 9 in der Abrechnung), Victoria-Siegel,
+  Admiralitätssiegel, Pyrometer-Zeiger (vom Import waagerecht gedreht), Zifferblatt (optional, ungenutzt), Sterne, Sanduhr,
+  Löschtrog (jetzt im Spiel), Store-Banner (Feature Graphic neu erzeugt), Meisterschafts-Siegel Bronze/Silber/Gold, Müller
+  P1-4. **Ändern:** U9 linkes Siegel (Doppeladler statt Monogramm GR) – bisheriges George-III-Siegel bleibt; Prompt geschärft.
+  Import für Sterne, Sanduhr, Löschtrog, Victoria-Münzen, Zeiger, Banner und hellgrauen Grund bei Siegeln erweitert.
+  Noch Gemini: App-Icon (U16), Ladenbild Wasser-Schwanzhammer (ML1).
 
 ## Prüfen
 

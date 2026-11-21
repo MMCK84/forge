@@ -159,6 +159,7 @@ func _row(title: String, info: String, price: int, min_epoch: int, icon: Texture
 func _status_btn(text: String) -> Button:
 	var b := UIKit.button(text, Callable(), Vector2(160, 56), 20)
 	b.disabled = true
+	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	return b
 
 
@@ -170,6 +171,7 @@ func _buy_btn(price: int, min_epoch: int, action: Callable) -> Button:
 		b.modulate = Color(1, 1, 1, 0.72)
 		return b
 	var buy := UIKit.button(tr("UI_BUY"), _do.bind(action), Vector2(160, 56), 20)
+	buy.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	buy.disabled = not gm.can_afford(price)
 	if buy.disabled:
 		# Zu teuer: gedämpft, im Tooltip steht, was noch fehlt

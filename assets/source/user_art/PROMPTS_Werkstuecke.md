@@ -80,7 +80,7 @@ einen Schatten, hilft oft der Zusatz `isolated cut-out sticker style, no floor`.
 
 **ploughshare** – Pflugschar
 ```
-2D game asset, a single hand-forged ploughshare: flat, slightly curved triangular iron blade with a sharp point on the right and a short socket with two bolt holes on the left, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single hand-forged ploughshare for a wooden plough: an asymmetric triangular iron share, the top side a straight thick landside, the lower side a long curved cutting edge sweeping back into a wing, sharp point on the right, a short socket with two bolt holes on the left, not a trowel, not a spearhead, not symmetric, horizontal, dark grey unheated wrought iron, 18th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **sickle** – Sichel
