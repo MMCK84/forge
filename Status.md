@@ -50,9 +50,9 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | F Kundenporträts | 20 | – | – | 34 optional |
 | G Oberfläche, Symbole, Store | 19 (alle Pflicht-Bilder bis auf U22/U23) | – | – | U22 Titelbild, U23 Meisterbrief (+2 optional) |
 | H Werkstatt-Einrichtung | 6 (Epoche 1, E2-2) | 1 (E2-1 Kohlenkiste) | – | 43 |
-| I Rohformen | 2 (W1-1R, W1-2R) | – | – | 78 (zuerst W1-3R bis W1-8R) |
+| I Rohformen | 8 (alle der Epoche 1) | – | – | 65 (+7 geteilt, kein eigenes Bild) |
 
-**Für Epoche 1 Alpha fehlen nur noch:** W1-3R bis W1-8R, U22, U23 (8 Bilder).
+**Für Epoche 1 Alpha fehlen nur noch:** U22 Titelbild, U23 Meisterbrief (2 Bilder).
 
 ## Musik (Suno) – später
 
@@ -70,6 +70,11 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 - **Perspektive:** Esse, Amboss, Hämmer, Maschinen und Werkstücke streng flach (Ansicht ganz vorn im Prompt, --no-Liste);
   **Einrichtung darf leicht dreiviertel sein** (steht im perspektivisch gemalten Raum); Mechanik Bauteil für Bauteil beschreiben.
 - **Zeitbezug:** typische moderne Verwechslungen ausdrücklich ausschließen (z. B. Sturmlaterne, Doppeladler).
+- **Qualität vor Sparsamkeit (Entscheidung des Auftraggebers, 21.11.):** lieber viele eigene Bilder; weglassen/teilen nur, wo ein
+  eigenes Bild überhaupt keinen Vorteil bringt (sonst wird nur die Spieldatei größer). Rohformen: je Werkstück eine eigene;
+  geteilt nur bei gleichem Stand nach dem ersten Arbeitsgang (`ROUGH_SHARED` in `scripts/assets.gd`, im Heft vermerkt).
+- **Absprachen immer hier festhalten** (Wunsch des Auftraggebers, 21.11.: die frühere Absprache „Halbzeuge für mehrere
+  Werkstücke“ stand nirgends und war deshalb verloren).
 - **Rohformen:** Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; spätere Formen (Spitze, Kopf, Biegung, Löcher)
   als `--no`. Fertiges Werkstück als Bild-Prompt nur schwach (`--iw 0.5`), sonst kopiert Midjourney das fertige Stück.
 - **Hintergründe 1:1**, Upscale 2× vor dem Schicken; Wand-Boden-Kante je Epoche in `USER_FLOOR_Y`.
@@ -77,7 +82,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 
 ## Offen / nächste Schritte
 
-1. **Epoche 1 Alpha:** Bilder W1-3R–W1-8R, U22, U23 einbinden und prüfen (`tools/audit_epoch1.tscn`); dann Epoche 1 abnehmen.
+1. **Epoche 1 Alpha:** Bilder U22, U23 einbinden und prüfen (`tools/audit_epoch1.tscn`); dann Epoche 1 abnehmen.
 2. Vor dem Export: Testmenü-Knöpfe nur in der Entwicklerfassung.
 3. Danach Epoche 2 ff. nach demselben Muster (Werkstücke, Rohformen, Einrichtung je Epoche); W2-7, W3-7 und ML1 ersetzen.
 4. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
@@ -292,6 +297,16 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   ohne Deckel/Schloss, `LESSONS` ergänzt. Neues Prüfwerkzeug `tools/rough_check.tscn` (Stufensprung je Werkstück auf dem
   Amboss in fünf Stadien, Einrichtung je Epoche). Hinweis: Das fertige Bild erscheint erst mit dem letzten Arbeitsgang –
   beim Nagel sieht man die Spitze also erst in der Abrechnung. Tests 2153/0.
+- 21.11.: **Frage des Auftraggebers: Halbzeuge für mehrere Werkstücke?** Im Projekt war nur „eine Rohform je Werkstück
+  (80 Bilder)“ festgehalten; eine Absprache zum Teilen fand sich nirgends. **Entscheidung:** hohe Qualität, eigene Bilder; teilen
+  nur, wo es keinen Vorteil bringt. Umgesetzt: `ROUGH_SHARED` (Postpferd-Hufeisen → Hufeisen; Lade-, Förder-, Anker-,
+  Kupplungskette → Kettenglied; Lokomotiv-Radreifen, Geschützring → Radreifen) – 7 Bilder weniger, im Heft als „kein eigenes
+  Bild nötig“ vermerkt; Spiel nutzt dann die geteilte Rohform (`Assets.rough_tex`), Unit-Test prüft die Tabelle.
+- 21.11.: **Lieferung W1-3R bis W1-8R** – alle gut (Haken, Türangel, Sichel, Pflugschar, Schürhaken, Torriegel). Sichel-Rohform
+  kam seitenverkehrt → Import spiegelt sie. Pflugschar: Sprung vor allem rau → glatt (entspricht dem Glätten). **Import:**
+  Rohformen übernehmen jetzt Maßstab und Lage des fertigen Stücks (vorher einzeln auf volle Größe gezogen) → sauberes
+  Überblenden. Im Spiel geprüft (`rough_check`, alle 8 + Postpferd-Hufeisen). **Alle Rohformen der Epoche 1 fertig.**
+  Tests 2182/0.
 
 ## Prüfen
 

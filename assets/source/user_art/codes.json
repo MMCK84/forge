@@ -1019,10 +1019,6 @@
   "id": "lantern_bracket_rough",
   "dir": "items"
  },
- "W2-5R": {
-  "id": "post_horseshoe_rough",
-  "dir": "items"
- },
  "W2-6R": {
   "id": "turnpike_fitting_rough",
   "dir": "items"
@@ -1083,10 +1079,6 @@
   "id": "file_rough",
   "dir": "items"
  },
- "W4-7R": {
-  "id": "cargo_chain_rough",
-  "dir": "items"
- },
  "W4-8R": {
   "id": "barrel_hoop_rough",
   "dir": "items"
@@ -1115,10 +1107,6 @@
   "id": "drill_steel_rough",
   "dir": "items"
  },
- "W5-7R": {
-  "id": "conveyor_chain_rough",
-  "dir": "items"
- },
  "W5-8R": {
   "id": "pump_rod_rough",
   "dir": "items"
@@ -1137,10 +1125,6 @@
  },
  "W6-4R": {
   "id": "tie_rod_rough",
-  "dir": "items"
- },
- "W6-5R": {
-  "id": "ship_chain_rough",
   "dir": "items"
  },
  "W6-6R": {
@@ -1207,14 +1191,6 @@
   "id": "safety_valve_lever_rough",
   "dir": "items"
  },
- "W8-4R": {
-  "id": "coupling_chain_rough",
-  "dir": "items"
- },
- "W8-5R": {
-  "id": "loco_tyre_rough",
-  "dir": "items"
- },
  "W8-6R": {
   "id": "buffer_spring_rough",
   "dir": "items"
@@ -1277,10 +1253,6 @@
  },
  "W10-5R": {
   "id": "steel_tyre_rough",
-  "dir": "items"
- },
- "W10-6R": {
-  "id": "gun_hoop_rough",
   "dir": "items"
  },
  "W10-7R": {

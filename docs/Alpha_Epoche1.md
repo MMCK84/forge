@@ -47,7 +47,7 @@ Epochenwechsel). Bilder in `user://audit_e1/`.
 
 ## Noch fehlende Bilder für Epoche 1 (Stand 21.11.)
 
-W1-1R bis W1-8R (Rohformen, fertiges Werkstück als Bild-Prompt), U22 Titelbild, U23 Meisterbrief.
+U22 Titelbild, U23 Meisterbrief. (Rohformen W1-1R bis W1-8R: alle geliefert und gut, 21.11.)
 
 ## Benötigte Bilder (Kürzel aus dem Prompt-Heft)
 
@@ -76,7 +76,8 @@ Hufeisen, Haken, fünf Porträts.
 
 ## Entschieden (21.11.)
 
-- **Rohformen für den Stufensprung: ja, für alle Werkstücke** – Prompt-Heft Bereich I (Kürzel W1-1R … W10-8R, 80 Bilder),
+- **Rohformen für den Stufensprung: ja, je Werkstück eine eigene** (hohe Qualität); geteilt nur, wo der Stand nach dem
+  ersten Arbeitsgang gleich ist (`ROUGH_SHARED`, 7 Werkstücke) – – Prompt-Heft Bereich I (Kürzel W1-1R … W10-8R, 80 Bilder),
   fertiges Werkstück als Bild-Prompt mit `--iw 1.5`. Zuerst Epoche 1 (W1-1R bis W1-8R). Das Spiel zeigt Rohling →
   (nach dem ersten Arbeitsgang) Rohform → fertiges Stück, sobald ein Rohform-Bild vorhanden ist.
 - **Titelbild für das Hauptmenü: ja** – U22 (1:1, oberes Drittel frei für den Titel). Das Hauptmenü nutzt es automatisch.

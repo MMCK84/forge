@@ -583,10 +583,15 @@ def forge_import():
     return meta
 
 
-def item_sprite(path, item_id):
-    """Werkstück auf Weiß → 256×256-Graustufen-Sprite (Rotkanal = Helligkeit, Glow-Shader färbt ein).
-    Längstes Maß 200 px (runde Teile 150 px), Löcher (Ringe, Kettenglieder, Nagellöcher) durchsichtig."""
+# Rohformen, deren Original seitenverkehrt kam (z. B. Angel der Sichel rechts statt links)
+ROUGH_MIRROR = {"sickle_rough"}
+
+
+def _item_cutout(path, mirror=False):
+    """Werkstück auf Weiß freistellen → (RGBA zugeschnitten, Mittelpunkt des Zuschnitts im Original)."""
     a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
+    if mirror:
+        a = a[:, ::-1].copy()
     sat = a.max(axis=2) - a.min(axis=2)
     white = (a.min(axis=2) > 215) & (sat < 25)
     # Grauer Grund mit Verlauf (Midjourney, Ecken dunkler): helles Grau vom Rand aus ebenfalls Hintergrund
@@ -599,9 +604,35 @@ def item_sprite(path, item_id):
         keep = [k + 1 for k, sz in enumerate(sizes) if sz >= 0.3 * sizes.max()]
         bg = bg | ~np.isin(lab, keep)
     img = to_rgba(a, bg.astype(np.float32))
-    img = img.crop(img.getbbox())
+    box = img.getbbox()
+    # Mittelpunkt relativ zur Bildgröße (Originale haben unterschiedliche Pixelmaße)
+    cx = (box[0] + box[2]) / 2.0 / a.shape[1]
+    cy = (box[1] + box[3]) / 2.0 / a.shape[0]
+    return img.crop(box), (cx, cy), a.shape[1]
+
+
+def item_sprite(path, item_id):
+    """Werkstück auf Weiß → 256×256-Graustufen-Sprite (Rotkanal = Helligkeit, Glow-Shader färbt ein).
+    Längstes Maß 200 px (runde Teile 150 px), Löcher (Ringe, Kettenglieder, Nagellöcher) durchsichtig.
+    Rohformen (<id>_rough) übernehmen Maßstab und Lage des fertigen Stücks, damit das Spiel sauber überblendet."""
+    img, (cx, cy), src_w = _item_cutout(path, item_id in ROUGH_MIRROR)
     longest = 150.0 if 0.75 < img.width / img.height < 1.33 else 200.0
     s = longest / max(img.width, img.height)
+    pos = None
+    if item_id.endswith("_rough"):
+        fin = None
+        for ext in (".png", ".webp", ".jpg", ".jpeg"):
+            cand = os.path.join(os.path.dirname(path), item_id[:-6] + ext)
+            if os.path.exists(cand):
+                fin = cand
+                break
+        if fin is not None:
+            f_img, (fx, fy), f_w = _item_cutout(fin)
+            f_longest = 150.0 if 0.75 < f_img.width / f_img.height < 1.33 else 200.0
+            fs = f_longest / max(f_img.width, f_img.height)   # Sprite-Pixel je Original-Pixel des fertigen Stücks
+            s = fs * f_w / src_w                               # gleicher Maßstab, auch bei anderer Originalgröße
+            s = min(s, 236.0 / max(img.width, img.height))     # nicht über den Rand hinaus
+            pos = (128 + (cx - fx) * f_w * fs, 128 + (cy - fy) * f_w * fs)
     img = img.resize((max(1, int(img.width * s)), max(1, int(img.height * s))), Image.LANCZOS)
     arr = np.asarray(img).astype(np.float32)
     lum = arr[..., :3].mean(axis=2)
@@ -610,7 +641,12 @@ def item_sprite(path, item_id):
     g = np.clip(0.12 + 0.88 * (lum - lo) / max(hi - lo, 1.0), 0, 1) * 255
     piece = Image.fromarray(np.dstack([g, g, g, arr[..., 3]]).astype(np.uint8), "RGBA")
     canvas = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
-    canvas.alpha_composite(piece, ((256 - piece.width) // 2, (256 - piece.height) // 2))
+    if pos is None:
+        x, y = (256 - piece.width) // 2, (256 - piece.height) // 2
+    else:
+        x = int(round(min(max(pos[0] - piece.width / 2, 2), 254 - piece.width)))
+        y = int(round(min(max(pos[1] - piece.height / 2, 2), 254 - piece.height)))
+    canvas.alpha_composite(piece, (x, y))
     os.makedirs(OUT, exist_ok=True)
     canvas.save(os.path.join(OUT, "item_%s.png" % item_id), optimize=True)
 
