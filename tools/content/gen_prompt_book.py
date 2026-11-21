@@ -106,6 +106,8 @@ LESSONS = [
      "bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung"),
     ("21.11.", "Rohformen (Bereich I)", "W1-1R mit fertigem Nagel als Bild-Prompt und `--iw 1.5` ergab wieder den fertigen Nagel (Kopf und Spitze)",
      "Rohform = Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; was spätere Arbeitsgänge formen (Spitze, Kopf, Biegung, Löcher, Verdrillung) als `--no`; Bild-Prompt nur noch `--iw 0.5`"),
+    ("21.11.", "Einrichtung, Behälter", "E2-1 „Kohlenkiste mit Eisenbeschlag“ kam als Schatztruhe (gewölbter Deckel, Schlüsselschild, glänzende Kohle)",
+     "Behälter als schlichte offene Kiste/Kasten ohne Deckel beschreiben, `--no treasure chest, domed lid, lock, keyhole, ornament`, Kohle „matt“"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -473,7 +475,7 @@ FURN_DESC = {
         "bench": "a hand-cranked smithy grindstone around 1700: thick sandstone wheel on an iron axle, the axle ends resting in bearings on top of a four-legged oak trestle frame, lower part of the stone dipping into a water trough, crank handle on the axle end, mechanically correct, slight three-quarter view at eye level",
         "trade": "a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700",
         "light": "a small square punched-tin candle lantern with horn panes and a ring on top, a tallow candle inside, hanging from an iron hook, around 1700, no glass globe, not a kerosene lamp, not a hurricane lantern"},
-    2: {"fuel": "an iron-bound wooden coal chest full of coal, with a shovel, around 1725",
+    2: {"fuel": "a plain open wooden coal box of rough planks with iron corner straps, no lid, heaped with matt black coal, an iron shovel stuck in the coal, around 1725, no treasure chest, no domed lid, no lock, no keyhole, no ornament",
         "tools": "a wooden tool wall with tongs, swages and fullers on pegs, around 1725",
         "bench": "a heavy oak workbench with a blacksmith's leg vice, around 1725",
         "trade": "a painted hanging inn-style sign board showing a horseshoe and a hammer, wrought-iron bracket, around 1725",
