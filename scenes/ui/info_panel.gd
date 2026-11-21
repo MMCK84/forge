@@ -18,11 +18,15 @@ func build(box: VBoxContainer) -> void:
 	row.alignment = BoxContainer.ALIGNMENT_END
 	box.add_child(row)
 	if buttons.is_empty():
-		row.add_child(UIKit.button(tr("UI_OK"), close, Vector2(180, 64)))
+		row.add_child(set_default(UIKit.button(tr("UI_OK"), close, Vector2(180, 64))))
+	elif buttons.size() == 1:
+		row.add_child(set_default(UIKit.button(str(buttons[0][0]), _run.bind(buttons[0][1]), Vector2(180, 64))))
 	else:
+		# Rückfrage: der Knopf ohne Aktion (Abbrechen) liegt auf Esc; die Bestätigung bewusst per Klick
 		for b in buttons:
 			var cb: Callable = b[1]
-			row.add_child(UIKit.button(str(b[0]), _run.bind(cb), Vector2(180, 64)))
+			var text := str(b[0]) + (UIKit.key_hint("Esc") if not cb.is_valid() else "")
+			row.add_child(UIKit.button(text, _run.bind(cb), Vector2(180, 64)))
 
 
 func _run(cb: Callable) -> void:

@@ -8,10 +8,11 @@ signal new_game_requested()
 func _init() -> void:
 	title_key = "UI_PAUSE"
 	panel_width = 640.0
+	toggle_action = "pause"
 
 
 func build(box: VBoxContainer) -> void:
-	box.add_child(UIKit.button(tr("UI_RESUME"), close, Vector2(520, 72)))
+	box.add_child(set_default(UIKit.button(tr("UI_RESUME"), close, Vector2(520, 72))))
 	box.add_child(UIKit.button(tr("UI_SETTINGS"), _open.bind("res://scenes/ui/settings_panel.gd"), Vector2(520, 72)))
 	box.add_child(UIKit.button(tr("UI_STATS"), _open.bind("res://scenes/ui/stats_panel.gd"), Vector2(520, 72)))
 	if GameManager.test_tools_enabled():

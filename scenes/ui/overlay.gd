@@ -16,8 +16,14 @@ var content: VBoxContainer
 var _title_label: Label
 var _counted: bool = false
 var _scroll: ScrollContainer
+## Hauptknopf des Fensters: Enter löst ihn aus (am Rechner mit Hinweis „[Enter]“).
+var default_button: Button = null
+## Taste, die dieses Fenster öffnet (z. B. "open_jobs") – schließt es auch wieder.
+var toggle_action: String = ""
 
 static var open_count: int = 0
+## Offene Fenster in Reihenfolge; nur das oberste reagiert auf Tasten.
+static var _stack: Array = []
 
 
 func _ready() -> void:
@@ -53,7 +59,7 @@ func _ready() -> void:
 	head.add_child(_title_label)
 	if closable:
 		var x := UIKit.button("X", close, Vector2(64, 64), 28)
-		x.tooltip_text = tr("UI_CLOSE")
+		x.tooltip_text = tr("UI_CLOSE") + UIKit.key_hint("Esc")
 		head.add_child(x)
 	outer.add_child(UIKit.hsep())
 	content = VBoxContainer.new()
@@ -82,6 +88,7 @@ func _fit_scroll() -> void:
 
 
 func _finish_ready() -> void:
+	_stack.append(self)
 	if pauses_sim:
 		_counted = true
 		open_count += 1
@@ -90,6 +97,7 @@ func _finish_ready() -> void:
 
 
 func _exit_tree() -> void:
+	_stack.erase(self)
 	if _counted:
 		_counted = false
 		open_count = maxi(0, open_count - 1)
@@ -103,6 +111,9 @@ func build_custom(_center: CenterContainer) -> bool:
 
 
 func _focus_first() -> void:
+	if default_button != null and is_instance_valid(default_button) and not default_button.disabled:
+		default_button.grab_focus()
+		return
 	if content == null:
 		return
 	var b := _find_button(content)
@@ -119,6 +130,36 @@ func _find_button(n: Node) -> Button:
 		if r != null:
 			return r
 	return null
+
+
+## Tasten am Rechner: Esc schließt (bzw. cancel()), Enter = Hauptknopf, eigene Fenster-Taste schließt.
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event.is_pressed() or event.is_echo() or _stack.is_empty() or _stack.back() != self:
+		return
+	var k := event as InputEventKey
+	if k == null:
+		return
+	if k.keycode == KEY_ESCAPE or (toggle_action != "" and event.is_action_pressed(toggle_action)):
+		cancel()
+	elif (k.keycode == KEY_ENTER or k.keycode == KEY_KP_ENTER) and default_button != null \
+			and is_instance_valid(default_button) and not default_button.disabled and default_button.is_visible_in_tree():
+		default_button.pressed.emit()
+	else:
+		return
+	get_viewport().set_input_as_handled()
+
+
+## Esc: schließen, falls erlaubt. Zum Überschreiben (z. B. Abrechnung: wie „Weiter“).
+func cancel() -> void:
+	if closable:
+		close()
+
+
+## Knopf als Hauptknopf (Enter) festlegen und am Rechner beschriften.
+func set_default(b: Button) -> Button:
+	default_button = b
+	b.text += UIKit.key_hint("Enter")
+	return b
 
 
 func set_title(text: String) -> void:
@@ -139,13 +180,8 @@ func rebuild() -> void:
 	_fit_scroll.call_deferred()
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if closable and event.is_action_pressed("pause"):
-		get_viewport().set_input_as_handled()
-		close()
-
-
 func close() -> void:
+	_stack.erase(self)
 	closed.emit()
 	queue_free()
 

@@ -25,7 +25,12 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 - **Steuerung:** Tippen/Leertaste = ein Schlag. **Gedrückthalten = fortlaufend erst mit dem Lehrling** (Epoche 2, „er schlägt
   im Takt mit“). Alle Maschinen (Schwanz- und Dampfhämmer): Tippen = ein Schlag, Halten = fortlaufend, Loslassen = Stopp.
   Tastenhinweise **am Rechner an jedem Knopf, auf Handy/Tablet nie** (Übersetzung entfernt sie, „Klickt“ → „Tippt“;
-  Test am Rechner mit `-- --touch`).
+  Test am Rechner mit `-- --touch`). **Tastenbelegung (21.11.):** Aufträge [J], Shop [S], Personal [H], Statistik [T],
+  Pausenmenü [P] (auch Esc), HAMMERN [Leertaste], Rohling [R], Umlegen [E], Abschrecken [Q], Sanft/Mittel/Fest [←][↓][→].
+  In jedem Fenster: **Esc schließt**, **Enter = Hauptknopf** („Verstanden“, „Weiter“, „Fortsetzen“), die Fenster-Taste
+  schließt ihr Fenster wieder; Auftragsbuch: Annehmen [1]–[3], Neue Angebote [N]; Abrechnung: Weiter [Enter], Wiederholen
+  ↻ [R], Menü [P]. Bewusst ohne Taste: „Überspringen“ der Lehrzeit (kein versehentliches Überspringen), Rückfragen-Bestätigung
+  (z. B. „Neues Spiel“ – nur per Klick, Esc bricht ab), Kauf-Knöpfe in Listen (Shop, Personal, Einstellungen).
 - **Kernausbau:** Schlagserie (je 5 Treffer +10 %, max. +30 %), Stufensprung je Arbeitsgang (Rohform-Bilder vorbereitet,
   Prompt-Heft I), Meisterschaft je Werkstück (Bronze/Silber/Gold nach 2/5/10 Aufträgen, je +5 % Lohn) mit Musterbuch,
   Meisterstück je Epoche (Vorarbeiten + Hauptstück, Zunftprüfung ≥ 2 Sterne, nach zwei Fehlversuchen 1 Stern).
@@ -53,6 +58,21 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | I Rohformen | 8 (alle der Epoche 1) | – | – | 65 (+7 geteilt, kein eigenes Bild) |
 
 **Alle Bilder für Epoche 1 sind da und gut (21.11.).** Nächster Schritt: Epoche 1 gemeinsam abnehmen.
+
+## Anmerkungen aus dem Anspielen – gesammelt, noch umzusetzen
+
+Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, dann alles zusammen umsetzen und testen.
+
+| # | Anmerkung (21.11.) | Stand |
+|---|---|---|
+| 1 | Lehrzeit-Leiste schon hinter dem Willkommensfenster, wiederholt sich bei jedem Auftrag | umgesetzt |
+| 2 | Nicht alle Knöpfe haben eine Taste | umgesetzt |
+| 3 | P soll das Pausenmenü öffnen | umgesetzt (Personal → [H]) |
+| 4 | „Auftrag wiederholen“ als runder Pfeil | umgesetzt |
+| 5 | Geld „d“ unverständlich (für „dime“/„day“ gehalten) | **Entscheidung offen** |
+| 6 | Ohne aktiven Auftrag ist schon ein Temperatur-Zielfenster auf der Glutskala eingezeichnet – irritierend | offen |
+| 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | offen |
+| 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
 
 ## Musik (Suno) – später
 
@@ -85,7 +105,8 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 1. **Epoche 1 Alpha: gemeinsam abnehmen** (alle Bilder da; Bestandsaufnahme `tools/audit_epoch1.tscn`). Noch offen: Musik, Klänge.
 2. Vor dem Export: Testmenü-Knöpfe nur in der Entwicklerfassung.
 3. Danach Epoche 2 ff. nach demselben Muster (Werkstücke, Rohformen, Einrichtung je Epoche); W2-7, W3-7 und ML1 ersetzen.
-4. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
+4. **Geldanzeige £ s d** verständlicher machen (Entscheidung offen, 21.11.).
+5. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
    angebotene Sprachen (Deutsch/Englisch) und/oder Gestaltung der Oberfläche.
 5. **Musik (Suno)** – später.
 6. Später: Querformat für Tablets (U21 Doppelseite des Auftragsbuchs vorbereitet); sichtbares Personal
@@ -314,6 +335,16 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   liegt fürs Tablet bereit. Prompt U22: Schmied mittig, `LESSONS` ergänzt. Heft zählt bewertete Originale jetzt auch dann als
   vorhanden, wenn das Spiel sie (noch) nicht nutzt (U12, U21 standen fälschlich als fehlend). Tests 2182/0, Spieltest 0 Probleme,
   Bestandsaufnahme Epoche 1 neu aufgenommen. **Damit sind alle Bilder der Epoche 1 fertig.**
+- 21.11.: **Rückmeldungen des Auftraggebers aus dem Anspielen (Epoche 1):**
+  1. **Lehrzeit-Leiste** lag schon hinter dem Willkommensfenster und wiederholte bei jedem Auftrag dieselben Anweisungen →
+     erscheint erst, wenn kein Fenster offen ist, und **jeder Schritt nur, bis er einmal erledigt ist** (`tut_<schritt>` in
+     `seen_hints`, wird gespeichert). Statuszeile ohne Auftrag: „Kein aktiver Auftrag.“
+  2. **Tasten für alle Knöpfe**, wo es sinnvoll ist (Belegung siehe „Fertig“); Ausnahmen bewusst (siehe dort).
+  3. **P = Pausenmenü** (öffnet und schließt; Esc weiterhin); Personal dafür auf **[H]** (Helfer / englisch „hands“).
+  4. **Auftrag wiederholen** als Pfeil-Symbol ↻ (eigenes Symbol `ui/icon_repeat.png`, Text im Tooltip) – spart Platz.
+  5. **Geldanzeige „d“** (Auftraggeber dachte an „dime“/„day“): d = Penny (lat. denarius), £sd bis 1971; **offen zur
+     Entscheidung** (Vorschläge im Chat): Erklärung beim ersten Lohn + Tooltip, Münzsymbole statt Buchstaben oder ausgeschrieben.
+  Tests 2182/0, Spieltest 0 Probleme, Bestandsaufnahme Epoche 1 geprüft.
 
 ## Prüfen
 

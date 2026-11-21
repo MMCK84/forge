@@ -49,7 +49,7 @@ func build_custom(center: CenterContainer) -> bool:
 	_page_box.size = PAGE_RECT.size * Vector2(w, h)
 	_book.add_child(_page_box)
 	var x := UIKit.button("X", close, Vector2(56, 56), 26)
-	x.tooltip_text = tr("UI_CLOSE")
+	x.tooltip_text = tr("UI_CLOSE") + UIKit.key_hint("Esc")
 	x.position = Vector2(w - 72.0, 8.0)
 	_book.add_child(x)
 	_fill_page()
@@ -162,7 +162,7 @@ func _book_entry(i: int, j: JobInstance, width: float) -> Control:
 	var issue := gm.job_requirement_issue(j)
 	if issue != "":
 		box.add_child(UIKit.wrap_label(tr(issue), 19, UIKit.RED, width))
-	var accept := UIKit.button(tr("UI_ACCEPT"), _accept.bind(i), Vector2(200, 52), 20)
+	var accept := UIKit.button(tr("UI_ACCEPT") + (UIKit.key_hint(str(i + 1)) if i < 9 else ""), _accept.bind(i), Vector2(200, 52), 20)
 	accept.disabled = gm.active_job != null or issue != ""
 	accept.size_flags_horizontal = Control.SIZE_SHRINK_END
 	box.add_child(accept)
@@ -209,7 +209,29 @@ func _update_reroll() -> void:
 		return
 	var left := GameManager.reroll_seconds_left()
 	_reroll_btn.disabled = left > 0
-	_reroll_btn.text = tr("UI_REROLL") if left <= 0 else tr("UI_REROLL_WAIT").format({"s": left})
+	_reroll_btn.text = (tr("UI_REROLL") + UIKit.key_hint("N")) if left <= 0 else tr("UI_REROLL_WAIT").format({"s": left})
+
+
+## Zifferntasten nehmen das Angebot an (1 = oberstes), N = neue Angebote.
+func _unhandled_key_input(event: InputEvent) -> void:
+	var k := event as InputEventKey
+	if k != null and k.pressed and not k.echo and not _stack.is_empty() and _stack.back() == self:
+		var gm := GameManager
+		var n := -1
+		if k.keycode >= KEY_1 and k.keycode <= KEY_9:
+			n = k.keycode - KEY_1
+		elif k.keycode >= KEY_KP_1 and k.keycode <= KEY_KP_9:
+			n = k.keycode - KEY_KP_1
+		if n >= 0:
+			if n < gm.job_offers.size() and gm.active_job == null and gm.job_requirement_issue(gm.job_offers[n]) == "":
+				_accept(n)
+			get_viewport().set_input_as_handled()
+			return
+		if k.keycode == KEY_N and _reroll_btn != null and is_instance_valid(_reroll_btn) and not _reroll_btn.disabled:
+			_reroll_btn.pressed.emit()
+			get_viewport().set_input_as_handled()
+			return
+	super._unhandled_key_input(event)
 
 
 func _reroll() -> void:

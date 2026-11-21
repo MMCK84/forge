@@ -920,8 +920,17 @@ func _on_message(key: String, args: Dictionary) -> void:
 
 # ================================================================== Fenster
 
+## Taste, die ein Fenster öffnet, schließt es auch wieder
+const OVERLAY_TOGGLE := {
+	"res://scenes/ui/job_book.gd": "open_jobs", "res://scenes/ui/shop.gd": "open_shop",
+	"res://scenes/ui/staff_panel.gd": "open_staff", "res://scenes/ui/stats_panel.gd": "open_stats",
+}
+
+
 func open_overlay(path: String) -> Node:
 	var p = load(path).new()
+	if OVERLAY_TOGGLE.has(path):
+		p.toggle_action = OVERLAY_TOGGLE[path]
 	overlay_layer.add_child(p)
 	return p
 

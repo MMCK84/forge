@@ -3,6 +3,7 @@ extends RefCounted
 ## Nutzt die gerenderten UI-Texturen und Schriften aus assets/, sonst flache Stile.
 
 const Assets = preload("res://scripts/assets.gd")
+const Localization = preload("res://scripts/localization.gd")
 
 const PARCHMENT := Color("e9dcc0")
 const PARCHMENT_DARK := Color("d6c39c")
@@ -186,6 +187,11 @@ static func button(text: String, callback: Callable, min_size: Vector2 = Vector2
 	if callback.is_valid():
 		b.pressed.connect(callback)
 	return b
+
+
+## Tastenhinweis für Knöpfe, z. B. key_hint("Enter") → " [Enter]"; auf Handy/Tablet leer.
+static func key_hint(key: String) -> String:
+	return "" if Localization.is_touch() else " [" + key + "]"
 
 
 static func _click_sound() -> void:

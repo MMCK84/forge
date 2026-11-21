@@ -5,9 +5,12 @@ extends PanelContainer
 const UIKit = preload("res://scenes/ui/ui_kit.gd")
 
 const TUTORIAL_JOBS := 5
+const Overlay = preload("res://scenes/ui/overlay.gd")
 
 var _label: Label
 var _step: String = ""
+## Wurde der aktuelle Schritt schon angezeigt (dann gilt er beim Wechsel als gelernt)?
+var _shown: bool = false
 
 
 func _ready() -> void:
@@ -78,13 +81,20 @@ func update_step() -> void:
 				step = "TUT_TAKE"
 			else:
 				step = "TUT_WAIT_HEAT"
-	if step == "":
+	# Jeder Schritt erscheint nur, bis man ihn einmal erledigt hat (Wunsch des Auftraggebers, 21.11.):
+	# wechselt der angezeigte Schritt, gilt der vorige als gelernt und kommt nicht wieder.
+	if step != _step:
+		if _step != "" and _shown:
+			gm.mark_hint_seen("tut_" + _step.to_lower())
+		_step = step
+		_shown = false
+		_label.text = tr(step) if step != "" else ""
+	# Nicht hinter einem Hinweisfenster (z. B. „Willkommen“) – erst danach einblenden
+	if step == "" or gm.seen_hints.has("tut_" + step.to_lower()) or Overlay.open_count > 0:
 		visible = false
 		return
 	visible = true
-	if step != _step:
-		_step = step
-		_label.text = tr(step)
+	_shown = true
 
 
 func _skip() -> void:

@@ -10,6 +10,7 @@ const Masterpieces = preload("res://scripts/masterpieces.gd")
 
 var report: Dictionary = {}
 var _continue_btn: Button
+var _repeat_btn: Button = null
 signal continue_pressed(report: Dictionary)
 signal menu_pressed(report: Dictionary)
 signal repeat_pressed(report: Dictionary)
@@ -77,12 +78,17 @@ func build(box: VBoxContainer) -> void:
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_END
 	row.add_theme_constant_override("separation", 10)
-	row.add_child(UIKit.button(tr("UI_SETTLE_MENU"), _menu, Vector2(150, 64), 22))
+	row.add_child(UIKit.button(tr("UI_SETTLE_MENU") + UIKit.key_hint("P"), _menu, Vector2(150, 64), 22))
 	if not j.is_milestone():
-		var rep := UIKit.button(tr("UI_REPEAT_JOB"), _repeat, Vector2(270, 64), 22)
-		rep.disabled = gm.job_requirement_issue(j) != ""
-		row.add_child(rep)
-	_continue_btn = UIKit.button(tr("UI_CONTINUE"), _continue, Vector2(180, 64))
+		# Wiederholen als Pfeil-Symbol (spart Platz), Beschriftung im Tooltip
+		_repeat_btn = UIKit.button(UIKit.key_hint("R").strip_edges(), _repeat, Vector2(96, 64), 22)
+		_repeat_btn.icon = Assets.tex("ui/icon_repeat.png")
+		_repeat_btn.expand_icon = false
+		_repeat_btn.add_theme_constant_override("icon_max_width", 44)
+		_repeat_btn.tooltip_text = tr("UI_REPEAT_JOB") + UIKit.key_hint("R")
+		_repeat_btn.disabled = gm.job_requirement_issue(j) != ""
+		row.add_child(_repeat_btn)
+	_continue_btn = set_default(UIKit.button(tr("UI_CONTINUE"), _continue, Vector2(180, 64)))
 	row.add_child(_continue_btn)
 	box.add_child(row)
 
@@ -107,6 +113,24 @@ func _coins(pence: int) -> Control:
 func _focus_first() -> void:
 	if _continue_btn != null:
 		_continue_btn.grab_focus()
+
+
+## Esc wie „Weiter“; R = Auftrag wiederholen, P = Menü.
+func cancel() -> void:
+	_continue()
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_pressed() and not event.is_echo() and not _stack.is_empty() and _stack.back() == self:
+		if event.is_action_pressed("load_raw") and _repeat_btn != null and not _repeat_btn.disabled:
+			_repeat_btn.pressed.emit()
+			get_viewport().set_input_as_handled()
+			return
+		if event is InputEventKey and (event as InputEventKey).keycode == KEY_P:
+			_menu()
+			get_viewport().set_input_as_handled()
+			return
+	super._unhandled_key_input(event)
 
 
 func _menu() -> void:

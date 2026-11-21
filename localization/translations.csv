@@ -692,7 +692,7 @@ MS_MS_E9_09_GREAT_BRITAIN_TEXT,Brunels eisernes Schiff ist das größte der Welt
 MS_MS_E9_09_GREAT_BRITAIN_TITLE,Schraubenwelle für die SS Great Britain,Propeller shaft for the SS Great Britain
 NAV_JOBS,Aufträge [J],Orders [J]
 NAV_SHOP,Shop [S],Shop [S]
-NAV_STAFF,Personal [P],Staff [P]
+NAV_STAFF,Personal [H],Staff [H]
 NAV_STATS,Statistik [T],Statistics [T]
 QUALITY_FINE_-,Feiner,Fine
 QUALITY_FINE_F,Feine,Fine
@@ -866,13 +866,13 @@ UI_MACHINE_WATER,Leistung schwankt mit dem Wasserstand (60–100 %),output varie
 UI_MASTERY_NEXT,Meisterschaft: {n}/{t} Aufträge bis zum {level},Mastery: {n}/{t} orders to the {level}
 UI_MASTERY_OFFER,{level} – Lohn +{p} %,{level} – wage +{p} %
 UI_MAXED,Höchststufe,Maximum
-UI_MENU,Menü [Esc],Menu [Esc]
+UI_MENU,Menü [P],Menu [P]
 UI_MISSING,Es fehlen noch {m}.,You still need {m}.
 UI_MUSIC_VOLUME,Musik,Music
 UI_NEW_GAME,Neues Spiel,New game
 UI_NEW_GAME_WARNING,"Es gibt bereits einen Spielstand. Ein neues Spiel überschreibt ihn (der alte bleibt als Sicherung erhalten, bis zum nächsten Speichern). Fortfahren?",A saved game already exists. A new game will overwrite it (the old one is kept as a backup until the next save). Continue?
 UI_NEXT_EPOCH,Neuer Standort!,New premises!
-UI_NO_JOB,Kein Auftrag – öffnet das Auftragsbuch [J].,No order – open the order book [J].
+UI_NO_JOB,Kein aktiver Auftrag.,No active order.
 UI_OFFER_DETAILS,{fp} Form-Punkte · Lohn {wage} (2 Sterne) · geschätzt {time},{fp} form points · pay {wage} (2 stars) · est. {time}
 UI_OFFLINE_EARNINGS,Während Eurer Abwesenheit ({t}) hat der Geselle {m} verdient.,"While you were away ({t}), your journeyman earned {m}."
 UI_OK,OK,OK

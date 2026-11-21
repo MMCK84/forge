@@ -46,8 +46,8 @@ func build(box: VBoxContainer) -> void:
 				var miss := UIKit.label(tr("UI_MISSING").format({"m": Economy.format_lsd(fee - gm.total_pence)}), 22, UIKit.RED)
 				miss.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				row.add_child(miss)
-			row.add_child(UIKit.button(tr("UI_LATER"), close, Vector2(170, 64)))
-			var pay := UIKit.button(tr("UI_PAY_AND_MOVE"), _pay, Vector2(330, 64))
+			row.add_child(UIKit.button(tr("UI_LATER") + UIKit.key_hint("Esc"), close, Vector2(170, 64)))
+			var pay := set_default(UIKit.button(tr("UI_PAY_AND_MOVE"), _pay, Vector2(330, 64)))
 			pay.disabled = not gm.can_afford(fee)
 			row.add_child(pay)
 			box.add_child(row)
@@ -58,14 +58,14 @@ func build(box: VBoxContainer) -> void:
 			_news(box, show_epoch, "UI_EPOCH_NEW")
 			var row2 := HBoxContainer.new()
 			row2.alignment = BoxContainer.ALIGNMENT_END
-			row2.add_child(UIKit.button(tr("UI_CONTINUE"), close, Vector2(240, 64)))
+			row2.add_child(set_default(UIKit.button(tr("UI_CONTINUE"), close, Vector2(240, 64))))
 			box.add_child(row2)
 		"finale":
 			set_title(tr("UI_FINALE_TITLE"))
 			box.add_child(UIKit.wrap_label(tr("UI_FINALE_TEXT"), 22, UIKit.INK, UIKit.CW))
 			var row3 := HBoxContainer.new()
 			row3.alignment = BoxContainer.ALIGNMENT_END
-			row3.add_child(UIKit.button(tr("UI_CONTINUE"), close, Vector2(240, 64)))
+			row3.add_child(set_default(UIKit.button(tr("UI_CONTINUE"), close, Vector2(240, 64))))
 			box.add_child(row3)
 
 
