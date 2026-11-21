@@ -1429,9 +1429,9 @@ U22 — Square 1:1 key art illustration for a game title screen, an English vill
 ```
 
 **U23** – Meisterbrief (Abrechnung nach dem Meisterstück) · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 81 Wörter · Datei `master_certificate`
+Regler: **Portrait 3:4** · 85 Wörter · Datei `master_certificate`
 ```
-U23 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, a decorative engraved border of hammers, tongs and oak leaves, a few lines of illegible decorative script, at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, readable words, cast shadow, readable text, date, text, numbers, watermark, border, shadow, photo, 3d render
+U23 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, an engraved ornamental frame of hammers, tongs and oak leaves drawn on the paper, a few lines of illegible flourished script, at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, cast shadow, readable text, date, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ## H · Werkstatt-Einrichtung (5 je Epoche)
