@@ -75,6 +75,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
 | 9 | Mit dem letzten Schlag erscheint sofort die Abrechnung – der Spieler sieht das fertige Werkstück nie (Bild wechselt erst mit dem Abschluss des letzten Arbeitsgangs von der Rohform zum fertigen Stück, siehe Beobachtung vom 21.11.). Vorschlag: fertiges Stück kurz (ca. 1,5 s) mit Aufblitzen auf dem Amboss zeigen, dann Abrechnung; Tippen überspringt | offen |
 | 10 | Unklares Schild an der Wand (brauner Kasten mit gelben Punkten): ist das „Zunftschild“ für den Ruf (ab 40 Sternen, 2–5 Punkte), Platzhalter-Zeichnung ohne Erklärung, konkurriert mit dem Einrichtungs-Schild E1-4. **Entschieden 21.11.: Zunfttafeln** – 4 Midjourney-Bilder U24–U27 (Prompts im Heft), Hinweis beim ersten Erscheinen, Tooltip (Rufstufe, Sterne bis zur nächsten), fester Platz ohne Überschneidung mit E1-4 | Prompts fertig, Umsetzung offen |
+| 11 | Übersicht, wie weit man in der Epoche ist (Frage des Auftraggebers). Heute nur „Aufträge in dieser Epoche n / 30“ klein im Auftragsbuch. Vorschlag: schmale Fortschrittsleiste in der Statuszeile mit Meilenstein-Marken und Meisterstück-Siegel am Ende; Antippen öffnet eine Kapitelübersicht (Meilensteine mit Kunde, Werkstück, Stand: erledigt / verfügbar / ab Auftrag N; Meisterstück mit Vorarbeiten), Taste [K]; Wort „Kapitel“ statt „Level“ | **Entscheidung offen** |
 
 ## Musik (Suno) – später
 
