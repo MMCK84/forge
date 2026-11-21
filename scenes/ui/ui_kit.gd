@@ -211,8 +211,11 @@ static func stars_view(stars: int, size: float = 40.0) -> Control:
 
 
 static func draw_stars(ci: CanvasItem, origin: Vector2, stars: int, size: float) -> void:
-	var full := Assets.tex("ui/star_full.png")
-	var empty := Assets.tex("ui/star_empty.png")
+	var full := Assets.user("star_full.png")
+	var empty := Assets.user("star_empty.png")
+	if full == null or empty == null:
+		full = Assets.tex("ui/star_full.png")
+		empty = Assets.tex("ui/star_empty.png")
 	if full != null and empty != null:
 		for i in 3:
 			var c := origin + Vector2(i * size * 1.1, 0)

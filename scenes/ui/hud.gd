@@ -83,7 +83,7 @@ func _ready() -> void:
 	_stars.custom_minimum_size = Vector2(92, 30)
 	_stars.draw.connect(func() -> void: UIKit.draw_stars(_stars, Vector2(14, 16), _stars_value, 26.0))
 	r3.add_child(_stars)
-	_hourglass = UIKit.icon("ui/icon_hourglass.png", 30)
+	_hourglass = UIKit.icon("ui/user/icon_hourglass.png" if Assets.user("icon_hourglass.png") != null else "ui/icon_hourglass.png", 30)
 	r3.add_child(_hourglass)
 	_timer = UIKit.label("", 20, UIKit.TEXT_LIGHT)
 	_timer.custom_minimum_size.x = 70

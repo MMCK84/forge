@@ -94,6 +94,9 @@ func _coins(pence: int) -> Control:
 	if pence <= 0:
 		return row
 	var parts := [[pence >= 240, "coin_guinea.png"], [(pence % 240) >= 12, "coin_shilling.png"], [pence % 12 > 0, "coin_halfpenny.png"]]
+	# Ab Epoche 9 (Victoria) die viktorianischen Münzen, falls vorhanden
+	if GameManager.current_epoch >= 9 and Assets.user("coin_victoria_sovereign.png") != null:
+		parts = [[pence >= 240, "coin_victoria_sovereign.png"], [(pence % 240) >= 12, "coin_victoria_shilling.png"], [pence % 12 > 0, "coin_victoria_penny.png"]]
 	for p in parts:
 		if bool(p[0]) and Assets.user(str(p[1])) != null:
 			row.add_child(UIKit.icon("ui/user/" + str(p[1]), 52.0))

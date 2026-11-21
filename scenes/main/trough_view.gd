@@ -32,6 +32,14 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
+	var ut := Assets.user("trough.png")
+	if ut != null:
+		# Löschtrog des Auftraggebers: in den Platz eingepasst, unten bündig
+		var k := minf((size.x + 20.0) / ut.get_width(), (size.y + 10.0) / ut.get_height())
+		var ts := Vector2(ut.get_width(), ut.get_height()) * k
+		draw_texture_rect(ut, Rect2((size.x - ts.x) * 0.5, size.y - ts.y, ts.x, ts.y), false)
+		_draw_effects()
+		return
 	var tt := Assets.tex("tools/trough.png")
 	if tt != null:
 		draw_texture(tt, Vector2(-10, -10))
