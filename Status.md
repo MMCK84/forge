@@ -73,6 +73,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 6 | Ohne aktiven Auftrag ist schon ein Temperatur-Zielfenster auf der Glutskala eingezeichnet – irritierend | offen |
 | 7 | Knöpfe „Rohling einlegen“ und „Umlegen“ zu breit; Schrift wirkt durch den Rahmen durchgestrichen (Text liegt auf der Rahmenkante; ebenso „Menü“) | offen |
 | 8 | Schlagstärke-Knöpfe Sanft/Fest ohne Rahmen (anderer Stil als die übrigen Knöpfe) | offen |
+| 9 | Mit dem letzten Schlag erscheint sofort die Abrechnung – der Spieler sieht das fertige Werkstück nie (Bild wechselt erst mit dem Abschluss des letzten Arbeitsgangs von der Rohform zum fertigen Stück, siehe Beobachtung vom 21.11.). Vorschlag: fertiges Stück kurz (ca. 1,5 s) mit Aufblitzen auf dem Amboss zeigen, dann Abrechnung; Tippen überspringt | offen |
 
 ## Musik (Suno) – später
 
