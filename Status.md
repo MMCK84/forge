@@ -284,6 +284,12 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 21.11.: E1-3 in strenger Seitenansicht ergab technischen Unsinn (Kurbel auf der Steinfläche, Lager vor dem Stein). Neu:
   Mechanik Bauteil für Bauteil beschrieben, **leichte Dreiviertelansicht** erlaubt (Einrichtung steht im perspektivisch
   gemalten Raum; flach bleiben Esse, Amboss, Hämmer, Maschinen, Werkstücke); ebenso E4-3. `LESSONS` ergänzt.
+- 21.11.: Import entfernt die gezeichnete schwarze Bodenlinie unter den Essen (Lehm-Esse zeigte einen dunklen Strich
+  quer unter der Esse; Schweißofen und Siemens-Ofen leicht beschnitten). Einrichtung: Werkbank-Platz größer und höher
+  (verschwand halb hinter der Glutskala), Kohle weiter an die Wand. Probe mit dem Schleifstein-Entwurf (Dreiviertelansicht)
+  im Spiel: wirkt im perspektivisch gemalten Raum natürlich. **Offen zur Entscheidung:** E1-3 mit leichter Dreiviertel-
+  ansicht (Empfehlung) oder streng flach mit anderem Stück; U5 Auftragsbuch als aufgeschlagenes Buch (Hochformat: rechte
+  Seite ganz, links Falz und Streifen der linken Seite; Tablet: echte Doppelseite).
 
 ## Prüfen
 

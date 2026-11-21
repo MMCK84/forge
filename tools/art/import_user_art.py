@@ -475,6 +475,20 @@ def forge_import():
         img = to_rgba(a, (~solid).astype(np.float32))
         box = img.getbbox()
         img = img.crop(box)
+        # Gezeichnete Bodenlinie (dicke schwarze Tuschelinie unter der Esse) abschneiden: unterste Zeilen,
+        # die fast schwarz sind und über die halbe Breite reichen
+        arr0 = np.asarray(img).astype(np.float32)
+        h0 = arr0.shape[0]
+        cut = h0
+        dark_rows = []
+        for y in range(h0 - 1, int(h0 * 0.97), -1):
+            op = arr0[y, :, 3] > 100
+            if op.sum() > 0.5 * arr0.shape[1] and arr0[y, op, :3].mean() < 20:
+                dark_rows.append(y)
+        if len(dark_rows) >= 3:
+            cut = min(dark_rows)
+        if cut < arr0.shape[0]:
+            img = img.crop((0, 0, img.width, cut))
         s = FORGE_W / img.width
         img = img.resize((FORGE_W, int(round(img.height * s))), Image.LANCZOS)
         arr = np.asarray(img).astype(np.float32)
