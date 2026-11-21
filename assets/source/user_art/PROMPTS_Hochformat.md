@@ -104,13 +104,22 @@ Raw hält sich genauer an Vorgaben wie „genau von der Seite“, malt aber foto
 
 ## Reihenfolge (was am meisten bringt)
 
-Erledigt: alle zehn Hintergründe (A), Essen Stufe 1–5 in Frontalansicht (B), Amboss und Hämmer (C).
+Erledigt: alle zehn Hintergründe (A), alle sechs Essen (B), Amboss und Hämmer (C), alle Maschinenteile (D).
 
-1. **Werkstücke** epochenweise (E) – die größte Lücke; Standard-Modus mit Stil-Referenz (nicht Raw).
-2. **Esse Stufe 3 neu** (Doppelbalg) und **Siemens-Ofen** (B), **Dampfhammer-Teile** (D), **Löschtrog** (G).
-3. **Werkstatt-Einrichtung** (H) – das Spiel zeigt bis dahin Platzhalter.
-4. Die übrigen 🟡 Gemini-Bilder ersetzen: Maschinenteile (D), Oberfläche (G) – gleiche Dateinamen.
-5. Optional: Porträts (F), Ladenbilder, Victoria-Münzen, Sterne, Sanduhr, Pyrometer-Zifferblatt.
+**Jetzt: Epoche 1 auf Alpha-Niveau** (Checkliste `docs/Alpha_Epoche1.md`) – in dieser Reihenfolge:
+
+1. **Einrichtung Epoche 1: E1-1 bis E1-5** – bisher sieht man grobe Platzhalter-Zeichnungen in der Werkstatt (der größte Schönheitsfehler).
+2. **Werkstücke Epoche 1: W1-4 bis W1-8** (Türangel, Sichel, Pflugschar, Schürhaken, Torriegel) – noch Gemini, passen im Stil nicht zu W1-1 bis W1-3.
+3. **Oberfläche: U1 Pergament, U2 Knöpfe, U3 Leisten, U4 Glut-Knopf, U5 Auftragsbuch-Seite** – sieht man auf jedem Bildschirm (Gemini → Midjourney).
+4. **U18–U20 Meisterschafts-Siegel**, **U6 Münzbeutel**, **U7 Münzen**, **U9 Wachssiegel**, **U13 Sterne**.
+5. **P1-4 Müller** (ändern), **U16 App-Icon**.
+
+Danach:
+
+1. **Werkstücke** der übrigen Epochen (E) – Standard-Modus mit Stil-Referenz (nicht Raw).
+2. **Löschtrog** (U15) für Epoche 4 und die Einrichtung der übrigen Epochen (H).
+3. Die übrigen 🟡 Gemini-Bilder ersetzen – gleiche Dateinamen.
+4. Optional: Porträts (F), Victoria-Münzen, Sanduhr, Pyrometer-Zifferblatt.
 
 ## A · Werkstatt-Hintergründe (1:1 – für Hoch- und Querformat)
 

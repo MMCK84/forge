@@ -82,7 +82,7 @@ static func theme() -> Theme:
 	t.set_color("font_color", "Button", TEXT_LIGHT)
 	t.set_color("font_hover_color", "Button", Color.WHITE)
 	t.set_color("font_pressed_color", "Button", BRASS_LIGHT)
-	t.set_color("font_disabled_color", "Button", Color("9d9384"))
+	t.set_color("font_disabled_color", "Button", Color("8a8172"))
 	t.set_color("font_focus_color", "Button", Color.WHITE)
 	for st in ["normal", "hover", "pressed", "disabled"]:
 		var sb := _tex_box("ui/user/btn_%s.png" % st, 20.0, 24.0, 10.0)
@@ -99,6 +99,8 @@ static func theme() -> Theme:
 	if parch == null:
 		parch = _tex_box("ui/parchment.png", 40.0, 30.0, 24.0)
 	if parch != null:
+		# unten etwas mehr Luft, damit die letzte Zeile nicht am Brandrand klebt
+		parch.content_margin_bottom += 14.0
 		t.set_stylebox("panel", "PanelContainer", parch)
 		t.set_stylebox("panel", "Panel", parch)
 		t.set_stylebox("panel", "PopupMenu", parch)
@@ -123,9 +125,23 @@ static func theme() -> Theme:
 	t.set_stylebox("pressed", "CheckBox", empty)
 	t.set_stylebox("hover_pressed", "CheckBox", empty)
 	t.set_stylebox("focus", "CheckBox", focus)
-	t.set_stylebox("slider", "HSlider", _box(Color("8a7656"), Color("8a7656"), 0, 4, 4))
-	t.set_stylebox("grabber_area", "HSlider", _box(BRASS, BRASS, 0, 4, 4))
-	t.set_stylebox("grabber_area_highlight", "HSlider", _box(BRASS_LIGHT, BRASS_LIGHT, 0, 4, 4))
+	t.set_icon("checked", "CheckBox", _check_icon(true))
+	t.set_icon("unchecked", "CheckBox", _check_icon(false))
+	t.set_constant("h_separation", "CheckBox", 14)
+	t.set_icon("grabber", "HSlider", _grabber_icon(false))
+	t.set_icon("grabber_highlight", "HSlider", _grabber_icon(true))
+	var track := _box(Color("6d5a40"), Color("4a3a28"), 1, 5, 0)
+	track.content_margin_top = 5
+	track.content_margin_bottom = 5
+	t.set_stylebox("slider", "HSlider", track)
+	var area := _box(BRASS, BRASS, 0, 5, 0)
+	area.content_margin_top = 5
+	area.content_margin_bottom = 5
+	t.set_stylebox("grabber_area", "HSlider", area)
+	var area_h := _box(BRASS_LIGHT, BRASS_LIGHT, 0, 5, 0)
+	area_h.content_margin_top = 5
+	area_h.content_margin_bottom = 5
+	t.set_stylebox("grabber_area_highlight", "HSlider", area_h)
 	t.set_stylebox("normal", "OptionButton", _box(WOOD_LIGHT, BRASS, 3, 10, 18))
 	t.set_stylebox("hover", "OptionButton", _box(LEATHER, BRASS_LIGHT, 3, 10, 18))
 	t.set_stylebox("pressed", "OptionButton", _box(WOOD, BRASS_LIGHT, 3, 10, 18))
@@ -242,3 +258,49 @@ static func bar_box() -> StyleBox:
 	if sb != null:
 		return sb
 	return _box(Color(0.16, 0.11, 0.08, 0.92), BRASS, 0, 0, 12)
+
+
+## Kästchen für Einstellungen: Messingrahmen auf dunklem Holz, Häkchen in Gold.
+static func _check_icon(on: bool) -> Texture2D:
+	var n := 40
+	var img := Image.create(n, n, false, Image.FORMAT_RGBA8)
+	img.fill(Color(0, 0, 0, 0))
+	for y in n:
+		for x in n:
+			var edge: int = mini(mini(x, y), mini(n - 1 - x, n - 1 - y))
+			if edge < 3:
+				img.set_pixel(x, y, BRASS)
+			elif edge < 5:
+				img.set_pixel(x, y, Color("4a3a28"))
+			else:
+				img.set_pixel(x, y, Color("3a2a1c"))
+	if on:
+		# Häkchen aus zwei dicken Linien
+		for i in 200:
+			var tt := float(i) / 199.0
+			var pts := [Vector2(10, 21).lerp(Vector2(17, 29), tt), Vector2(17, 29).lerp(Vector2(31, 11), tt)]
+			for pt in pts:
+				for dy in range(-2, 3):
+					for dx in range(-2, 3):
+						var px := int(pt.x) + dx
+						var py := int(pt.y) + dy
+						if px >= 0 and py >= 0 and px < n and py < n:
+							img.set_pixel(px, py, GOLD)
+	return ImageTexture.create_from_image(img)
+
+
+## Griff der Schieberegler: Messingknopf.
+static func _grabber_icon(hi: bool) -> Texture2D:
+	var n := 32
+	var img := Image.create(n, n, false, Image.FORMAT_RGBA8)
+	img.fill(Color(0, 0, 0, 0))
+	var c := Vector2(n, n) * 0.5 - Vector2(0.5, 0.5)
+	for y in n:
+		for x in n:
+			var d := Vector2(x, y).distance_to(c)
+			if d <= 14.5:
+				var col: Color = Color("4a3a28") if d > 12.5 else (BRASS_LIGHT if hi else BRASS)
+				if d < 6.0 and d <= 12.5:
+					col = col.lightened(0.25)
+				img.set_pixel(x, y, col)
+	return ImageTexture.create_from_image(img)

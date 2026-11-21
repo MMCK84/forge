@@ -121,6 +121,9 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
    (3) ✔ **Meisterstück je Epoche** und ✔ **Kapitelübergang**. Später: Stammkunden, sichtbares Personal (Bildlösung in
    `docs/Konzept_Aufbau.md`: zwei Posen in einem Bild, Gegenlicht, Probefigur zuerst). Nicht jetzt: Markttage, neuer
    Durchgang. **Danach Kern einfrieren** – nur noch Bilder, Musik, Feinschliff.
+6a. **Epoche 1 auf Alpha-Niveau** (Wunsch des Auftraggebers, 21.11.): Checkliste, Befunde und benötigte Bilder in
+   `docs/Alpha_Epoche1.md`; Prüfwerkzeug `tools/audit_epoch1.tscn` (alle 38 Bildschirme). Offen: Bilder E1-1–5, W1-4–8,
+   U1–U7, U9, U13, U18–U20, P1-4, U16; Musik Epoche 1; Tastenkürzel nur am Rechner; Testmenü nur in der Entwicklerfassung.
 7. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – gemeinsam festlegen; zu klären, was genau
    gemeint ist: Wortwahl und Anrede der Texte (bisher historisches „Ihr“), angebotene Spielsprachen (bisher Deutsch/Englisch)
    und/oder die gestalterische Sprache der Oberfläche (Pergament, Leder, Messing).
@@ -262,6 +265,13 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Spiel ohne Probleme; 543 Aufträge, Spielzeit 13,9–14,4 h. Auffällig, aber kein Fehler: In Epoche 9–10 erreicht der
   Referenzspieler im Schnitt nur 2,2–2,4 Sterne (er hält den Dampfhammer auch außerhalb des Zielfensters). Grafischer
   Spieltest 0 Probleme, Tests 2151/0.
+- 21.11.: **Epoche 1 auf Alpha-Niveau – Bestandsaufnahme** (`tools/audit_epoch1.tscn`, 38 Bildschirme). Behoben: Schlagstärke-
+  Knöpfe erschienen nach der Lehrzeit nicht (Fehler); Laden zeigt die Einrichtung erst nach der Lehrzeit, Hämmer oben;
+  zu teure Angebote gedämpft mit Fehlbetrag im Tooltip; Häkchen und Schieberegler im Spielstil; Hinweis Schlagstärke für
+  Epoche 1 (nur Leicht/Schwer), Tippfehler; Mitwirkende aktualisiert (Bilder, Schriften mit Lizenz); Hammer liegt ohne
+  Werkstück auf dem Amboss; Werkstück auf dem Amboss größer; Bildausschnitt im Epochenwechsel; mehr Rand unten in Fenstern;
+  Meisterstück-Kennzeichnung. Prompt-Heft: neue Reihenfolge „Jetzt: Epoche 1 auf Alpha-Niveau“.
+  Schlagserie zählt Maschinenschläge weiter mit (Wunsch des Auftraggebers; bei Bedarf später kürzen).
 
 ## Prüfen
 
@@ -269,6 +279,7 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 
 - Unit-Tests: `godot --headless --path . res://tests/run_tests.tscn`
 - Spieltest: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn`
+- Bestandsaufnahme Epoche 1 (alle Bildschirme): `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/audit_epoch1.tscn`
 - Durchspiel-Test (ganzes Spiel, Epoche für Epoche): `godot --headless --path . res://tools/full_playthrough.tscn -- --seed=7`
 - Balancing: `python tools/tune_balance.py`
 - Übersetzungen: `python tools/content/gen_csv.py localization/translations.csv`

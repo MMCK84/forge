@@ -40,7 +40,8 @@ func build(box: VBoxContainer) -> void:
 	row.add_child(UIKit.button(tr("UI_EXPORT_SAVE"), _export, Vector2(280, 60), 22))
 	row.add_child(UIKit.button(tr("UI_IMPORT_SAVE"), _import, Vector2(280, 60), 22))
 	box.add_child(row)
-	box.add_child(UIKit.wrap_label(tr("UI_EXPORT_NOTE"), 20, UIKit.INK_LIGHT, UIKit.CW))
+	if OS.has_feature("web"):
+		box.add_child(UIKit.wrap_label(tr("UI_EXPORT_NOTE"), 20, UIKit.INK_LIGHT, UIKit.CW))
 
 
 func _slider(key: String, value: float, setting: String) -> HBoxContainer:

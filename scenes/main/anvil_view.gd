@@ -89,7 +89,9 @@ func _draw() -> void:
 			var k := USER_HAMMER_SCALE
 			# Drehpunkt (Hand) so, dass die Bahn beim Schlag genau auf dem Werkstück sitzt
 			var hand := Vector2(cx, 126.0) - (face - grip).rotated(base) * k
-			draw_set_transform(hand, base + USER_HAMMER_RAISE * FORCE_SWING[clampi(force_level, 0, 2)] * (1.0 - swing), Vector2(k, k))
+			# Ohne Werkstück liegt der Hammer auf der Ambossbahn, mit Werkstück ist er zum Schlag erhoben
+			var raise := (1.0 - swing) if has_piece else 0.0
+			draw_set_transform(hand, base + USER_HAMMER_RAISE * FORCE_SWING[clampi(force_level, 0, 2)] * raise, Vector2(k, k))
 			draw_texture(user_h, -grip)
 		else:
 			draw_set_transform(pivot, ang, Vector2.ONE)
