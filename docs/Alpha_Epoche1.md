@@ -71,10 +71,12 @@ Hufeisen, Haken, fünf Porträts.
   ist im Moment das Schlechteste im Bild.
 - **Hauptmenü:** nur der abgedunkelte Werkstatt-Hintergrund – wirkt leer (siehe Vorschlag Titelbild).
 
-## Zur Entscheidung
+## Entschieden (21.11.)
 
-- **Zwischenbilder für den Stufensprung** (Werkstück sieht nach jedem Arbeitsgang anders aus): für Epoche 1 eine „Rohform“
-  je Werkstück = 8 Bilder. Ich schreibe die Prompts, sobald das gewünscht ist.
-- **Titelbild für das Hauptmenü** (Schmied am Amboss, Funken, Platz für den Schriftzug) statt des abgedunkelten
-  Werkstatt-Hintergrunds.
-- **Eigenes Bild für den Meisterbrief** (Urkunde mit Zunftsiegel) statt des Goldsiegels in der Abrechnung.
+- **Rohformen für den Stufensprung: ja, für alle Werkstücke** – Prompt-Heft Bereich I (Kürzel W1-1R … W10-8R, 80 Bilder),
+  fertiges Werkstück als Bild-Prompt mit `--iw 1.5`. Zuerst Epoche 1 (W1-1R bis W1-8R). Das Spiel zeigt Rohling →
+  (nach dem ersten Arbeitsgang) Rohform → fertiges Stück, sobald ein Rohform-Bild vorhanden ist.
+- **Titelbild für das Hauptmenü: ja** – U22 (1:1, oberes Drittel frei für den Titel). Das Hauptmenü nutzt es automatisch.
+- **Meisterbrief: ja** – U23 (Urkunde mit Zunftsiegel). Die Abrechnung nach dem Meisterstück zeigt ihn statt des Goldsiegels.
+- **W3-8 (Schere)** wird als **W4-2 Tuchschere** verwendet (Schneiderschere mit Fingerringen, Prompt angepasst).
+- **Musik:** später.

@@ -280,6 +280,9 @@ def block(title, prompt, st, fname, note="", code=None, section=""):
     code = code or fname
     CODES[code] = {"id": fname, "dir": DEST.get(section, "")}
     mj = f"{code} — " + midjourney(shorten(prompt))
+    if fname.endswith("_rough"):
+        # Rohform: das fertige Werkstück als Bild-Prompt anhängen, damit Größe und Lage gleich bleiben
+        mj += " --iw 1.5"
     m = re.search(r"--ar (\d+):(\d+)", mj)
     w, h = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
     slider = ("Portrait" if w < h else "Landscape" if w > h else "Square") + f" {w}:{h}"
@@ -387,6 +390,8 @@ UI = [
     ("seal_mastery_2.png", "seal_mastery_2", "Meisterschafts-Siegel Silber", False, "2D game UI icon, a round guild seal medallion of bright polished silver, embossed crossed hammers above a small anvil, two small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art with dark ink outlines, square 1:1, isolated on pure flat white background, no text, no letters, no watermark"),
     ("seal_mastery_3.png", "seal_mastery_3", "Meisterschafts-Siegel Gold", False, "2D game UI icon, a round guild seal medallion of shining gold with a small laurel wreath around the rim, embossed crossed hammers above a small anvil, three small stars below the anvil, a wavy wax-seal-like rim, straight front view, hand-painted 2D game art with dark ink outlines, square 1:1, isolated on pure flat white background, no text, no letters, no watermark"),
     ("ledger_spread.png", "ledger_spread", "Auftragsbuch aufgeschlagen, Doppelseite (für das Tablet im Querformat, später)", True, "2D game asset, an 18th-century leather-bound ledger lying wide open, seen from directly above, landscape 3:2: two facing pages of aged cream parchment with a thin red double border line and faint stains, completely empty (no writing, no numbers), a soft curved gutter in the middle, dark brown leather binding visible around the edges, small brass corner fittings, a red ribbon bookmark lying across the right page, hand-painted 2D game art with dark ink outlines, soft even lighting, no cast shadow, no text, no watermark, isolated on pure flat white background"),
+    ("title_art.png", "title_art", "Titelbild für das Hauptmenü", False, "Square 1:1 key art illustration for a game title screen, an English village blacksmith around 1700 in a leather apron at his anvil, seen from the front at a slight distance, hammer raised, a glowing horseshoe on the anvil, a fan of bright sparks, the brick forge glowing behind him, warm firelight against deep dark brown shadows, the upper third of the image calm and dark (smoke-darkened oak beams) as free space for the game title, the important parts in the middle three quarters of the width, hand-painted 2D game art with dark ink outlines and warm painterly textures, no text, no letters, no watermark, no border"),
+    ("master_certificate.png", "master_certificate", "Meisterbrief (Abrechnung nach dem Meisterstück)", False, "2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, a decorative engraved border of hammers, tongs and oak leaves, a few lines of illegible decorative script (no readable words), at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art with dark ink outlines, soft even lighting, no cast shadow, no readable text, no date, no watermark, isolated on pure flat white background, portrait 3:4"),
 ]
 
 # H Werkstatt-Einrichtung (scripts/furnishings.gd): je Epoche fünf Stücke, freigestellt
@@ -638,6 +643,32 @@ def main():
                      "Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; "
                      "Originale nach `assets/source/user_art/furnishings/<id>.png` (über den Eingang). Standard-Modus mit einem Hintergrund "
                      "der Epoche als Stil-Referenz, damit Licht und Farben zum Raum passen.", h_parts))
+
+    # I Rohformen (Stufensprung): je Werkstück ein halb geschmiedeter Zwischenstand
+    i_parts = []
+    for ep in range(1, 11):
+        i_parts.append(f"### Epoche {ep} – {EPOCH_NAMES[ep]}\n")
+        n = 0
+        for it in ITEMS:
+            if it[1] != ep or it[0] == "blank":
+                continue
+            iid = it[0]
+            n += 1
+            final = item_prompts.get(iid, ("", ""))[1].lower()
+            metal = "dark grey forged steel" if "steel" in final and "wrought iron" not in final else "dark grey wrought iron"
+            view = "seen from the side, horizontal" if ("from the side" in final or "side view" in final) else "top-down view, lying flat"
+            prompt = (f"2D game asset, a rough half-forged {it[9]}: the same object as in the reference image, at the same size, position "
+                      f"and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, "
+                      f"cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, "
+                      f"{metal} with fresh forge scale, {view}, centred with wide margin, metal only, cold, pure flat white background, square 1:1")
+            st = add(HAVE if have(f"item_{iid}_rough.png") else NEED)
+            i_parts.append(block(f"{it[6]} – Rohform", prompt, st, f"{iid}_rough", code=f"W{ep}-{n}R", section="E"))
+    sections.append(("I · Rohformen für den Stufensprung (je Werkstück eine)",
+                     "Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsgang die **Rohform** und am Ende das "
+                     "fertige Werkstück. Kürzel = Kürzel des fertigen Werkstücks mit „R“ (W1-2R ist die Rohform von W1-2). "
+                     "**Wichtig:** Das fertige Werkstück als **Bild-Prompt** anhängen (Bild in die Prompt-Leiste ziehen), der Prompt endet "
+                     "schon mit `--iw 1.5` – so bleiben Größe, Lage und Blickrichtung gleich, und das Spiel kann sauber überblenden. "
+                     "Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist; zuerst Epoche 1 zur Probe.", i_parts))
 
     def counts(txt):
         n_opt = txt.count(NOT_OPT)

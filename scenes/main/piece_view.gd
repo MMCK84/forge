@@ -21,6 +21,8 @@ var selected: bool = false
 ## "", "weld", "quench"
 var badge: String = ""
 var target_pos: Vector2 = Vector2.ZERO
+## Ab diesem Fortschritt (Ende des ersten Arbeitsgangs) zeigt das Stück seine Rohform (falls es ein Bild gibt)
+var rough_from: float = 1.0
 ## Aktueller Arbeitsgang (für den Stufensprung)
 var step: int = -1
 var _jump: float = 0.0
@@ -93,6 +95,19 @@ func _draw() -> void:
 	if item_t != null and blank_t != null:
 		var s := size_px * 1.3
 		var r := Rect2(Vector2(-s, -s) * 0.5, Vector2(s, s))
+		var rough_t := Assets.item_tex(item_id + "_rough") if rough_from < 0.999 else null
+		if rough_t != null:
+			# Rohling → (erster Arbeitsgang fertig) Rohform → fertiges Werkstück
+			if a < rough_from - 0.0001:
+				var t0 := a / maxf(rough_from, 0.001)
+				draw_texture_rect(blank_t, r, false, Color(1, 1, 1, 1.0 - t0 * 0.85))
+				draw_texture_rect(rough_t, r, false, Color(1, 1, 1, clampf(t0 * 1.4, 0.0, 1.0)))
+			else:
+				var t1 := (a - rough_from) / maxf(1.0 - rough_from, 0.001)
+				draw_texture_rect(rough_t, r, false, Color(1, 1, 1, 1.0 - t1 * 0.85))
+				if t1 > 0.001:
+					draw_texture_rect(item_t, r, false, Color(1, 1, 1, clampf(t1 * 1.4, 0.0, 1.0)))
+			return
 		if a < 0.999:
 			draw_texture_rect(blank_t, r, false, Color(1, 1, 1, 1.0 - a * 0.85))
 		if a > 0.001:

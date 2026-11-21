@@ -763,6 +763,14 @@
   "id": "ledger_spread",
   "dir": ""
  },
+ "U22": {
+  "id": "title_art",
+  "dir": ""
+ },
+ "U23": {
+  "id": "master_certificate",
+  "dir": ""
+ },
  "E1-1": {
   "id": "furn_e1_fuel",
   "dir": "furnishings"
@@ -962,5 +970,325 @@
  "E10-5": {
   "id": "furn_e10_light",
   "dir": "furnishings"
+ },
+ "W1-1R": {
+  "id": "nail_rough",
+  "dir": "items"
+ },
+ "W1-2R": {
+  "id": "horseshoe_rough",
+  "dir": "items"
+ },
+ "W1-3R": {
+  "id": "hook_rough",
+  "dir": "items"
+ },
+ "W1-4R": {
+  "id": "door_hinge_rough",
+  "dir": "items"
+ },
+ "W1-5R": {
+  "id": "sickle_rough",
+  "dir": "items"
+ },
+ "W1-6R": {
+  "id": "ploughshare_rough",
+  "dir": "items"
+ },
+ "W1-7R": {
+  "id": "fire_poker_rough",
+  "dir": "items"
+ },
+ "W1-8R": {
+  "id": "gate_latch_rough",
+  "dir": "items"
+ },
+ "W2-1R": {
+  "id": "wheel_tyre_rough",
+  "dir": "items"
+ },
+ "W2-2R": {
+  "id": "coach_axle_rough",
+  "dir": "items"
+ },
+ "W2-3R": {
+  "id": "coach_fitting_rough",
+  "dir": "items"
+ },
+ "W2-4R": {
+  "id": "lantern_bracket_rough",
+  "dir": "items"
+ },
+ "W2-5R": {
+  "id": "post_horseshoe_rough",
+  "dir": "items"
+ },
+ "W2-6R": {
+  "id": "turnpike_fitting_rough",
+  "dir": "items"
+ },
+ "W2-7R": {
+  "id": "drag_shoe_rough",
+  "dir": "items"
+ },
+ "W3-1R": {
+  "id": "chain_link_rough",
+  "dir": "items"
+ },
+ "W3-2R": {
+  "id": "anchor_shank_rough",
+  "dir": "items"
+ },
+ "W3-3R": {
+  "id": "boathook_rough",
+  "dir": "items"
+ },
+ "W3-4R": {
+  "id": "mooring_ring_rough",
+  "dir": "items"
+ },
+ "W3-5R": {
+  "id": "ship_bolt_rough",
+  "dir": "items"
+ },
+ "W3-6R": {
+  "id": "carriage_fitting_rough",
+  "dir": "items"
+ },
+ "W3-7R": {
+  "id": "rudder_pintle_rough",
+  "dir": "items"
+ },
+ "W4-1R": {
+  "id": "spindle_rough",
+  "dir": "items"
+ },
+ "W4-2R": {
+  "id": "cloth_shears_rough",
+  "dir": "items"
+ },
+ "W4-3R": {
+  "id": "knife_rough",
+  "dir": "items"
+ },
+ "W4-4R": {
+  "id": "spring_rough",
+  "dir": "items"
+ },
+ "W4-5R": {
+  "id": "chisel_rough",
+  "dir": "items"
+ },
+ "W4-6R": {
+  "id": "file_rough",
+  "dir": "items"
+ },
+ "W4-7R": {
+  "id": "cargo_chain_rough",
+  "dir": "items"
+ },
+ "W4-8R": {
+  "id": "barrel_hoop_rough",
+  "dir": "items"
+ },
+ "W5-1R": {
+  "id": "piston_rod_rough",
+  "dir": "items"
+ },
+ "W5-2R": {
+  "id": "valve_part_rough",
+  "dir": "items"
+ },
+ "W5-3R": {
+  "id": "beam_strap_rough",
+  "dir": "items"
+ },
+ "W5-4R": {
+  "id": "lock_fitting_rough",
+  "dir": "items"
+ },
+ "W5-5R": {
+  "id": "miners_pick_rough",
+  "dir": "items"
+ },
+ "W5-6R": {
+  "id": "drill_steel_rough",
+  "dir": "items"
+ },
+ "W5-7R": {
+  "id": "conveyor_chain_rough",
+  "dir": "items"
+ },
+ "W5-8R": {
+  "id": "pump_rod_rough",
+  "dir": "items"
+ },
+ "W6-1R": {
+  "id": "boiler_rivet_rough",
+  "dir": "items"
+ },
+ "W6-2R": {
+  "id": "boiler_plate_rough",
+  "dir": "items"
+ },
+ "W6-3R": {
+  "id": "rabble_rough",
+  "dir": "items"
+ },
+ "W6-4R": {
+  "id": "tie_rod_rough",
+  "dir": "items"
+ },
+ "W6-5R": {
+  "id": "ship_chain_rough",
+  "dir": "items"
+ },
+ "W6-6R": {
+  "id": "lathe_tool_rough",
+  "dir": "items"
+ },
+ "W6-7R": {
+  "id": "leaf_spring_rough",
+  "dir": "items"
+ },
+ "W6-8R": {
+  "id": "wagon_axle_rough",
+  "dir": "items"
+ },
+ "W6-9R": {
+  "id": "large_shaft_rough",
+  "dir": "items"
+ },
+ "W6-10R": {
+  "id": "crankshaft_rough",
+  "dir": "items"
+ },
+ "W7-1R": {
+  "id": "block_pin_rough",
+  "dir": "items"
+ },
+ "W7-2R": {
+  "id": "boiler_stay_rough",
+  "dir": "items"
+ },
+ "W7-3R": {
+  "id": "gas_lamp_bracket_rough",
+  "dir": "items"
+ },
+ "W7-4R": {
+  "id": "navvy_spade_rough",
+  "dir": "items"
+ },
+ "W7-5R": {
+  "id": "press_screw_rough",
+  "dir": "items"
+ },
+ "W7-6R": {
+  "id": "bayonet_rough",
+  "dir": "items"
+ },
+ "W7-7R": {
+  "id": "anchor_fluke_rough",
+  "dir": "items"
+ },
+ "W7-8R": {
+  "id": "chain_eyebar_rough",
+  "dir": "items"
+ },
+ "W8-1R": {
+  "id": "rail_spike_rough",
+  "dir": "items"
+ },
+ "W8-2R": {
+  "id": "coupling_hook_rough",
+  "dir": "items"
+ },
+ "W8-3R": {
+  "id": "safety_valve_lever_rough",
+  "dir": "items"
+ },
+ "W8-4R": {
+  "id": "coupling_chain_rough",
+  "dir": "items"
+ },
+ "W8-5R": {
+  "id": "loco_tyre_rough",
+  "dir": "items"
+ },
+ "W8-6R": {
+  "id": "buffer_spring_rough",
+  "dir": "items"
+ },
+ "W8-7R": {
+  "id": "connecting_rod_rough",
+  "dir": "items"
+ },
+ "W8-8R": {
+  "id": "crank_axle_rough",
+  "dir": "items"
+ },
+ "W9-1R": {
+  "id": "bridge_rivet_rough",
+  "dir": "items"
+ },
+ "W9-2R": {
+  "id": "palace_bracket_rough",
+  "dir": "items"
+ },
+ "W9-3R": {
+  "id": "paddle_arm_rough",
+  "dir": "items"
+ },
+ "W9-4R": {
+  "id": "hammer_die_rough",
+  "dir": "items"
+ },
+ "W9-5R": {
+  "id": "admiralty_anchor_rough",
+  "dir": "items"
+ },
+ "W9-6R": {
+  "id": "marine_piston_rod_rough",
+  "dir": "items"
+ },
+ "W9-7R": {
+  "id": "marine_crank_rough",
+  "dir": "items"
+ },
+ "W9-8R": {
+  "id": "propeller_shaft_rough",
+  "dir": "items"
+ },
+ "W10-1R": {
+  "id": "velocipede_fork_rough",
+  "dir": "items"
+ },
+ "W10-2R": {
+  "id": "steel_axle_rough",
+  "dir": "items"
+ },
+ "W10-3R": {
+  "id": "reaper_knife_rough",
+  "dir": "items"
+ },
+ "W10-4R": {
+  "id": "tunnel_drill_rough",
+  "dir": "items"
+ },
+ "W10-5R": {
+  "id": "steel_tyre_rough",
+  "dir": "items"
+ },
+ "W10-6R": {
+  "id": "gun_hoop_rough",
+  "dir": "items"
+ },
+ "W10-7R": {
+  "id": "armour_plate_rough",
+  "dir": "items"
+ },
+ "W10-8R": {
+  "id": "steel_shaft_rough",
+  "dir": "items"
  }
 }

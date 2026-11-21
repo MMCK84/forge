@@ -464,6 +464,7 @@ func _sync_pieces() -> void:
 			v = PieceView.new()
 			v.shape = shape
 			v.item_id = j.template_id
+			v.rough_from = j.step_start(1) if j.steps.size() > 1 else 1.0
 			v.damage_warning = gm.cfg.damage_warning
 			v.position = raw_point()
 			pieces_layer.add_child(v)

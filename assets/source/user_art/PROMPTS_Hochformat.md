@@ -17,10 +17,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 99 |
+| ✅ gut (Midjourney) | 100 |
 | 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 103 |
+| ⬜ noch nicht vorhanden | 184 |
 | ⬜ noch nicht vorhanden (optional) | 36 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -29,10 +29,11 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 5 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
-| E · Werkstücke | 21 | 2 | 0 | 58 | 0 |
+| E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
-| G · Oberfläche, Symbole, Store | 19 | 0 | 0 | 0 | 2 |
+| G · Oberfläche, Symbole, Store | 19 | 0 | 0 | 2 | 2 |
 | H · Werkstatt-Einrichtung | 5 | 0 | 0 | 45 | 0 |
+| I · Rohformen für den Stufensprung | 0 | 0 | 0 | 80 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
 
@@ -569,10 +570,11 @@ Regler: **Square 1:1** · 69 Wörter · Datei `spindle`
 W4-1 — 2D game asset, a single forged spindle for a spinning machine: long thin round steel rod tapering to a fine point on the right, with a small round collar near the left end, horizontal, dark grey unheated forged steel, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-2** – Tuchschere · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 79 Wörter · Datei `cloth_shears`
+**W4-2** – Tuchschere · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 76 Wörter · Datei `cloth_shears`  
+*21.11.: kam als W3-8 – große Schneiderschere mit Fingerringen statt Federschere; passt zu „Stahl & Tuch“ (Sheffield fertigte solche Scheren), Prompt W4-2 entsprechend angepasst.*
 ```
-W4-2 — 2D game asset, a single pair of large forged cloth shears of the spring type: two long straight steel blades joined at the left end by a U-shaped bow spring like sheep shears, not scissors, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, pivot screw, finger rings, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W4-2 — 2D game asset, a single pair of large forged tailor's cloth shears: two long straight steel blades joined by a pivot rivet, two forged finger rings on the right, blades slightly open, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W4-3** – Messerklinge · ⬜ noch nicht vorhanden  
@@ -1420,6 +1422,18 @@ Regler: **Landscape 3:2** · 78 Wörter · Datei `ledger_spread`
 U21 — 2D game asset, an 18th-century leather-bound ledger lying wide open, seen from directly above, landscape 3:2: two facing pages of aged cream parchment with a thin red double border line and faint stains, completely empty, a soft curved gutter in the middle, dark brown leather binding visible around the edges, small brass corner fittings, a red ribbon bookmark lying across the right page, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:2 --no writing, numbers, cast shadow, text, watermark, border, shadow, photo, 3d render
 ```
 
+**U22** – Titelbild für das Hauptmenü · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 95 Wörter · Datei `title_art`
+```
+U22 — Square 1:1 key art illustration for a game title screen, an English village blacksmith around 1700 in a leather apron at his anvil, seen from the front at a slight distance, hammer raised, a glowing horseshoe on the anvil, a fan of bright sparks, the brick forge glowing behind him, warm firelight against deep dark brown shadows, the upper third of the image calm and dark (smoke-darkened oak beams) as free space for the game title, the important parts in the middle three quarters of the width, hand-painted 2D game art, dark ink outlines, painterly --ar 1:1 --no text, letters, border, numbers, watermark
+```
+
+**U23** – Meisterbrief (Abrechnung nach dem Meisterstück) · ⬜ noch nicht vorhanden  
+Regler: **Portrait 3:4** · 81 Wörter · Datei `master_certificate`
+```
+U23 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an 18th-century English blacksmiths' guild master's certificate seen flat from the front: a sheet of aged cream parchment with slightly curled edges, a decorative engraved border of hammers, tongs and oak leaves, a few lines of illegible decorative script, at the bottom a large red wax guild seal with crossed hammers on a red ribbon, hand-painted 2D game art, dark ink outlines, soft even lighting, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, readable words, cast shadow, readable text, date, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
 ## H · Werkstatt-Einrichtung (5 je Epoche)
 
 Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager). Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; Originale nach `assets/source/user_art/furnishings/<id>.png` (über den Eingang). Standard-Modus mit einem Hintergrund der Epoche als Stil-Referenz, damit Licht und Farben zum Raum passen.
@@ -1747,5 +1761,509 @@ E10-4 — Flat orthographic front elevation, like a technical drawing. 2D game a
 Regler: **Portrait 1:2** · 49 Wörter · Datei `furn_e10_light`
 ```
 E10-5 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an early electric arc lamp in an iron frame, around 1878, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:2 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
+```
+
+## I · Rohformen für den Stufensprung (je Werkstück eine)
+
+Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsgang die **Rohform** und am Ende das fertige Werkstück. Kürzel = Kürzel des fertigen Werkstücks mit „R“ (W1-2R ist die Rohform von W1-2). **Wichtig:** Das fertige Werkstück als **Bild-Prompt** anhängen (Bild in die Prompt-Leiste ziehen), der Prompt endet schon mit `--iw 1.5` – so bleiben Größe, Lage und Blickrichtung gleich, und das Spiel kann sauber überblenden. Rohformen erst für Werkstücke anlegen, deren fertiges Bild „gut“ ist; zuerst Epoche 1 zur Probe.
+
+### Epoche 1 – Die Dorfschmiede (1700–1715)
+
+**W1-1R** – Nagel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `nail_rough`
+```
+W1-1R — 2D game asset, a rough half-forged nail: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-2R** – Hufeisen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `horseshoe_rough`
+```
+W1-2R — 2D game asset, a rough half-forged horseshoe: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-3R** – Haken – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `hook_rough`
+```
+W1-3R — 2D game asset, a rough half-forged hook: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-4R** – Türangel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `door_hinge_rough`
+```
+W1-4R — 2D game asset, a rough half-forged door hinge: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-5R** – Sichel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `sickle_rough`
+```
+W1-5R — 2D game asset, a rough half-forged sickle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-6R** – Pflugschar – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `ploughshare_rough`
+```
+W1-6R — 2D game asset, a rough half-forged ploughshare: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-7R** – Schürhaken – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `fire_poker_rough`
+```
+W1-7R — 2D game asset, a rough half-forged fire poker: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W1-8R** – Torriegel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `gate_latch_rough`
+```
+W1-8R — 2D game asset, a rough half-forged gate latch: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 2 – Kutschen & Handelswege (1715–1735)
+
+**W2-1R** – Radreifen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `wheel_tyre_rough`
+```
+W2-1R — 2D game asset, a rough half-forged wheel tyre: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W2-2R** – Kutschachse – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `coach_axle_rough`
+```
+W2-2R — 2D game asset, a rough half-forged coach axle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W2-3R** – Kutschbeschlag – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `coach_fitting_rough`
+```
+W2-3R — 2D game asset, a rough half-forged coach fitting: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W2-4R** – Laternenhalter – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `lantern_bracket_rough`
+```
+W2-4R — 2D game asset, a rough half-forged lantern bracket: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W2-5R** – Postpferd-Hufeisen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `post_horseshoe_rough`
+```
+W2-5R — 2D game asset, a rough half-forged post-horse shoe: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W2-6R** – Schlagbaumbeschlag – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 81 Wörter · Datei `turnpike_fitting_rough`
+```
+W2-6R — 2D game asset, a rough half-forged turnpike gate fitting: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W2-7R** – Hemmschuh – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `drag_shoe_rough`
+```
+W2-7R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged drag shoe: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 3 – Hafen & Royal Navy (1735–1750)
+
+**W3-1R** – Kettenglied – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `chain_link_rough`
+```
+W3-1R — 2D game asset, a rough half-forged chain link: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W3-2R** – Ankerschaft – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `anchor_shank_rough`
+```
+W3-2R — 2D game asset, a rough half-forged anchor shank: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W3-3R** – Bootshaken – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `boathook_rough`
+```
+W3-3R — 2D game asset, a rough half-forged boathook: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W3-4R** – Festmacherring – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `mooring_ring_rough`
+```
+W3-4R — 2D game asset, a rough half-forged mooring ring: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W3-5R** – Schiffsbolzen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `ship_bolt_rough`
+```
+W3-5R — 2D game asset, a rough half-forged ship's bolt: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W3-6R** – Lafettenbeschlag – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `carriage_fitting_rough`
+```
+W3-6R — 2D game asset, a rough half-forged gun-carriage fitting: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W3-7R** – Ruderfingerling – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `rudder_pintle_rough`
+```
+W3-7R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged rudder pintle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 4 – Stahl & Tuch (1750–1765)
+
+**W4-1R** – Spindel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `spindle_rough`
+```
+W4-1R — 2D game asset, a rough half-forged spindle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-2R** – Tuchschere – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 82 Wörter · Datei `cloth_shears_rough`
+```
+W4-2R — 2D game asset, a rough half-forged pair of cloth shears: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-3R** – Messerklinge – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `knife_rough`
+```
+W4-3R — 2D game asset, a rough half-forged knife blade: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-4R** – Feder – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 88 Wörter · Datei `spring_rough`
+```
+W4-4R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged spring: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-5R** – Meißel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `chisel_rough`
+```
+W4-5R — 2D game asset, a rough half-forged chisel: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-6R** – Feile – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `file_rough`
+```
+W4-6R — 2D game asset, a rough half-forged file: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-7R** – Ladekette – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `cargo_chain_rough`
+```
+W4-7R — 2D game asset, a rough half-forged cargo chain: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W4-8R** – Fassreifen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `barrel_hoop_rough`
+```
+W4-8R — 2D game asset, a rough half-forged barrel hoop: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
+
+**W5-1R** – Kolbenstange – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `piston_rod_rough`
+```
+W5-1R — 2D game asset, a rough half-forged piston rod: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-2R** – Ventilteil – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `valve_part_rough`
+```
+W5-2R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged valve part: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-3R** – Balancierbeschlag – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `beam_strap_rough`
+```
+W5-3R — 2D game asset, a rough half-forged beam-engine strap: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-4R** – Schleusenbeschlag – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `lock_fitting_rough`
+```
+W5-4R — 2D game asset, a rough half-forged lock-gate fitting: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-5R** – Keilhaue – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `miners_pick_rough`
+```
+W5-5R — 2D game asset, a rough half-forged miner's pick: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-6R** – Bohreisen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `drill_steel_rough`
+```
+W5-6R — 2D game asset, a rough half-forged drill steel: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-7R** – Förderkette – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `conveyor_chain_rough`
+```
+W5-7R — 2D game asset, a rough half-forged winding chain: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W5-8R** – Pumpengestänge – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `pump_rod_rough`
+```
+W5-8R — 2D game asset, a rough half-forged pump rod: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
+
+**W6-1R** – Kesselniete – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `boiler_rivet_rough`
+```
+W6-1R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged boiler rivet: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-2R** – Kesselblech – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `boiler_plate_rough`
+```
+W6-2R — 2D game asset, a rough half-forged boiler plate: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-3R** – Puddelkrücke – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `rabble_rough`
+```
+W6-3R — 2D game asset, a rough half-forged puddling rabble: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-4R** – Zuganker – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `tie_rod_rough`
+```
+W6-4R — 2D game asset, a rough half-forged tie rod: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-5R** – Ankerkette – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `ship_chain_rough`
+```
+W6-5R — 2D game asset, a rough half-forged anchor cable: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-6R** – Drehmeißel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `lathe_tool_rough`
+```
+W6-6R — 2D game asset, a rough half-forged lathe tool: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-7R** – Blattfeder – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `leaf_spring_rough`
+```
+W6-7R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged leaf spring: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-8R** – Wagenachse – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `wagon_axle_rough`
+```
+W6-8R — 2D game asset, a rough half-forged wagon axle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-9R** – Antriebswelle – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `large_shaft_rough`
+```
+W6-9R — 2D game asset, a rough half-forged drive shaft: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W6-10R** – Kurbelwelle – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 88 Wörter · Datei `crankshaft_rough`
+```
+W6-10R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged crankshaft: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 7 – Krieg & Erfindergeist (1800–1820)
+
+**W7-1R** – Blockrollen-Bolzen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `block_pin_rough`
+```
+W7-1R — 2D game asset, a rough half-forged pulley-block pin: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-2R** – Kessel-Stehbolzen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `boiler_stay_rough`
+```
+W7-2R — 2D game asset, a rough half-forged boiler stay: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-3R** – Gaslaternen-Ausleger – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `gas_lamp_bracket_rough`
+```
+W7-3R — 2D game asset, a rough half-forged gas-lamp bracket: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-4R** – Spaten – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `navvy_spade_rough`
+```
+W7-4R — 2D game asset, a rough half-forged navvy's spade: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-5R** – Pressenspindel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `press_screw_rough`
+```
+W7-5R — 2D game asset, a rough half-forged press screw: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-6R** – Bajonett – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 79 Wörter · Datei `bayonet_rough`
+```
+W7-6R — 2D game asset, a rough half-forged bayonet: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-7R** – Ankerarm – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `anchor_fluke_rough`
+```
+W7-7R — 2D game asset, a rough half-forged anchor arm: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W7-8R** – Brückenglied – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `chain_eyebar_rough`
+```
+W7-8R — 2D game asset, a rough half-forged bridge eyebar: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 8 – Eisenbahnfieber (1820–1839)
+
+**W8-1R** – Schienennagel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `rail_spike_rough`
+```
+W8-1R — 2D game asset, a rough half-forged track spike: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-2R** – Kupplungshaken – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `coupling_hook_rough`
+```
+W8-2R — 2D game asset, a rough half-forged coupling hook: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-3R** – Sicherheitsventil-Hebel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `safety_valve_lever_rough`
+```
+W8-3R — 2D game asset, a rough half-forged safety-valve lever: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-4R** – Kupplungskette – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `coupling_chain_rough`
+```
+W8-4R — 2D game asset, a rough half-forged coupling chain: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-5R** – Lokomotiv-Radreifen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `loco_tyre_rough`
+```
+W8-5R — 2D game asset, a rough half-forged locomotive tyre: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-6R** – Pufferfeder – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `buffer_spring_rough`
+```
+W8-6R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged buffer spring: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-7R** – Treibstange – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `connecting_rod_rough`
+```
+W8-7R — 2D game asset, a rough half-forged connecting rod: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W8-8R** – Kurbelachse – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `crank_axle_rough`
+```
+W8-8R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged crank axle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 9 – Der Dampfhammer (1839–1860)
+
+**W9-1R** – Brückenniete – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `bridge_rivet_rough`
+```
+W9-1R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged bridge rivet: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-2R** – Säulenkopf-Beschlag – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `palace_bracket_rough`
+```
+W9-2R — 2D game asset, a rough half-forged column-head bracket: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-3R** – Schaufelrad-Arm – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `paddle_arm_rough`
+```
+W9-3R — 2D game asset, a rough half-forged paddle-wheel arm: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-4R** – Hammergesenk – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 89 Wörter · Datei `hammer_die_rough`
+```
+W9-4R — Flat orthographic side elevation, like a technical drawing. 2D game asset, a rough half-forged hammer die: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-5R** – Admiralitätsanker – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `admiralty_anchor_rough`
+```
+W9-5R — 2D game asset, a rough half-forged Admiralty anchor: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-6R** – Schiffs-Kolbenstange – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 81 Wörter · Datei `marine_piston_rod_rough`
+```
+W9-6R — 2D game asset, a rough half-forged marine piston rod: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-7R** – Schiffskurbel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `marine_crank_rough`
+```
+W9-7R — 2D game asset, a rough half-forged marine crank: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W9-8R** – Schraubenwelle – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `propeller_shaft_rough`
+```
+W9-8R — 2D game asset, a rough half-forged propeller shaft: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+### Epoche 10 – Das Stahlzeitalter (1860–1880)
+
+**W10-1R** – Hochrad-Gabel – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `velocipede_fork_rough`
+```
+W10-1R — 2D game asset, a rough half-forged velocipede fork: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-2R** – Stahlachse – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `steel_axle_rough`
+```
+W10-2R — 2D game asset, a rough half-forged steel axle: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-3R** – Mähmesser – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `reaper_knife_rough`
+```
+W10-3R — 2D game asset, a rough half-forged reaper knife: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-4R** – Tunnelbohrer – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `tunnel_drill_rough`
+```
+W10-4R — 2D game asset, a rough half-forged tunnelling drill: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-5R** – Stahl-Radreifen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `steel_tyre_rough`
+```
+W10-5R — 2D game asset, a rough half-forged steel tyre: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-6R** – Geschützring – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `gun_hoop_rough`
+```
+W10-6R — 2D game asset, a rough half-forged gun hoop: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-7R** – Panzerplatte – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `armour_plate_rough`
+```
+W10-7R — 2D game asset, a rough half-forged armour plate: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
+```
+
+**W10-8R** – Stahlwelle – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 80 Wörter · Datei `steel_shaft_rough`
+```
+W10-8R — 2D game asset, a rough half-forged steel shaft: the same object as in the reference image, at the same size, position and orientation, but still unfinished in the middle of forging – the basic shape already recognizable, thicker, cruder and less defined, uneven hammer marks, ends not yet finished, holes not yet punched, without decoration or polish, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no text, numbers, watermark, border, shadow, photo, 3d render --iw 1.5
 ```
 

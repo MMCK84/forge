@@ -17,11 +17,22 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = UIKit.theme()
 	_locale = TranslationServer.get_locale()
-	var bg := Background.new()
-	add_child(bg)
-	bg.set_epoch(1, 1)
+	var title_art := Assets.user("title_art.png")
+	if title_art != null:
+		# Titelbild des Auftraggebers füllt den Bildschirm (Hochformat: mittlerer Ausschnitt)
+		var art := TextureRect.new()
+		art.texture = title_art
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(art)
+	else:
+		var bg := Background.new()
+		add_child(bg)
+		bg.set_epoch(1, 1)
 	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.45)
+	dim.color = Color(0, 0, 0, 0.25 if title_art != null else 0.45)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(dim)

@@ -308,6 +308,10 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
 - 21.11.: **Ersatzbilder:** E1-5 Laterne (Blechlaterne mit Kerze), W1-6 Pflugschar (asymmetrisch), U9 Wachssiegel (GR mit Krone,
   Admiralitätsanker) und U16 App-Icon – alle gut und eingebunden (App-Icon in `store/` und `icon.png`). Damit sind alle Bilder
   der Epoche 1 und die ganze Oberfläche von Midjourney und abgenommen; noch Gemini: nur das Ladenbild Wasser-Schwanzhammer (ML1).
+- 21.11.: **Entscheidungen des Auftraggebers umgesetzt:** Prompt-Heft Bereich **I – Rohformen** für alle 80 Werkstücke
+  (W…R, mit Bild-Prompt `--iw 1.5`), **U22 Titelbild**, **U23 Meisterbrief**. Spiel: Werkstück zeigt nach dem ersten
+  Arbeitsgang die Rohform (falls vorhanden), Hauptmenü nutzt das Titelbild, Abrechnung den Meisterbrief; Import für beide.
+  **W3-8 → W4-2 Tuchschere** (Schneiderschere, Prompt angepasst). Musik später.
 
 ## Prüfen
 

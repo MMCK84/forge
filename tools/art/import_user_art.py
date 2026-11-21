@@ -210,6 +210,13 @@ def main():
             sat = a.max(axis=2) - a.min(axis=2)
             bg = flood_bg((a.min(axis=2) > 205) & (sat < 25))
             save(to_rgba(a, bg.astype(np.float32)), name + ".png", max_w=160)
+    # Titelbild (Hauptmenü) und Meisterbrief
+    if os.path.exists(find_src("title_art.png")):
+        ti = Image.open(find_src("title_art.png")).convert("RGB")
+        ti.thumbnail((1440, 1440))
+        ti.save(os.path.join(OUT, "title_art.png"), optimize=True)
+    if os.path.exists(find_src("master_certificate.png")):
+        save(_cutout(find_src("master_certificate.png")), "master_certificate.png", max_w=420)
     # Sterne (voll, leer), Sanduhr, Löschtrog, Victoria-Münzen (Midjourney, weiß)
     if os.path.exists(find_src("stars.png")):
         a = load("stars.png")

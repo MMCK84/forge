@@ -177,6 +177,9 @@ func _masterpiece_row(box: VBoxContainer, j: JobInstance) -> void:
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 14)
 	if passed and j.part >= j.parts:
-		row.add_child(Seal.make(3, 72.0))
+		if Assets.user("master_certificate.png") != null:
+			row.add_child(UIKit.icon("ui/user/master_certificate.png", 110.0))
+		else:
+			row.add_child(Seal.make(3, 72.0))
 	row.add_child(UIKit.wrap_label(text, 24 if passed else 22, col, 460))
 	box.add_child(row)
