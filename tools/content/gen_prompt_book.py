@@ -118,6 +118,8 @@ LESSONS = [
      "Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`)"),
     ("21.11.", "Werkstücke", "W9-1 Brückenniete kam trotz „seen from the side“ immer von oben – im selben Prompt stand „top-down view, lying flat“ (auch bei drei weiteren Prompts der Epochen 7–10)",
      "Der Generator entfernt bei Seitenansicht jede Draufsicht-Angabe und setzt „seen exactly from the side (not from above)“ und die Seitenansicht an den Anfang"),
+    ("21.11.", "Maschinen (Ladenbilder)", "ML1 Wasser-Schwanzhammer: Rad ohne Schaufeln, mit Riemen und Zahnrädern – wirkte wie eine Dampf-/Transmissionsanlage",
+     "Wasserrad mit vielen Schaufeln im Wassergerinne und Daumenwelle beschreiben; `--no belts, gear wheels, flywheel, steam engine`"),
 ]
 GLOBAL_NEG = ["text", "numbers", "watermark"]
 ISOLATED_NEG = ["border", "shadow", "photo", "3d render"]
@@ -452,7 +454,7 @@ MACHINES = [
 ]
 
 SHOP_MACHINES = [
-    ("machine_water_helve", "Wasser-Schwanzhammer (Ladenbild)", False, "2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
+    ("machine_water_helve", "Wasser-Schwanzhammer (Ladenbild)", False, "2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel with many flat paddles on the left, its lower part dipping into a stone water channel, on its axle a wooden cam shaft with iron tappets that lift the beam, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, no belts, no gear wheels, no flywheel, no steam engine, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("machine_steam_helve", "Dampf-Schwanzhammer (Ladenbild)", True, "2D game asset, a 1790s steam-powered helve hammer: a small beam engine with a flywheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on the right, side view, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("machine_nasmyth", "Nasmyth-Dampfhammer (Ladenbild)", True, "2D game asset, an 1840s Nasmyth steam hammer: two cast-iron standards, a steam cylinder on top, the hammer block hanging above a massive anvil block, a control lever, front view, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("machine_great_steam_hammer", "Großer Dampfhammer (Ladenbild)", True, "2D game asset, a huge 1870s steam hammer with riveted wrought-iron arch standards, a large cylinder, a platform for the driver and a massive anvil block, front view, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),

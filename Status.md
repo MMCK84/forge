@@ -50,7 +50,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | A Hintergründe (1:1) | **11 (BG0–BG10)** | – | – | – |
 | B Essen (frontal) | **6 (alle)** | – | – | – |
 | C Amboss, Hämmer, Blasebalg | **6 (alle)** | – | – | – |
-| D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
+| D Maschinenteile, Ladenbilder | 13 | 1 (ML1 Wasser-Schwanzhammer: Rad ohne Schaufeln) | – | – |
 | E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
 | F Kundenporträts | 20 | Blasebalg Epoche 1: der bewegliche Blasebalg soll bleiben, aber schöner werden | **umgesetzt 21.11.:** BB (Midjourney) liegt auf der Bank links der Lehm-Esse, Düse in die Glut, pumpt (beim Aufheizen schneller). F1 bleibt das bisherige Bild – der Import blendet den oberen Teil des gemalten Sacks aus, den Rest verdeckt BB. Neue F1-Fassung (Bogen über dem Feuer, wirkt wie ein Ofen) im Archiv |
 | G Oberfläche, Symbole, Store | **alle** bis U23 (auch U12 und U21 optional) | – | – | U24–U27 Zunfttafeln (neu) |
@@ -86,7 +86,7 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 | 19 | Einstellungen: statt „Abbrechen“/„Speichern“ standen „Spielstand exportieren/importieren“ (brauchen wir nicht) | **umgesetzt** (Abbrechen [Esc] stellt den alten Stand wieder her, auch über X; Speichern [Enter]; Export/Import nur aus der Oberfläche entfernt) |
 | 6b | Nachtrag zu 6: mit Auftrag, aber ohne Werkstück in Arbeit, zeigte die Glutskala noch ein „allgemeines“ Zielfenster | **umgesetzt** (nur noch das Fenster des Werkstücks in Arbeit) |
 | 20 | Blasebalg der Lehm-Esse (Epoche 1) wirkt wie ein Sack/eine Vase | offen – Vorschlag: F1 neu mit klassischem Schmiedeblasebalg (zwei Bretter, Lederfalten, waagerecht, Zugstange/Hebel); Prompt nachschärfen |
-| 21 | Werkstücke der Epoche 5 (und später) teils unbekannte, abstrakte Maschinenteile | **Epoche 5 entschieden 21.11.:** Balancierbeschlag → Kohlenschaufel, Schleusenbeschlag → Schleusenkurbel, Pumpengestänge → Pumpenschwengel (Kennungen und Arbeitsgänge bleiben → Spielstände/Balancing unverändert; Auftragstexte angepasst); Ventilteil bleibt („sieht ganz nett aus“); Kolbenstange mit Kolbenscheibe im Bild. Epochen 6–10: Vorschlagsliste folgt |
+| 21 | Werkstücke der Epoche 5 (und später) teils unbekannte, abstrakte Maschinenteile | **Epoche 5 umgesetzt** (Kohlenschaufel, Schleusenkurbel, Pumpenschwengel; Ventilteil bleibt; Kolbenstange mit Kolben). **21.11.:** W7-7 Ankerarm → **Draggen**, W8-6 Pufferfeder als **Kegelfeder** (Prompt). Weitere Kandidaten (Bild entspricht dem Prompt, Gegenstand abstrakt): W6-9 Antriebswelle, W6-10 Kurbelwelle, W7-2 Kessel-Stehbolzen, W8-3 Sicherheitsventil-Hebel, W8-8 Kurbelachse, W9-3 Schaufelrad-Arm – Vorschläge im Chat, **Entscheidung offen** |
 | 22 | Einrichtung Epoche 2–6 im Spiel (Lieferung 21.11.): Anordnung ist auf Epoche 1 abgestimmt – in anderen Räumen hängen Laterne/Regal ohne Balken in der Luft, Stücke am Rand abgeschnitten (E4/E6 Schild), in Epoche 5/6 teils hinter der Maschine | offen – Lage je Epoche festlegen (Wände, Balken, Maschine), „hängen“ nur wo ein Balken ist |
 
 ## Musik (Suno) – später
@@ -376,6 +376,10 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
   Maschinensteuerung angepasst (Tippen/Halten statt „schlägt automatisch“). Beweglicher Blasebalg neben der Lehm-Esse kurz entfernt und auf Wunsch wiederhergestellt (soll schöner werden, Nr. 20).
 - 21.11.: **BB beweglicher Blasebalg** eingebaut (Lage `BELLOWS_SEAT` in `forge_view.gd`, Ausblenden eingemalter Teile `FORGE_CLEAR` im Import).
   **W9-1 kam immer von oben:** widersprüchliche Ansicht im Prompt (Seite + Draufsicht) – Generator bereinigt das jetzt für alle Prompts.
+- 21.11.: **Lieferung ML1, W3-7, W4-1–W9-4 (41 Bilder).** 36 gut (u. a. Ruderfingerling jetzt richtig, Gaslaternen-Ausleger, Brückenniete in
+  Seitenansicht); **ändern:** W5-1 (alter Prompt ohne Kolben), W9-3 (schräg, abstrakt), ML1 (Rad ohne Schaufeln, Riemen/Zahnräder →
+  Prompt geschärft). W5-3/W5-4 kamen nach den alten Prompts (Balancier-/Schleusenbeschlag) → nicht importiert, im Archiv.
+  W7-7 → Draggen, W8-6 → Kegel-Pufferfeder (Freigabe des Auftraggebers). Freistellen und Darstellung im Spiel geprüft.
 
 ## Prüfen
 

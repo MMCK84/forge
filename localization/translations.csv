@@ -259,9 +259,9 @@ HINT_WELD_TITLE,Feuerschweißen,Forge welding
 ITEM_ADMIRALTY_ANCHOR,Admiralitätsanker,Admiralty anchor
 ITEM_ADMIRALTY_ANCHOR_G,m,-
 ITEM_ADMIRALTY_ANCHOR_PL,Admiralitätsanker,Admiralty anchors
-ITEM_ANCHOR_FLUKE,Ankerarm,anchor arm
+ITEM_ANCHOR_FLUKE,Draggen,grapnel
 ITEM_ANCHOR_FLUKE_G,m,-
-ITEM_ANCHOR_FLUKE_PL,Ankerarme,anchor arms
+ITEM_ANCHOR_FLUKE_PL,Draggen,grapnels
 ITEM_ANCHOR_SHANK,Ankerschaft,anchor shank
 ITEM_ANCHOR_SHANK_G,m,-
 ITEM_ANCHOR_SHANK_PL,Ankerschäfte,anchor shanks
@@ -654,8 +654,8 @@ MS_MS_E7_06_SPADES_TEXT,Telfords Kanal quer durch die Highlands wird von tausend
 MS_MS_E7_06_SPADES_TITLE,Spaten für den Caledonian Canal,Spades for the Caledonian Canal
 MS_MS_E7_07_STAYS_TEXT,Trevithick arbeitet mit Dampf unter hohem Druck. Seine Kessel halten nur mit guten Stehbolzen.,Trevithick works with high-pressure steam. His boilers only hold with good stays.
 MS_MS_E7_07_STAYS_TITLE,Stehbolzen für Trevithicks Hochdruckkessel,Stays for Trevithick's high-pressure boiler
-MS_MS_E7_08_ANCHOR_TEXT,Nach Trafalgar (1805) rüstet die Navy ihre Linienschiffe neu aus. Ein Anker hält ein Schiff von 74 Kanonen.,After Trafalgar (1805) the Navy refits its ships of the line. One anchor holds a 74-gun ship.
-MS_MS_E7_08_ANCHOR_TITLE,Ankerarme für ein Linienschiff,Anchor arms for a ship of the line
+MS_MS_E7_08_ANCHOR_TEXT,"Nach Trafalgar (1805) rüstet die Navy ihre Linienschiffe neu aus. Jedes Beiboot braucht einen Draggen – einen kleinen Anker mit vier Armen, sauber feuergeschweißt.","After Trafalgar (1805) the Navy refits its ships of the line. Every ship's boat needs a grapnel – a small four-armed anchor, cleanly forge-welded."
+MS_MS_E7_08_ANCHOR_TITLE,Draggen für die Beiboote der Flotte,Grapnels for the fleet's boats
 MS_MS_E7_09_MENAI_TEXT,1819 beginnt Telford die Hängebrücke über die Menai-Straße. Ihre Ketten bestehen aus geschmiedeten Gliedern – Eures soll das erste sein.,In 1819 Telford begins the suspension bridge over the Menai Strait. Its chains are made of forged eyebars – yours shall be the first.
 MS_MS_E7_09_MENAI_TITLE,Kettenglieder für die Menai-Brücke,Eyebars for the Menai Bridge
 MS_MS_E8_01_SPIKES_TEXT,1825 fährt der erste öffentliche Dampfzug der Welt. Jede Schwelle braucht vier Nägel.,In 1825 the world's first public steam railway opens. Every sleeper needs four spikes.

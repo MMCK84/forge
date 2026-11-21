@@ -17,10 +17,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 127 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 10 |
-| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 150 |
+| ✅ gut (Midjourney) | 163 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 12 |
+| 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 0 |
+| ⬜ noch nicht vorhanden | 113 |
 | ⬜ noch nicht vorhanden (optional) | 34 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -28,8 +28,8 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | A · Werkstatt-Hintergründe | 11 | 0 | 0 | 0 | 0 |
 | B · Essen | 6 | 0 | 0 | 0 | 0 |
 | C · Amboss und Hämmer | 6 | 0 | 0 | 0 | 0 |
-| D · Maschinen | 13 | 0 | 1 | 0 | 0 |
-| E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
+| D · Maschinen | 13 | 1 | 0 | 0 | 0 |
+| E · Werkstücke | 58 | 3 | 0 | 20 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
 | G · Oberfläche, Symbole, Store | 23 | 0 | 0 | 4 | 0 |
 | H · Werkstatt-Einrichtung | 18 | 8 | 0 | 24 | 0 |
@@ -88,6 +88,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 21.11. | Einrichtung | E4-5 und E5-5 kamen als mehrere Varianten in einem Bild (zwei Regale, fünf Stapel) | „one single object only (no variations, no second version)“ in allen Einrichtungs-Prompts; Format nach dem Objekt wählen (liegender Stapel: 2:1) |
 | 21.11. | Einrichtung | E6-1 Koksbunker sah aus wie ein Backofen (Gewölbe, Tür), E6-4 Kontor als leerer Schrank, E4-2 Zangen wie Spieße | Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`) |
 | 21.11. | Werkstücke | W9-1 Brückenniete kam trotz „seen from the side“ immer von oben – im selben Prompt stand „top-down view, lying flat“ (auch bei drei weiteren Prompts der Epochen 7–10) | Der Generator entfernt bei Seitenansicht jede Draufsicht-Angabe und setzt „seen exactly from the side (not from above)“ und die Seitenansicht an den Anfang |
+| 21.11. | Maschinen (Ladenbilder) | ML1 Wasser-Schwanzhammer: Rad ohne Schaufeln, mit Riemen und Zahnrädern – wirkte wie eine Dampf-/Transmissionsanlage | Wasserrad mit vielen Schaufeln im Wassergerinne und Daumenwelle beschreiben; `--no belts, gear wheels, flywheel, steam engine` |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -384,10 +385,11 @@ M10 — Flat orthographic front elevation, like a technical drawing. 2D game ass
 
 **Ladenbilder der Maschinen** (ganze Maschine als ein Bild, nur für den Laden)
 
-**ML1** – Wasser-Schwanzhammer (Ladenbild) · 🟡 von Gemini vorhanden – durch Midjourney ersetzen  
-Regler: **Square 1:1** · 61 Wörter · Datei `machine_water_helve`
+**ML1** – Wasser-Schwanzhammer (Ladenbild) · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 84 Wörter · Datei `machine_water_helve`  
+*21.11.: Rad ohne Schaufeln, mit Riemen und Zahnrädern – wirkt wie eine Dampf-/Transmissionsanlage; Prompt mit Schaufelrad im Gerinne und Daumenwelle.*
 ```
-ML1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel on the left driving a cam shaft, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, text, numbers, watermark, border, shadow, photo, 3d render
+ML1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, an 18th-century water-powered helve hammer: a wooden undershot water wheel with many flat paddles on the left, its lower part dipping into a stone water channel, on its axle a wooden cam shaft with iron tappets that lift the beam, a long oak hammer beam with an iron head striking an anvil on a wooden stump on the right, side view, hand-painted 2D game art, dark ink outlines, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, belts, gear wheels, flywheel, steam engine, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **ML2** – Dampf-Schwanzhammer (Ladenbild) · ✅ gut (Midjourney)  
@@ -575,17 +577,18 @@ Regler: **Square 1:1** · 76 Wörter · Datei `carriage_fitting`
 W3-6 — 2D game asset, a single forged gun-carriage fitting (cap square): heavy flat iron band bent into a half-round arch in the middle, a hinge eye at the left end and a slotted tab with two bolt holes at the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W3-7** – Ruderfingerling · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**W3-7** – Ruderfingerling · ✅ gut (Midjourney)  
 Regler: **Square 1:1** · 103 Wörter · Datei `rudder_pintle`  
-*21.11.: falsches Objekt – dünner, schräger Spieß mit Knopf statt L-förmigem Bandeisen mit Bolzenlöchern und Zapfen; Prompt jetzt mit „L-förmig“ und Ausschlüssen.*
+*21.11.: jetzt richtig: L-förmiges Band mit Bolzenlöchern und Zapfen.*
 ```
 W3-7 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single L-shaped forged rudder pintle for a sailing ship: a long flat iron strap with four round bolt holes lying exactly horizontal, and at its left end a short thick round pin pointing straight down at a right angle, shaped like a capital letter L turned on its side, not a thin spike, not diagonal, seen from the side, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 4 – Stahl & Tuch (1750–1765)
 
-**W4-1** – Spindel · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 69 Wörter · Datei `spindle`
+**W4-1** – Spindel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 69 Wörter · Datei `spindle`  
+*21.11.: lange Spinnspindel mit Bund.*
 ```
 W4-1 — 2D game asset, a single forged spindle for a spinning machine: long thin round steel rod tapering to a fine point on the right, with a small round collar near the left end, horizontal, dark grey unheated forged steel, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -597,52 +600,60 @@ Regler: **Square 1:1** · 76 Wörter · Datei `cloth_shears`
 W4-2 — 2D game asset, a single pair of large forged tailor's cloth shears: two long straight steel blades joined by a pivot rivet, two forged finger rings on the right, blades slightly open, blades slightly open, horizontal, dark grey unheated forged steel with slightly brighter ground edges, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-3** – Messerklinge · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 71 Wörter · Datei `knife`
+**W4-3** – Messerklinge · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 71 Wörter · Datei `knife`  
+*21.11.: Messerklinge mit Angel.*
 ```
 W4-3 — 2D game asset, a single forged knife blade without handle: straight spine, curved sharp edge rising to a point on the right, a narrow bare tang on the left, horizontal, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-4** – Feder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 65 Wörter · Datei `spring`
+**W4-4** – Feder · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 65 Wörter · Datei `spring`  
+*21.11.: Schraubenfeder.*
 ```
 W4-4 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single hand-forged coil spring: steel wire wound into eight even coils with open straight ends, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-5** – Meißel · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 70 Wörter · Datei `chisel`
+**W4-5** – Meißel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 70 Wörter · Datei `chisel`  
+*21.11.: Meißel.*
 ```
 W4-5 — 2D game asset, a single forged cold chisel: octagonal steel bar, slightly mushroomed striking head on the left, tapering to a sharp ground cutting edge on the right, horizontal, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-6** – Feile · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 69 Wörter · Datei `file`
+**W4-6** – Feile · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 69 Wörter · Datei `file`  
+*21.11.: Feile mit Hieb (sehr schlank).*
 ```
 W4-6 — 2D game asset, a single hand-cut file without handle: flat steel bar tapering towards the right, the whole surface covered with fine diagonal cross-hatched teeth, a narrow pointed bare tang on the left, horizontal, dark grey unheated forged steel, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-7** – Ladekette · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 63 Wörter · Datei `cargo_chain`
+**W4-7** – Ladekette · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 63 Wörter · Datei `cargo_chain`  
+*21.11.: Kette mit Haken.*
 ```
 W4-7 — 2D game asset, a short forged cargo chain: five interlocking oval links of round bar with a forged cargo hook at the right end, laid out straight and horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W4-8** – Fassreifen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter · Datei `barrel_hoop`
+**W4-8** – Fassreifen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter · Datei `barrel_hoop`  
+*21.11.: Fassreifen.*
 ```
 W4-8 — 2D game asset, a single forged barrel hoop: thin flat iron band forming a circle seen from directly above, a small riveted overlap joint, empty in the middle, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 5 – Das Zeitalter des Dampfes (1765–1785)
 
-**W5-1** – Kolbenstange · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 84 Wörter · Datei `piston_rod`
+**W5-1** – Kolbenstange · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 84 Wörter · Datei `piston_rod`  
+*21.11.: noch nach dem alten Prompt (ohne Kolben) – neu mit Kolbenscheibe, damit man den Kolben erkennt.*
 ```
 W5-1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged piston rod with its piston: long perfectly straight round iron rod, a thick round flat piston disc forged onto the left end (seen edge-on from the side), a forged crosshead eye at the right end, horizontal, seen from the side, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W5-2** – Ventilteil · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 74 Wörter · Datei `valve_part`
+**W5-2** – Ventilteil · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 74 Wörter · Datei `valve_part`  
+*21.11.: Ventilteller mit Schaft – gefällt dem Auftraggeber.*
 ```
 W5-2 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-engine valve: round flat valve disc with a bevelled rim on the left and a straight round valve stem pointing to the right, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -685,188 +696,216 @@ W5-8 — 2D game asset, a single forged hand-pump handle: a long, gently curved 
 
 ### Epoche 6 – Das Zeitalter der Eisenwerke (1785–1800)
 
-**W6-1** – Kesselniete · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter · Datei `boiler_rivet`
+**W6-1** – Kesselniete · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter · Datei `boiler_rivet`  
+*21.11.: Niete in Seitenansicht.*
 ```
 W6-1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single large forged boiler rivet: short thick round shank with a domed snap head on the left, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-2** – Kesselblech · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 64 Wörter · Datei `boiler_plate`
+**W6-2** – Kesselblech · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter · Datei `boiler_plate`  
+*21.11.: Kesselblech mit Nietreihen.*
 ```
 W6-2 — 2D game asset, a single forged wrought iron boiler plate: thick rectangular iron sheet, landscape format, slightly uneven hammered surface, one row of round rivet holes along all four edges, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-3** – Puddelkrücke · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 72 Wörter · Datei `rabble`
+**W6-3** – Puddelkrücke · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 72 Wörter · Datei `rabble`  
+*21.11.: Puddelkrücke mit Ring und Schaufel.*
 ```
 W6-3 — 2D game asset, a single forged puddling rabble: very long round iron rod with a flat rectangular paddle blade bent at a right angle at the right end and a closed loop handle at the left end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-4** – Zuganker · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 67 Wörter · Datei `tie_rod`
+**W6-4** – Zuganker · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 67 Wörter · Datei `tie_rod`  
+*21.11.: Zuganker mit Öse und Haken.*
 ```
 W6-4 — 2D game asset, a single forged building tie rod: long round iron rod with a decorative S-shaped wall anchor plate at the left end and a forged eye at the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-5** – Ankerkette · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 63 Wörter · Datei `ship_chain`
+**W6-5** – Ankerkette · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 63 Wörter · Datei `ship_chain`  
+*21.11.: Ankerkette.*
 ```
 W6-5 — 2D game asset, a short length of heavy open-link anchor cable: four very large interlocking oval links of thick round bar, without cross studs, laid out straight and horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-6** – Drehmeißel · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter · Datei `lathe_tool`
+**W6-6** – Drehmeißel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter · Datei `lathe_tool`  
+*21.11.: Drehmeißel.*
 ```
 W6-6 — 2D game asset, a single forged lathe cutting tool: short square steel bar with a bent, sharply ground hooked cutting tip on the right, horizontal, dark grey unheated forged steel with a slightly brighter ground tip, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-7** – Blattfeder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 82 Wörter · Datei `leaf_spring`
+**W6-7** – Blattfeder · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 82 Wörter · Datei `leaf_spring`  
+*21.11.: Blattfeder mit Augen.*
 ```
 W6-7 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged carriage leaf spring: a stack of five gently curved steel leaves of decreasing length held by a central iron clamp band, rolled eyes at both ends of the longest leaf, seen from the side, horizontal, dark grey unheated forged steel, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-8** – Wagenachse · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter · Datei `wagon_axle`
+**W6-8** – Wagenachse · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter · Datei `wagon_axle`  
+*21.11.: Wagenachse mit Bunden.*
 ```
 W6-8 — 2D game asset, a single heavy forged wagon axle for a horse-drawn plateway wagon: thick straight round iron bar with a raised collar and a short round journal at each end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-9** – Antriebswelle · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 67 Wörter · Datei `large_shaft`
+**W6-9** – Antriebswelle · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 67 Wörter · Datei `large_shaft`  
+*21.11.: Welle mit Bunden – entspricht dem Prompt, das Werkstück selbst ist aber abstrakt (Kandidat Nr. 21).*
 ```
 W6-9 — 2D game asset, a single forged mill drive shaft: very long thick round iron shaft with two square bosses and two raised collars along its length and round journals at both ends, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W6-10** – Kurbelwelle · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 77 Wörter · Datei `crankshaft`
+**W6-10** – Kurbelwelle · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 77 Wörter · Datei `crankshaft`  
+*21.11.: Welle mit einer Kröpfung – entspricht dem Prompt, abstrakt (Kandidat Nr. 21).*
 ```
 W6-10 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged crankshaft: straight round iron shaft with one single crank throw in the middle, made of two rectangular webs and a round crankpin offset to one side, seen from the side, horizontal, dark grey wrought iron, British smith's work, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 7 – Krieg & Erfindergeist (1800–1820)
 
-**W7-1** – Blockrollen-Bolzen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 70 Wörter · Datei `block_pin`
+**W7-1** – Blockrollen-Bolzen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 70 Wörter · Datei `block_pin`  
+*21.11.: Bolzen mit Kopf und Splintloch.*
 ```
 W7-1 — 2D game asset, a single forged pulley-block pin: short thick perfectly straight round iron pin with a slightly domed head on the left and a small hole for a split pin near the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-2** – Kessel-Stehbolzen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter · Datei `boiler_stay`
+**W7-2** – Kessel-Stehbolzen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter · Datei `boiler_stay`  
+*21.11.: dünner Bolzen – entspricht dem Prompt, abstrakt (Kandidat Nr. 21).*
 ```
 W7-2 — 2D game asset, a single forged boiler stay bolt: a long straight round iron rod with a thick upset collar near each end and slightly peened ends, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-3** – Gaslaternen-Ausleger · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 86 Wörter · Datei `gas_lamp_bracket`
+**W7-3** – Gaslaternen-Ausleger · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 86 Wörter · Datei `gas_lamp_bracket`  
+*21.11.: Gaslaternen-Ausleger mit Voluten – sehr schön.*
 ```
 W7-3 — 2D game asset, a single hand-forged wall bracket for a gas street lamp: a horizontal arm of square bar with a decorative twisted section and a large scroll brace underneath, a flat wall plate with four bolt holes on the left and a downward ring at the right tip for the lamp, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-4** – Spaten · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 80 Wörter · Datei `navvy_spade`
+**W7-4** – Spaten · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 80 Wörter · Datei `navvy_spade`  
+*21.11.: Spaten mit D-Griff.*
 ```
 W7-4 — 2D game asset, a single forged navvy's spade blade without wooden handle: a broad flat slightly dished iron blade with a squared cutting edge at the bottom, rolled tread edges at the top and a long tapering open socket strap, upright with the socket pointing up, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-5** – Pressenspindel · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 79 Wörter · Datei `press_screw`
+**W7-5** – Pressenspindel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 79 Wörter · Datei `press_screw`  
+*21.11.: Pressenspindel mit Gewinde.*
 ```
 W7-5 — 2D game asset, a single forged screw spindle for an iron printing press: a thick round iron rod with a coarse square thread twisted along its middle part, a square end for the lever on the left and a round foot on the right, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-6** – Bajonett · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 83 Wörter · Datei `bayonet`
+**W7-6** – Bajonett · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 83 Wörter · Datei `bayonet`  
+*21.11.: Tüllenbajonett.*
 ```
 W7-6 — 2D game asset, a single forged socket bayonet without musket: a long triangular-section steel blade tapering to a sharp point on the right, joined by a short curved neck to a round hollow socket with an L-shaped slot on the left, horizontal, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-7** – Ankerarm · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 77 Wörter · Datei `anchor_fluke`
+**W7-7** – Draggen · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 86 Wörter · Datei `anchor_fluke`
 ```
-W7-7 — 2D game asset, a single forged anchor arm for a ship's anchor: a thick curved iron arm ending in a broad flat triangular fluke (palm) on the right and a heavy square stump on the left where it is welded to the shank, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W7-7 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged grapnel (small boat anchor): a straight round shank with a ring at the top end, four curved arms with small pointed flukes at the bottom end spreading out like a claw, seen exactly from the side, upright, the ring at the top, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W7-8** – Brückenglied · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter · Datei `chain_eyebar`
+**W7-8** – Brückenglied · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter · Datei `chain_eyebar`  
+*21.11.: Brückenglied mit zwei Augen.*
 ```
 W7-8 — 2D game asset, a single forged suspension bridge eyebar: a long flat wrought iron bar with a thickened round eye with a large hole at each end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 8 – Eisenbahnfieber (1820–1839)
 
-**W8-1** – Schienennagel · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 64 Wörter · Datei `rail_spike`
+**W8-1** – Schienennagel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter · Datei `rail_spike`  
+*21.11.: Schienennagel (senkrecht statt waagerecht – im Spiel unauffällig).*
 ```
 W8-1 — 2D game asset, a single forged railway track spike: a long square-section iron shank with a chisel point at the bottom and a hooked offset head at the top, upright, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W8-2** – Kupplungshaken · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter · Datei `coupling_hook`
+**W8-2** – Kupplungshaken · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter · Datei `coupling_hook`  
+*21.11.: Kupplungshaken mit Ring.*
 ```
 W8-2 — 2D game asset, a single forged railway wagon coupling hook: a heavy curved iron hook with a thick shank and a punched eye at the right end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W8-3** – Sicherheitsventil-Hebel · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 75 Wörter · Datei `safety_valve_lever`
+**W8-3** – Sicherheitsventil-Hebel · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 75 Wörter · Datei `safety_valve_lever`  
+*21.11.: Hebel mit Gabel und Auge – entspricht dem Prompt, abstrakt (Kandidat Nr. 21).*
 ```
 W8-3 — 2D game asset, a single forged safety valve lever for a locomotive boiler: a long flat iron lever with a fork and pin hole at the left end, two holes along its length and a rounded end on the right, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W8-4** – Kupplungskette · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 55 Wörter · Datei `coupling_chain`
+**W8-4** – Kupplungskette · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 55 Wörter · Datei `coupling_chain`  
+*21.11.: Kupplungskette.*
 ```
 W8-4 — 2D game asset, a short forged railway coupling chain: three heavy oval links of round bar, laid out straight and horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W8-5** – Lokomotiv-Radreifen · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 72 Wörter · Datei `loco_tyre`
+**W8-5** – Lokomotiv-Radreifen · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 72 Wörter · Datei `loco_tyre`  
+*21.11.: Lokomotiv-Radreifen.*
 ```
 W8-5 — 2D game asset, a single forged locomotive wheel tyre: a thick iron hoop seen from directly above forming a perfect circle, with a raised flange along the inner edge and a visible forge-welded joint, empty in the middle, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W8-6** – Pufferfeder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 76 Wörter · Datei `buffer_spring`
+Regler: **Square 1:1** · 84 Wörter · Datei `buffer_spring`
 ```
-W8-6 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged railway buffer spring: a stack of four curved steel leaves held by a central iron band, seen exactly from the side (not from above), horizontal, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W8-6 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged railway volute buffer spring: a wide flat steel band coiled into a short cone (like a squat spiral cone, wide at the bottom, narrow at the top), seen exactly from the side, upright, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W8-7** – Treibstange · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 71 Wörter · Datei `connecting_rod`
+**W8-7** – Treibstange · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 71 Wörter · Datei `connecting_rod`  
+*21.11.: Treibstange mit Augen.*
 ```
 W8-7 — 2D game asset, a single forged locomotive connecting rod: a long tapered flat iron rod with a large rectangular strap end with a bearing hole on the left and a smaller round eye on the right, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W8-8** – Kurbelachse · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 80 Wörter · Datei `crank_axle`
+**W8-8** – Kurbelachse · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 80 Wörter · Datei `crank_axle`  
+*21.11.: Achse mit zwei Kröpfungen – entspricht dem Prompt, abstrakt (Kandidat Nr. 21).*
 ```
 W8-8 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged locomotive crank axle: a thick straight round iron axle with two offset crank throws in the middle, each made of two rectangular webs and a crank pin, seen exactly from the side (not from above), horizontal, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 9 – Der Dampfhammer (1839–1860)
 
-**W9-1** – Brückenniete · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 64 Wörter · Datei `bridge_rivet`
+**W9-1** – Brückenniete · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 64 Wörter · Datei `bridge_rivet`  
+*21.11.: jetzt in Seitenansicht (Prompt ohne widersprüchliche Ansicht).*
 ```
 W9-1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single large forged bridge rivet: short thick round shank with a domed head, seen exactly from the side (not from above), horizontal, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W9-2** – Säulenkopf-Beschlag · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 62 Wörter · Datei `palace_bracket`
+**W9-2** – Säulenkopf-Beschlag · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 62 Wörter · Datei `palace_bracket`  
+*21.11.: Winkelbeschlag mit Schnecke.*
 ```
 W9-2 — 2D game asset, a single forged iron connecting bracket for a glass-and-iron exhibition hall: a flat L-shaped iron plate with a decorative curved gusset and six bolt holes, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W9-3** – Schaufelrad-Arm · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 69 Wörter · Datei `paddle_arm`
+**W9-3** – Schaufelrad-Arm · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 69 Wörter · Datei `paddle_arm`  
+*21.11.: schräg statt waagerecht; außerdem ein abstrakter Stab (Kandidat Nr. 21).*
 ```
 W9-3 — 2D game asset, a single forged paddle-wheel arm for a paddle steamer: a long flat iron bar with a bolted palm plate at the right end and two bolt holes at the left end, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**W9-4** – Hammergesenk · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 77 Wörter · Datei `hammer_die`
+**W9-4** – Hammergesenk · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 77 Wörter · Datei `hammer_die`  
+*21.11.: Gesenkblock; Schwalbenschwanz seitlich statt oben – im Spiel unauffällig.*
 ```
 W9-4 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-hammer die: a heavy rectangular steel block with a dovetail tongue on top and a smooth flat working face at the bottom, seen from the side, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -2166,10 +2205,10 @@ Regler: **Square 1:1** · 68 Wörter · Datei `bayonet_rough`
 W7-6R — 2D game asset, the raw iron for a bayonet right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the bayonet in the reference, still far from the finished shape, crude and unfinished, uneven hammer marks, dark grey forged steel with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no sharp point, smooth surface, polish, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W7-7R** – Ankerarm – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 74 Wörter · Datei `anchor_fluke_rough`
+**W7-7R** – Draggen – Rohform · ⬜ noch nicht vorhanden  
+Regler: **Square 1:1** · 81 Wörter · Datei `anchor_fluke_rough`
 ```
-W7-7R — 2D game asset, the raw iron for a anchor arm right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the anchor arm in the reference, still far from the finished shape, not yet hammered flat, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
+W7-7R — Flat orthographic side elevation, like a technical drawing. 2D game asset, the raw iron for a grapnel right after the first forging step, only drawn out longer and thinner by hammering, same position and orientation as the grapnel in the reference, still far from the finished shape, not yet hammered flat, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, seen from the side, horizontal, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, decoration, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
 **W7-8R** – Brückenglied – Rohform · ⬜ noch nicht vorhanden  

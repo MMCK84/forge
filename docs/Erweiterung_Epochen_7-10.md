@@ -349,9 +349,9 @@ Wie in `PROMPTS_Werkstuecke.md`: kalt, nur Metall, von oben, weißer Hintergrund
 2D game asset, a single forged boiler stay bolt: a long straight round iron rod with a thick upset collar near each end and slightly peened ends, horizontal, dark grey unheated wrought iron, 18th/19th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
-**anchor_fluke** – Ankerarm
+**anchor_fluke** – Draggen
 ```
-2D game asset, a single forged anchor arm for a ship's anchor: a thick curved iron arm ending in a broad flat triangular fluke (palm) on the right and a heavy square stump on the left where it is welded to the shank, dark grey unheated wrought iron, 18th/19th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged grapnel (small boat anchor): a straight round shank with a ring at the top end, four curved arms with small pointed flukes at the bottom end spreading out like a claw, seen exactly from the side, upright, the ring at the top, dark grey unheated wrought iron, 18th/19th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **chain_eyebar** – Kettenglied der Menai-Brücke
@@ -393,7 +393,7 @@ Wie in `PROMPTS_Werkstuecke.md`: kalt, nur Metall, von oben, weißer Hintergrund
 
 **buffer_spring** – Pufferfeder
 ```
-2D game asset, a single forged railway buffer spring: a stack of four curved steel leaves held by a central iron band, seen from the side, horizontal, dark grey unheated forged steel with a slightly brighter ground edge, 18th/19th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
+2D game asset, a single forged railway volute buffer spring: a wide flat steel band coiled into a short cone (like a squat spiral cone, wide at the bottom, narrow at the top), seen exactly from the side, upright, dark grey unheated forged steel with a slightly brighter ground edge, 18th/19th-century British blacksmith work, viewed from directly above, lying flat, centered with a wide empty margin on all sides, hand-painted 2D game asset with a thin dark ink outline, visible hammer marks, matte dark grey metal with strong light-and-shadow modelling, soft even studio lighting, metal only (no wood, no leather, no rope), cold and unheated (no glow, no sparks, no fire), no cast shadow, no other objects, no text, no numbers, no watermark, pure flat white background, square 1:1
 ```
 
 **safety_valve_lever** – Sicherheitsventil-Hebel

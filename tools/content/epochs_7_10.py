@@ -16,7 +16,7 @@ ITEMS = [
  ("navvy_spade", 7, 1.0, "normal", "ploughshare", True, "Spaten", "Spaten", "m", "navvy's spade", "navvies' spades"),
  ("press_screw", 7, 1.2, "normal", "spindle", False, "Pressenspindel", "Pressenspindeln", "f", "press screw", "press screws"),
  ("bayonet", 7, 1.0, "harden", "blade", True, "Bajonett", "Bajonette", "n", "bayonet", "bayonets"),
- ("anchor_fluke", 7, 1.3, "weld", "anchor", True, "Ankerarm", "Ankerarme", "m", "anchor arm", "anchor arms"),
+ ("anchor_fluke", 7, 1.3, "weld", "anchor", True, "Draggen", "Draggen", "m", "grapnel", "grapnels"),  # Kennung bleibt; bis 21.11. Ankerarm
  ("chain_eyebar", 7, 1.4, "big", "tie", False, "Brückenglied", "Brückenglieder", "n", "bridge eyebar", "bridge eyebars"),
  # Epoche 8 – Eisenbahnfieber (1820–1839)
  ("rail_spike", 8, 0.8, "normal", "nail", True, "Schienennagel", "Schienennägel", "m", "track spike", "track spikes"),
@@ -133,8 +133,8 @@ MILESTONES = [
   "Stehbolzen für Trevithicks Hochdruckkessel", "Trevithick arbeitet mit Dampf unter hohem Druck. Seine Kessel halten nur mit guten Stehbolzen.",
   "Stays for Trevithick's high-pressure boiler", "Trevithick works with high-pressure steam. His boilers only hold with good stays."),
  ("ms_e7_08_anchor", 7, "anchor_fluke", "navy_portsmouth", 2, False, 1.0,
-  "Ankerarme für ein Linienschiff", "Nach Trafalgar (1805) rüstet die Navy ihre Linienschiffe neu aus. Ein Anker hält ein Schiff von 74 Kanonen.",
-  "Anchor arms for a ship of the line", "After Trafalgar (1805) the Navy refits its ships of the line. One anchor holds a 74-gun ship."),
+  "Draggen für die Beiboote der Flotte", "Nach Trafalgar (1805) rüstet die Navy ihre Linienschiffe neu aus. Jedes Beiboot braucht einen Draggen – einen kleinen Anker mit vier Armen, sauber feuergeschweißt.",
+  "Grapnels for the fleet's boats", "After Trafalgar (1805) the Navy refits its ships of the line. Every ship's boat needs a grapnel – a small four-armed anchor, cleanly forge-welded."),
  ("ms_e7_09_menai", 7, "chain_eyebar", "telford", 1, False, 1.5,
   "Kettenglieder für die Menai-Brücke", "1819 beginnt Telford die Hängebrücke über die Menai-Straße. Ihre Ketten bestehen aus geschmiedeten Gliedern – Eures soll das erste sein.",
   "Eyebars for the Menai Bridge", "In 1819 Telford begins the suspension bridge over the Menai Strait. Its chains are made of forged eyebars – yours shall be the first."),
