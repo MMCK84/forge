@@ -272,6 +272,18 @@ Alle Gemini-Bilder sollen später durch Midjourney ersetzt werden.
   Werkstück auf dem Amboss; Werkstück auf dem Amboss größer; Bildausschnitt im Epochenwechsel; mehr Rand unten in Fenstern;
   Meisterstück-Kennzeichnung. Prompt-Heft: neue Reihenfolge „Jetzt: Epoche 1 auf Alpha-Niveau“.
   Schlagserie zählt Maschinenschläge weiter mit (Wunsch des Auftraggebers; bei Bedarf später kürzen).
+- 21.11.: **Lieferung W3-2 bis W3-8** (erste Lieferung per GitHub Desktop). Gut: Ankerschaft, Bootshaken, Festmacherring,
+  Schiffsbolzen, Lafettenbeschlag (W3-2–6). **Ändern:** Ruderfingerling W3-7 (dünner schräger Spieß statt L-förmigem
+  Bandeisen mit Zapfen) – bis zum Ersatz im Spiel. **W3-8** (Schere mit Fingerringen) hat kein passendes Kürzel – liegt
+  weiter im Eingang; vermutlich W4-2 Tuchschere, die aber als Federschere ohne Fingerringe gedacht ist. Prompts für
+  W3-7 und W4-2 nachgeschärft, Erkenntnis in `LESSONS`. Import, Heft neu erzeugt.
+- 21.11.: **E1-3 Schleifstein kam immer perspektivisch** (Hinweis des Auftraggebers). Ursache im Prompt: „orthographic front
+  elevation“ und zugleich „front view from slightly above“. Alle Einrichtungs-Prompts jetzt „at eye level“; runde Teile
+  (Schleifstein E1-3, Schleifbank E4-3, Drehbank E5-3, Kohlenhund E5-1, Kohlenwagen E8-1) in Seitenansicht „so that … is a
+  perfect circle“ wie beim Wasserrad; Löschtrog (U15) ebenfalls ohne „von oben“. `LESSONS` ergänzt, Heft neu erzeugt.
+- 21.11.: E1-3 in strenger Seitenansicht ergab technischen Unsinn (Kurbel auf der Steinfläche, Lager vor dem Stein). Neu:
+  Mechanik Bauteil für Bauteil beschrieben, **leichte Dreiviertelansicht** erlaubt (Einrichtung steht im perspektivisch
+  gemalten Raum; flach bleiben Esse, Amboss, Hämmer, Maschinen, Werkstücke); ebenso E4-3. `LESSONS` ergänzt.
 
 ## Prüfen
 

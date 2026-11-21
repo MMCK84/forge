@@ -92,6 +92,12 @@ LESSONS = [
      "historisch richtig (Brust-Schwanzhammer); Lager, Hammerkopf und Gestell-Lager misst jetzt der Import, das Spiel skaliert passend – Prompt bleibt"),
     ("20.11.", "Werkstücke", "Hemmschuh (Epoche 2) kam als Stab mit Haken und Öse – von oben ist eine Kufe nicht zu erkennen; Werkstücke wieder fotorealistisch auf grauem Grund mit Schatten",
      "Hemmschuh in Seitenansicht mit genauer Form (Sohle, aufgebogene Spitze wie eine Schlittenkufe, Ring mit Kette); grauer Grund und Schatten stören nicht (Import stellt frei, das Spiel färbt selbst)"),
+    ("21.11.", "Einrichtung", "Schleifstein (E1-3) in strenger Seitenansicht: technischer Unsinn – Kurbel auf der Steinfläche, Lagerbock vor dem Stein, Achse ohne Lager; in reiner Seitenansicht liegen Achse und Lager hinter dem Stein, Midjourney erfindet dann etwas",
+     "Mechanik mit Achse (Schleifstein, Schleifbank) Bauteil für Bauteil beschreiben (Achse durch die Mitte, Achsenden in Lagerböcken auf den Seitenholmen, Stein taucht in den Trog, Kurbel am Achsende, „mechanically correct“) und eine **leichte Dreiviertelansicht** erlauben – die Einrichtung steht im Raum, der selbst perspektivisch gemalt ist; flach bleiben nur Esse, Amboss, Hämmer, Maschinen und Werkstücke"),
+    ("21.11.", "Einrichtung", "Schleifstein (E1-3) kam immer perspektivisch: Der Prompt verlangte zugleich „orthographic front elevation“ und „front view from slightly above“ – das „von oben“ erzeugt die Schrägsicht",
+     "„from slightly above“ aus allen Einrichtungs-Prompts entfernt („front view at eye level“); runde Teile (Schleifstein, Räder, Schwungrad) „seen exactly from the side so that … is a perfect circle“ wie beim Wasserrad (M1), das so sofort flach kam; hilft das nicht: M1 als Bild-Prompt mit `--iw 0.5` anhängen"),
+    ("21.11.", "Werkstücke", "Ruderfingerling (W3-7) kam als dünner, schräger Spieß ohne Bandeisen und Bolzenlöcher; eine Schere kam mit Fingerringen statt als Federschere",
+     "Form mit einem bekannten Umriss beschreiben („shaped like a capital letter L turned on its side“), Verwechslungen ausdrücklich ausschließen („not a thin spike, not diagonal“, „no finger rings, not scissors“)"),
     ("20.11.", "Porträts", "Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller",
      "bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung"),
 ]
@@ -369,7 +375,7 @@ UI = [
     ("pyrometer_dial_empty.png", "pyrometer_dial", "Pyrometer-Zifferblatt ohne Zeiger", True, "2D game asset, an 18th-century brass pyrometer temperature gauge seen exactly from the front, a semicircular arc scale with engraved tick marks, antique clockwork style, dark iron base, no needle, no pointer, no numbers, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("star_full.png", "stars", "Sterne für die Bewertung (voll und leer)", True, "2D game UI icons, two five-pointed stars side by side: one polished gold star with a brass rim, one empty dark iron star outline, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
     ("icon_hourglass.png", "hourglass", "Sanduhr (Eilaufträge)", True, "2D game UI icon, an 18th-century brass and wood hourglass with golden sand, front view, hand-painted 2D game art with dark ink outlines, isolated on pure flat white background, no text, no watermark"),
-    ("trough.png", "trough", "Löschtrog (ab Epoche 4)", False, "2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, filled with dark water whose surface is visible, standing on two short trestles, shown in a straight front view slightly from above, hand-painted 2D game art with dark ink outlines, no steam, no tools, no shadow, no text, no watermark, isolated on pure flat white background, landscape 2:1"),
+    ("trough.png", "trough", "Löschtrog (ab Epoche 4)", False, "2D game asset, a wooden quench trough for a blacksmith: a long rectangular oak tub bound with iron bands, standing on two short trestles, a thin strip of dark water visible along the top edge, shown in a flat straight front view at eye level, hand-painted 2D game art with dark ink outlines, no steam, no tools, no shadow, no text, no watermark, isolated on pure flat white background, landscape 2:1"),
     ("app_icon", "app_icon", "App-Icon", False, "Square 1:1 mobile game app icon, a heavy blacksmith's hammer striking a glowing orange-hot horseshoe on the face of a dark iron anvil, a burst of bright sparks, warm firelight against a deep dark brown background, bold simple shapes and strong contrast that stay readable at very small size, hand-painted 2D game art with dark ink outlines, subject centred and filling most of the square, no text, no letters, no border, no rounded corners, no watermark"),
     ("store_banner", "store_banner", "Store-Banner (Google Play 1024 × 500)", False, "Wide 2:1 banner illustration for a mobile game, interior of an 18th-century English smithy at night lit only by forge fire, on the right half a blacksmith's anvil with a glowing horseshoe and a raised hammer with sparks flying, a brick forge glowing in the background, the left half is calm, dark and empty for a title to be added later, hand-painted 2D game art with dark ink outlines and warm painterly textures, no people, no text, no letters, no watermark"),
     # Meisterschaft je Werkstück (Musterbuch, Auftragsbuch, Abrechnung) – neue Einträge immer hinten anfügen (Kürzel bleiben gleich)
@@ -379,14 +385,22 @@ UI = [
 ]
 
 # H Werkstatt-Einrichtung (scripts/furnishings.gd): je Epoche fünf Stücke, freigestellt
-FURN_TAIL = ("single object, straight front view from slightly above, hand-painted 2D game art, dark ink outlines, warm painterly texture, "
+FURN_TAIL = ("single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, "
              "fully inside the frame (no people), isolated on pure flat white background")
+def _furn_tail(desc):
+    """Runde Teile in Seitenansicht: dann auch der Schluss „side view“ (kein Widerspruch zu „from the side“).
+    Mechanik mit Achse (Schleifstein): leichte Dreiviertelansicht, sonst erfindet Midjourney unsinnige Lager."""
+    if "three-quarter view" in desc:
+        return FURN_TAIL.replace("straight front view at eye level, ", "")
+    return FURN_TAIL.replace("straight front view", "straight side view") if "from the side" in desc else FURN_TAIL
+
+
 FURN_FORMAT = {"fuel": "square 1:1", "tools": "portrait 3:4", "bench": "landscape 3:2", "trade": "landscape 3:2", "light": "portrait 1:2"}
 FURN_SLOT_DE = {"fuel": "Brennstoff", "tools": "Werkzeugwand", "bench": "Werkbank", "trade": "Kundschaft", "light": "Licht und Lager"}
 FURN_DESC = {
     1: {"fuel": "a woven wicker basket full of charcoal, early 18th-century English village smithy",
         "tools": "a wooden board hung on a wall with four pairs of blacksmith's tongs and two hammers, around 1700",
-        "bench": "a hand-cranked sandstone grindstone in a simple oak frame with a water trough, around 1700",
+        "bench": "a hand-cranked smithy grindstone around 1700: thick sandstone wheel on an iron axle, the axle ends resting in bearings on top of a four-legged oak trestle frame, lower part of the stone dipping into a water trough, crank handle on the axle end, mechanically correct, slight three-quarter view at eye level",
         "trade": "a weathered painted wooden shop board with an iron horseshoe nailed on it, hanging from two chains, around 1700",
         "light": "a small tin tallow lantern with horn panes, hanging from an iron hook"},
     2: {"fuel": "an iron-bound wooden coal chest full of coal, with a shovel, around 1725",
@@ -401,12 +415,12 @@ FURN_DESC = {
         "light": "a brass and copper ship's lantern with glass panes"},
     4: {"fuel": "a timber bin filled with grey coke, around 1755",
         "tools": "a wall rack with a long row of slender tongs for knife blades, Sheffield around 1755",
-        "bench": "a grinding bench with a large round grindstone driven by a belt from a small water wheel, Sheffield around 1755",
+        "bench": "a Sheffield grinding trough around 1755: large sandstone grindstone on an iron axle resting in bearings on a heavy timber frame, lower part of the stone in a water trough, leather belt from a pulley on the axle to a drive shaft, mechanically correct, slight three-quarter view at eye level",
         "trade": "a carved wooden plaque with a simple cutler's mark (crossed blades), around 1755 (no lettering)",
         "light": "a row of three small brass oil lamps on a wooden shelf"},
-    5: {"fuel": "a small four-wheeled wooden coal tub full of coal, around 1780",
+    5: {"fuel": "a small four-wheeled wooden coal tub full of coal seen exactly from the side, the wheels as perfect circles, around 1780",
         "tools": "a wooden tool wall with set hammers, flatters and swages on pegs, around 1780",
-        "bench": "a wooden treadle lathe with a foot pedal and a flywheel, around 1780",
+        "bench": "a wooden treadle lathe seen exactly from the side, its flywheel a perfect circle, with a foot pedal, around 1780",
         "trade": "a tall wooden writing desk with an open leather order book and a quill, around 1780 (blank pages)",
         "light": "a stack of wrought-iron bars and plates on timber bearers"},
     6: {"fuel": "a brick coke bunker with a wooden hatch, ironworks around 1790",
@@ -419,7 +433,7 @@ FURN_DESC = {
         "bench": "a cast-iron workbench with a vice and a brass bench micrometer, around 1810",
         "trade": "a polished brass name plate on a dark wooden board, around 1810 (no lettering)",
         "light": "an early gas lamp on a wall bracket with a glass globe, London around 1812"},
-    8: {"fuel": "a small iron coal wagon on a short piece of rail track, around 1830",
+    8: {"fuel": "a small iron coal wagon on a short piece of rail track seen exactly from the side, the wheels as perfect circles, around 1830",
         "tools": "a rack with heavy swages and dies for railway coupling links, around 1830",
         "bench": "a cast-iron proving bench for testing chains, with a lever and weights, around 1830",
         "trade": "a wooden notice board with a railway company poster showing a locomotive, around 1830 (no lettering)",
@@ -613,7 +627,7 @@ def main():
             fid = f"furn_e{e}_{slot}"
             st = add(HAVE if have(fid + ".png") else NEED)
             h_parts.append(block(f"{FURN_SLOT_DE[slot]}: {FURN_NAMES_DE[e][slot]}",
-                                 f"2D game asset, {FURN_DESC[e][slot]}, {FURN_TAIL}, {FURN_FORMAT[slot]}", st, fid, code=f"E{e}-{k}", section="H"))
+                                 f"2D game asset, {FURN_DESC[e][slot]}, {_furn_tail(FURN_DESC[e][slot])}, {FURN_FORMAT[slot]}", st, fid, code=f"E{e}-{k}", section="H"))
     sections.append(("H · Werkstatt-Einrichtung (5 je Epoche)",
                      "Neu im Spiel: Jede Werkstatt hat fünf Einrichtungsplätze (Brennstoff, Werkzeugwand, Werkbank, Kundschaft, Licht und Lager). "
                      "Bis die Bilder da sind, zeichnet das Spiel einfache Platzhalter. Freigestellt auf Weiß wie die Werkstücke; "
