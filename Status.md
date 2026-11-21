@@ -49,10 +49,10 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
 | F Kundenporträts | 20 | – | – | 34 optional |
 | G Oberfläche, Symbole, Store | 19 (alle Pflicht-Bilder bis auf U22/U23) | – | – | U22 Titelbild, U23 Meisterbrief (+2 optional) |
-| H Werkstatt-Einrichtung | 5 (Epoche 1) | – | – | 45 |
-| I Rohformen | – | – | – | 80 (zuerst W1-1R bis W1-8R) |
+| H Werkstatt-Einrichtung | 6 (Epoche 1, E2-2) | 1 (E2-1 Kohlenkiste) | – | 43 |
+| I Rohformen | 2 (W1-1R, W1-2R) | – | – | 78 (zuerst W1-3R bis W1-8R) |
 
-**Für Epoche 1 Alpha fehlen nur noch:** W1-1R bis W1-8R, U22, U23 (10 Bilder).
+**Für Epoche 1 Alpha fehlen nur noch:** W1-3R bis W1-8R, U22, U23 (8 Bilder).
 
 ## Musik (Suno) – später
 
@@ -77,7 +77,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 
 ## Offen / nächste Schritte
 
-1. **Epoche 1 Alpha:** Bilder W1-1R–W1-8R, U22, U23 einbinden und prüfen (`tools/audit_epoch1.tscn`); dann Epoche 1 abnehmen.
+1. **Epoche 1 Alpha:** Bilder W1-3R–W1-8R, U22, U23 einbinden und prüfen (`tools/audit_epoch1.tscn`); dann Epoche 1 abnehmen.
 2. Vor dem Export: Testmenü-Knöpfe nur in der Entwicklerfassung.
 3. Danach Epoche 2 ff. nach demselben Muster (Werkstücke, Rohformen, Einrichtung je Epoche); W2-7, W3-7 und ML1 ersetzen.
 4. **Sprache für das Interface überlegen** (Wunsch des Auftraggebers, 20.11.) – zu klären: Wortwahl/Anrede („Ihr“),
@@ -286,6 +286,12 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
   Vierkantstab, stumpf, ohne Kopf und Spitze), Epoche 1 von Hand beschrieben, übrige Epochen aus den Arbeitsgängen in
   `data/items/*.tres`; was spätere Gänge formen, steht als `--no`; `--iw 0.5`; Material aus den Spieldaten (Sichel Eisen).
   `LESSONS` ergänzt, Heft neu erzeugt.
+- 21.11.: **Lieferung W1-1R, W1-2R, E2-1, E2-2** (GitHub). **Gut:** Nagel- und Hufeisen-Rohform (im Spiel klar: Rohling →
+  gestreckter Stab → fertiges Stück; Nagel-Rohform deckt sich fast genau mit dem Nagel), E2-2 Werkzeugwand (kleine Signatur
+  unten rechts im Original weiß übermalt). **Ändern:** E2-1 Kohlenkiste wirkt wie eine Schatztruhe → Prompt: offene Bretterkiste
+  ohne Deckel/Schloss, `LESSONS` ergänzt. Neues Prüfwerkzeug `tools/rough_check.tscn` (Stufensprung je Werkstück auf dem
+  Amboss in fünf Stadien, Einrichtung je Epoche). Hinweis: Das fertige Bild erscheint erst mit dem letzten Arbeitsgang –
+  beim Nagel sieht man die Spitze also erst in der Abrechnung. Tests 2153/0.
 
 ## Prüfen
 
@@ -294,6 +300,7 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 - Unit-Tests: `godot --headless --path . res://tests/run_tests.tscn`
 - Spieltest: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/playtest.tscn`
 - Bestandsaufnahme Epoche 1 (alle Bildschirme): `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/audit_epoch1.tscn`
+- Stufensprung/Rohformen und Einrichtung: `xvfb-run -a godot --path . --rendering-driver opengl3 --resolution 1080x1920 res://tools/rough_check.tscn -- --items=nail,horseshoe --furn=2` (Bilder in `user://rough_check/`)
 - Durchspiel-Test (ganzes Spiel, Epoche für Epoche): `godot --headless --path . res://tools/full_playthrough.tscn -- --seed=7`
 - Balancing: `python tools/tune_balance.py`
 - Übersetzungen: `python tools/content/gen_csv.py localization/translations.csv`

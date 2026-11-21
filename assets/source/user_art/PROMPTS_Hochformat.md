@@ -17,10 +17,10 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 100 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 2 |
+| ✅ gut (Midjourney) | 103 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 3 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 184 |
+| ⬜ noch nicht vorhanden | 180 |
 | ⬜ noch nicht vorhanden (optional) | 36 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
@@ -32,8 +32,8 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 | E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
 | G · Oberfläche, Symbole, Store | 19 | 0 | 0 | 2 | 2 |
-| H · Werkstatt-Einrichtung | 5 | 0 | 0 | 45 | 0 |
-| I · Rohformen für den Stufensprung | 0 | 0 | 0 | 80 | 0 |
+| H · Werkstatt-Einrichtung | 6 | 1 | 0 | 43 | 0 |
+| I · Rohformen für den Stufensprung | 2 | 0 | 0 | 78 | 0 |
 
 ## Erkenntnisse aus den bisherigen Bildern
 
@@ -82,6 +82,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 21.11. | Werkstücke | Ruderfingerling (W3-7) kam als dünner, schräger Spieß ohne Bandeisen und Bolzenlöcher; eine Schere kam mit Fingerringen statt als Federschere | Form mit einem bekannten Umriss beschreiben („shaped like a capital letter L turned on its side“), Verwechslungen ausdrücklich ausschließen („not a thin spike, not diagonal“, „no finger rings, not scissors“) |
 | 20.11. | Porträts | Müller von Upton (P1-4) kam als Frau mit Haube statt als fröhlicher, mehlbestäubter Müller | bei mehrdeutigen Berufen „(a man)“ bzw. „(a woman)“ ausdrücklich in die Beschreibung |
 | 21.11. | Rohformen (Bereich I) | W1-1R mit fertigem Nagel als Bild-Prompt und `--iw 1.5` ergab wieder den fertigen Nagel (Kopf und Spitze) | Rohform = Stand nach dem ersten Arbeitsgang, je Werkstück beschrieben; was spätere Arbeitsgänge formen (Spitze, Kopf, Biegung, Löcher, Verdrillung) als `--no`; Bild-Prompt nur noch `--iw 0.5` |
+| 21.11. | Einrichtung, Behälter | E2-1 „Kohlenkiste mit Eisenbeschlag“ kam als Schatztruhe (gewölbter Deckel, Schlüsselschild, glänzende Kohle) | Behälter als schlichte offene Kiste/Kasten ohne Deckel beschreiben, `--no treasure chest, domed lid, lock, keyhole, ornament`, Kohle „matt“ |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -1478,14 +1479,16 @@ E1-5 — Flat orthographic front elevation, like a technical drawing. 2D game as
 
 ### Epoche 2 – Kutschen & Handelswege (1715–1735)
 
-**E2-1** – Brennstoff: Kohlenkiste · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 51 Wörter · Datei `furn_e2_fuel`
+**E2-1** – Brennstoff: Kohlenkiste · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+Regler: **Square 1:1** · 65 Wörter · Datei `furn_e2_fuel`  
+*21.11.: wirkt wie eine Schatztruhe (gewölbter Deckel, verziertes Schlüsselschild, glänzende Kohle) – im Spiel liest man „Piratenschatz“. Prompt jetzt: offene Kohlenkiste aus Brettern ohne Deckel und Schloss, matte Kohle, Schaufel steckt darin.*
 ```
-E2-1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, an iron-bound wooden coal chest full of coal, with a shovel, around 1725, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
+E2-1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a plain open wooden coal box of rough planks with iron corner straps, heaped with matt black coal, an iron shovel stuck in the coal, around 1725, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, lid, treasure chest, domed lid, lock, keyhole, ornament, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**E2-2** – Werkzeugwand: Werkzeugwand mit Gesenken · ⬜ noch nicht vorhanden  
-Regler: **Portrait 3:4** · 51 Wörter · Datei `furn_e2_tools`
+**E2-2** – Werkzeugwand: Werkzeugwand mit Gesenken · ✅ gut (Midjourney)  
+Regler: **Portrait 3:4** · 51 Wörter · Datei `furn_e2_tools`  
+*21.11.: Bretterwand mit Zangen, Setzhämmern, Abschrot und Gesenken an zwei Leisten, frontal, gemalt. Kleine Signatur unten rechts im Original weiß übermalt.*
 ```
 E2-2 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a wooden tool wall with tongs, swages and fullers on pegs, around 1725, single object, straight front view at eye level, hand-painted 2D game art, dark ink outlines, warm painterly texture, fully inside the frame, on pure flat white background --ar 3:4 --no perspective, isometric view, three-quarter view, angled view, vanishing point, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -1770,14 +1773,16 @@ Das Spiel zeigt beim Schmieden zuerst den Rohling (W0), nach dem ersten Arbeitsg
 
 ### Epoche 1 – Die Dorfschmiede (1700–1715)
 
-**W1-1R** – Nagel – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 66 Wörter · Datei `nail_rough`
+**W1-1R** – Nagel – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 66 Wörter · Datei `nail_rough`  
+*21.11.: zweiter Versuch (neuer Prompt): gestreckter Vierkantstab mit stumpfem Ende und Kopfansatz, ohne Spitze; deckt sich in Lage und Länge fast genau mit dem Nagel – sauberes Überblenden.*
 ```
 W1-1R — 2D game asset, a long straight square iron rod drawn out by hammering, lying horizontally like the nail in the reference, both ends still blunt and square-cut, only a slightly thicker rough stub at the left end, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no sharp point, tapered tip, nail head, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```
 
-**W1-2R** – Hufeisen – Rohform · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 65 Wörter · Datei `horseshoe_rough`
+**W1-2R** – Hufeisen – Rohform · ✅ gut (Midjourney)  
+Regler: **Square 1:1** · 65 Wörter · Datei `horseshoe_rough`  
+*21.11.: gestreckter Flachstab, leicht gebogen, ohne Nagellöcher – im Spiel klar vom Rohling und vom Hufeisen zu unterscheiden.*
 ```
 W1-2R — 2D game asset, a flat iron bar drawn out by hammering, still almost straight, only very slightly curved like a shallow arch, lying horizontally across the centre, both ends blunt, not yet bent into a U, crude and unfinished, uneven hammer marks, dark grey wrought iron with fresh forge scale, top-down view, lying flat, centred with wide margin, metal only, cold, pure flat white background --ar 1:1 --no nail holes, fullered groove, horseshoe shape, text, numbers, watermark, border, shadow, photo, 3d render --iw 0.5
 ```

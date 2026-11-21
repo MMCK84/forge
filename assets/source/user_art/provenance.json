@@ -524,6 +524,26 @@
    "quelle": "Midjourney",
    "bewertung": "gut",
    "hinweis": "21.11.: kam als W3-8 – große Schneiderschere mit Fingerringen statt Federschere; passt zu „Stahl & Tuch“ (Sheffield fertigte solche Scheren), Prompt W4-2 entsprechend angepasst."
+  },
+  "nail_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: zweiter Versuch (neuer Prompt): gestreckter Vierkantstab mit stumpfem Ende und Kopfansatz, ohne Spitze; deckt sich in Lage und Länge fast genau mit dem Nagel – sauberes Überblenden."
+  },
+  "horseshoe_rough": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: gestreckter Flachstab, leicht gebogen, ohne Nagellöcher – im Spiel klar vom Rohling und vom Hufeisen zu unterscheiden."
+  },
+  "furn_e2_tools": {
+   "quelle": "Midjourney",
+   "bewertung": "gut",
+   "hinweis": "21.11.: Bretterwand mit Zangen, Setzhämmern, Abschrot und Gesenken an zwei Leisten, frontal, gemalt. Kleine Signatur unten rechts im Original weiß übermalt."
+  },
+  "furn_e2_fuel": {
+   "quelle": "Midjourney",
+   "bewertung": "ändern",
+   "hinweis": "21.11.: wirkt wie eine Schatztruhe (gewölbter Deckel, verziertes Schlüsselschild, glänzende Kohle) – im Spiel liest man „Piratenschatz“. Prompt jetzt: offene Kohlenkiste aus Brettern ohne Deckel und Schloss, matte Kohle, Schaufel steckt darin."
   }
  },
  "abgelehnt": {
@@ -548,6 +568,9 @@
   ],
   "forge_double_bellows": [
    "20.11.: erste Frontalansicht mit nur einem Blasebalg und einem Sack – ersetzt"
+  ],
+  "nail_rough": [
+   "21.11.: erster Versuch (Prompt mit --iw 1.5): fertiger Nagel mit Kopf und Spitze – kein Stufensprung sichtbar"
   ]
  }
 }
