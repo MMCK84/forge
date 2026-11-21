@@ -48,11 +48,11 @@ Anordnung, dieselben Bilder). Ziel: kommerzielle Veröffentlichung (Android) –
 | Bereich | gut (MJ) | MJ ändern | Gemini | fehlt |
 |---|---|---|---|---|
 | A Hintergründe (1:1) | **11 (BG0–BG10)** | – | – | – |
-| B Essen (frontal) | 5 | 1 (F1: neu ohne Blasebalg) | – | – |
-| C Amboss, Hämmer, Blasebalg | 5 | – | – | BB beweglicher Blasebalg (neu) |
+| B Essen (frontal) | **6 (alle)** | – | – | – |
+| C Amboss, Hämmer, Blasebalg | **6 (alle)** | – | – | – |
 | D Maschinenteile, Ladenbilder | 13 | – | 1 (ML1 Wasser-Schwanzhammer) | – |
 | E Werkstücke | 22 (Epoche 1–3, Tuchschere) | 2 (W2-7 Hemmschuh, W3-7 Ruderfingerling) | – | 57 |
-| F Kundenporträts | 20 | Blasebalg Epoche 1: der gezeichnete, pumpende Blasebalg links neben der Lehm-Esse wirkt wie ein Kasten. **Soll bleiben** (bringt Leben ins Bild), aber schöner werden | **Entschieden 21.11.:** eigenes Bild **BB** für den beweglichen Blasebalg + **F1 neu ohne eingemalten Blasebalg** (Prompts im Heft). Import und Anzeige vorbereitet (BB hat Vorrang vor dem Platzhalter); Lage wird bei der Lieferung abgestimmt |
+| F Kundenporträts | 20 | Blasebalg Epoche 1: der bewegliche Blasebalg soll bleiben, aber schöner werden | **umgesetzt 21.11.:** BB (Midjourney) liegt auf der Bank links der Lehm-Esse, Düse in die Glut, pumpt (beim Aufheizen schneller). F1 bleibt das bisherige Bild – der Import blendet den oberen Teil des gemalten Sacks aus, den Rest verdeckt BB. Neue F1-Fassung (Bogen über dem Feuer, wirkt wie ein Ofen) im Archiv |
 | G Oberfläche, Symbole, Store | **alle** bis U23 (auch U12 und U21 optional) | – | – | U24–U27 Zunfttafeln (neu) |
 | H Werkstatt-Einrichtung | 18 (Epoche 1; E2-2–E2-5; E3-1, E3-4; E4-1, E4-4; E5-1–E5-4; E6-2) | 8 (E2-1, E3-5, E4-2, E4-5, E5-5, E6-1, E6-4, E6-5) | – | 24 (E3-2, E3-3, E4-3, E6-3, Epoche 7–10) |
 | I Rohformen | 8 (alle der Epoche 1) | – | – | 65 (+7 geteilt, kein eigenes Bild) |
@@ -374,6 +374,8 @@ Arbeitsweise (Wunsch des Auftraggebers, 21.11.): Anmerkungen **erst sammeln**, d
 - 21.11.: Rohlinge kosten weiterhin nichts (nur Ausschuss) – Entscheidung des Auftraggebers. Epoche 5: neue Werkstücke W5-3/4/8
   und Kolbenstange mit Kolbenscheibe (Prompts in `PROMPTS_Werkstuecke.md`, Heft neu); Text des Wasserrad-Meilensteins an die
   Maschinensteuerung angepasst (Tippen/Halten statt „schlägt automatisch“). Beweglicher Blasebalg neben der Lehm-Esse kurz entfernt und auf Wunsch wiederhergestellt (soll schöner werden, Nr. 20).
+- 21.11.: **BB beweglicher Blasebalg** eingebaut (Lage `BELLOWS_SEAT` in `forge_view.gd`, Ausblenden eingemalter Teile `FORGE_CLEAR` im Import).
+  **W9-1 kam immer von oben:** widersprüchliche Ansicht im Prompt (Seite + Draufsicht) – Generator bereinigt das jetzt für alle Prompts.
 
 ## Prüfen
 

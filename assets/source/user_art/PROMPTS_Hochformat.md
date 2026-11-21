@@ -17,17 +17,17 @@ Vollständige Liste aller Grafiken mit Prompt und Status. Erzeugt mit `python to
 
 | Status | Anzahl |
 |---|---|
-| ✅ gut (Midjourney) | 125 |
-| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 11 |
+| ✅ gut (Midjourney) | 127 |
+| 🟠 von Midjourney vorhanden – sollte noch verändert werden | 10 |
 | 🟡 von Gemini vorhanden – durch Midjourney ersetzen | 1 |
-| ⬜ noch nicht vorhanden | 151 |
+| ⬜ noch nicht vorhanden | 150 |
 | ⬜ noch nicht vorhanden (optional) | 34 |
 
 | Bereich | ✅ gut | 🟠 ändern | 🟡 Gemini | ⬜ fehlt | ⬜ optional |
 |---|---|---|---|---|---|
 | A · Werkstatt-Hintergründe | 11 | 0 | 0 | 0 | 0 |
-| B · Essen | 5 | 1 | 0 | 0 | 0 |
-| C · Amboss und Hämmer | 5 | 0 | 0 | 1 | 0 |
+| B · Essen | 6 | 0 | 0 | 0 | 0 |
+| C · Amboss und Hämmer | 6 | 0 | 0 | 0 | 0 |
 | D · Maschinen | 13 | 0 | 1 | 0 | 0 |
 | E · Werkstücke | 22 | 2 | 0 | 57 | 0 |
 | F · Kundenporträts | 20 | 0 | 0 | 0 | 34 |
@@ -87,6 +87,7 @@ Jede Erkenntnis ist in **alle** betroffenen Prompts eingebaut (gemeinsame Bauste
 | 21.11. | Lampen und Laternen bis ~1850 | E3-5, E4-5, E6-5 kamen als Petroleum-/Sturmlaternen mit Glaskolben bzw. Glaszylinder (erst ab ~1850) | Kerze hinter flachen Glas- oder Hornscheiben bzw. offene Tüllenlampe beschreiben; `--no glass globe, glass chimney, kerosene lamp, hurricane lantern, fuel tank` |
 | 21.11. | Einrichtung | E4-5 und E5-5 kamen als mehrere Varianten in einem Bild (zwei Regale, fünf Stapel) | „one single object only (no variations, no second version)“ in allen Einrichtungs-Prompts; Format nach dem Objekt wählen (liegender Stapel: 2:1) |
 | 21.11. | Einrichtung | E6-1 Koksbunker sah aus wie ein Backofen (Gewölbe, Tür), E6-4 Kontor als leerer Schrank, E4-2 Zangen wie Spieße | Form und Bestandteile ausdrücklich nennen (offene Ziegelbucht, Pult mit Hauptbuch, zweischenklige Zangen) und Verwechslungen ausschließen (`not an oven, no arch`, `no wardrobe`) |
+| 21.11. | Werkstücke | W9-1 Brückenniete kam trotz „seen from the side“ immer von oben – im selben Prompt stand „top-down view, lying flat“ (auch bei drei weiteren Prompts der Epochen 7–10) | Der Generator entfernt bei Seitenansicht jede Draufsicht-Angabe und setzt „seen exactly from the side (not from above)“ und die Seitenansicht an den Anfang |
 
 ## Midjourney-Einstellungen (Version 8.2)
 
@@ -219,9 +220,9 @@ BG10 — Square 2D game background, hand-painted, dark ink outlines. Evening but
 
 Frontal und symmetrisch, leicht von oben: Das Glutbett ist ein waagerechter Streifen über etwa 60 % der Breite, damit die Werkstücke gleichmäßig nebeneinander liegen. Blasebalg bzw. Gebläse immer links. Format 2:1, weißer Grund. Originale nach `assets/source/user_art/forges/<id>.png` – Glutbett, Schornstein und Lage misst der Import selbst.
 
-**F1** – Lehm-Esse (Stufe 1, Epoche 1) – ohne Blasebalg, der bewegliche Blasebalg BB steht daneben · 🟠 von Midjourney vorhanden – sollte noch verändert werden  
+**F1** – Lehm-Esse (Stufe 1, Epoche 1) – ohne Blasebalg, der bewegliche Blasebalg BB steht daneben · ✅ gut (Midjourney)  
 Regler: **Landscape 2:1** · 119 Wörter · Datei `forge_clay`  
-*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend. 21.11.: neu ohne eingemalten Blasebalg – der bewegliche Blasebalg (BB, eigenes Bild) steht im Spiel links daneben (Entscheidung des Auftraggebers).*
+*20.11.: Frontalansicht, offener Herdtisch mit Lehmhaube, Blasebalg links auf Bank. Glutbett schmal (~25 % der Breite) – für einen Platz ausreichend. 21.11.: bleibt – der Import blendet den oberen Teil des Sack-Blasebalgs aus, den Rest verdeckt der bewegliche Blasebalg BB auf der Bank. Die neue Fassung ohne Blasebalg (Bogen über dem Feuer, wirkt wie ein Ofen/Kamin) liegt im Archiv (archiv/forge_clay_v2_bogen.png).*
 ```
 F1 — Flat orthographic front elevation, like a technical drawing. 2D game asset, a small rustic early-18th-century village forge, open waist-high hearth table, coals lying openly on top, hood above with a clear gap, built of clay and rough fieldstones, a simple clay-plastered hood with a short chimney, a short iron blast pipe (tuyère) entering the hearth from the left side, nothing to the left of the hearth, orange glowing charcoal fire, front view from slightly above, wide glowing coal bed, a flat band across about two thirds of the width, hood and chimney centred and fully visible, level bottom edge, hand-painted 2D game art, dark ink outlines, nothing in front, the chimney top is clean, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, oven, dome, arch over the fire, bellows, bench, floor, smoke, flames, people, text, numbers, watermark, border, shadow, photo, 3d render
 ```
@@ -300,8 +301,9 @@ Regler: **Landscape 2:1** · 93 Wörter · Datei `hammer_crucible`
 H4 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a high-quality late-18th-century crucible steel blacksmith's hammer in flat side view (orthographic), the polished bright steel head stands upright on the left: flat striking face pointing straight down, short flat back pointing straight up, a decorated brass ferrule where the head meets the handle, the straight dark walnut handle points horizontally to the right and ends in a small brass end cap, level, not tilted, hand-painted 2D game art, thin dark ink outline, fully inside the frame, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, engraving, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
-**BB** – Beweglicher Blasebalg neben der Lehm-Esse (Epoche 1, pumpt im Spiel) · ⬜ noch nicht vorhanden  
-Regler: **Landscape 2:1** · 96 Wörter · Datei `bellows`
+**BB** – Beweglicher Blasebalg neben der Lehm-Esse (Epoche 1, pumpt im Spiel) · ✅ gut (Midjourney)  
+Regler: **Landscape 2:1** · 96 Wörter · Datei `bellows`  
+*21.11.: Schmiedeblasebalg in Seitenansicht, Lederfalten mit Messingnieten, Düse nach rechts – liegt im Spiel auf der Bank links der Lehm-Esse und pumpt.*
 ```
 BB — Flat orthographic side elevation, like a technical drawing. 2D game asset, a classic early-18th-century blacksmith's hand bellows in a flat side view (orthographic), lying horizontally: two pear-shaped wooden boards one above the other with pleated dark leather between them, the wide end on the left with a short wooden lever handle, the narrow end on the right ending in an iron nozzle pointing straight to the right, brass studs along the leather, hand-painted 2D game art, dark ink outlines, warm painterly texture, not standing upright, not a sack, not a vase, on pure flat white background --ar 2:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, stand, bench, shadow, text, numbers, watermark, border, photo, 3d render
 ```
@@ -826,9 +828,9 @@ W8-5 — 2D game asset, a single forged locomotive wheel tyre: a thick iron hoop
 ```
 
 **W8-6** – Pufferfeder · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 68 Wörter · Datei `buffer_spring`
+Regler: **Square 1:1** · 76 Wörter · Datei `buffer_spring`
 ```
-W8-6 — 2D game asset, a single forged railway buffer spring: a stack of four curved steel leaves held by a central iron band, seen from the side, horizontal, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W8-6 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged railway buffer spring: a stack of four curved steel leaves held by a central iron band, seen exactly from the side (not from above), horizontal, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W8-7** – Treibstange · ⬜ noch nicht vorhanden  
@@ -838,17 +840,17 @@ W8-7 — 2D game asset, a single forged locomotive connecting rod: a long tapere
 ```
 
 **W8-8** – Kurbelachse · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 72 Wörter · Datei `crank_axle`
+Regler: **Square 1:1** · 80 Wörter · Datei `crank_axle`
 ```
-W8-8 — 2D game asset, a single forged locomotive crank axle: a thick straight round iron axle with two offset crank throws in the middle, each made of two rectangular webs and a crank pin, seen from the side, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W8-8 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged locomotive crank axle: a thick straight round iron axle with two offset crank throws in the middle, each made of two rectangular webs and a crank pin, seen exactly from the side (not from above), horizontal, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 ### Epoche 9 – Der Dampfhammer (1839–1860)
 
 **W9-1** – Brückenniete · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 56 Wörter · Datei `bridge_rivet`
+Regler: **Square 1:1** · 64 Wörter · Datei `bridge_rivet`
 ```
-W9-1 — 2D game asset, a single large forged bridge rivet: short thick round shank with a domed head, seen from the side, horizontal, dark grey wrought iron, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W9-1 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single large forged bridge rivet: short thick round shank with a domed head, seen exactly from the side (not from above), horizontal, dark grey wrought iron, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W9-2** – Säulenkopf-Beschlag · ⬜ noch nicht vorhanden  
@@ -864,9 +866,9 @@ W9-3 — 2D game asset, a single forged paddle-wheel arm for a paddle steamer: a
 ```
 
 **W9-4** – Hammergesenk · ⬜ noch nicht vorhanden  
-Regler: **Square 1:1** · 73 Wörter · Datei `hammer_die`
+Regler: **Square 1:1** · 77 Wörter · Datei `hammer_die`
 ```
-W9-4 — 2D game asset, a single forged steam-hammer die: a heavy rectangular steel block with a dovetail tongue on top and a smooth flat working face at the bottom, seen from the side, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, top-down view, lying flat, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
+W9-4 — Flat orthographic side elevation, like a technical drawing. 2D game asset, a single forged steam-hammer die: a heavy rectangular steel block with a dovetail tongue on top and a smooth flat working face at the bottom, seen from the side, dark grey unheated forged steel with a slightly brighter ground edge, British smith's work, centred with wide margin, hand-painted, thin dark ink outline, hammer marks, matte metal, soft studio light, metal only, cold, pure flat white background --ar 1:1 --no perspective, isometric view, three-quarter view, angled view, vanishing point, wood, rope, glow, fire, other objects, text, numbers, watermark, border, shadow, photo, 3d render
 ```
 
 **W9-5** – Admiralitätsanker · ⬜ noch nicht vorhanden  

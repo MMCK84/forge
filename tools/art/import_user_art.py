@@ -561,6 +561,12 @@ FORGE_CENTER_X = 420   # Mitte der Esse im Koordinatensystem der Essen-Ansicht (
 FORGE_TOP_Y = 118
 # Rauch über dem Schornstein, den Midjourney trotz „no smoke“ malt: Rechtecke (x0, y0, x1, y1) im Original
 # werden vor dem Freistellen weiß gefüllt (das Spiel erzeugt eigenen Rauch)
+# Eingemalte Teile, die das Spiel selbst zeichnet: Rechtecke im Original werden nach dem Freistellen durchsichtig,
+# Maßstab und Lage der Esse bleiben gleich. Lehm-Esse: oberer Teil des Sack-Blasebalgs über der Bank – den unteren Teil
+# verdeckt der bewegliche Blasebalg BB, der auf der Bank liegt (forge_view.gd).
+FORGE_CLEAR = {
+    "forge_clay": [(470, 555, 700, 785)],
+}
 FORGE_SMOKE = {
     "forge_double_bellows": [(1950, 0, 3104, 140)],
     "forge_siemens": [(1950, 0, 2230, 118), (2230, 0, 3104, 232)],
@@ -607,6 +613,12 @@ def forge_import():
             cut = min(dark_rows)
         if cut < arr0.shape[0]:
             img = img.crop((0, 0, img.width, cut))
+        clear = FORGE_CLEAR.get(fid, [])
+        if clear:
+            ca = np.asarray(img).copy()
+            for x0, y0, x1, y1 in clear:
+                ca[max(0, y0 - box[1]):max(0, y1 - box[1]), max(0, x0 - box[0]):max(0, x1 - box[0]), 3] = 0
+            img = Image.fromarray(ca, "RGBA")
         s = FORGE_W / img.width
         img = img.resize((FORGE_W, int(round(img.height * s))), Image.LANCZOS)
         arr = np.asarray(img).astype(np.float32)
@@ -628,7 +640,12 @@ def forge_import():
         meta[tier] = {"file": fid + ".png", "origin": (round(ox), FORGE_TOP_Y),
                       "bed": (round(ox + (lo + hi) / 2), FORGE_TOP_Y + bed_y), "bed_w": round(float(hi - lo)),
                       "chimney": (round(ox + float(np.median(cx))), FORGE_TOP_Y + ty + 4)}
-        save(img, fid + ".png")
+        if clear:
+            # nicht auf den Inhalt zuschneiden – sonst verschöbe sich die Esse gegenüber dem Ursprung
+            os.makedirs(OUT, exist_ok=True)
+            img.save(os.path.join(OUT, fid + ".png"), optimize=True)
+        else:
+            save(img, fid + ".png")
     lines = ["## Automatisch erzeugt von tools/art/import_user_art.py – nicht von Hand ändern.",
              "## Essen-Grafiken des Auftraggebers: Zeichenursprung, Glutbett (Mitte/Breite) und Schornsteinmündung, lokal.",
              "", "const META := {"]
